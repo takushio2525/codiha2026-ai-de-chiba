@@ -18,7 +18,8 @@ export default function HazardLegend({ legends, withSource = false }: Props) {
       {legends.map((legend) => (
         <div key={legend.id}>
           <p className="text-[11px] font-semibold text-ink-sub">{legend.title}</p>
-          <ul className="mt-1.5 space-y-1">
+          {/* 2 列に畳む。段階が 8 つある津波・高潮でも操作パネルの縦を食いすぎない */}
+          <ul className="mt-1.5 grid grid-cols-2 gap-x-3 gap-y-1">
             {legend.classes.map((cls) => (
               <li key={cls.color} className="flex items-center gap-2">
                 <span

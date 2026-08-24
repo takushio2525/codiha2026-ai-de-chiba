@@ -15,7 +15,13 @@ import type {
 import { GSI_ATTRIBUTION, ICHIKAWA_CENTER, INITIAL_ZOOM, basemapStyle } from "@/lib/basemap";
 import { MAP_ATTRIBUTION } from "@/lib/credits";
 import type { LngLat } from "@/lib/geo";
-import { HAZARDS, hazardLayerId, hazardSourceId, type HazardId } from "@/lib/hazards";
+import {
+  HAZARDS,
+  HAZARD_RENDER_MINZOOM,
+  hazardLayerId,
+  hazardSourceId,
+  type HazardId,
+} from "@/lib/hazards";
 import { LAYERS, pointLayerId, type FacilityProps, type LayerDef, type LayerId } from "@/lib/layers";
 import type { RouteTarget, WalkingRoute } from "@/lib/routing";
 
@@ -205,6 +211,8 @@ export default function MapView({
             id: hazardLayerId(hazard.id),
             type: "raster",
             source: hazardSourceId(hazard.id),
+            // 引きすぎた縮尺では描かない（タイルの要求も止まる）
+            minzoom: HAZARD_RENDER_MINZOOM,
             layout: { visibility: hazardVisible[hazard.id] ? "visible" : "none" },
             paint: {
               "raster-opacity": hazardOpacity[hazard.id],

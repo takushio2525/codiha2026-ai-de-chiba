@@ -189,6 +189,63 @@ export default function ControlPanel({
         </section>
 
         <section className="border-t border-line px-4 py-3.5">
+          <h2 className="text-[11px] font-semibold tracking-wide text-ink-muted">徒歩ナビ</h2>
+
+          <div className="mt-2 space-y-1.5">
+            <button
+              type="button"
+              onClick={onNavigateNearest}
+              disabled={busy !== "idle" || !anyVisible}
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-ink px-3 py-2.5 text-[13px] font-semibold text-white transition hover:bg-[#31353d] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:cursor-not-allowed disabled:opacity-45"
+            >
+              {busy === "idle" ? (
+                <Navigation aria-hidden className="size-4" />
+              ) : (
+                <LoaderCircle aria-hidden className="size-4 animate-spin" />
+              )}
+              {busy === "locating"
+                ? "現在地を取得中…"
+                : busy === "routing"
+                  ? "経路を計算中…"
+                  : "現在地から最寄りの地点へ"}
+            </button>
+
+            <button
+              type="button"
+              onClick={onTogglePickMode}
+              aria-pressed={pickMode}
+              className={[
+                "flex w-full items-center justify-center gap-2 rounded-xl border px-3 py-2.5 text-[12.5px] font-medium transition",
+                "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink",
+                pickMode
+                  ? "border-ink bg-ink/5 text-ink"
+                  : "border-line text-ink-sub hover:border-ink-muted/40 hover:bg-[#fafafa]",
+              ].join(" ")}
+            >
+              {pickMode ? (
+                <MapPin aria-hidden className="size-4" />
+              ) : (
+                <LocateFixed aria-hidden className="size-4" />
+              )}
+              {pickMode ? "地図をクリックして出発地点を指定" : "出発地点を地図で指定する"}
+            </button>
+          </div>
+
+          {!anyVisible ? (
+            <p className="mt-2 text-[11.5px] leading-relaxed text-ink-muted">
+              データを 1 つ以上表示すると、最寄りの地点を探せます。
+            </p>
+          ) : null}
+
+          {origin ? (
+            <p className="mt-2 text-[11.5px] leading-relaxed text-ink-muted tabular-nums">
+              出発地点: {origin[1].toFixed(5)}, {origin[0].toFixed(5)}
+            </p>
+          ) : null}
+
+        </section>
+
+        <section className="border-t border-line px-4 py-3.5">
           <h2 className="text-[11px] font-semibold tracking-wide text-ink-muted">
             ハザードマップ（浸水想定）
           </h2>
@@ -271,63 +328,6 @@ export default function ControlPanel({
               重ねたい想定を選ぶと、浸水深の凡例と出典が表示されます。
             </p>
           )}
-        </section>
-
-        <section className="border-t border-line px-4 py-3.5">
-          <h2 className="text-[11px] font-semibold tracking-wide text-ink-muted">徒歩ナビ</h2>
-
-          <div className="mt-2 space-y-1.5">
-            <button
-              type="button"
-              onClick={onNavigateNearest}
-              disabled={busy !== "idle" || !anyVisible}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-ink px-3 py-2.5 text-[13px] font-semibold text-white transition hover:bg-[#31353d] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:cursor-not-allowed disabled:opacity-45"
-            >
-              {busy === "idle" ? (
-                <Navigation aria-hidden className="size-4" />
-              ) : (
-                <LoaderCircle aria-hidden className="size-4 animate-spin" />
-              )}
-              {busy === "locating"
-                ? "現在地を取得中…"
-                : busy === "routing"
-                  ? "経路を計算中…"
-                  : "現在地から最寄りの地点へ"}
-            </button>
-
-            <button
-              type="button"
-              onClick={onTogglePickMode}
-              aria-pressed={pickMode}
-              className={[
-                "flex w-full items-center justify-center gap-2 rounded-xl border px-3 py-2.5 text-[12.5px] font-medium transition",
-                "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink",
-                pickMode
-                  ? "border-ink bg-ink/5 text-ink"
-                  : "border-line text-ink-sub hover:border-ink-muted/40 hover:bg-[#fafafa]",
-              ].join(" ")}
-            >
-              {pickMode ? (
-                <MapPin aria-hidden className="size-4" />
-              ) : (
-                <LocateFixed aria-hidden className="size-4" />
-              )}
-              {pickMode ? "地図をクリックして出発地点を指定" : "出発地点を地図で指定する"}
-            </button>
-          </div>
-
-          {!anyVisible ? (
-            <p className="mt-2 text-[11.5px] leading-relaxed text-ink-muted">
-              データを 1 つ以上表示すると、最寄りの地点を探せます。
-            </p>
-          ) : null}
-
-          {origin ? (
-            <p className="mt-2 text-[11.5px] leading-relaxed text-ink-muted tabular-nums">
-              出発地点: {origin[1].toFixed(5)}, {origin[0].toFixed(5)}
-            </p>
-          ) : null}
-
         </section>
 
         <footer className="border-t border-line bg-[#fafafa] px-4 py-3 text-[11px] leading-relaxed text-ink-muted">

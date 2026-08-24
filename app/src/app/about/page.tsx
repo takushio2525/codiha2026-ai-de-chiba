@@ -59,7 +59,7 @@ export default function AboutPage() {
             同じ色でも、洪水と津波・高潮では表す浸水深が違います。地図では、重ねている想定に
             合わせた凡例だけを表示します。
           </p>
-          <div className="mt-3">
+          <div className="mt-3 max-w-sm">
             <HazardLegend legends={Object.values(HAZARD_LEGENDS)} />
           </div>
         </section>
