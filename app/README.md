@@ -110,6 +110,11 @@ app/
   `setWorkerUrl()` でそこを指している。**このコピーが無いと、背景地図は出るのに
   施設の点が永久に出ない**（`app/src/components/MapView.tsx` のコメント参照）
 - 町丁字の境界ポリゴンは市川市オープンデータに無いので、面ではなく点で表示している
+- **`compose.yaml` はプロジェクト名を `ichikawa-opendata-map` に固定している**（審査員が
+  ディレクトリ名に左右されず起動できるようにするため）。その分、同じマシンで複数の
+  `docker compose` 操作を並行させると同じプロジェクトを取り合い、相手のコンテナを作り直したり
+  落としたりしてしまう。**並行させるときは `docker compose -p 別の名前 …` で名前を分ける**
+  （`tools/package_submission.sh` の検証は `-p pkgtest-<PID>` で隔離してある）
 
 ---
 
@@ -189,6 +194,8 @@ app/
 # リポジトリのルートで
 bash tools/package_submission.sh                 # dist/ai-de-chiba-map.7z ができる
 bash tools/package_submission.sh our-team-name   # ベース名を変えたいとき（英数字と . _ - のみ）
+bash tools/package_submission.sh --smoke         # ＋ 展開先で実際に起動して HTTP 200 まで見る
+bash tools/package_submission.sh --smoke --smoke-port 3200   # 3000 が塞がっているとき
 ```
 
 やってくれること:
@@ -208,6 +215,7 @@ bash tools/package_submission.sh our-team-name   # ベース名を変えたい�
 | キャッシュ・ビルド生成物の混入が無い | 提出要件で削除を指示されている |
 | 展開し直した中身が固める前と一致する | アーカイブが壊れている |
 | 展開先で `docker compose config` が通る | 審査員の環境で起動できない |
+| 展開先で `docker compose up` が HTTP 200 を返す（`--smoke` のときだけ） | 審査員の環境で起動できない |
 
 1 つでも落ちたら、**作ったアーカイブを消して**非 0 で終了する
 （不備のあるものを誤って提出しないため）。出力の `[ NG ]` を直してもう一度実行する。
@@ -216,6 +224,7 @@ bash tools/package_submission.sh our-team-name   # ベース名を変えたい�
 
 1. [ ] `readme.txt` を書いた（チャンネル名・氏名・所属。**ポート番号は `compose.yaml` と一致させる**）
 2. [ ] **書いた本人以外の環境**で展開して `docker compose up` が通ることを確認した
+   （自分の環境での起動確認は `--smoke` で済む。**別の人の環境**は手でやるしかない）
 3. [ ] Slack のチーム用プライベートチャンネルに、先頭行へ太字で「資料提出」と書き、
    アーカイブと説明資料 PDF 2 種を**チーム代表者が**投稿した
 

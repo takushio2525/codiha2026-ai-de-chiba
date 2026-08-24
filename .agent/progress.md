@@ -31,3 +31,6 @@
 - 2026-08-24: 提出アーカイブの生成と検証を `tools/package_submission.sh` に自動化。
   gitignore 判定で `app/` をクリーンコピー（readme.txt だけ強制同梱）→ 7z 化 → 展開し直して
   必須ファイル・BOM・日本語名・キャッシュ混入・compose を検査。NG ならアーカイブを消して非 0 終了。
+- 2026-08-24: `tools/package_submission.sh` の compose 操作を `-p pkgtest-<PID>` で隔離。
+  `compose.yaml` の固定プロジェクト名を同じマシンで取り合って他人のコンテナを潰す事故を防ぐ。
+  あわせて `--smoke` で展開先を実起動して HTTP 200 まで見る検査を追加（後始末は trap で保証）。
