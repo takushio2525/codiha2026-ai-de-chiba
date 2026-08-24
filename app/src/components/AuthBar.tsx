@@ -16,7 +16,7 @@ export default async function AuthBar() {
   return (
     <header className="flex h-9 shrink-0 items-center gap-3 border-b border-line bg-surface px-3 text-[11.5px]">
       {authMode === "demo" ? (
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-[#f1f2f4] px-2.5 py-1 font-medium text-ink-sub">
+        <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[#f1f2f4] px-2.5 py-1 font-medium whitespace-nowrap text-ink-sub">
           <ShieldCheck aria-hidden className="size-3.5" />
           デモモードで動作中
         </span>
@@ -24,30 +24,32 @@ export default async function AuthBar() {
 
       <Link
         href="/reports"
-        className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 font-medium text-ink-sub transition hover:bg-[#f1f2f4] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+        aria-label="投稿一覧"
+        className="inline-flex shrink-0 items-center gap-1.5 rounded-lg px-2 py-1 font-medium whitespace-nowrap text-ink-sub transition hover:bg-[#f1f2f4] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
       >
         <List aria-hidden className="size-3.5" />
-        投稿一覧
+        {/* 幅が足りないスマホではアイコンだけにする。読み上げ名は aria-label が持つ */}
+        <span className="hidden sm:inline">投稿一覧</span>
       </Link>
 
-      <div className="ml-auto flex items-center gap-2.5">
+      <div className="ml-auto flex min-w-0 items-center gap-2.5">
         {user ? (
           <>
             <span className="inline-flex min-w-0 items-center gap-1.5 text-ink-sub">
               <UserRound aria-hidden className="size-3.5 shrink-0" />
-              <span className="max-w-[10rem] truncate font-medium text-ink">
+              <span className="max-w-[6rem] truncate font-medium text-ink sm:max-w-[10rem]">
                 {user.displayName}
               </span>
             </span>
             {user.role === "gov" ? (
-              <span className="rounded-full bg-[#0072b2] px-2 py-0.5 text-[10.5px] font-medium text-white">
+              <span className="shrink-0 rounded-full bg-[#0072b2] px-2 py-0.5 text-[10.5px] font-medium whitespace-nowrap text-white">
                 行政
               </span>
             ) : null}
             <form action={signOutAction}>
               <button
                 type="submit"
-                className="rounded-lg px-2 py-1 font-medium text-ink-sub transition hover:bg-[#f1f2f4] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+                className="shrink-0 rounded-lg px-2 py-1 font-medium whitespace-nowrap text-ink-sub transition hover:bg-[#f1f2f4] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
               >
                 ログアウト
               </button>
@@ -56,7 +58,7 @@ export default async function AuthBar() {
         ) : (
           <Link
             href="/login"
-            className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 font-medium text-ink-sub transition hover:bg-[#f1f2f4] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-lg px-2 py-1 font-medium whitespace-nowrap text-ink-sub transition hover:bg-[#f1f2f4] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
           >
             <LogIn aria-hidden className="size-3.5" />
             ログイン

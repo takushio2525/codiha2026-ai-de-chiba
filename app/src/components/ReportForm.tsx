@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CircleAlert, ImagePlus, LoaderCircle, MapPin, Send, X } from "lucide-react";
 
 import type { LngLat } from "@/lib/geo";
@@ -51,13 +51,16 @@ export default function ReportForm({
   const [sending, setSending] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // 写真のサムネイル。URL は使い終わったら必ず解放する
-  const previews = useMemo(() => photos.map((file) => URL.createObjectURL(file)), [photos]);
+  // 写真のサムネイル。作った URL は使い終わったら必ず解放する。
+  // 作るのも解放するのも副作用の中でやる（作りっぱなしと二重解放のどちらも防ぐ）。
+  const [previews, setPreviews] = useState<string[]>([]);
   useEffect(() => {
+    const urls = photos.map((file) => URL.createObjectURL(file));
+    setPreviews(urls);
     return () => {
-      for (const url of previews) URL.revokeObjectURL(url);
+      for (const url of urls) URL.revokeObjectURL(url);
     };
-  }, [previews]);
+  }, [photos]);
 
   function addPhotos(selected: FileList | null) {
     if (!selected || selected.length === 0) return;
@@ -81,6 +84,15 @@ export default function ReportForm({
     // 同じファイルを選び直せるように入力をリセットする
     if (fileInputRef.current) fileInputRef.current.value = "";
   }
+
+  // モーダルは Escape で閉じられるようにする
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [onClose]);
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -121,7 +133,12 @@ export default function ReportForm({
 
   return (
     <div className="absolute inset-0 z-30 flex items-end justify-center bg-ink/40 p-3 md:items-center">
-      <div className="flex max-h-full w-full max-w-lg flex-col overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_30px_60px_-20px_rgb(0_0_0/0.5)]">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label={`${def.label}を投稿する`}
+        className="flex max-h-full w-full max-w-lg flex-col overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_30px_60px_-20px_rgb(0_0_0/0.5)]"
+      >
         <header className="flex items-center gap-3 border-b border-line px-4 py-3">
           <span
             aria-hidden

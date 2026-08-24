@@ -136,21 +136,20 @@ export default function MapExplorer({ session, cityCode }: Props) {
     return () => { cancelled = true; };
   }, []);
 
-  /** 投稿を読み直す。**DB が落ちていても地図は出す**ので、失敗しても空のまま続ける。 */
-  const loadReports = useCallback(
-    async (options?: { quiet?: boolean }) => {
-      const result = await fetchReports({ city: cityCode });
-      if (result.ok) {
-        setReports(result.value);
-        return;
-      }
-      if (!options?.quiet) setToast({ kind: "warning", text: result.reason });
-    },
-    [cityCode],
-  );
+  /** 投稿を読み直す。**DB が落ちていても地図と静的レイヤーは出す**ので、
+   *  失敗しても投稿が空のまま続ける（interfaces.md I-3）。
+   *  ただし**黙っては捨てない**。0 件なのか読めなかったのかが分からないと誤解を生む。 */
+  const loadReports = useCallback(async () => {
+    const result = await fetchReports({ city: cityCode });
+    if (result.ok) {
+      setReports(result.value);
+      return;
+    }
+    setToast({ kind: "warning", text: result.reason });
+  }, [cityCode]);
 
   useEffect(() => {
-    void loadReports({ quiet: true });
+    void loadReports();
   }, [loadReports]);
 
   // 投稿一覧（/reports）から「地図で見る」で来たときは、その投稿を開く
@@ -411,7 +410,7 @@ export default function MapExplorer({ session, cityCode }: Props) {
           reportId={selectedReportId}
           user={session.user}
           onClose={() => setSelectedReportId(null)}
-          onChanged={() => void loadReports({ quiet: true })}
+          onChanged={() => void loadReports()}
           onDeleted={() => {
             setSelectedReportId(null);
             setToast({ kind: "info", text: "投稿を削除しました。" });
@@ -435,7 +434,7 @@ export default function MapExplorer({ session, cityCode }: Props) {
             setReportVisible((prev) => ({ ...prev, [report.category]: true }));
             setSelectedReportId(report.id);
             setToast({ kind: "info", text: "投稿しました。地図にピンが追加されます。" });
-            void loadReports({ quiet: true });
+            void loadReports();
           }}
         />
       ) : null}

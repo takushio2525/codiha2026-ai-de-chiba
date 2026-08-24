@@ -4,6 +4,7 @@ import type { LucideIcon } from "lucide-react";
 
 import { DbUnavailableError } from "@/lib/db";
 import { DEMO_CITY_CODE, findMunicipality } from "@/lib/municipalities";
+import { parseCityCode } from "@/lib/reportInput";
 import {
   REPORTS_DEFAULT_LIMIT,
   REPORT_CATEGORIES,
@@ -24,7 +25,7 @@ import { listReports } from "@/lib/reportStore";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "投稿一覧 | 市川市 オープンデータマップ",
+  title: "投稿一覧｜市川市 オープンデータマップ",
   description: "住民と行政が投稿した危険箇所・浸水・観光おすすめの一覧。",
 };
 
@@ -47,7 +48,7 @@ export default async function ReportsPage({
   searchParams: Promise<Search>;
 }) {
   const raw = await searchParams;
-  const cityCode = raw.city && /^[0-9]{5}$/.test(raw.city) ? raw.city : DEMO_CITY_CODE;
+  const cityCode = parseCityCode(raw.city ?? null, DEMO_CITY_CODE) ?? DEMO_CITY_CODE;
   const category = isReportCategory(raw.category) ? raw.category : null;
 
   let features: ReportFeature[] = [];

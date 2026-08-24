@@ -19,7 +19,9 @@ import {
 const createdAtJst = (column: string) =>
   `to_char(${column} AT TIME ZONE 'Asia/Tokyo', 'YYYY-MM-DD"T"HH24:MI:SS"+09:00"')`;
 
-/** 投稿 1 件ぶんの列。写真・コメントの集計は LATERAL でまとめて引く。 */
+/** 投稿 1 件ぶんの列。写真・コメントの集計は LATERAL でまとめて引く。
+ *  **`r.user_id` は権限の判定にだけ使う列**で、`toProperties` はレスポンスに載せない
+ *  （誰の投稿かは表示名でしか外に出さない。interfaces.md I-3）。 */
 const REPORT_COLUMNS = `
   r.id, r.category, r.title, r.body, r.lat, r.lon, r.city_code, r.status, r.details, r.user_id,
   u.display_name AS author_name,

@@ -142,7 +142,8 @@ export default function ReportPanel({
     <aside
       className={[
         "pointer-events-auto absolute z-20 flex flex-col overflow-hidden rounded-2xl border border-line",
-        "bg-white/97 shadow-[0_20px_50px_-28px_rgb(0_0_0/0.6)] backdrop-blur-sm",
+        // 操作パネルと同じ場所に重なるので、背景は透かさない（下の内容が透けると読みにくい）
+        "bg-surface shadow-[0_20px_50px_-28px_rgb(0_0_0/0.6)]",
         "inset-x-3 bottom-3 max-h-[72dvh] md:inset-x-auto md:top-4 md:bottom-4 md:left-4 md:w-[21.5rem] md:max-h-none",
       ].join(" ")}
       aria-label="投稿の詳細"

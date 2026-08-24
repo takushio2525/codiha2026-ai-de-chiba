@@ -72,9 +72,12 @@ Claude Code 用の `CLAUDE.md` は、このファイルへのリダイレクト 
 | `app/` | **提出するサービス本体**（CHIZUBA）。ここを丸ごと zip 化して提出する。動かし方と既知の制約は `app/README.md` |
 | `app/src/lib/layers.ts` | 地図に載せるレイヤーの定義（データ・色・ポップアップ項目）。**データを足すならここから** |
 | `app/src/lib/hazards.ts` | ハザードマップ（浸水想定）のタイル定義と**浸水深の凡例**。洪水と津波・高潮で段階が違う |
+| `app/src/lib/reports.ts` | **投稿の定義**（カテゴリ・色・固有項目・文字数と写真の上限）。**カテゴリを増やすならここに 1 行足す** |
+| `app/src/app/api/reports/` | 投稿 API（一覧・作成・詳細・削除・コメント）。読み書きの SQL は `app/src/lib/reportStore.ts` |
 | `app/src/lib/credits.ts` | 出典（クレジット）の正本。地図の隅と `/about` の両方がここを見る |
 | `app/db/init/*.sql` | **DB スキーマの正本**。`db` の初回起動時だけ流れる（変えたら `docker compose down -v`） |
 | `app/src/lib/auth.ts` | 認証。**Google モードとデモモードの分岐はここ 1 箇所**。`.env.example` に環境変数の一覧 |
+| `app/src/lib/photoStore.ts` | 投稿写真の実体（`uploads` ボリューム）。**置き場は作業ディレクトリ直下に固定**している |
 | `data/scripts/build_geojson.py` | 市川市 CSV → `app/public/data/*.geojson` の変換（cp932・市域外座標の除外） |
 | `docs/before_coding.md` | **開始前に決めること**（担当の切り方・つなぎ目・public/private の線引き） |
 | `docs/design/assignments.md` | 担当表。誰が何を持っているか |
@@ -106,7 +109,11 @@ python3 data/scripts/build_geojson.py
 cd app && docker compose exec db psql -U chizuba -d chizuba
 
 # スキーマを変えたあと（初期化 SQL はボリュームが空のときだけ流れる）
+# -v は投稿写真（uploads ボリューム）も一緒に消すので注意
 cd app && docker compose down -v && docker compose up
+
+# 投稿写真の置き場を覗く
+cd app && docker compose exec web ls -l /app/uploads
 
 # 秘匿情報スキャン（コミット前に実行できる）
 bash .github/scripts/secret_scan.sh
@@ -178,6 +185,7 @@ for s in data/analysis/scripts/0*.py; do data/analysis/.venv/bin/python "$s"; do
 | データ形式・通信仕様 | `docs/design/interfaces.md`（変更は PR で） |
 | DB スキーマ | `app/db/init/*.sql`・`docs/design/requirements.md` §5・`docs/design/interfaces.md` I-7 |
 | 認証まわり | `docs/design/requirements.md` §8・`app/.env.example`・`app/README.md`・提出用 `readme.txt` の「ログイン情報」 |
+| 投稿の API・カテゴリ・上限 | `docs/design/interfaces.md` I-3〜I-5・`app/src/lib/reports.ts`・`app/db/init/001_schema.sql` |
 | 担当の変更 | `docs/design/assignments.md` |
 | 起動手順（`compose.yaml` など） | このファイルの「よく使うコマンド」と `app/README.md` |
 | ディレクトリの追加・削除 | そのディレクトリの `README.md`（何のフォルダか） |
