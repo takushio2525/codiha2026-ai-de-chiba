@@ -146,6 +146,7 @@ GOOGLE_CLIENT_ID と GOOGLE_CLIENT_SECRET が両方ある？
 | 画面全体（地図・操作パネル） | `app/src/components/` | `cd app && npm run dev` |
 | 地図の描画（MapLibre） | `app/src/components/MapView.tsx` | 同上 |
 | レイヤー定義（静的・投稿の両方） | `app/src/lib/layers.ts` | — |
+| ハザードの重ねと浸水深の凡例 | `app/src/lib/hazards.ts`・`app/src/components/HazardLegend.tsx` | — |
 | 経路の中継 API | `app/src/app/api/routing/route.ts` | `curl 'localhost:3000/api/routing?from=139.93,35.72&to=139.92,35.75'` |
 | 気象の中継 API | `app/src/app/api/weather/`（予定） | `curl 'localhost:3000/api/weather?city=12203'` |
 | 投稿 API | `app/src/app/api/reports/`（予定） | `curl 'localhost:3000/api/reports?city=12203'` |
@@ -183,21 +184,35 @@ GOOGLE_CLIENT_ID と GOOGLE_CLIENT_SECRET が両方ある？
 | 子育て施設（388 件） | 市川市オープンデータ | 同上 | CC BY 4.0 |
 | いちかわ景観100選（100 件・**予定**） | 市川市オープンデータ | 同上 | CC BY 4.0 |
 | 背景地図 | 国土地理院「淡色地図」タイル | XYZ タイル（キー不要） | 国土地理院コンテンツ利用規約 |
-| **ハザードマップ（予定）** | **国土地理院 ハザードマップポータル「重ねるハザードマップ」** | XYZ タイル（キー不要） | 同上 |
+| **ハザードマップ（洪水・高潮・津波）** | **国土交通省 ハザードマップポータルサイト「重ねるハザードマップ」** | XYZ タイル（キー不要） | 公共データ利用規約（第 1.0 版）PDL1.0 |
 | 徒歩経路 | OSRM（FOSSGIS e.V.）／道路データは OpenStreetMap | HTTP API（キー不要） | ODbL |
 | **雨量・雨予報（予定）** | **気象庁 防災情報 JSON**（アメダス実況・府県予報） | HTTP（キー不要） | 気象庁ホームページ利用規約 |
 
 ### ハザードタイルの疎通（2026-08-24 実測・市川市 z=14）
 
-| 種別 | パス | 市川市 |
-|---|---|:---:|
-| 洪水浸水想定区域（想定最大規模） | `01_flood_l2_shinsuishin_data` | 200 |
-| 高潮浸水想定区域 | `03_hightide_l2_shinsuishin_data` | 200 |
-| 津波浸水想定 | `04_tsunami_newlegend_data` | 200 |
-| 土砂災害警戒区域 | `05_dosekiryukeikaikuiki` | 404（市川市は平地で該当区域が無い） |
+| 種別 | パス | 市川市 | 実装 |
+|---|---|:---:|:---:|
+| 洪水浸水想定区域（想定最大規模） | `01_flood_l2_shinsuishin_data` | 200 | ○ |
+| 高潮浸水想定区域 | `03_hightide_l2_shinsuishin_data` | 200 | ○ |
+| 津波浸水想定 | `04_tsunami_newlegend_data` | 200 | ○ |
+| 土砂災害警戒区域 | `05_dosekiryukeikaikuiki` | 404（市川市は平地で該当区域が無い） | — |
 
-**タイルが無い＝安全ではない。** 凡例に「該当する想定区域のデータがありません」と出し、
+**配信されているズームは 2〜17**（ハザードマップポータルの記載どおり）。
+それより拡大したときは MapLibre が z=17 のタイルを引き伸ばす。
+
+**タイルが無い＝安全ではない。** 想定区域が公表されていない河川・地域では
+その場所のタイルが 404 になり、地図には何も描かれない。凡例に注意書きを常時出し、
 白紙を「危険なし」と誤読させない。
+
+### 浸水深の凡例は 2 種類ある（2026-08-24・千葉県内 20 タイルの画素を数えて確認）
+
+| 使うレイヤー | 段階 | 色 |
+|---|:---:|---|
+| 洪水浸水想定区域 | 6 | `#f7f5a9`(〜0.5m) `#ffd8c0`(0.5〜3m) `#ffb7b7`(3〜5m) `#ff9191`(5〜10m) `#f285c9`(10〜20m) `#dc7adc`(20m〜) |
+| 津波浸水想定・高潮浸水想定区域 | 8 | 上に `#ffffb3`(〜0.3m) `#f8e1a6`(0.5〜1m) が加わり、`#f7f5a9` は 0.3〜0.5m、`#ffd8c0` は 1〜3m を表す |
+
+**同じ色でも表す深さが違う。** 1 つの凡例にまとめると誤読するので、
+`app/src/lib/hazards.ts` で 2 つに分け、重ねている想定に合わせて出し分けている。
 
 ## 設計判断の記録
 

@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
+import HazardLegend from "@/components/HazardLegend";
 import { DATA_CREDITS } from "@/lib/credits";
+import { HAZARD_LEGENDS } from "@/lib/hazards";
 
 export const metadata: Metadata = {
   title: "出典とライセンス｜市川市 オープンデータマップ",
@@ -52,6 +54,17 @@ export default function AboutPage() {
         </ul>
 
         <section className="mt-8 rounded-2xl border border-line bg-surface p-4">
+          <h2 className="text-[13px] font-semibold text-ink">ハザードマップの凡例（浸水深）</h2>
+          <p className="mt-1.5 text-[12.5px] leading-relaxed text-ink-sub">
+            同じ色でも、洪水と津波・高潮では表す浸水深が違います。地図では、重ねている想定に
+            合わせた凡例だけを表示します。
+          </p>
+          <div className="mt-3">
+            <HazardLegend legends={Object.values(HAZARD_LEGENDS)} />
+          </div>
+        </section>
+
+        <section className="mt-8 rounded-2xl border border-line bg-surface p-4">
           <h2 className="text-[13px] font-semibold text-ink">データの加工について</h2>
           <ul className="mt-2 space-y-1.5 text-[12.5px] leading-relaxed text-ink-sub">
             <li>
@@ -65,6 +78,19 @@ export default function AboutPage() {
             <li>
               徒歩経路は OpenStreetMap の道路データにもとづく推定です。
               実際に通れるかどうかは現地の状況を優先してください。
+            </li>
+            <li>
+              ハザードマップは、ハザードマップポータルサイトが配信しているタイル画像を
+              そのまま背景地図に重ねています。加工しているのは重ねる濃さ（不透明度）だけで、
+              区域や浸水深は変更していません。
+            </li>
+            <li>
+              重ねているのは洪水・高潮・津波の 3 種類です。内水（雨水出水）の浸水想定は
+              千葉県内でほとんど公表されておらず（市川市には無い）、土砂災害警戒区域は
+              市川市に該当がないため、扱っていません。
+              <strong className="font-semibold text-ink">
+                重ねていない災害の危険が無いという意味ではありません。
+              </strong>
             </li>
           </ul>
         </section>
