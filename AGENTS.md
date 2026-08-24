@@ -52,7 +52,7 @@ Claude Code 用の `CLAUDE.md` は、このファイルへのリダイレクト 
 | 認証 | **Auth.js（NextAuth）+ Google OAuth**。**キー未設定の環境では自動でデモログインに落ちる**ので、審査員は `docker compose up` だけで投稿機能まで試せる | `app/src/lib/auth.ts`（予定） |
 | 地図 | **MapLibre GL JS** + 国土地理院「淡色地図」タイル（**認証キー不要**） | `app/src/components/MapView.tsx` |
 | 徒歩経路 | **OSRM**（FOSSGIS e.V. 提供・**認証キー不要**）。サーバー側 API で中継し、UA 明示と 1 秒 1 リクエストの制限を守る | `app/src/app/api/routing/` |
-| ハザードマップ | 国土地理院**「重ねるハザードマップ」のラスタタイル**（洪水・高潮・津波・**認証キー不要**）。ブラウザが直接読む | `app/src/lib/`（予定） |
+| ハザードマップ | 国土交通省**ハザードマップポータルサイト「重ねるハザードマップ」のラスタタイル**（洪水・高潮・津波・**認証キー不要**）。ブラウザが直接読む | `app/src/lib/hazards.ts` |
 | 気象 | **気象庁 防災情報 JSON**（アメダス実況・府県予報・**認証キー不要**）。サーバー側で中継しキャッシュする | `app/src/app/api/weather/`（予定） |
 | 見た目 | Tailwind CSS v4 + lucide-react（アイコンは SVG。絵文字は使わない） | `app/src/` |
 | データ整形 | Python（標準ライブラリのみ）。市川市 CSV → GeoJSON | `data/scripts/build_geojson.py` |
@@ -71,6 +71,7 @@ Claude Code 用の `CLAUDE.md` は、このファイルへのリダイレクト 
 | `docs/design/requirements.md` | **何を作るかの正本**。機能一覧（F-1〜F-8）・ユーザーロール・投稿モデル・画面一覧・**実装順序** |
 | `app/` | **提出するサービス本体**（CHIZUBA）。ここを丸ごと zip 化して提出する。動かし方と既知の制約は `app/README.md` |
 | `app/src/lib/layers.ts` | 地図に載せるレイヤーの定義（データ・色・ポップアップ項目）。**データを足すならここから** |
+| `app/src/lib/hazards.ts` | ハザードマップ（浸水想定）のタイル定義と**浸水深の凡例**。洪水と津波・高潮で段階が違う |
 | `app/src/lib/credits.ts` | 出典（クレジット）の正本。地図の隅と `/about` の両方がここを見る |
 | `data/scripts/build_geojson.py` | 市川市 CSV → `app/public/data/*.geojson` の変換（cp932・市域外座標の除外） |
 | `docs/before_coding.md` | **開始前に決めること**（担当の切り方・つなぎ目・public/private の線引き） |
