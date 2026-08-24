@@ -225,7 +225,7 @@ export default function MapExplorer() {
   }, []);
 
   return (
-    <main className="relative h-dvh w-full overflow-hidden bg-canvas">
+    <main className="relative h-full w-full overflow-hidden bg-canvas">
       {data ? (
         <MapView
           data={data}

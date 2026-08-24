@@ -3,11 +3,18 @@
 #   docker compose up
 #   → http://localhost:3000
 #
-# コンテナは 1 つだけ。データベースは使わず、地図に載せるオープンデータは
-# GeoJSON として public/data/ に同梱してある。
+# コンテナは 2 つ。
 #
-# 注意: 背景地図（国土地理院タイル）と徒歩経路（OSRM）は外部サービスを
-# 参照するため、起動にはインターネット接続が必要。認証キーは不要。
+#   web … サービス本体（Next.js。node:22-slim の multi-stage ビルド）
+#   db  … PostgreSQL 17。住民と行政の投稿・ユーザーを保存する
+#
+# 地図に載せるオープンデータ（避難場所・AED・子育て施設）は GeoJSON として
+# public/data/ に同梱してあり、DB を経由しない。DB を使うのは投稿だけ。
+#
+# 注意 1: 背景地図（国土地理院タイル）と徒歩経路（OSRM）は外部サービスを
+#         参照するため、起動にはインターネット接続が必要。認証キーは不要。
+# 注意 2: ログインは**何も用意しなくてもデモログインで使える**。
+#         Google ログインを試したい人だけ app/.env に鍵を置く（.env.example 参照）。
 
 # プロジェクト名を固定する。書かないとディレクトリ名（app）が使われ、
 # 同じ名前の別プロジェクトのコンテナと混ざる。
@@ -21,3 +28,49 @@ services:
       - "3000:3000"
     environment:
       NODE_ENV: production
+      # db へはコンテナ間ネットワークで繋ぐ（ホストには公開していない）。
+      # ここに書いた値は下の env_file より優先されるので、.env を置いた人の
+      # 環境でも接続先は必ずこのコンテナになる。
+      DATABASE_URL: postgres://chizuba:chizuba_local_only@db:5432/chizuba
+    # Google ログイン用の鍵を書くファイル。**無くても起動する**（required: false）。
+    # 置かなければ自動でデモログインに切り替わる（app/.env.example を参照）。
+    env_file:
+      - path: .env
+        required: false
+    depends_on:
+      db:
+        # db の healthcheck が通るまで web を起動しない。
+        # 配布資料「Docker コンテナの作成例」の例 2 と同じ作法。
+        condition: service_healthy
+
+  db:
+    # Docker 公式イメージ（DOI）。タグは固定する（latest を使わない）
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: chizuba
+      POSTGRES_USER: chizuba
+      # このパスワードは compose の内部ネットワーク専用。db のポートは
+      # ホストに公開していないので、コンテナの外からは接続できない。
+      # 審査員が何も設定せずに起動できることを優先して固定値にしてある。
+      POSTGRES_PASSWORD: chizuba_local_only
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      # スキーマと初期データ。**ボリュームが空のときだけ**ファイル名順に流れる。
+      # 中身を変えたら `docker compose down -v` で作り直すこと。
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      # -U / -d を付けないと既定の postgres ユーザーで見に行き、
+      # 起動途中でも通ってしまうことがある
+      test: ["CMD-SHELL", "pg_isready -U chizuba -d chizuba"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+      # 初回起動はスキーマの流し込みがあるぶん時間がかかる
+      start_period: 15s
+    # db のポートはホストに公開しない。公開すると審査員のマシンで 5432 が
+    # 埋まっていたときに起動しなくなる（.agent/architecture.md）。
+    # 中を覗きたいときは docker compose exec db psql -U chizuba -d chizuba
+
+volumes:
+  # 投稿を消さずにコンテナを作り直せるようにする
+  db-data:

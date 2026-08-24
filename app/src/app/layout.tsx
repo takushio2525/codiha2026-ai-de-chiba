@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from "next";
+
+import AuthBar from "@/components/AuthBar";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -19,7 +21,11 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ja">
-      <body className="font-sans antialiased">{children}</body>
+      {/* 帯 + 本体の縦 2 段。本体側を flex-1 にして、地図が残り全部の高さを取る */}
+      <body className="flex h-dvh flex-col font-sans antialiased">
+        <AuthBar />
+        <div className="min-h-0 flex-1 overflow-y-auto">{children}</div>
+      </body>
     </html>
   );
 }
