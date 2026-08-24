@@ -6,21 +6,31 @@
 
 ## 現在の対象
 
-**プロダクトは CHIZUBA。P1（ハザードマップ・F-1）まで実装済み。**
-何を作るかの正本は **`docs/design/requirements.md`**（機能 F-1〜F-8・ロール 3 段階・
-投稿モデルの統一・画面 S-1〜S-7・実装順序 P1〜P8）。
-`cd app && docker compose up` → <http://localhost:3000> で、
-洪水・高潮・津波の浸水想定を重ねられ（ON/OFF・不透明度・凡例・出典）、
-避難場所 123・AED 304・子育て施設 388 と徒歩ナビが動く。
+**プロダクトは CHIZUBA。P2（DB と認証）まで実装済み。次は P3（投稿基盤・F-2）。**
+
+`cd app && docker compose up` → <http://localhost:3000> で、洪水・高潮・津波の浸水想定を
+重ねられ（ON/OFF・不透明度・凡例・出典）、避難場所 123・AED 304・子育て施設 388 と徒歩ナビが動く。
+**コンテナは `web` + `db` の 2 つ**。`/login` で一般／行政（市川市）としてログインできる。
+
+何を作るかの正本は **`docs/design/requirements.md`**（機能 F-1〜F-8・画面 S-1〜S-7・実装順序）。
 
 ## 直近の観点
 
-**次に着手するのは P2（DB と認証の基盤）。** ここが構成を変える唯一の危険なフェーズ。
+**P3 が本丸。** 投稿を 1 モデルに統一してあるので、ここさえ通れば
+P4（浸水）・P5（観光）・P6（行政応答）はカテゴリと表示の追加で済む。
+**9/3・9/4 の個別相談までに P3 を通す。**
 
-P1 で分かった注意点: **浸水深の凡例は 1 つではない**（洪水 6 段階／津波・高潮 8 段階で、
-同じ色でも表す深さが違う）。**「色が付いていない＝安全」ではない**ので、
-想定区域が公表されていない地域があることを凡例に常時出している。
-定義はすべて `app/src/lib/hazards.ts` に集めてあるので、レイヤーを足すならそこから。
+P3 で使う土台はもう揃っている:
+
+- `reports` / `report_photos` / `report_comments` テーブルは **P2 で作成済み**
+  （`app/db/init/001_schema.sql`。**スキーマを変えたら `docker compose down -v`**）
+- ログインユーザーは `getSessionView()`（`app/src/lib/auth.ts`）で
+  `{ id, displayName, role, govCityCode }` が取れる。**権限判定は必ず API 側で行う**
+- 写真の保存先（`uploads` ボリューム）は**まだ無い**。P3 で `compose.yaml` に足す
+
+P1 で分かった注意点: **浸水深の凡例は 1 つではない**（洪水 6 段階／津波・高潮 8 段階）。
+**「色が付いていない＝安全」ではない**ので、想定区域が未公表の地域があることを凡例に常時出す。
+定義は `app/src/lib/hazards.ts` に集めてあるので、レイヤーを足すならそこから。
 
 審査のコード評価は **実装割合 × 動作割合の掛け算**。
 `requirements.md` §9-1 の「全フェーズ共通の完了条件」5 項目
@@ -29,18 +39,20 @@ P1 で分かった注意点: **浸水深の凡例は 1 つではない**（洪�
 
 ## 次の一手
 
-1. **P2: DB と認証の基盤** — `compose.yaml` に `postgres:17-alpine` +
-   `healthcheck` + `depends_on: service_healthy`、`app/db/init/*.sql`、
-   `app/.env.example`、Auth.js のデモログイン。**構成を変える唯一の危険なフェーズ**
-2. **P3: 投稿基盤 + 危険箇所報告（F-2）** — ここが本丸。9/3・9/4 の個別相談までに通す
+1. **P3: 投稿基盤 + 危険箇所報告（F-2）** — `GET/POST /api/reports`（I-3・I-4）、
+   投稿フォーム（S-4）、詳細パネル（S-3）、地図のピン。
+   写真の保存先として `compose.yaml` に `uploads` ボリュームを足す
+2. **P4 以降**は `requirements.md` §9-2 の順に進める
 3. 提出物のうち **`readme.txt`・説明資料 PDF 2 種はまだ無い**。9/9 に向けて作る。
    固めるのは `bash tools/package_submission.sh`（検証込み）。**手で zip しない**
 4. `docs/design/assignments.md` の担当表がまだ空欄。誰がどのフェーズを持つか埋める
 
 ## 現フェーズで読むべきドキュメント
 
-- **実装に入る前に必ず**: `docs/design/requirements.md`（**何を作るかの正本**）、
-  `docs/design/interfaces.md`（つなぎ目 I-1〜I-9 の仕様。**実装前にここを読む**）
+- **P3 に入る前に必ず**: `docs/design/interfaces.md` の **I-3・I-4・I-5**（投稿 API の仕様と
+  異常時の約束）、`docs/design/requirements.md` §4（投稿を 1 モデルに統一した理由）
+- **DB / 認証を触る段**: `app/db/init/001_schema.sql`（**物理スキーマの正本**）と
+  `interfaces.md` I-7、`app/src/lib/auth.ts` と `requirements.md` §8
 - **アプリに手を入れる段**: `.agent/architecture.md`（構成・データフロー・認証フロー・
   全域対応の建付け）、`.agent/conventions.md`、`app/README.md`（**既知の制約**）
 - **提出物の判断**: `課題/2026-09-09_CODIHA2026_提出要件.md`（**正本**）

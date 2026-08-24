@@ -379,6 +379,7 @@ Next.js は `.env` だけでなく **`.env.local` / `.env.production.local` も�
 |---|:---:|---|---|
 | `DATABASE_URL` | ○ | PostgreSQL 接続先 | `compose.yaml` が既定値を渡す |
 | `AUTH_SECRET` | △ | JWT の署名鍵 | デモ用の固定値を使い、**警告をログに出す** |
+| `AUTH_URL` | △ | Google のコールバック URL の土台 | `compose.yaml` が `http://localhost:3000` を渡す。コンテナの中では自分のホスト名が `0.0.0.0` になり、そのままでは Google に登録できないリダイレクト URI ができてしまうため固定している。**ホスト側のポートを変えたときだけ書き換える** |
 | `GOOGLE_CLIENT_ID` | — | Google OAuth | **デモモードに切り替わる** |
 | `GOOGLE_CLIENT_SECRET` | — | Google OAuth | 同上 |
 | `GOV_ACCOUNTS` | — | 行政ロールの付与 | 行政ユーザーは Google モードでは 0 人 |

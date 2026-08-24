@@ -150,8 +150,8 @@ GOOGLE_CLIENT_ID と GOOGLE_CLIENT_SECRET が両方ある？
 | 経路の中継 API | `app/src/app/api/routing/route.ts` | `curl 'localhost:3000/api/routing?from=139.93,35.72&to=139.92,35.75'` |
 | 気象の中継 API | `app/src/app/api/weather/`（予定） | `curl 'localhost:3000/api/weather?city=12203'` |
 | 投稿 API | `app/src/app/api/reports/`（予定） | `curl 'localhost:3000/api/reports?city=12203'` |
-| 認証 | `app/src/lib/auth.ts`（予定） | `/login` を開く |
-| DB スキーマ | `app/db/init/*.sql`（予定） | `docker compose up db` |
+| 認証 | `app/src/lib/auth.ts` | `/login` を開く |
+| DB スキーマ | `app/db/init/*.sql` | `docker compose exec db psql -U chizuba -d chizuba` |
 | CSV → GeoJSON 変換 | `data/scripts/build_geojson.py` | `python3 data/scripts/build_geojson.py` |
 
 ## コンポーネント間のデータ形式

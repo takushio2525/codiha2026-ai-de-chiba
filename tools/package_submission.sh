@@ -106,7 +106,7 @@ cleanup_smoke() {
     SMOKE_UP=0
     ( cd "$APP_ROOT" 2>/dev/null \
       && docker compose -p "$COMPOSE_PROJECT" -f compose.yaml -f "$SMOKE_OVERRIDE" \
-             down --rmi local --remove-orphans ) > /dev/null 2>&1
+             down -v --rmi local --remove-orphans ) > /dev/null 2>&1
 }
 cleanup() { cleanup_smoke; rm -rf "$STAGE_ROOT"; }
 trap cleanup EXIT
@@ -224,7 +224,10 @@ else
     if [ "$BOM" = "efbbbf" ]; then
         ng "readme.txt に UTF-8 BOM が付いている（提出要件は BOM なし）"
         detail "消し方: tail -c +4 app/readme.txt > /tmp/r && mv /tmp/r app/readme.txt"
-    elif ! iconv -f UTF-8 -t UTF-8 < "$README_TXT" > /dev/null 2>&1; then
+    # 変換結果は /dev/null ではなく一時ファイルへ出す。環境によっては iconv が
+    # /dev/null への書き出しで "Inappropriate ioctl for device" を返し、
+    # 中身が正しい UTF-8 でも NG になってアーカイブを消してしまうため。
+    elif ! iconv -f UTF-8 -t UTF-8 "$README_TXT" > "$STAGE_ROOT/readme-utf8-check" 2>/dev/null; then
         ng "readme.txt が UTF-8 として読めない（Shift_JIS などになっている）"
         detail "UTF-8 に変換し直してください"
     else
@@ -332,16 +335,27 @@ elif ! command -v curl >/dev/null 2>&1; then
 elif [ ! -f "$APP_ROOT/compose.yaml" ]; then
     skip "compose.yaml が無いので起動テストができない"
 else
-    # サービス名とコンテナ側ポートは compose.yaml から取る（web / 3000 の決め打ちにしない）
-    SMOKE_SERVICE="$( ( cd "$APP_ROOT" \
-        && docker compose -p "$COMPOSE_PROJECT" config --services ) 2>/dev/null | head -1 )"
-    SMOKE_TARGET="$( ( cd "$APP_ROOT" \
-        && docker compose -p "$COMPOSE_PROJECT" config ) 2>/dev/null \
-        | awk '/target:/ { gsub(/[^0-9]/, "", $2); print $2; exit }' )"
-    [ -n "$SMOKE_TARGET" ] || SMOKE_TARGET=3000
+    # 起動テストの相手（サービス名とコンテナ側ポート）を compose.yaml から取る。
+    # サービスが複数あるので「先頭のサービス」では選べない
+    # （config --services はアルファベット順なので db が先に来る）。
+    # **ホストにポートを公開しているサービス**を探して、それを相手にする。
+    SMOKE_PAIR="$( ( cd "$APP_ROOT" \
+        && docker compose -p "$COMPOSE_PROJECT" config ) 2>/dev/null | awk '
+        $0 == "services:"                        { in_svc = 1; next }
+        /^[^ ]/                                  { in_svc = 0 }
+        in_svc && /^  [^ ][^:]*:[[:space:]]*$/   { svc = $1; sub(/:$/, "", svc); in_ports = 0; next }
+        in_svc && /^    ports:[[:space:]]*$/     { in_ports = 1; next }
+        in_svc && /^    [^ ]/                    { in_ports = 0 }
+        in_ports && /^        target:/           { target = $2 }
+        in_ports && /^        published:/        { print svc "\t" target; exit }
+    ' )"
+    SMOKE_SERVICE="${SMOKE_PAIR%%	*}"
+    SMOKE_TARGET="${SMOKE_PAIR##*	}"
+    case "$SMOKE_TARGET" in ''|*[!0-9]*) SMOKE_TARGET=3000 ;; esac
 
     if [ -z "$SMOKE_SERVICE" ]; then
-        ng "起動テスト: compose.yaml からサービス名を取れない"
+        ng "起動テスト: ホストにポートを公開しているサービスが compose.yaml に無い"
+        detail "審査員は localhost からアクセスするので、公開ポートが 1 つは要る"
     else
         # ホスト側のポートだけ差し替える。ports は既定だと追記マージなので !override で置き換える
         SMOKE_OVERRIDE="$STAGE_ROOT/compose.smoke.yaml"

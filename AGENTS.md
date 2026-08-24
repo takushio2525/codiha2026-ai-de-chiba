@@ -48,8 +48,8 @@ Claude Code 用の `CLAUDE.md` は、このファイルへのリダイレクト 
 | 領域 | 技術 | 場所 |
 |---|---|---|
 | サービス本体 | **Next.js（App Router）+ TypeScript**。Docker 公式イメージ `node:22-slim` の multi-stage で `docker compose up` 一発起動 | `app/` |
-| データベース | **PostgreSQL 17**（`postgres:17-alpine`・DOI）。住民・行政の投稿を保存する。`depends_on` + `healthcheck` で待ち合わせ。**PostGIS は使わない**（緯度経度の数値カラム） | `app/db/`（予定） |
-| 認証 | **Auth.js（NextAuth）+ Google OAuth**。**キー未設定の環境では自動でデモログインに落ちる**ので、審査員は `docker compose up` だけで投稿機能まで試せる | `app/src/lib/auth.ts`（予定） |
+| データベース | **PostgreSQL 17**（`postgres:17-alpine`・DOI）。住民・行政の投稿を保存する。`depends_on` + `healthcheck` で待ち合わせ。**PostGIS は使わない**（緯度経度の数値カラム） | `app/db/init/` |
+| 認証 | **Auth.js（NextAuth）+ Google OAuth**。**キー未設定の環境では自動でデモログインに落ちる**ので、審査員は `docker compose up` だけで投稿機能まで試せる | `app/src/lib/auth.ts` |
 | 地図 | **MapLibre GL JS** + 国土地理院「淡色地図」タイル（**認証キー不要**） | `app/src/components/MapView.tsx` |
 | 徒歩経路 | **OSRM**（FOSSGIS e.V. 提供・**認証キー不要**）。サーバー側 API で中継し、UA 明示と 1 秒 1 リクエストの制限を守る | `app/src/app/api/routing/` |
 | ハザードマップ | 国土交通省**ハザードマップポータルサイト「重ねるハザードマップ」のラスタタイル**（洪水・高潮・津波・**認証キー不要**）。ブラウザが直接読む | `app/src/lib/hazards.ts` |
@@ -73,6 +73,8 @@ Claude Code 用の `CLAUDE.md` は、このファイルへのリダイレクト 
 | `app/src/lib/layers.ts` | 地図に載せるレイヤーの定義（データ・色・ポップアップ項目）。**データを足すならここから** |
 | `app/src/lib/hazards.ts` | ハザードマップ（浸水想定）のタイル定義と**浸水深の凡例**。洪水と津波・高潮で段階が違う |
 | `app/src/lib/credits.ts` | 出典（クレジット）の正本。地図の隅と `/about` の両方がここを見る |
+| `app/db/init/*.sql` | **DB スキーマの正本**。`db` の初回起動時だけ流れる（変えたら `docker compose down -v`） |
+| `app/src/lib/auth.ts` | 認証。**Google モードとデモモードの分岐はここ 1 箇所**。`.env.example` に環境変数の一覧 |
 | `data/scripts/build_geojson.py` | 市川市 CSV → `app/public/data/*.geojson` の変換（cp932・市域外座標の除外） |
 | `docs/before_coding.md` | **開始前に決めること**（担当の切り方・つなぎ目・public/private の線引き） |
 | `docs/design/assignments.md` | 担当表。誰が何を持っているか |
@@ -99,6 +101,12 @@ cd app && npm run typecheck
 
 # 市川市 CSV → 地図用 GeoJSON（app/public/data/ に出力）
 python3 data/scripts/build_geojson.py
+
+# データベースの中を覗く（db はホストにポートを公開していない）
+cd app && docker compose exec db psql -U chizuba -d chizuba
+
+# スキーマを変えたあと（初期化 SQL はボリュームが空のときだけ流れる）
+cd app && docker compose down -v && docker compose up
 
 # 秘匿情報スキャン（コミット前に実行できる）
 bash .github/scripts/secret_scan.sh

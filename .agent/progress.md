@@ -54,3 +54,12 @@
   タイル配信は z=2〜17 だが、**引きすぎた縮尺で無駄な 404 が出る**のでレイヤーに minzoom 6 を付けた。
 - 2026-08-24: 同一ワークツリーで 2 セッションが git を触り、HEAD を取り合う事故が発生。
   **並行作業は `git worktree` で必ず別ディレクトリに分ける**（共有チェックアウトは HEAD を共有する）。
+- 2026-08-24: P2 として DB と認証を実装（`feat/p2-db-auth`）。`compose.yaml` に
+  `postgres:17-alpine` + `pg_isready` の healthcheck + `depends_on: service_healthy` を足し、
+  `app/db/init/*.sql` で 5 テーブル（市町村マスタ・ユーザー・投稿・写真・コメント）を作る。
+- 2026-08-24: 認証は Auth.js の JWT セッション。`GOOGLE_CLIENT_ID/SECRET` が両方あれば Google
+  モード、無ければ**自動でデモログイン**（表示名 + 一般／行政の選択）。判定はサーバー側で 1 回。
+- 2026-08-24: 実測で判明 — コンテナ内では Auth.js が自ホストを `0.0.0.0` と判定し、Google への
+  `redirect_uri` が `http://0.0.0.0:3000/...` になる。`compose.yaml` で `AUTH_URL` を固定して解決。
+- 2026-08-24: `tools/package_submission.sh` の起動テストがサービス一覧の先頭（＝ `db`）を掴む
+  ようになっていたので、**ホストにポートを公開しているサービス**を選ぶよう修正。
