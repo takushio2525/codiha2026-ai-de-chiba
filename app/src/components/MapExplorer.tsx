@@ -10,11 +10,18 @@ import { LAYERS, type FacilityProps, type LayerId } from "@/lib/layers";
 import {
   EMPTY_REPORT_COLLECTION,
   REPORT_CATEGORIES,
+  reportCategoryDef,
   type ReportCategory,
   type ReportCollection,
 } from "@/lib/reports";
 import { fetchReports } from "@/lib/reportsApi";
 import { fetchWalkingRoute, type RouteTarget, type WalkingRoute } from "@/lib/routing";
+import {
+  buildFloodAlert,
+  fetchWeather,
+  type WeatherForecast,
+  type WeatherObservation,
+} from "@/lib/weather";
 import ControlPanel, { type Busy } from "./ControlPanel";
 import MapView, { type LayerData, type PanelBox } from "./MapView";
 import ReportForm from "./ReportForm";
@@ -24,12 +31,14 @@ import Toast, { type ToastMessage } from "./Toast";
 /** 市川市のだいたいの範囲。現在地がここから外れたときに一言添えるために使う。 */
 const CITY_BOUNDS = { lat: [35.58, 35.84], lng: [139.82, 140.04] } as const;
 
-/** P3 で投稿できるのは危険箇所（F-2）だけ。浸水（F-3）と観光おすすめ（F-6）は
- *  カテゴリ定義を共有したまま、それぞれ P4・P5 で入り口を足す。 */
-const POSTABLE_CATEGORY: ReportCategory = "hazard";
+/** 投稿できるカテゴリ。**ここに 1 つ足すと投稿の入り口が 1 つ増える**
+ *  （カテゴリの中身は `lib/reports.ts` の REPORT_CATEGORIES が正本）。
+ *  P3 で危険箇所（F-2）、P4 で浸水（F-3）。観光おすすめ（F-6）は P5 で足す。 */
+const POSTABLE_CATEGORIES: ReportCategory[] = ["hazard", "flood"];
 
-/** 地図の上で何を指定させているか。出発地点と投稿位置で同じクリックを使い分ける。 */
-type PickTarget = "origin" | "report";
+/** 地図の上で何を指定させているか。出発地点と投稿位置で同じクリックを使い分ける。
+ *  投稿のときは、どのカテゴリで投稿しようとしているかも一緒に覚えておく。 */
+type PickTarget = { kind: "origin" } | { kind: "report"; category: ReportCategory };
 
 function initialReportVisibility(): Record<ReportCategory, boolean> {
   return Object.fromEntries(
@@ -105,6 +114,13 @@ export default function MapExplorer({ session, cityCode }: Props) {
   const [composing, setComposing] = useState<{ category: ReportCategory; coords: LngLat } | null>(
     null,
   );
+  // ---- 気象と注意案内（F-3・F-4）----
+  /** 気象庁の実況と予報（I-6）。取れなくても地図は動かすので null のまま進める */
+  const [weather, setWeather] =
+    useState<{ observation: WeatherObservation | null; forecast: WeatherForecast | null } | null>(
+      null,
+    );
+
   /** 地図を寄せる指示。同じ地点でも押し直せるよう nonce を添える */
   const [focus, setFocus] = useState<{ coords: LngLat; nonce: number } | null>(null);
   const focusNonce = useRef(0);
@@ -151,6 +167,18 @@ export default function MapExplorer({ session, cityCode }: Props) {
   useEffect(() => {
     void loadReports();
   }, [loadReports]);
+
+  /** 気象情報は地図を開いたときに 1 回だけ取る（.agent/architecture.md の F-4 の流れ）。
+   *  **取れなくても黙って進む**。注意案内が出ないだけで、地図も投稿も動く。 */
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      const result = await fetchWeather(cityCode);
+      if (cancelled || !result.ok) return;
+      setWeather({ observation: result.observation, forecast: result.forecast });
+    })();
+    return () => { cancelled = true; };
+  }, [cityCode]);
 
   // 投稿一覧（/reports）から「地図で見る」で来たときは、その投稿を開く
   useEffect(() => {
@@ -221,7 +249,7 @@ export default function MapExplorer({ session, cityCode }: Props) {
       } catch (error) {
         setBusy("idle");
         pendingRef.current = destination;
-        setPickTarget("origin");
+        setPickTarget({ kind: "origin" });
         setCollapsed(false);
         setToast({
           kind: "warning",
@@ -262,7 +290,7 @@ export default function MapExplorer({ session, cityCode }: Props) {
       } catch (error) {
         setBusy("idle");
         pendingRef.current = null;   // 最寄りは出発地点が決まってから選び直す
-        setPickTarget("origin");
+        setPickTarget({ kind: "origin" });
         setCollapsed(false);
         setToast({
           kind: "warning",
@@ -275,9 +303,10 @@ export default function MapExplorer({ session, cityCode }: Props) {
   /** 地図のクリック。今なにを指定させているかで振り分ける。 */
   const handleMapPick = useCallback(
     (point: LngLat) => {
-      if (pickTarget === "report") {
+      if (pickTarget?.kind === "report") {
+        const category = pickTarget.category;
         setPickTarget(null);
-        setComposing({ category: POSTABLE_CATEGORY, coords: point });
+        setComposing({ category, coords: point });
         return;
       }
 
@@ -317,19 +346,31 @@ export default function MapExplorer({ session, cityCode }: Props) {
     setReportVisible((prev) => ({ ...prev, [id]: !prev[id] }));
   }, []);
 
-  /** 投稿の場所を地図で指定してもらう。 */
-  const startComposing = useCallback(() => {
+  /** 投稿の場所を地図で指定してもらう。カテゴリはここで決まる。 */
+  const startComposing = useCallback((category: ReportCategory) => {
     setComposing(null);
     setSelectedReportId(null);
-    setPickTarget("report");
+    setPickTarget({ kind: "report", category });
     setCollapsed(false);
-    setToast({ kind: "info", text: "地図をクリックして、投稿する場所を指定してください。" });
+    setToast({
+      kind: "info",
+      text: `地図をクリックして、${reportCategoryDef(category).label}を投稿する場所を指定してください。`,
+    });
   }, []);
 
   const locate = useCallback((coords: LngLat) => {
     focusNonce.current += 1;
     setFocus({ coords, nonce: focusNonce.current });
   }, []);
+
+  /** F-4 の注意案内。**過去の浸水報告と気象庁の予報という事実を 2 つ並べるだけ**で、
+   *  浸水を予測しているわけではない（docs/design/requirements.md 3-1）。 */
+  const floodAlert = buildFloodAlert(
+    weather?.forecast ?? null,
+    reports.features
+      .filter((feature) => feature.properties.category === "flood")
+      .map((feature) => feature.properties.createdAt),
+  );
 
   const reportCounts = REPORT_CATEGORIES.reduce(
     (counts, category) => {
@@ -356,6 +397,7 @@ export default function MapExplorer({ session, cityCode }: Props) {
           onNavigate={handleNavigateTo}
           reports={reports}
           reportVisible={reportVisible}
+          floodAlert={floodAlert !== null}
           selectedReportId={selectedReportId}
           onSelectReport={setSelectedReportId}
           focus={focus}
@@ -384,10 +426,10 @@ export default function MapExplorer({ session, cityCode }: Props) {
           onToggleHazard={toggleHazard}
           onChangeHazardOpacity={changeHazardOpacity}
           origin={origin}
-          pickMode={pickTarget === "origin"}
+          pickMode={pickTarget?.kind === "origin"}
           onTogglePickMode={() => {
             pendingRef.current = null;
-            setPickTarget((prev) => (prev === "origin" ? null : "origin"));
+            setPickTarget((prev) => (prev?.kind === "origin" ? null : { kind: "origin" }));
           }}
           onNavigateNearest={handleNavigateNearest}
           busy={busy}
@@ -398,10 +440,12 @@ export default function MapExplorer({ session, cityCode }: Props) {
           reportCounts={reportCounts}
           reportVisible={reportVisible}
           onToggleReportCategory={toggleReportCategory}
-          postableCategory={POSTABLE_CATEGORY}
+          postableCategories={POSTABLE_CATEGORIES}
           canPost={session.user !== null}
-          picking={pickTarget === "report"}
+          picking={pickTarget?.kind === "report" ? pickTarget.category : null}
           onStartComposing={startComposing}
+          floodAlert={floodAlert}
+          observation={weather?.observation ?? null}
         />
       ) : null}
 
@@ -425,7 +469,7 @@ export default function MapExplorer({ session, cityCode }: Props) {
           coordinates={composing.coords}
           onRepick={() => {
             setComposing(null);
-            startComposing();
+            startComposing(composing.category);
           }}
           onClose={() => setComposing(null)}
           onSubmitted={(report) => {

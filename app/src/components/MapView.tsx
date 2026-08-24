@@ -50,6 +50,8 @@ type Props = {
   reportVisible: Record<ReportCategory, boolean>;
   /** 詳細パネルで開いている投稿。地図の上で強調する */
   selectedReportId: number | null;
+  /** 注意案内（F-4）が出ているか。過去の浸水報告の地点に輪を描く */
+  floodAlert: boolean;
   onSelectReport: (id: number) => void;
   /** 指定した地点へ地図を寄せる。同じ地点でも押し直せるよう毎回新しい値を渡す */
   focus: { coords: LngLat; nonce: number } | null;
@@ -63,6 +65,8 @@ const EMPTY: FeatureCollection = { type: "FeatureCollection", features: [] };
 const REPORT_SOURCE = "reports";
 const REPORT_HALO_LAYER = "report-halo";
 const REPORT_POINT_LAYER = "report-points";
+/** 注意案内（F-4）のとき、過去の浸水報告の地点に描く輪。点の下に敷く */
+const REPORT_ALERT_LAYER = "report-flood-alert";
 
 /** カテゴリごとの色。定義は lib/reports.ts が正本。 */
 function reportColorExpression(): unknown[] {
@@ -182,6 +186,7 @@ export default function MapView({
   reports,
   reportVisible,
   selectedReportId,
+  floodAlert,
   onSelectReport,
   focus,
   panel,
@@ -332,6 +337,26 @@ export default function MapView({
         // 住民・行政の投稿。施設の点より上に置き、**白い縁取り + 濃い輪郭**で
         // オープンデータの点（白い細縁）と見分けられるようにする。
         map.addSource(REPORT_SOURCE, { type: "geojson", data: reports });
+        // 注意案内（F-4）のとき、過去の浸水報告に輪を描いて位置を分かるようにする。
+        // **予測ではない**ので、危険を煽る赤ではなく浸水カテゴリと同じ色を使う。
+        map.addLayer({
+          id: REPORT_ALERT_LAYER,
+          type: "circle",
+          source: REPORT_SOURCE,
+          filter: ["==", ["get", "category"], "flood"] as never,
+          layout: { visibility: "none" },
+          paint: {
+            "circle-radius": [
+              "interpolate", ["linear"], ["zoom"],
+              10, 13, 13, 18, 16, 26, 18, 34,
+            ],
+            "circle-color": "#56b4e9",
+            "circle-opacity": 0.18,
+            "circle-stroke-width": 1.5,
+            "circle-stroke-color": "#56b4e9",
+            "circle-stroke-opacity": 0.65,
+          },
+        });
         map.addLayer({
           id: REPORT_HALO_LAYER,
           type: "circle",
@@ -472,6 +497,15 @@ export default function MapView({
     map.setFilter(REPORT_HALO_LAYER, filter);
     map.setFilter(REPORT_POINT_LAYER, filter);
   }, [ready, reportVisible]);
+
+  // ---- 注意案内（F-4）の輪 ----
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !ready) return;
+    // 浸水のピン自体を消しているときは輪も出さない（地図の情報が食い違わないように）
+    const show = floodAlert && reportVisible.flood;
+    map.setLayoutProperty(REPORT_ALERT_LAYER, "visibility", show ? "visible" : "none");
+  }, [ready, floodAlert, reportVisible]);
 
   // ---- 詳細パネルで開いている投稿の強調 ----
   useEffect(() => {
