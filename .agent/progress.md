@@ -46,3 +46,12 @@
   土砂は 404（市川市に該当区域が無い）。**タイル無し＝安全ではない**ので凡例で明示する方針。
 - 2026-08-24: `.gitignore` に `.env.local` / `.env.*.local` を追加。Next.js は `.env` 以外も既定で読むため、
   `.env` だけの除外では public リポへのシークレット混入を防げなかった。
+- 2026-08-24: P2 として DB と認証を実装（`feat/p2-db-auth`）。`compose.yaml` に
+  `postgres:17-alpine` + `pg_isready` の healthcheck + `depends_on: service_healthy` を足し、
+  `app/db/init/*.sql` で 5 テーブル（市町村マスタ・ユーザー・投稿・写真・コメント）を作る。
+- 2026-08-24: 認証は Auth.js の JWT セッション。`GOOGLE_CLIENT_ID/SECRET` が両方あれば Google
+  モード、無ければ**自動でデモログイン**（表示名 + 一般／行政の選択）。判定はサーバー側で 1 回。
+- 2026-08-24: 実測で判明 — コンテナ内では Auth.js が自ホストを `0.0.0.0` と判定し、Google への
+  `redirect_uri` が `http://0.0.0.0:3000/...` になる。`compose.yaml` で `AUTH_URL` を固定して解決。
+- 2026-08-24: `tools/package_submission.sh` の起動テストがサービス一覧の先頭（＝ `db`）を掴む
+  ようになっていたので、**ホストにポートを公開しているサービス**を選ぶよう修正。

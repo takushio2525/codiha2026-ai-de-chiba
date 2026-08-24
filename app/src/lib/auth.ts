@@ -118,7 +118,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (!user) return app;
 
       if (account?.provider === "google") {
-        const email = typeof token.email === "string" ? token.email : "";
+        // Google のプロフィールから来たメールアドレス。行政ロールの判定にだけ使い、
+        // 画面にもレスポンスにも出さない（interfaces.md I-8）
+        const email = user.email ?? (typeof token.email === "string" ? token.email : "");
         const govCityCode = govCityCodeFor(email);
         const displayName = normalizeDisplayName(user.name ?? "") || "利用者";
         const saved = await upsertUser({

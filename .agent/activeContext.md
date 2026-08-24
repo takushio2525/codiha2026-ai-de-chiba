@@ -6,18 +6,30 @@
 
 ## 現在の対象
 
-**プロダクトは CHIZUBA に決定。要件定義と設計が固まり、実装待ちの状態。**
+**P2（DB と認証の基盤）まで実装済み。次は P3（投稿基盤 + 危険箇所報告・F-2）。**
+
+- **P0**（地図・避難場所 123・AED 304・子育て施設 388・徒歩ナビ）: main にある
+- **P1**（ハザードマップ・F-1）: ブランチ `feat/p1-hazard-map` で実装済み・PR 待ち
+- **P2**（DB + 認証・F-8 のデモ側）: ブランチ `feat/p2-db-auth` で実装済み・PR 待ち。
+  `cd app && docker compose up` で `web` + `db` の 2 コンテナが立ち、
+  `/login` のデモログインで一般／行政（市川市）としてログインできる
+
 何を作るかの正本は **`docs/design/requirements.md`**（機能 F-1〜F-8・ロール 3 段階・
 投稿モデルの統一・画面 S-1〜S-7・実装順序 P1〜P8）。
-既存の `app/` は P0 として動いており（`cd app && docker compose up` →
-<http://localhost:3000> で避難場所 123・AED 304・子育て施設 388 と徒歩ナビ）、
-**ここに機能を積み上げていく**。
 
 ## 直近の観点
 
-**次に着手するのは P1（ハザードマップ表示・F-1）。** DB も認証も要らず、
-既存の地図にラスタタイルを重ねるだけで機能が 1 つ完成する。
-洪水・高潮・津波の 3 種は市川市で疎通確認済み（土砂は市川市に該当区域が無く 404）。
+**P3 が本丸。** 投稿を 1 モデルに統一してあるので、ここさえ通れば
+P4（浸水）・P5（観光）・P6（行政応答）はカテゴリと表示の追加で済む。
+**9/3・9/4 の個別相談までに P3 を通す。**
+
+P3 で使う土台はもう揃っている:
+
+- `reports` / `report_photos` / `report_comments` テーブルは **P2 で作成済み**
+  （`app/db/init/001_schema.sql`。スキーマを変えたら `docker compose down -v`）
+- ログインユーザーは `getSessionView()`（`app/src/lib/auth.ts`）で
+  `{ id, displayName, role, govCityCode }` が取れる。**権限判定は必ず API 側で行う**
+- 写真の保存先（`uploads` ボリューム）は**まだ無い**。P3 で `compose.yaml` に足す
 
 審査のコード評価は **実装割合 × 動作割合の掛け算**。
 `requirements.md` §9-1 の「全フェーズ共通の完了条件」5 項目
@@ -26,26 +38,24 @@
 
 ## 次の一手
 
-1. **P1: ハザードマップ（F-1）** — `app/src/lib/` にタイル定義を足し、
-   `MapView.tsx` にラスタレイヤーと不透明度スライダー、凡例、
-   `credits.ts` に国土地理院ハザードマップポータルの出典を追加
-2. **P2: DB と認証の基盤** — `compose.yaml` に `postgres:17-alpine` +
-   `healthcheck` + `depends_on: service_healthy`、`app/db/init/*.sql`、
-   `app/.env.example`、Auth.js のデモログイン。**構成を変える唯一の危険なフェーズ**
-3. **P3: 投稿基盤 + 危険箇所報告（F-2）** — ここが本丸。9/3・9/4 の個別相談までに通す
-4. 提出物のうち **`readme.txt`・説明資料 PDF 2 種はまだ無い**。9/9 に向けて作る。
+1. **P3: 投稿基盤 + 危険箇所報告（F-2）** — `GET/POST /api/reports`（I-3・I-4）、
+   投稿フォーム（S-4）、詳細パネル（S-3）、地図のピン。
+   写真の保存先として `compose.yaml` に `uploads` ボリュームを足す
+2. **P4 以降**は `requirements.md` §9-2 の順に進める
+3. 提出物のうち **`readme.txt`・説明資料 PDF 2 種はまだ無い**。9/9 に向けて作る。
    固めるのは `bash tools/package_submission.sh`（検証込み）。**手で zip しない**
-5. `docs/design/assignments.md` の担当表がまだ空欄。誰がどのフェーズを持つか埋める
+4. `docs/design/assignments.md` の担当表がまだ空欄
 
 ## 現フェーズで読むべきドキュメント
 
-- **実装に入る前に必ず**: `docs/design/requirements.md`（**何を作るかの正本**）、
-  `docs/design/interfaces.md`（つなぎ目 I-1〜I-9 の仕様。**実装前にここを読む**）
-- **アプリに手を入れる段**: `.agent/architecture.md`（構成・データフロー・認証フロー・
-  全域対応の建付け）、`.agent/conventions.md`、`app/README.md`（**既知の制約**）
+- **P3 に入る前に必ず**: `docs/design/interfaces.md` の **I-3・I-4・I-5**（投稿 API の仕様と
+  異常時の約束）、`docs/design/requirements.md` §4（投稿を 1 モデルに統一した理由）
+- **DB を触る段**: `app/db/init/001_schema.sql`（**物理スキーマの正本**）、
+  `docs/design/interfaces.md` I-7
+- **認証を使う段**: `app/src/lib/auth.ts`、`docs/design/requirements.md` §8
+- **アプリに手を入れる段**: `.agent/architecture.md`、`.agent/conventions.md`、
+  `app/README.md`（**既知の制約**）
 - **提出物の判断**: `課題/2026-09-09_CODIHA2026_提出要件.md`（**正本**）
-- **データを増やす段**: `data/analysis/findings.md`、
-  `data/chiba-pref/SOURCE.md`, `data/ichikawa-city/SOURCE.md`（出典・ライセンス・落とし穴）
 
 ## 決まっていること（変わりにくい前提）
 

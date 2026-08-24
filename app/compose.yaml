@@ -32,6 +32,11 @@ services:
       # ここに書いた値は下の env_file より優先されるので、.env を置いた人の
       # 環境でも接続先は必ずこのコンテナになる。
       DATABASE_URL: postgres://chizuba:chizuba_local_only@db:5432/chizuba
+      # Google ログインのコールバック URL の土台。コンテナの中では自分の
+      # ホスト名が 0.0.0.0 になり、そのままだと Google に登録できない
+      # リダイレクト URI ができてしまうので、ここで固定する。
+      # 上の ports を変えたら app/.env に AUTH_URL を書いて上書きする。
+      AUTH_URL: ${AUTH_URL:-http://localhost:3000}
     # Google ログイン用の鍵を書くファイル。**無くても起動する**（required: false）。
     # 置かなければ自動でデモログインに切り替わる（app/.env.example を参照）。
     env_file:
