@@ -21,17 +21,33 @@
 
 | 対象 | 規則 | 例 |
 |---|---|---|
-| クラス・型 | PascalCase | `OpenDataLoader` |
-| 関数・変数 | 〈言語の慣習に合わせる。Python なら snake_case〉 | `load_dataset` |
-| 定数 | UPPER_SNAKE_CASE | `DATA_DIR` |
-| ファイル | 中身に合わせる | `loader.py` |
+| 型・React コンポーネント | PascalCase | `LayerDef`, `MapView` |
+| 関数・変数（TypeScript） | camelCase | `nearestDestination` |
+| 関数・変数（Python） | snake_case | `build_geojson` |
+| 定数 | UPPER_SNAKE_CASE | `LAYERS`, `DATA_DIR` |
+| ファイル（TypeScript） | コンポーネントは PascalCase、それ以外は camelCase | `MapView.tsx`, `layers.ts` |
+| ファイル（Python） | snake_case | `build_geojson.py` |
 
-〈実装言語が決まったら、その言語の標準スタイルに書き換える〉
+## TypeScript / React（`app/`）
+
+- **座標は必ず `[経度, 緯度]` の順**（GeoJSON と MapLibre に合わせる）。
+  Python 側の分析スクリプトは `緯度, 経度` の順なので、行き来するときに間違えない
+- ブラウザ専用のライブラリ（`maplibre-gl` など）は
+  **`useEffect` の中で `await import()` して読む**。トップレベルで import すると
+  サーバー側レンダリングで評価されて落ちる
+- **UI に絵文字を使わない。** アイコンが要るなら `lucide-react` の SVG
+- 色は `app/src/lib/layers.ts` と `globals.css` の `@theme` に集める。
+  レイヤーの色は Okabe-Ito（色覚多様性に配慮した配色）から取る
+- 外部サービスを呼ぶときは**必ずタイムアウトを付ける**。
+  失敗したときに画面が固まらず、代わりに何が起きたか出せる形にする
 
 ## Docker
 
 - `Dockerfile` と `compose.yaml` は `app/` 直下に置く
-- ベースイメージはタグを固定する（`python:3.12-slim` のように。`latest` を使わない）
+- ベースイメージはタグを固定する（`node:22-slim` のように。`latest` を使わない）
+- **ネイティブ拡張をソースからビルドする npm 依存を足さない**（`sharp` / `canvas` /
+  `better-sqlite3` など）。プリビルドを配る依存（`@next/swc-*` 等）は
+  `package-lock.json` に linux 版も記録されているので問題ない
 - ホストと受け渡すファイルは `volumes` でバインドする
 - 依存する起動順があるなら `depends_on` + `healthcheck` で待つ
 - ホストから繋ぐならポートを `compose.yaml` に明記し、**`readme.txt` にも同じ番号を書く**

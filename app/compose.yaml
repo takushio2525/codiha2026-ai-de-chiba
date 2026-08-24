@@ -1,0 +1,23 @@
+# 審査員はこのファイルだけで起動できる。
+#
+#   docker compose up
+#   → http://localhost:3000
+#
+# コンテナは 1 つだけ。データベースは使わず、地図に載せるオープンデータは
+# GeoJSON として public/data/ に同梱してある。
+#
+# 注意: 背景地図（国土地理院タイル）と徒歩経路（OSRM）は外部サービスを
+# 参照するため、起動にはインターネット接続が必要。認証キーは不要。
+
+# プロジェクト名を固定する。書かないとディレクトリ名（app）が使われ、
+# 同じ名前の別プロジェクトのコンテナと混ざる。
+name: ichikawa-opendata-map
+
+services:
+  web:
+    build: .
+    ports:
+      # ホスト:コンテナ。readme.txt に書くポート番号とここを必ず一致させる
+      - "3000:3000"
+    environment:
+      NODE_ENV: production

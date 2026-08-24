@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+/* 配色は Okabe-Ito（カラーユニバーサルデザイン推奨配色）から取っている。
+   1 型・2 型色覚でも 3 レイヤーが判別できることを優先した。 */
+@theme {
+  --font-sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP",
+    "Yu Gothic UI", Meiryo, system-ui, sans-serif;
+
+  --color-surface: #ffffff;
+  --color-canvas: #eeece5;
+  --color-ink: #16181d;
+  --color-ink-sub: #4c5159;
+  --color-ink-muted: #7b818b;
+  --color-line: #e3e4e6;
+
+  --color-layer-evacuation: #0072b2;
+  --color-layer-aed: #d55e00;
+  --color-layer-childcare: #009e73;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  /* 日本語は行間を広めに取ったほうが読みやすい */
+  line-height: 1.75;
+  color: var(--color-ink);
+  background: var(--color-canvas);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "palt" 1;
+}
+
+/* ---- MapLibre のポップアップをアプリの見た目に寄せる ----
+   maplibre-gl.css はこのファイルより後に読み込まれるので、
+   クラス 2 つ分の詳細度にして順序に左右されないようにしている。 */
+.maplibregl-popup .maplibregl-popup-content {
+  padding: 0;
+  border-radius: 14px;
+  box-shadow: 0 12px 32px -12px rgb(0 0 0 / 0.35), 0 0 0 1px rgb(0 0 0 / 0.06);
+  font-family: var(--font-sans);
+  overflow: hidden;
+}
+
+.maplibregl-popup .maplibregl-popup-close-button {
+  width: 28px;
+  height: 28px;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--color-ink-muted);
+  border-radius: 8px;
+}
+
+.maplibregl-popup .maplibregl-popup-close-button:hover {
+  background: #f1f2f4;
+  color: var(--color-ink);
+}
+
+.maplibregl-map .maplibregl-ctrl-attrib {
+  font-size: 11px;
+  line-height: 1.5;
+}

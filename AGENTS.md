@@ -11,7 +11,10 @@ Claude Code 用の `CLAUDE.md` は、このファイルへのリダイレクト 
 ## プロジェクト概要
 
 - **何を作るか**: 千葉県・市町村の**オープンデータ**を活用し、地域の課題解決に繋がる
-  サービスを実装する。**扱う課題とプロダクトはまだ未確定**（アイデア出しフェーズ）
+  サービスを実装する。**扱う課題とプロダクトはまだ確定していない**（アイデア出しフェーズ）。
+  ただし**地図 × オープンデータの土台**は先に作ってあり、`app/` で動く
+  （市川市の避難場所・AED・子育て施設を地図に重ね、そこまでの徒歩経路を出す）。
+  プロダクトが決まったら、この土台の上に載せる
 - **誰が使うか**: 〈対象となる住民・自治体などを、プロダクトが決まったら書く〉
 - **イベント**: ちばオープンデータアイデアソン・ハッカソン（CODIHA）2026・ハッカソン部門
 - **チーム**: 愛で千葉は救えるのか（担当は `docs/design/assignments.md`）
@@ -38,18 +41,25 @@ Claude Code 用の `CLAUDE.md` は、このファイルへのリダイレクト 
 
 | 領域 | 技術 | 場所 |
 |---|---|---|
-| サービス本体 | **Docker（docker compose）で起動する構成**。言語は未定 | `app/` |
-| 補助スクリプト | 〈データ取得・整形などに使うものを決めたら書く〉 | `tools/` |
+| サービス本体 | **Next.js（App Router）+ TypeScript**。Docker 公式イメージ `node:22-slim` の multi-stage で `docker compose up` 一発起動。DB なし・1 コンテナ | `app/` |
+| 地図 | **MapLibre GL JS** + 国土地理院「淡色地図」タイル（**認証キー不要**） | `app/src/components/MapView.tsx` |
+| 徒歩経路 | **OSRM**（FOSSGIS e.V. 提供・**認証キー不要**）。サーバー側 API で中継し、UA 明示と 1 秒 1 リクエストの制限を守る | `app/src/app/api/routing/` |
+| 見た目 | Tailwind CSS v4 + lucide-react（アイコンは SVG。絵文字は使わない） | `app/src/` |
+| データ整形 | Python（標準ライブラリのみ）。市川市 CSV → GeoJSON | `data/scripts/build_geojson.py` |
 
-言語の制約は「Docker で実績が多いもの（Python / Node.js / Java / Go など）」だけ。
-ベースイメージは可能な限り **Docker 公式イメージ（DOI）** を使う。
+**認証キーが要る外部サービス（Mapbox / Google 等）は使わない。**
+審査員の環境で追加設定なしに動くことを最優先にしている。
+ベースイメージは Docker 公式イメージ（DOI）、タグは固定する（`latest` を使わない）。
 
 ## 重要なパス
 
 | パス | 何があるか |
 |---|---|
 | `課題/2026-09-09_CODIHA2026_提出要件.md` | **提出要件の正本**。締切・0 点条件・審査基準・readme.txt の書式 |
-| `app/` | **提出するサービス本体**。ここを丸ごと zip 化して提出する（`app/README.md` に規約） |
+| `app/` | **提出するサービス本体**（市川市オープンデータマップ）。ここを丸ごと zip 化して提出する。動かし方と既知の制約は `app/README.md` |
+| `app/src/lib/layers.ts` | 地図に載せるレイヤーの定義（データ・色・ポップアップ項目）。**データを足すならここから** |
+| `app/src/lib/credits.ts` | 出典（クレジット）の正本。地図の隅と `/about` の両方がここを見る |
+| `data/scripts/build_geojson.py` | 市川市 CSV → `app/public/data/*.geojson` の変換（cp932・市域外座標の除外） |
 | `docs/before_coding.md` | **開始前に決めること**（担当の切り方・つなぎ目・public/private の線引き） |
 | `docs/design/assignments.md` | 担当表。誰が何を持っているか |
 | `docs/design/interfaces.md` | **コンポーネント間のデータ形式**。ここを変える変更は影響が広い |
@@ -63,8 +73,17 @@ Claude Code 用の `CLAUDE.md` は、このファイルへのリダイレクト 
 ## よく使うコマンド
 
 ```bash
-# サービスの起動（app/ に Dockerfile と compose.yaml を置いてから）
+# サービスの起動（審査員もこれだけ。http://localhost:3000）
 cd app && docker compose up
+
+# UI をいじるとき（ホットリロード。Node.js 22 以上が必要）
+cd app && npm install && npm run dev
+
+# 型チェック
+cd app && npm run typecheck
+
+# 市川市 CSV → 地図用 GeoJSON（app/public/data/ に出力）
+python3 data/scripts/build_geojson.py
 
 # 秘匿情報スキャン（コミット前に実行できる）
 bash .github/scripts/secret_scan.sh
@@ -133,6 +152,8 @@ for s in data/analysis/scripts/0*.py; do data/analysis/.venv/bin/python "$s"; do
 | 起動手順（`compose.yaml` など） | このファイルの「よく使うコマンド」と `app/README.md` |
 | ディレクトリの追加・削除 | そのディレクトリの `README.md`（何のフォルダか） |
 | `data/` に取得先を追加 | `data/scripts/manifest.json` と `data/<ソース>/SOURCE.md`（出典・ライセンス） |
+| 地図に載せるデータを追加・変更 | `data/scripts/build_geojson.py`・`app/src/lib/layers.ts`・`app/src/lib/credits.ts`・`app/README.md` |
+| 外部サービス（地図タイル・経路）を変更 | `app/src/lib/credits.ts`（出典）・`app/README.md` の「既知の制約」・このファイルの技術スタック |
 
 ### 6. 完了報告の前に確認する
 
