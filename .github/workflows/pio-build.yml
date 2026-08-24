@@ -1,0 +1,78 @@
+name: PlatformIO Build
+
+# firmware/ 配下の PlatformIO プロジェクトを全部ビルドする。
+#
+# 【なぜ matrix を自動生成しているか】
+# ビルド対象をここに手書きすると、あとからフォルダを増やしたときに追加を忘れる。
+# 「最終成果物だけ CI の対象外で、壊れたまま発表当日を迎える」という事故が起きやすい。
+# platformio.ini があるディレクトリを毎回探し直せば、フォルダが増えても勝手に対象に入る。
+
+on:
+  push:
+    paths:
+      - 'firmware/**'
+      - '.github/workflows/pio-build.yml'
+  pull_request:
+    paths:
+      - 'firmware/**'
+      - '.github/workflows/pio-build.yml'
+  workflow_dispatch:
+
+jobs:
+  discover:
+    name: ビルド対象を探す
+    runs-on: ubuntu-latest
+    outputs:
+      dirs: ${{ steps.find.outputs.dirs }}
+      count: ${{ steps.find.outputs.count }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Find PlatformIO projects
+        id: find
+        shell: bash
+        run: |
+          set -euo pipefail
+          # firmware/ 配下の platformio.ini を探し、そのディレクトリを JSON 配列にする
+          dirs=$(find firmware -name platformio.ini -not -path '*/.pio/*' \
+                   -exec dirname {} \; | sort | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          count=$(printf '%s' "$dirs" | jq 'length')
+          echo "dirs=$dirs"   >> "$GITHUB_OUTPUT"
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+          echo "見つかったプロジェクト（$count 件）:"
+          printf '%s' "$dirs" | jq -r '.[]'
+
+  build:
+    name: ビルド
+    needs: discover
+    if: needs.discover.outputs.count != '0'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        dir: ${{ fromJson(needs.discover.outputs.dirs) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Cache PlatformIO
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.platformio/.cache
+            ~/.cache/pip
+          key: ${{ runner.os }}-pio-${{ hashFiles(format('{0}/platformio.ini', matrix.dir)) }}
+          restore-keys: ${{ runner.os }}-pio-
+
+      - name: Install PlatformIO Core
+        run: pip install --upgrade platformio
+
+      - name: Build ${{ matrix.dir }}
+        working-directory: ${{ matrix.dir }}
+        run: pio run

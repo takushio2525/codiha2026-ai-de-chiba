@@ -1,0 +1,128 @@
+# ===== AI ツール設定 =====
+.claude/
+
+# ===== PlatformIO =====
+.pio/
+.pioenvs/
+.piolibdeps/
+.clang_complete
+.gcc-flags.json
+*.bin
+*.elf
+*.hex
+
+# ===== C/C++ =====
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+*.exe
+*.out
+build/
+
+# ===== LaTeX =====
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.dvi
+*.idx
+*.ind
+*.ilg
+*.nav
+*.snm
+*.vrb
+*.xdv
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.ist
+*.bcf
+*.run.xml
+*.figlist
+*.makefile
+*.fdb_latexmk
+*.upa
+*.upb
+# LuaTeX / TeX Live のフォントキャッシュ（放置すると数十 MB がコミットされる）
+.texmf-var/
+**/luatex-cache/
+*.luc
+
+# 生成 PDF はコミットする（下記「提出物の PDF」参照）ので ignore しない
+
+# ===== Processing =====
+*.pde.bak
+out/
+
+# ===== Python (tools/) =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+
+# ===== Node / 一般 =====
+node_modules/
+
+# ===== エディタ / IDE =====
+.idea/
+*.swp
+*.swo
+*~
+# VSCode は設定を追跡するが，ユーザー個別ファイルは除外
+.vscode/*.log
+.history/
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== KiCad backups =====
+*-backups/
+*.bak
+*.kicad_prl
+# KiCad の自動保存（先頭の # はコメント扱いを避けるためエスケープする）
+\#auto_saved_files#
+_autosave-*.kicad_sch
+_autosave-*.kicad_pcb
+
+# ===== Office の一時ファイル =====
+~$*.docx
+~$*.xlsx
+~$*.pptx
+
+# ===== 開発ツールの生成物 =====
+.playwright-mcp/
+.wrangler/
+dist/
+.cache/
+
+# ===== private リポジトリへ置くもの（public に来ないための保険）=====
+# 個人レポート・授業資料・評価物は、このリポジトリではなく
+# チーム内部用の private リポジトリで管理する。
+# 詳細と線引き表: docs/before_coding.md
+personal/
+個人/
+private/
+references/lectures/
+授業資料/
+評価/
+
+# ===== その他 =====
+*.tmp
