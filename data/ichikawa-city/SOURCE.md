@@ -42,6 +42,21 @@
 
 **個人情報は含まない**（すべて施設・地域単位の集計または公開施設情報）。
 
+## 地図アプリ向けの GeoJSON
+
+`app/` の地図に載せている 3 本は、ここの CSV から
+[`data/scripts/build_geojson.py`](../scripts/build_geojson.py) で変換して
+`app/public/data/` に出力している（`python3 data/scripts/build_geojson.py`）。
+
+| 出力 | 元 CSV | 件数 | 除外したもの |
+|---|---|--:|---|
+| `evacuation_sites.geojson` | `emergency_evacuation_sites.csv`（129 行） | **123** | 全列が空の行 6 |
+| `aed_locations.geojson` | `aed_locations.csv`（305 行） | **304** | 経度が市域外の 1 件（下記） |
+| `childcare_facilities.geojson` | `childcare_facilities.csv`（388 行） | **388** | なし |
+
+除外の内訳は変換スクリプトが実行時に標準出力へ出す。
+市域の判定に使う箱は `data/analysis/scripts/04_ichikawa_facility_gap.py` の `BBOX` と同じ値。
+
 ## 使うときに気をつけること
 
 - **文字コードは cp932。** `pd.read_csv(path, encoding="cp932")` で読む。UTF-8 で開くと落ちる
@@ -52,7 +67,10 @@
   95〜100％ 突き合わせできる（実装は `data/analysis/scripts/04_ichikawa_facility_gap.py` の `norm()`）
 - **座標に誤りが 1 件ある。** `aed_locations.csv` の「ローソンストア100市川南八幡三丁目店」は
   経度が `129.925207`（正しくは 139.9…）。市域の緯度経度の箱で外れ値を落とすこと
-- **緯度経度の欠損**: 指定緊急避難場所 6 件、都市公園 6 件が空欄
+- **末尾に空行が混ざっている。** `emergency_evacuation_sites.csv` の 129 行のうち
+  **最後の 6 行は全列が空**（施設ではない）。実データは **123 件**。
+  「緯度経度が欠損した施設が 6 件ある」わけではないので、欠損として数えないこと。
+  都市公園にも同様の空行が 6 行ある
 - **`childcare_facilities.csv` の `収容定員` 列は全行空**（388 行すべて欠損）。定員では比較できないので
   施設数で見るしかない
 - **町丁字のポリゴン（境界）は公開されていない。** 地図上で面として塗るには

@@ -1,0 +1,5476 @@
+{
+ "type": "FeatureCollection",
+ "attribution": "「【市川市】AED 設置箇所」（市川市オープンデータ）（https://opendata.pref.chiba.lg.jp/datasets/3288）を加工して作成",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9279823,
+     35.72257083
+    ]
+   },
+   "properties": {
+    "name": "いちかわ観光・物産インフォメーション（旧八幡市民談話室）",
+    "address": "千葉県市川市八幡2丁目4-8",
+    "area": "八幡2丁目",
+    "spot": "正面玄関",
+    "tel": "(047)335-1711",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9141429,
+     35.66089245
+    ]
+   },
+   "properties": {
+    "name": "塩浜市民体育館",
+    "address": "千葉県市川市塩浜4丁目9-1",
+    "area": "塩浜4丁目",
+    "spot": "1階ﾛﾋﾞ-",
+    "tel": "(047)398-2311",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9132544,
+     35.66245927
+    ]
+   },
+   "properties": {
+    "name": "地域ｹｱ南行徳第二",
+    "address": "千葉県市川市塩浜4丁目2-2-101",
+    "area": "塩浜4丁目",
+    "spot": "玄関左",
+    "tel": "(047)398-8347",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9114252,
+     35.66318308
+    ]
+   },
+   "properties": {
+    "name": "塩浜保育園",
+    "address": "千葉県市川市塩浜4丁目2-10-101",
+    "area": "塩浜4丁目",
+    "spot": "玄関",
+    "tel": "(047)397-2628",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9133149,
+     35.66309961
+    ]
+   },
+   "properties": {
+    "name": "いきいきｾﾝﾀ-塩浜",
+    "address": "千葉県市川市塩浜4丁目3-1-101",
+    "area": "塩浜4丁目",
+    "spot": "1階玄関",
+    "tel": "(047)395-2586",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9156376,
+     35.66385813
+    ]
+   },
+   "properties": {
+    "name": "塩浜学園(前期課程)",
+    "address": "千葉県市川市塩浜4丁目6-1",
+    "area": "塩浜4丁目",
+    "spot": "玄関",
+    "tel": "(047)397-4421",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9142762,
+     35.66525808
+    ]
+   },
+   "properties": {
+    "name": "塩浜学園(後期課程)",
+    "address": "千葉県市川市塩浜4丁目5-1",
+    "area": "塩浜4丁目",
+    "spot": "玄関",
+    "tel": "(047)397-1250",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9119985,
+     35.66666259
+    ]
+   },
+   "properties": {
+    "name": "福栄ｽﾎﾟ-ﾂ広場",
+    "address": "千葉県市川市福栄4丁目32-4",
+    "area": "福栄4丁目",
+    "spot": "管理棟受付横",
+    "tel": "(047)398-0606",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9106694,
+     35.66939283
+    ]
+   },
+   "properties": {
+    "name": "いきいきｾﾝﾀ-福栄",
+    "address": "千葉県市川市福栄4丁目32-2",
+    "area": "福栄4丁目",
+    "spot": "1階ﾎ-ﾙ",
+    "tel": "(047)395-6906",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8986617,
+     35.66974838
+    ]
+   },
+   "properties": {
+    "name": "新井地域ふれあい館",
+    "address": "千葉県市川市新井3丁目31-1",
+    "area": "新井3丁目",
+    "spot": "玄関正面",
+    "tel": "(047)395-5019",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9072297,
+     35.6709626
+    ]
+   },
+   "properties": {
+    "name": "南行徳中学校",
+    "address": "千葉県市川市南行徳2丁目2-2",
+    "area": "南行徳2丁目",
+    "spot": "職員玄関",
+    "tel": "(047)397-5910",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9053257,
+     35.67152659
+    ]
+   },
+   "properties": {
+    "name": "富美浜小学校",
+    "address": "千葉県市川市南行徳2丁目3-1",
+    "area": "南行徳2丁目",
+    "spot": "校長室前",
+    "tel": "(047)396-2522",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9014293,
+     35.67168285
+    ]
+   },
+   "properties": {
+    "name": "南行徳保健ｾﾝﾀ-",
+    "address": "千葉県市川市南行徳1丁目21-1",
+    "area": "南行徳1丁目",
+    "spot": "事務室内",
+    "tel": "(047)359-8785",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9012819,
+     35.67157919
+    ]
+   },
+   "properties": {
+    "name": "南行徳市民ｾﾝﾀ-",
+    "address": "千葉県市川市南行徳1丁目21-1",
+    "area": "南行徳1丁目",
+    "spot": "正面玄関",
+    "tel": "(047)359-7891",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9070968,
+     35.67188268
+    ]
+   },
+   "properties": {
+    "name": "福栄小学校",
+    "address": "千葉県市川市南行徳2丁目2-1",
+    "area": "南行徳2丁目",
+    "spot": "市民図書室前廊下",
+    "tel": "(047)397-8115",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.910022,
+     35.67381073
+    ]
+   },
+   "properties": {
+    "name": "福栄中学校",
+    "address": "千葉県市川市福栄3丁目4-1",
+    "area": "福栄3丁目",
+    "spot": "職員玄関",
+    "tel": "(047)396-0701",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.916584,
+     35.67459572
+    ]
+   },
+   "properties": {
+    "name": "南新浜小学校",
+    "address": "千葉県市川市新浜1丁目26-1",
+    "area": "新浜1丁目",
+    "spot": "玄関正面",
+    "tel": "(047)396-9731",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8905462,
+     35.67395687
+    ]
+   },
+   "properties": {
+    "name": "新井小学校",
+    "address": "千葉県市川市新井1丁目18-13",
+    "area": "新井1丁目",
+    "spot": "1階昇降口",
+    "tel": "(047)357-1722",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9054193,
+     35.6753644
+    ]
+   },
+   "properties": {
+    "name": "富美浜地域ふれあい館",
+    "address": "千葉県市川市欠真間2丁目31-5",
+    "area": "欠真間2丁目",
+    "spot": "玄関正面",
+    "tel": "(047)356-5844",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9236631,
+     35.67809408
+    ]
+   },
+   "properties": {
+    "name": "いきいきｾﾝﾀ-日之出",
+    "address": "千葉県市川市日之出8-18",
+    "area": "日之出",
+    "spot": "1階玄関",
+    "tel": "(047)397-8221",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9136851,
+     35.67848775
+    ]
+   },
+   "properties": {
+    "name": "行徳保育園",
+    "address": "千葉県市川市行徳駅前4丁目22-17",
+    "area": "行徳駅前4丁目",
+    "spot": "事務室",
+    "tel": "(047)395-4843",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8893155,
+     35.6787706
+    ]
+   },
+   "properties": {
+    "name": "広尾防災公園",
+    "address": "千葉県市川市広尾2丁目3",
+    "area": "広尾2丁目",
+    "spot": "事務所内",
+    "tel": "(047)359-0155",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9100237,
+     35.67914621
+    ]
+   },
+   "properties": {
+    "name": "香取地域ふれあい館",
+    "address": "千葉県市川市香取2丁目19-1",
+    "area": "香取2丁目",
+    "spot": "玄関正面",
+    "tel": "(047)358-3854",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9007403,
+     35.67953437
+    ]
+   },
+   "properties": {
+    "name": "南行徳幼稚園",
+    "address": "千葉県市川市欠真間1丁目6-15",
+    "area": "欠真間1丁目",
+    "spot": "職員玄関入口",
+    "tel": "(047)358-5333",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9151399,
+     35.67958484
+    ]
+   },
+   "properties": {
+    "name": "市川市南消防署",
+    "address": "千葉県市川市行徳駅前4丁目6-19",
+    "area": "行徳駅前4丁目",
+    "spot": "1階受付",
+    "tel": "(047)397-0119",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9091528,
+     35.67962661
+    ]
+   },
+   "properties": {
+    "name": "香取保育園",
+    "address": "千葉県市川市香取2丁目6-25",
+    "area": "香取2丁目",
+    "spot": "玄関ホール",
+    "tel": "(047)357-4191",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.890571,
+     35.67976465
+    ]
+   },
+   "properties": {
+    "name": "市川市南消防署広尾出張所",
+    "address": "千葉県市川市広尾2丁目2-12",
+    "area": "広尾2丁目",
+    "spot": "1階受付",
+    "tel": "(047)306-0119",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9163037,
+     35.68002287
+    ]
+   },
+   "properties": {
+    "name": "新浜小学校",
+    "address": "千葉県市川市行徳駅前4丁目5-1",
+    "area": "行徳駅前4丁目",
+    "spot": "職員室前",
+    "tel": "(047)395-5331",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8991092,
+     35.68023121
+    ]
+   },
+   "properties": {
+    "name": "南行徳公民館",
+    "address": "千葉県市川市相之川1丁目3-7",
+    "area": "相之川1丁目",
+    "spot": "正面玄関",
+    "tel": "(047)356-7371",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9278491,
+     35.68033567
+    ]
+   },
+   "properties": {
+    "name": "幸公民館",
+    "address": "千葉県市川市幸1丁目16-18",
+    "area": "幸1丁目",
+    "spot": "玄関",
+    "tel": "(047)398-0481",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9013056,
+     35.68048109
+    ]
+   },
+   "properties": {
+    "name": "南行徳小学校",
+    "address": "千葉県市川市欠真間1丁目6-38",
+    "area": "欠真間1丁目",
+    "spot": "職員室前",
+    "tel": "(047)357-3126",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8999034,
+     35.68086077
+    ]
+   },
+   "properties": {
+    "name": "南行徳図書館",
+    "address": "千葉県市川市相之川1丁目2-4",
+    "area": "相之川1丁目",
+    "spot": "1階カウンター内",
+    "tel": "(047)357-4188",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9298989,
+     35.68102148
+    ]
+   },
+   "properties": {
+    "name": "幸小学校",
+    "address": "千葉県市川市幸1丁目11-1",
+    "area": "幸1丁目",
+    "spot": "1階保健室前",
+    "tel": "(047)346-0770",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9032718,
+     35.68226973
+    ]
+   },
+   "properties": {
+    "name": "市川市南行徳地域共生センター",
+    "address": "千葉県市川市香取1丁目17-18",
+    "area": "香取1丁目",
+    "spot": "1階玄関",
+    "tel": "(047)357-1104",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9302299,
+     35.68402829
+    ]
+   },
+   "properties": {
+    "name": "塩焼小学校",
+    "address": "千葉県市川市塩焼5丁目9-8",
+    "area": "塩焼5丁目",
+    "spot": "事務室前",
+    "tel": "(047)397-1231",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9496456,
+     35.68502068
+    ]
+   },
+   "properties": {
+    "name": "市川市東消防署高谷出張所",
+    "address": "千葉県市川市高谷2023-10",
+    "area": "高谷",
+    "spot": "1階受付",
+    "tel": "(047)327-0119",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9297248,
+     35.68490998
+    ]
+   },
+   "properties": {
+    "name": "塩焼幼稚園",
+    "address": "千葉県市川市塩焼5丁目9-1",
+    "area": "塩焼5丁目",
+    "spot": "職員室入口",
+    "tel": "(047)397-3857",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9101522,
+     35.68504181
+    ]
+   },
+   "properties": {
+    "name": "湊地域ふれあい館",
+    "address": "千葉県市川市湊11-18",
+    "area": "湊",
+    "spot": "玄関正面",
+    "tel": "(047)357-9864",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9167271,
+     35.68527961
+    ]
+   },
+   "properties": {
+    "name": "行徳図書館",
+    "address": "千葉県市川市末広1丁目1-31",
+    "area": "末広1丁目",
+    "spot": "2階入口脇",
+    "tel": "(047)358-9011",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9245812,
+     35.68534785
+    ]
+   },
+   "properties": {
+    "name": "塩焼第2保育園",
+    "address": "千葉県市川市塩焼3丁目11-15",
+    "area": "塩焼3丁目",
+    "spot": "玄関ホール",
+    "tel": "(047)395-5176",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9163707,
+     35.68571235
+    ]
+   },
+   "properties": {
+    "name": "行徳支所",
+    "address": "千葉県市川市末広1丁目1-31",
+    "area": "末広1丁目",
+    "spot": "公民館入口",
+    "tel": "(047)359-1114",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9165716,
+     35.68612101
+    ]
+   },
+   "properties": {
+    "name": "行徳文化ﾎ-ﾙI&I",
+    "address": "千葉県市川市末広1丁目1-48",
+    "area": "末広1丁目",
+    "spot": "1階ﾛﾋﾞ-",
+    "tel": "(047)701-3011",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9172473,
+     35.68651524
+    ]
+   },
+   "properties": {
+    "name": "第七中学校",
+    "address": "千葉県市川市末広1丁目1-48",
+    "area": "末広1丁目",
+    "spot": "来客者用玄関",
+    "tel": "(047)357-3183",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9337075,
+     35.68811628
+    ]
+   },
+   "properties": {
+    "name": "妙典中学校",
+    "address": "千葉県市川市妙典5丁目22-1",
+    "area": "妙典5丁目",
+    "spot": "職員室前",
+    "tel": "(047)395-5811",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9265158,
+     35.68829506
+    ]
+   },
+   "properties": {
+    "name": "塩焼保育園",
+    "address": "千葉県市川市塩焼2丁目2-5",
+    "area": "塩焼2丁目",
+    "spot": "玄関ホール",
+    "tel": "(047)396-0169",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.942846,
+     35.6882975
+    ]
+   },
+   "properties": {
+    "name": "ｸﾘ-ﾝｾﾝﾀ-",
+    "address": "千葉県市川市田尻1003",
+    "area": "田尻",
+    "spot": "中央制御室内",
+    "tel": "(047)327-0288",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9216715,
+     35.68884855
+    ]
+   },
+   "properties": {
+    "name": "行徳地域ふれあい館",
+    "address": "千葉県市川市富浜2丁目5-19",
+    "area": "富浜2丁目",
+    "spot": "玄関正面",
+    "tel": "(047)357-3276",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9237401,
+     35.69279817
+    ]
+   },
+   "properties": {
+    "name": "行徳小学校",
+    "address": "千葉県市川市富浜1丁目1-40",
+    "area": "富浜1丁目",
+    "spot": "職員玄関",
+    "tel": "(047)357-3116",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9181406,
+     35.6942926
+    ]
+   },
+   "properties": {
+    "name": "市川市南消防署行徳出張所",
+    "address": "千葉県市川市本行徳12-10",
+    "area": "本行徳",
+    "spot": "1階受付",
+    "tel": "(047)356-0119",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9182866,
+     35.69454942
+    ]
+   },
+   "properties": {
+    "name": "本行徳公民館",
+    "address": "千葉県市川市本行徳12-8",
+    "area": "本行徳",
+    "spot": "1階ｴﾚﾍﾞ-ﾀ-横",
+    "tel": "(047)359-1351",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9453145,
+     35.6947412
+    ]
+   },
+   "properties": {
+    "name": "高谷中学校",
+    "address": "千葉県市川市高谷1627-4",
+    "area": "高谷",
+    "spot": "職員室前",
+    "tel": "(047)328-0211",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9298327,
+     35.69616519
+    ]
+   },
+   "properties": {
+    "name": "妙典小学校",
+    "address": "千葉県市川市妙典2丁目14-2",
+    "area": "妙典2丁目",
+    "spot": "江戸川側（ピンクドア）玄関脇",
+    "tel": "(047)399-5891",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9193014,
+     35.6962148
+    ]
+   },
+   "properties": {
+    "name": "身体障がい者福祉ｾﾝﾀ-",
+    "address": "千葉県市川市本行徳1-5",
+    "area": "本行徳",
+    "spot": "事務室カウンター",
+    "tel": "(047)357-9165",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9566022,
+     35.69696469
+    ]
+   },
+   "properties": {
+    "name": "二俣小学校",
+    "address": "千葉県市川市二俣678",
+    "area": "二俣",
+    "spot": "玄関正面",
+    "tel": "(047)328-0105",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9437047,
+     35.69815584
+    ]
+   },
+   "properties": {
+    "name": "信篤小学校",
+    "address": "千葉県市川市原木2丁目16-1",
+    "area": "原木2丁目",
+    "spot": "職員室前",
+    "tel": "(047)328-0165",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9422535,
+     35.70169648
+    ]
+   },
+   "properties": {
+    "name": "信篤市民体育館",
+    "address": "千葉県市川市高谷1丁目8-2",
+    "area": "高谷1丁目",
+    "spot": "正面玄関",
+    "tel": "(047)327-6336",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9418168,
+     35.70171451
+    ]
+   },
+   "properties": {
+    "name": "信篤公民館",
+    "address": "千葉県市川市高谷1丁目8-1",
+    "area": "高谷1丁目",
+    "spot": "公民館事務室",
+    "tel": "(047)327-6807",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9344241,
+     35.70332935
+    ]
+   },
+   "properties": {
+    "name": "いきいきｾﾝﾀ-田尻",
+    "address": "千葉県市川市田尻4丁目13-3",
+    "area": "田尻4丁目",
+    "spot": "1階玄関",
+    "tel": "(047)379-8631",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9360018,
+     35.71085001
+    ]
+   },
+   "properties": {
+    "name": "第六中学校",
+    "address": "千葉県市川市鬼高3丁目16-1",
+    "area": "鬼高3丁目",
+    "spot": "職員室前",
+    "tel": "(047)370-0535",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9208549,
+     35.71183109
+    ]
+   },
+   "properties": {
+    "name": "こども発達ｾﾝﾀ-分館",
+    "address": "千葉県市川市稲荷木1丁目14-1",
+    "area": "稲荷木1丁目",
+    "spot": "玄関ロビー",
+    "tel": "(047)712-6555",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.932224,
+     35.71149149
+    ]
+   },
+   "properties": {
+    "name": "鬼高保育園",
+    "address": "千葉県市川市鬼高1丁目11-20",
+    "area": "鬼高1丁目",
+    "spot": "事務室",
+    "tel": "(047)378-8186",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9246435,
+     35.71168472
+    ]
+   },
+   "properties": {
+    "name": "稲荷木保育園",
+    "address": "千葉県市川市稲荷木1丁目26-16",
+    "area": "稲荷木1丁目",
+    "spot": "事務室",
+    "tel": "(047)377-5070",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9217963,
+     35.71159763
+    ]
+   },
+   "properties": {
+    "name": "稲荷木小学校",
+    "address": "千葉県市川市稲荷木1丁目14-1",
+    "area": "稲荷木1丁目",
+    "spot": "職員玄関",
+    "tel": "(047)376-5961",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9388062,
+     35.7132421
+    ]
+   },
+   "properties": {
+    "name": "鬼高公民館",
+    "address": "千葉県市川市鬼高2丁目12-23",
+    "area": "鬼高2丁目",
+    "spot": "事務室横",
+    "tel": "(047)334-2612",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9273655,
+     35.71375603
+    ]
+   },
+   "properties": {
+    "name": "勤労福祉ｾﾝﾀ-",
+    "address": "千葉県市川市南八幡2丁目20-1",
+    "area": "南八幡2丁目",
+    "spot": "玄関正面横",
+    "tel": "(047)370-5201",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9376006,
+     35.7139329
+    ]
+   },
+   "properties": {
+    "name": "鬼高小学校",
+    "address": "千葉県市川市鬼高2丁目13-5",
+    "area": "鬼高2丁目",
+    "spot": "職員室前",
+    "tel": "(047)335-0304",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.932073,
+     35.71565347
+    ]
+   },
+   "properties": {
+    "name": "生涯学習ｾﾝﾀ- ﾒﾃﾞィｱﾊﾟ-ｸ市川",
+    "address": "千葉県市川市鬼高1丁目1-4",
+    "area": "鬼高1丁目",
+    "spot": "教育ｾﾝﾀ-受付･生涯学習センター1階ロビー",
+    "tel": "(047)320-3335",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9381205,
+     35.71650735
+    ]
+   },
+   "properties": {
+    "name": "鬼越・鬼高地域ふれあい館",
+    "address": "千葉県市川市鬼越2丁目15-10",
+    "area": "鬼越2丁目",
+    "spot": "玄関正面",
+    "tel": "(047)335-9838",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9210079,
+     35.7168087
+    ]
+   },
+   "properties": {
+    "name": "文化会館",
+    "address": "千葉県市川市大和田1丁目1-5",
+    "area": "大和田1丁目",
+    "spot": "事務室・大ホール楽屋通路",
+    "tel": "(047)379-5111",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9459231,
+     35.71727681
+    ]
+   },
+   "properties": {
+    "name": "中山窓口連絡所",
+    "address": "千葉県市川市中山4丁目14-1",
+    "area": "中山4丁目",
+    "spot": "1階執務室内",
+    "tel": "(047)332-6661",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9459885,
+     35.71719924
+    ]
+   },
+   "properties": {
+    "name": "清華園",
+    "address": "千葉県市川市中山4丁目14-1",
+    "area": "中山4丁目",
+    "spot": "正面玄関脇",
+    "tel": "(047)333-6147",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9216572,
+     35.71766999
+    ]
+   },
+   "properties": {
+    "name": "大和田小学校",
+    "address": "千葉県市川市大和田1丁目1-3",
+    "area": "大和田1丁目",
+    "spot": "職員室前",
+    "tel": "(047)378-5001",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9239765,
+     35.71741023
+    ]
+   },
+   "properties": {
+    "name": "保健ｾﾝﾀ-",
+    "address": "千葉県市川市南八幡4丁目18-8",
+    "area": "南八幡4丁目",
+    "spot": "玄関（風除室）",
+    "tel": "(047)377-4511",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9108748,
+     35.71785499
+    ]
+   },
+   "properties": {
+    "name": "市川市西消防署大洲出張所",
+    "address": "千葉県市川市大洲1丁目18-1",
+    "area": "大洲1丁目",
+    "spot": "1階受付",
+    "tel": "(047)376-0119",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9157266,
+     35.71813496
+    ]
+   },
+   "properties": {
+    "name": "鶴指小学校",
+    "address": "千葉県市川市大和田4丁目11-1",
+    "area": "大和田4丁目",
+    "spot": "職員室前",
+    "tel": "(047)379-3588",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9109634,
+     35.71802366
+    ]
+   },
+   "properties": {
+    "name": "急病診療所",
+    "address": "千葉県市川市大洲1丁目18-1",
+    "area": "大洲1丁目",
+    "spot": "1階受付",
+    "tel": "(047)377-1222",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9323711,
+     35.71886181
+    ]
+   },
+   "properties": {
+    "name": "八幡地域ふれあい館",
+    "address": "千葉県市川市八幡1丁目21-10",
+    "area": "八幡1丁目",
+    "spot": "玄関正面",
+    "tel": "(047)332-5538",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9211129,
+     35.71883625
+    ]
+   },
+   "properties": {
+    "name": "勤労福祉ｾﾝﾀ-分館",
+    "address": "千葉県市川市南八幡5丁目20-3",
+    "area": "南八幡5丁目",
+    "spot": "玄関",
+    "tel": "(047)370-1357",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9149047,
+     35.71914786
+    ]
+   },
+   "properties": {
+    "name": "第八中学校",
+    "address": "千葉県市川市大和田4丁目9-1",
+    "area": "大和田4丁目",
+    "spot": "保健室前",
+    "tel": "(047)370-1394",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9347577,
+     35.71942036
+    ]
+   },
+   "properties": {
+    "name": "市川市消防局",
+    "address": "千葉県市川市八幡1丁目8-1",
+    "area": "八幡1丁目",
+    "spot": "3階執務室",
+    "tel": "(047)333-2111",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9346375,
+     35.71949296
+    ]
+   },
+   "properties": {
+    "name": "市川市東消防署",
+    "address": "千葉県市川市八幡1丁目8-1",
+    "area": "八幡1丁目",
+    "spot": "1階受付",
+    "tel": "(047)334-0119",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.938658,
+     35.72028446
+    ]
+   },
+   "properties": {
+    "name": "いきいきｾﾝﾀ-鬼越",
+    "address": "千葉県市川市鬼越1丁目25-3",
+    "area": "鬼越1丁目",
+    "spot": "1階廊下",
+    "tel": "(047)335-5779",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9265163,
+     35.7205862
+    ]
+   },
+   "properties": {
+    "name": "いちかわ情報ﾌﾟﾗｻﾞ",
+    "address": "千葉県市川市南八幡4丁目2-5-201",
+    "area": "南八幡4丁目",
+    "spot": "2階総務課統計班入口",
+    "tel": "(047)318-9188",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9096416,
+     35.72102304
+    ]
+   },
+   "properties": {
+    "name": "大洲幼稚園",
+    "address": "千葉県市川市大洲4丁目3-12",
+    "area": "大洲4丁目",
+    "spot": "職員玄関",
+    "tel": "(047)370-3648",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9077712,
+     35.72134386
+    ]
+   },
+   "properties": {
+    "name": "大洲中学校",
+    "address": "千葉県市川市大洲4丁目21-5",
+    "area": "大洲4丁目",
+    "spot": "事務室前",
+    "tel": "(047)378-5783",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9438959,
+     35.72151493
+    ]
+   },
+   "properties": {
+    "name": "中山小学校",
+    "address": "千葉県市川市中山1丁目1-5",
+    "area": "中山1丁目",
+    "spot": "事務室前廊下",
+    "tel": "(047)335-2711",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9280099,
+     35.7136079
+    ]
+   },
+   "properties": {
+    "name": "市役所第二庁舎",
+    "address": "千葉県市川市南八幡2丁目20-2",
+    "area": "南八幡2丁目",
+    "spot": "総合受付横",
+    "tel": "(047)712-8647",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9458313,
+     35.72202753
+    ]
+   },
+   "properties": {
+    "name": "第四中学校",
+    "address": "千葉県市川市中山1丁目11-1",
+    "area": "中山1丁目",
+    "spot": "1階情報ｺ-ﾅ-",
+    "tel": "(047)335-3431",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9245948,
+     35.72208414
+    ]
+   },
+   "properties": {
+    "name": "本八幡地域ふれあい館",
+    "address": "千葉県市川市八幡3丁目7-9",
+    "area": "八幡3丁目",
+    "spot": "玄関正面",
+    "tel": "(047)326-2452",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9268921,
+     35.71407165
+    ]
+   },
+   "properties": {
+    "name": "市川市分庁舎C棟（地域共生課）",
+    "address": "千葉県市川市東大和田1丁目2-10",
+    "area": "東大和田1丁目",
+    "spot": "２階通路左手事務室",
+    "tel": "(047)383-9568",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9557345,
+     35.72246126
+    ]
+   },
+   "properties": {
+    "name": "若宮公民館",
+    "address": "千葉県市川市若宮2丁目15-8",
+    "area": "若宮2丁目",
+    "spot": "玄関ロビー",
+    "tel": "(047)336-7958",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9464463,
+     35.7228525
+    ]
+   },
+   "properties": {
+    "name": "東山魁夷記念館",
+    "address": "千葉県市川市中山1丁目16-2",
+    "area": "中山1丁目",
+    "spot": "階段踊り場",
+    "tel": "(047)333-2011",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9118523,
+     35.72355146
+    ]
+   },
+   "properties": {
+    "name": "新田保育園",
+    "address": "千葉県市川市新田3丁目21-1",
+    "area": "新田3丁目",
+    "spot": "玄関",
+    "tel": "(047)370-4557",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9307588,
+     35.72410552
+    ]
+   },
+   "properties": {
+    "name": "八幡市民会館(全日警ﾎｰﾙ)",
+    "address": "千葉県市川市八幡4丁目2-1",
+    "area": "八幡4丁目",
+    "spot": "1階正面玄関脇、エレベーター前",
+    "tel": "(047)300-8020",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9068888,
+     35.72346079
+    ]
+   },
+   "properties": {
+    "name": "大洲小学校",
+    "address": "千葉県市川市大洲4丁目18-1",
+    "area": "大洲4丁目",
+    "spot": "保健室前",
+    "tel": "(047)370-0300",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9181703,
+     35.72422237
+    ]
+   },
+   "properties": {
+    "name": "平田小学校",
+    "address": "千葉県市川市平田3丁目28-1",
+    "area": "平田3丁目",
+    "spot": "保健室脇",
+    "tel": "(047)379-6761",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.951727,
+     35.7242771
+    ]
+   },
+   "properties": {
+    "name": "若宮保育園",
+    "address": "千葉県市川市若宮3丁目7-6",
+    "area": "若宮3丁目",
+    "spot": "玄関",
+    "tel": "(047)334-2115",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9476466,
+     35.72442533
+    ]
+   },
+   "properties": {
+    "name": "市川市東消防署中山出張所",
+    "address": "千葉県市川市北方3丁目10-11",
+    "area": "北方3丁目",
+    "spot": "1階受付",
+    "tel": "(047)332-0119",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9196381,
+     35.72466999
+    ]
+   },
+   "properties": {
+    "name": "平田図書室",
+    "address": "千葉県市川市平田1丁目20-16",
+    "area": "平田1丁目",
+    "spot": "貸出カウンター内",
+    "tel": "(047)321-2243",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.919499,
+     35.72475118
+    ]
+   },
+   "properties": {
+    "name": "平田保育園",
+    "address": "千葉県市川市平田1丁目20-16",
+    "area": "平田1丁目",
+    "spot": "玄関",
+    "tel": "(047)324-1311",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.918123,
+     35.72481459
+    ]
+   },
+   "properties": {
+    "name": "平田地域ふれあい館",
+    "address": "千葉県市川市平田2丁目16-7",
+    "area": "平田2丁目",
+    "spot": "玄関正面",
+    "tel": "(047)322-4467",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9163785,
+     35.72529652
+    ]
+   },
+   "properties": {
+    "name": "新田第2保育園",
+    "address": "千葉県市川市新田2丁目1-24",
+    "area": "新田2丁目",
+    "spot": "玄関",
+    "tel": "(047)376-9036",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9410554,
+     35.72540444
+    ]
+   },
+   "properties": {
+    "name": "いきいきｾﾝﾀ-北方",
+    "address": "千葉県市川市北方2丁目29-19",
+    "area": "北方2丁目",
+    "spot": "1階受付正面",
+    "tel": "(047)332-3846",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9280701,
+     35.72568684
+    ]
+   },
+   "properties": {
+    "name": "八幡小学校",
+    "address": "千葉県市川市八幡3丁目24-1",
+    "area": "八幡3丁目",
+    "spot": "校長室前",
+    "tel": "(047)325-4763",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9523055,
+     35.7267139
+    ]
+   },
+   "properties": {
+    "name": "若宮小学校",
+    "address": "千葉県市川市若宮3丁目54-10",
+    "area": "若宮3丁目",
+    "spot": "職員室前",
+    "tel": "(047)339-2177",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9093288,
+     35.72689568
+    ]
+   },
+   "properties": {
+    "name": "宮田小学校",
+    "address": "千葉県市川市新田4丁目8-15",
+    "area": "新田4丁目",
+    "spot": "保健室前",
+    "tel": "(047)379-7647",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9377577,
+     35.72698583
+    ]
+   },
+   "properties": {
+    "name": "冨貴島小学校",
+    "address": "千葉県市川市八幡6丁目10-11",
+    "area": "八幡6丁目",
+    "spot": "職員室前",
+    "tel": "(047)334-2624",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9111636,
+     35.72760198
+    ]
+   },
+   "properties": {
+    "name": "宮田地域ふれあい館",
+    "address": "千葉県市川市新田5丁目16-6",
+    "area": "新田5丁目",
+    "spot": "玄関正面",
+    "tel": "(047)324-4525",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9080647,
+     35.72853397
+    ]
+   },
+   "properties": {
+    "name": "市川駅行政ｻ-ﾋﾞｽｾﾝﾀ-",
+    "address": "千葉県市川市市川南1丁目1-1",
+    "area": "市川南1丁目",
+    "spot": "待合ロビー",
+    "tel": "(047)704-3115",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9355638,
+     35.72849004
+    ]
+   },
+   "properties": {
+    "name": "富貴島保育園",
+    "address": "千葉県市川市八幡6丁目14-19",
+    "area": "八幡6丁目",
+    "spot": "玄関",
+    "tel": "(047)336-1144",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9508134,
+     35.72880397
+    ]
+   },
+   "properties": {
+    "name": "東部公民館",
+    "address": "千葉県市川市本北方3丁目19-16",
+    "area": "本北方3丁目",
+    "spot": "玄関受付横",
+    "tel": "(047)337-8886",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9062854,
+     35.7291751
+    ]
+   },
+   "properties": {
+    "name": "市川駅南口図書館",
+    "address": "千葉県市川市市川南1丁目10-1",
+    "area": "市川南1丁目",
+    "spot": "図書館入口右側",
+    "tel": "(047)325-6241",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9058612,
+     35.72913959
+    ]
+   },
+   "properties": {
+    "name": "市川市ｱｲ・ﾘﾝｸﾀｳﾝ展望施設",
+    "address": "千葉県市川市市川南1丁目10-1",
+    "area": "市川南1丁目",
+    "spot": "交流ラウンジ",
+    "tel": "(047)322-9300",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9104011,
+     35.73002786
+    ]
+   },
+   "properties": {
+    "name": "男女共同参画ｾﾝﾀ- ｳィｽﾞ",
+    "address": "千葉県市川市市川1丁目24-2",
+    "area": "市川1丁目",
+    "spot": "4階窓口前",
+    "tel": "(047)322-6700",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9104639,
+     35.73018022
+    ]
+   },
+   "properties": {
+    "name": "市川市西消防署",
+    "address": "千葉県市川市市川1丁目24-2",
+    "area": "市川1丁目",
+    "spot": "1階受付",
+    "tel": "(047)323-0119",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9501907,
+     35.73020193
+    ]
+   },
+   "properties": {
+    "name": "本北方保育園",
+    "address": "千葉県市川市本北方2丁目40-23",
+    "area": "本北方2丁目",
+    "spot": "玄関",
+    "tel": "(047)338-5982",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9035244,
+     35.7309667
+    ]
+   },
+   "properties": {
+    "name": "市川地域ふれあい館",
+    "address": "千葉県市川市市川2丁目7-7",
+    "area": "市川2丁目",
+    "spot": "玄関正面",
+    "tel": "(047)322-7710",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9065932,
+     35.73106183
+    ]
+   },
+   "properties": {
+    "name": "市川公民館",
+    "address": "千葉県市川市市川2丁目33-2",
+    "area": "市川2丁目",
+    "spot": "玄関ホール脇事務室",
+    "tel": "(047)321-1171",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9060328,
+     35.73149492
+    ]
+   },
+   "properties": {
+    "name": "いきいきｾﾝﾀ-市川",
+    "address": "千葉県市川市市川2丁目33-6",
+    "area": "市川2丁目",
+    "spot": "3階廊下",
+    "tel": "(047)322-2277",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9052769,
+     35.73215889
+    ]
+   },
+   "properties": {
+    "name": "市川小学校",
+    "address": "千葉県市川市市川2丁目32-5",
+    "area": "市川2丁目",
+    "spot": "校長室前",
+    "tel": "(047)325-4758",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9453395,
+     35.73245879
+    ]
+   },
+   "properties": {
+    "name": "北方小学校",
+    "address": "千葉県市川市北方町4丁目1356-1",
+    "area": "北方町4丁目",
+    "spot": "職員玄関横",
+    "tel": "(047)339-1701",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9168627,
+     35.73263233
+    ]
+   },
+   "properties": {
+    "name": "菅野公民館",
+    "address": "千葉県市川市菅野3丁目24-2",
+    "area": "菅野3丁目",
+    "spot": "事務室横",
+    "tel": "(047)322-7761",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9272147,
+     35.73290944
+    ]
+   },
+   "properties": {
+    "name": "菅野保育園",
+    "address": "千葉県市川市菅野4丁目12-16",
+    "area": "菅野4丁目",
+    "spot": "事務室",
+    "tel": "(047)326-4452",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9166006,
+     35.73428494
+    ]
+   },
+   "properties": {
+    "name": "菅野小学校",
+    "address": "千葉県市川市菅野6丁目14-1",
+    "area": "菅野6丁目",
+    "spot": "校長室前",
+    "tel": "(047)324-5955",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9512743,
+     35.73600801
+    ]
+   },
+   "properties": {
+    "name": "大柏川第一調節池緑地",
+    "address": "千葉県市川市北方町4丁目1444-59",
+    "area": "北方町4丁目",
+    "spot": "事務室前",
+    "tel": "(047)337-7111",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9534251,
+     35.73503797
+    ]
+   },
+   "properties": {
+    "name": "市川市市民ﾌﾟ-ﾙ",
+    "address": "千葉県市川市北方町4丁目2270-3",
+    "area": "北方町4丁目",
+    "spot": "医務室",
+    "tel": "(047)338-7346",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9278407,
+     35.73558081
+    ]
+   },
+   "properties": {
+    "name": "菅野終末処理場",
+    "address": "千葉県市川市東菅野2丁目23-1",
+    "area": "東菅野2丁目",
+    "spot": "2階入口",
+    "tel": "(047)325-0144",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9440741,
+     35.73668167
+    ]
+   },
+   "properties": {
+    "name": "宮久保小学校",
+    "address": "千葉県市川市宮久保5丁目7-1",
+    "area": "宮久保5丁目",
+    "spot": "職員室前",
+    "tel": "(047)371-2747",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9361213,
+     35.73696561
+    ]
+   },
+   "properties": {
+    "name": "いきいきｾﾝﾀ-宮久保",
+    "address": "千葉県市川市宮久保4丁目2-4",
+    "area": "宮久保4丁目",
+    "spot": "1階玄関正面",
+    "tel": "(047)372-5755",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9102676,
+     35.73775801
+    ]
+   },
+   "properties": {
+    "name": "真間小学校",
+    "address": "千葉県市川市真間4丁目1-1",
+    "area": "真間4丁目",
+    "spot": "第4昇降口",
+    "tel": "(047)372-4726",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9134253,
+     35.73816268
+    ]
+   },
+   "properties": {
+    "name": "須和田の丘特別支援学校",
+    "address": "千葉県市川市須和田2丁目34-1",
+    "area": "須和田2丁目",
+    "spot": "1階保健室横",
+    "tel": "(047)371-2258",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9141234,
+     35.73922357
+    ]
+   },
+   "properties": {
+    "name": "第二中学校",
+    "address": "千葉県市川市須和田2丁目34-1",
+    "area": "須和田2丁目",
+    "spot": "玄関内",
+    "tel": "(047)371-6188",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9663513,
+     35.73942802
+    ]
+   },
+   "properties": {
+    "name": "柏井小学校",
+    "address": "千葉県市川市柏井町1丁目1149-1",
+    "area": "柏井町1丁目",
+    "spot": "職員室前",
+    "tel": "(047)337-8877",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.945743,
+     35.73966566
+    ]
+   },
+   "properties": {
+    "name": "下貝塚中学校",
+    "address": "千葉県市川市下貝塚3丁目13-1",
+    "area": "下貝塚3丁目",
+    "spot": "職員室前",
+    "tel": "(047)371-8800",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9054813,
+     35.73997441
+    ]
+   },
+   "properties": {
+    "name": "木内ｷﾞャﾗﾘ-",
+    "address": "千葉県市川市真間4丁目11-4",
+    "area": "真間4丁目",
+    "spot": "事務室前",
+    "tel": "(047)371-4916",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9114255,
+     35.73981305
+    ]
+   },
+   "properties": {
+    "name": "芳澤ｶﾞ-ﾃﾞﾝｷﾞャﾗﾘ-",
+    "address": "千葉県市川市真間5丁目1-18",
+    "area": "真間5丁目",
+    "spot": "事務所前",
+    "tel": "(047)374-7687",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9252955,
+     35.74035838
+    ]
+   },
+   "properties": {
+    "name": "百合台小学校",
+    "address": "千葉県市川市曽谷6丁目10-1",
+    "area": "曽谷6丁目",
+    "spot": "職員室前",
+    "tel": "(047)374-1811",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9327453,
+     35.74037382
+    ]
+   },
+   "properties": {
+    "name": "第三中学校",
+    "address": "千葉県市川市曽谷3丁目2-1",
+    "area": "曽谷3丁目",
+    "spot": "玄関",
+    "tel": "(047)371-7341",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9252955,
+     35.74035838
+    ]
+   },
+   "properties": {
+    "name": "百合台幼稚園",
+    "address": "千葉県市川市曽谷6丁目10-1",
+    "area": "曽谷6丁目",
+    "spot": "職員玄関",
+    "tel": "(047)373-8937",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9126613,
+     35.74108743
+    ]
+   },
+   "properties": {
+    "name": "郭沫若記念館",
+    "address": "千葉県市川市真間5丁目3-19",
+    "area": "真間5丁目",
+    "spot": "事務室内",
+    "tel": "(047)372-5400",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9505695,
+     35.74233965
+    ]
+   },
+   "properties": {
+    "name": "大野小学校",
+    "address": "千葉県市川市南大野1丁目42-1",
+    "area": "南大野1丁目",
+    "spot": "職員玄関",
+    "tel": "(047)338-3000",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9074541,
+     35.74310837
+    ]
+   },
+   "properties": {
+    "name": "国府台市民体育館",
+    "address": "千葉県市川市国府台1丁目6-4",
+    "area": "国府台1丁目",
+    "spot": "1階ﾛﾋﾞ-",
+    "tel": "(047)373-3112",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9530272,
+     35.74289594
+    ]
+   },
+   "properties": {
+    "name": "大野保育園",
+    "address": "千葉県市川市南大野2丁目4-5",
+    "area": "南大野2丁目",
+    "spot": "玄関ホール",
+    "tel": "(047)337-4551",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9273814,
+     35.74364645
+    ]
+   },
+   "properties": {
+    "name": "曽谷公民館",
+    "address": "千葉県市川市曽谷6丁目25-5",
+    "area": "曽谷6丁目",
+    "spot": "玄関ロビー",
+    "tel": "(047)372-2871",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9587862,
+     35.74420344
+    ]
+   },
+   "properties": {
+    "name": "奉免地域ふれあい館",
+    "address": "千葉県市川市柏井町2丁目49-6",
+    "area": "柏井町2丁目",
+    "spot": "玄関正面",
+    "tel": "(047)338-5407",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9054886,
+     35.74438916
+    ]
+   },
+   "properties": {
+    "name": "市川市西消防署国府台出張所",
+    "address": "千葉県市川市国府台1丁目6-8",
+    "area": "国府台1丁目",
+    "spot": "1階受付",
+    "tel": "(047)372-0119",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9019905,
+     35.74479382
+    ]
+   },
+   "properties": {
+    "name": "第一中学校",
+    "address": "千葉県市川市国府台2丁目7-1",
+    "area": "国府台2丁目",
+    "spot": "職員室前",
+    "tel": "(047)371-6045",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9208839,
+     35.74488457
+    ]
+   },
+   "properties": {
+    "name": "国分小学校",
+    "address": "千葉県市川市東国分2丁目4-1",
+    "area": "東国分2丁目",
+    "spot": "職員玄関",
+    "tel": "(047)371-6793",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9357402,
+     35.74517193
+    ]
+   },
+   "properties": {
+    "name": "市川市北消防署曽谷出張所",
+    "address": "千葉県市川市曽谷2丁目7-2",
+    "area": "曽谷2丁目",
+    "spot": "1階受付",
+    "tel": "(047)374-0119",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9531863,
+     35.74519914
+    ]
+   },
+   "properties": {
+    "name": "大柏出張所（大野公民館）",
+    "address": "千葉県市川市南大野2丁目3-19",
+    "area": "南大野2丁目",
+    "spot": "2階公民館事務室前",
+    "tel": "(047)339-1111",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9737677,
+     35.74437545
+    ]
+   },
+   "properties": {
+    "name": "いちかわ市民ｷャﾝﾌﾟ場",
+    "address": "千葉県市川市柏井町2丁目992-1",
+    "area": "柏井町2丁目",
+    "spot": "管理棟内",
+    "tel": "(047)337-9802",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.965418,
+     35.74600643
+    ]
+   },
+   "properties": {
+    "name": "柏井公民館",
+    "address": "千葉県市川市柏井町2丁目844",
+    "area": "柏井町2丁目",
+    "spot": "事務室入口横",
+    "tel": "(047)338-2988",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8999283,
+     35.74665104
+    ]
+   },
+   "properties": {
+    "name": "里見公園",
+    "address": "千葉県市川市国府台3丁目9",
+    "area": "国府台3丁目",
+    "spot": "事務所内",
+    "tel": "(047)372-0062",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9268295,
+     35.74690477
+    ]
+   },
+   "properties": {
+    "name": "曽谷小学校",
+    "address": "千葉県市川市曽谷7丁目18-1",
+    "area": "曽谷7丁目",
+    "spot": "職員室前",
+    "tel": "(047)371-7888",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9259445,
+     35.74844845
+    ]
+   },
+   "properties": {
+    "name": "曽谷保育園",
+    "address": "千葉県市川市曽谷7丁目28-15",
+    "area": "曽谷7丁目",
+    "spot": "玄関",
+    "tel": "(047)373-5530",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9227638,
+     35.74889297
+    ]
+   },
+   "properties": {
+    "name": "東国分中学校",
+    "address": "千葉県市川市東国分3丁目5-1",
+    "area": "東国分3丁目",
+    "spot": "職員玄関",
+    "tel": "(047)371-5963",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9133309,
+     35.74934744
+    ]
+   },
+   "properties": {
+    "name": "西部公民館",
+    "address": "千葉県市川市中国分2丁目13-8",
+    "area": "中国分2丁目",
+    "spot": "正面玄関",
+    "tel": "(047)373-8175",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9131221,
+     35.75015031
+    ]
+   },
+   "properties": {
+    "name": "明松園",
+    "address": "千葉県市川市中国分2丁目17-21",
+    "area": "中国分2丁目",
+    "spot": "事務室ｶｳﾝﾀ-",
+    "tel": "(047)372-9017",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9538418,
+     35.75035095
+    ]
+   },
+   "properties": {
+    "name": "大柏小学校",
+    "address": "千葉県市川市大野町2丁目1877",
+    "area": "大野町2丁目",
+    "spot": "職員室前",
+    "tel": "(047)337-8141",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9602701,
+     35.75117195
+    ]
+   },
+   "properties": {
+    "name": "市川市北消防署",
+    "address": "千葉県市川市大野町4丁目2163-1",
+    "area": "大野町4丁目",
+    "spot": "1階受付",
+    "tel": "(047)338-0119",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9527259,
+     35.75319961
+    ]
+   },
+   "properties": {
+    "name": "万葉植物園",
+    "address": "千葉県市川市大野町2丁目1857",
+    "area": "大野町2丁目",
+    "spot": "事務所内",
+    "tel": "(047)337-9866",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9568837,
+     35.75298163
+    ]
+   },
+   "properties": {
+    "name": "第五中学校",
+    "address": "千葉県市川市大野町3丁目1993",
+    "area": "大野町3丁目",
+    "spot": "職員室前",
+    "tel": "(047)337-8344",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9030248,
+     35.7535364
+    ]
+   },
+   "properties": {
+    "name": "国府台小学校",
+    "address": "千葉県市川市国府台5丁目25-4",
+    "area": "国府台5丁目",
+    "spot": "職員室前",
+    "tel": "(047)372-4672",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9158675,
+     35.75367233
+    ]
+   },
+   "properties": {
+    "name": "中国分小学校",
+    "address": "千葉県市川市中国分1丁目22-1",
+    "area": "中国分1丁目",
+    "spot": "職員室前",
+    "tel": "(047)371-7886",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9670079,
+     35.75351937
+    ]
+   },
+   "properties": {
+    "name": "J:COM北市川ｽﾎﾟｰﾂﾊﾟｰｸ",
+    "address": "千葉県市川市柏井町4丁目277-1",
+    "area": "柏井町4丁目",
+    "spot": "管理棟内",
+    "tel": "(047)337-1810",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9242707,
+     35.75417469
+    ]
+   },
+   "properties": {
+    "name": "須和田の丘特別支援学校稲越校舎",
+    "address": "千葉県市川市稲越町518-2",
+    "area": "稲越町",
+    "spot": "保健室前",
+    "tel": "(047)373-9000",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9239772,
+     35.75415177
+    ]
+   },
+   "properties": {
+    "name": "稲越小学校",
+    "address": "千葉県市川市稲越町518-2",
+    "area": "稲越町",
+    "spot": "2階保健室前",
+    "tel": "(047)373-8401",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9706025,
+     35.75735927
+    ]
+   },
+   "properties": {
+    "name": "霊園",
+    "address": "千葉県市川市大野町4丁目2481",
+    "area": "大野町4丁目",
+    "spot": "事務室入口正面",
+    "tel": "(047)337-5696",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9554341,
+     35.75800884
+    ]
+   },
+   "properties": {
+    "name": "大野地域ふれあい館",
+    "address": "千葉県市川市大野町3丁目1625-1",
+    "area": "大野町3丁目",
+    "spot": "玄関正面",
+    "tel": "(047)338-3754",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9035448,
+     35.7588551
+    ]
+   },
+   "properties": {
+    "name": "いきいきｾﾝﾀ-北国分",
+    "address": "千葉県市川市北国分1丁目12-32",
+    "area": "北国分1丁目",
+    "spot": "1階活動室内壁面",
+    "tel": "(047)377-2167",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9115302,
+     35.75983413
+    ]
+   },
+   "properties": {
+    "name": "市川歴史博物館",
+    "address": "千葉県市川市堀之内2丁目27-1",
+    "area": "堀之内2丁目",
+    "spot": "歴史博物館事務室前",
+    "tel": "(047)373-6351",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9714241,
+     35.76191297
+    ]
+   },
+   "properties": {
+    "name": "市川市斎場",
+    "address": "千葉県市川市大野町4丁目2610-1",
+    "area": "大野町4丁目",
+    "spot": "事務室入口正面",
+    "tel": "(047)338-2941",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9659541,
+     35.7642707
+    ]
+   },
+   "properties": {
+    "name": "動植物園",
+    "address": "千葉県市川市大町284-1",
+    "area": "大町",
+    "spot": "事務室",
+    "tel": "(047)338-1960",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9662272,
+     35.76603089
+    ]
+   },
+   "properties": {
+    "name": "少年自然の家",
+    "address": "千葉県市川市大町280-4",
+    "area": "大町",
+    "spot": "事務室内",
+    "tel": "(047)337-0533",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9704539,
+     35.76845712
+    ]
+   },
+   "properties": {
+    "name": "観賞植物園",
+    "address": "千葉県市川市大町213-11",
+    "area": "大町",
+    "spot": "事務室",
+    "tel": "(047)339-4411",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9570515,
+     35.7718004
+    ]
+   },
+   "properties": {
+    "name": "大町小学校",
+    "address": "千葉県市川市大町84-10",
+    "area": "大町",
+    "spot": "保健室前",
+    "tel": "(047)337-3610",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9310206,
+     35.72179702
+    ]
+   },
+   "properties": {
+    "name": "市役所第一庁舎",
+    "address": "千葉県市川市八幡1丁目1-1",
+    "area": "八幡1丁目",
+    "spot": "1階守衛室内",
+    "tel": "(047)712-8647",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9287259,
+     35.71397267
+    ]
+   },
+   "properties": {
+    "name": "市役所第二庁舎分館",
+    "address": "千葉県市川市南八幡2丁目17-7",
+    "area": "南八幡2丁目",
+    "spot": "２階技術管理課",
+    "tel": "(047)704-0058",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9154706,
+     35.6904387
+    ]
+   },
+   "properties": {
+    "name": "行徳ふれあい伝承館",
+    "address": "千葉県市川市本行徳35-7",
+    "area": "本行徳",
+    "spot": "事務室内",
+    "tel": "(047)314-8177",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9120419,
+     35.7590073
+    ]
+   },
+   "properties": {
+    "name": "市川考古博物館",
+    "address": "千葉県市川市堀之内2丁目26-1",
+    "area": "堀之内2丁目",
+    "spot": "考古博物館ロビー前",
+    "tel": "(047)373-2202",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9157757,
+     35.66853221
+    ]
+   },
+   "properties": {
+    "name": "行徳野鳥観察舎あいねすと",
+    "address": "千葉県市川市福栄4丁目22-11",
+    "area": "福栄4丁目",
+    "spot": "玄関正面",
+    "tel": "(047)702-8045",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.935535,
+     35.687657
+    ]
+   },
+   "properties": {
+    "name": "ぴあぱーく妙典",
+    "address": "千葉県市川市下妙典941-3",
+    "area": "下妙典",
+    "spot": "公園管理棟内",
+    "tel": "(047)712-6367"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.90751,
+     35.74511
+    ]
+   },
+   "properties": {
+    "name": "第一中学校　院内学級",
+    "address": "千葉県市川市国府台1‐7‐5",
+    "area": "国府台1丁目",
+    "spot": "職員室",
+    "tel": "(047)372-7850"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.907351,
+     35.75863185
+    ]
+   },
+   "properties": {
+    "name": "小塚山公園",
+    "address": "千葉県市川市北国分3丁目2",
+    "area": "北国分3丁目",
+    "spot": "【屋外】トイレ外壁",
+    "tel": "(047)712-6367",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9302402,
+     35.72351021
+    ]
+   },
+   "properties": {
+    "name": "八幡市民交流館ニコット",
+    "address": "千葉県市川市八幡4丁目2-1",
+    "area": "八幡4丁目",
+    "spot": "1階玄関ホール左側",
+    "tel": "(047)321-6264",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.906473,
+     35.74423849
+    ]
+   },
+   "properties": {
+    "name": "国府台スタジアム",
+    "address": "千葉県市川市国府台1丁目6-4",
+    "area": "国府台1丁目",
+    "spot": "正面入口管理人室前",
+    "tel": "(047)373-3111",
+    "url": "http://www.city.ichikawa.lg.jp/pub01/1211000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.952601,
+     35.705434
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川二俣一丁目店",
+    "address": "千葉県市川市二俣1丁目13-1",
+    "area": "二俣1丁目",
+    "spot": "店舗内",
+    "tel": "(047)328-1257",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9273196,
+     35.69520231
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川妙典二丁目店",
+    "address": "千葉県市川市妙典2丁目16-3",
+    "area": "妙典2丁目",
+    "spot": "店舗内",
+    "tel": "(047)395-4778",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.938737,
+     35.709581
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川鬼高三丁目店",
+    "address": "千葉県市川市鬼高3丁目12-32",
+    "area": "鬼高3丁目",
+    "spot": "店舗内",
+    "tel": "(047)370-3575",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.937147,
+     35.719878
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン鬼越駅前店",
+    "address": "千葉県市川市鬼越1丁目4-4",
+    "area": "鬼越1丁目",
+    "spot": "店舗内",
+    "tel": "(047)335-3833",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.93071,
+     35.687995
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川塩焼店",
+    "address": "千葉県市川市塩焼1丁目10-7",
+    "area": "塩焼1丁目",
+    "spot": "店舗内",
+    "tel": "(047)395-6281",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9221635,
+     35.68062227
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川宝店",
+    "address": "千葉県市川市宝2丁目10-14",
+    "area": "宝2丁目",
+    "spot": "店舗内",
+    "tel": "(047)396-5454",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.928883,
+     35.70693
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川田尻一丁目店",
+    "address": "千葉県市川市田尻1丁目10-14",
+    "area": "田尻1丁目",
+    "spot": "店舗内",
+    "tel": "(047)376-6656",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.920822,
+     35.732562
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川総合病院前店",
+    "address": "千葉県市川市菅野6丁目1-6",
+    "area": "菅野6丁目",
+    "spot": "店舗内",
+    "tel": "(047)323-7707",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9127983,
+     35.76358861
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川堀之内店",
+    "address": "千葉県市川市堀之内3丁目25-13",
+    "area": "堀之内3丁目",
+    "spot": "店舗内",
+    "tel": "(047)373-0071",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.914604,
+     35.725345
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川新田二丁目店",
+    "address": "千葉県市川市新田2丁目15-6",
+    "area": "新田2丁目",
+    "spot": "店舗内",
+    "tel": "(047)314-2050",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.929308,
+     35.723013
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン八幡店",
+    "address": "千葉県市川市八幡2丁目3-22",
+    "area": "八幡2丁目",
+    "spot": "店舗内",
+    "tel": "(047)335-3651",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9297,
+     35.71787
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン南八幡店",
+    "address": "千葉県市川市南八幡1丁目10-1",
+    "area": "南八幡1丁目",
+    "spot": "店舗内",
+    "tel": "(047)377-2795",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9303782,
+     35.7314977
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン東菅野店",
+    "address": "千葉県市川市東菅野3丁目1-11",
+    "area": "東菅野3丁目",
+    "spot": "店舗内",
+    "tel": "(047)333-2863",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.944565,
+     35.731511
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川北方町四丁目店",
+    "address": "千葉県市川市北方町4丁目1336-12",
+    "area": "北方町4丁目",
+    "spot": "店舗内",
+    "tel": "(047)339-2477",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9277611,
+     35.72296075
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川八幡三丁目店",
+    "address": "千葉県市川市八幡3丁目3-2",
+    "area": "八幡3丁目",
+    "spot": "店舗内",
+    "tel": "(047)324-1219",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.915144,
+     35.684549
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川行徳駅前一丁目店",
+    "address": "千葉県市川市行徳駅前1丁目20-2",
+    "area": "行徳駅前1丁目",
+    "spot": "店舗内",
+    "tel": "(047)399-2227",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.92678,
+     35.744217
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川曽谷店",
+    "address": "千葉県市川市曽谷6丁目26-15",
+    "area": "曽谷6丁目",
+    "spot": "店舗内",
+    "tel": "(047)320-8290",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.907421,
+     35.72058
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川大洲店",
+    "address": "千葉県市川市大洲3丁目10-13",
+    "area": "大洲3丁目",
+    "spot": "店舗内",
+    "tel": "(047)379-5110",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.964046,
+     35.742828
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川柏井町三丁目店",
+    "address": "千葉県市川市柏井町3丁目673-3",
+    "area": "柏井町3丁目",
+    "spot": "店舗内",
+    "tel": "(047)303-0107",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.904083,
+     35.729483
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川南三丁目店",
+    "address": "千葉県市川市市川南3丁目3-22",
+    "area": "市川南3丁目",
+    "spot": "店舗内",
+    "tel": "(047)326-2535",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9608457,
+     35.73163453
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川中山店",
+    "address": "千葉県市川市北方町4丁目1894-1",
+    "area": "北方町4丁目",
+    "spot": "店舗内",
+    "tel": "(047)338-1371",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.933876,
+     35.71075667
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川鬼高一丁目店",
+    "address": "千葉県市川市鬼高1丁目14-11",
+    "area": "鬼高1丁目",
+    "spot": "店舗内",
+    "tel": "(047)378-0223",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9270869,
+     35.71975844
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川本八幡駅南口店",
+    "address": "千葉県市川市南八幡3丁目6-18",
+    "area": "南八幡3丁目",
+    "spot": "店舗内",
+    "tel": "(047)370-8655",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9078368,
+     35.72598788
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川南一丁目店",
+    "address": "千葉県市川市市川南1丁目3-7",
+    "area": "市川南1丁目",
+    "spot": "店舗内",
+    "tel": "(047)322-7613",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9031,
+     35.72460404
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川南二丁目店",
+    "address": "千葉県市川市市川南2丁目7-15",
+    "area": "市川南2丁目",
+    "spot": "店舗内",
+    "tel": "(047)325-1977",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.920996,
+     35.68951169
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川本塩店",
+    "address": "千葉県市川市本塩17-9",
+    "area": "本塩",
+    "spot": "店舗内",
+    "tel": "(047)356-4304",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.941802,
+     35.699025
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川高谷一丁目店",
+    "address": "千葉県市川市高谷1丁目12-19",
+    "area": "高谷1丁目",
+    "spot": "店舗内",
+    "tel": "(047)327-0311",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.941811,
+     35.695511
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川高谷三丁目店",
+    "address": "千葉県市川市高谷3丁目13-16",
+    "area": "高谷3丁目",
+    "spot": "店舗内",
+    "tel": "(047)327-8808",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9269539,
+     35.6890947
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川塩焼一丁目店",
+    "address": "千葉県市川市塩焼1丁目2-1",
+    "area": "塩焼1丁目",
+    "spot": "店舗内",
+    "tel": "(047)704-8421",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9112767,
+     35.75124661
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川中国分三丁目店",
+    "address": "千葉県市川市中国分3丁目1-15",
+    "area": "中国分3丁目",
+    "spot": "店舗内",
+    "tel": "(047)372-6646",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.91012,
+     35.67605677
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川行徳店",
+    "address": "千葉県市川市福栄1丁目10",
+    "area": "福栄1丁目",
+    "spot": "店舗内",
+    "tel": "(047)395-5099",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9217199,
+     35.72169681
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川平田三丁目店",
+    "address": "千葉県市川市平田3丁目4-3",
+    "area": "平田3丁目",
+    "spot": "店舗内",
+    "tel": "(047)378-2500",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9559058,
+     35.7666659
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川大町梨街道店",
+    "address": "千葉県市川市大町53",
+    "area": "大町",
+    "spot": "店舗内",
+    "tel": "(047)339-3474",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.906903,
+     35.73091
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川一丁目店",
+    "address": "千葉県市川市市川1丁目12-9",
+    "area": "市川1丁目",
+    "spot": "店舗内",
+    "tel": "(047)324-6020",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9199161,
+     35.72560609
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川平田一丁目店",
+    "address": "千葉県市川市平田1丁目18-14",
+    "area": "平田1丁目",
+    "spot": "店舗内",
+    "tel": "(047)322-6083",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.918037,
+     35.68415444
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川末広一丁目店",
+    "address": "千葉県市川市末広1丁目17-9",
+    "area": "末広1丁目",
+    "spot": "店舗内",
+    "tel": "(047)397-5007",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9528038,
+     35.74043995
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川大野店",
+    "address": "千葉県市川市南大野1丁目44-5",
+    "area": "南大野1丁目",
+    "spot": "店舗内",
+    "tel": "(047)337-2753",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8983272,
+     35.67372213
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川新井三丁目店",
+    "address": "千葉県市川市新井3丁目2-9",
+    "area": "新井3丁目",
+    "spot": "店舗内",
+    "tel": "(047)395-5755",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9587923,
+     35.70005433
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川原木インター店",
+    "address": "千葉県市川市二俣595-3",
+    "area": "二俣",
+    "spot": "店舗内",
+    "tel": "(047)327-0558",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9557437,
+     35.75779017
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川大野町三丁目店",
+    "address": "千葉県市川市大野町3丁目1739-1",
+    "area": "大野町3丁目",
+    "spot": "店舗内",
+    "tel": "(047)338-6859",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9012635,
+     35.6708411
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川南行徳三丁目店",
+    "address": "千葉県市川市南行徳3丁目2-1",
+    "area": "南行徳3丁目",
+    "spot": "店舗内",
+    "tel": "(047)398-7178",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.952637,
+     35.74453037
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川南大野二丁目店",
+    "address": "千葉県市川市南大野2丁目4-25",
+    "area": "南大野2丁目",
+    "spot": "店舗内",
+    "tel": "(047)337-8121",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9284946,
+     35.72092264
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川八幡二丁目店",
+    "address": "千葉県市川市八幡2丁目12-3",
+    "area": "八幡2丁目",
+    "spot": "店舗内",
+    "tel": "(047)333-7317",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9390767,
+     35.70469653
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン原木中山店",
+    "address": "千葉県市川市田尻3丁目11-15",
+    "area": "田尻3丁目",
+    "spot": "店舗内",
+    "tel": "(047)377-0708",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9256468,
+     35.71838633
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート本八幡駅南口店",
+    "address": "千葉県市川市南八幡4丁目15-16",
+    "area": "南八幡4丁目",
+    "spot": "店舗内",
+    "tel": "(047)376-7211",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9555789,
+     35.74465877
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川南大野二丁目店",
+    "address": "千葉県市川市南大野2丁目2-29",
+    "area": "南大野2丁目",
+    "spot": "店舗内",
+    "tel": "(047)303-5554",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9024297,
+     35.66955958
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート南行徳三丁目店",
+    "address": "千葉県市川市南行徳3丁目3-20",
+    "area": "南行徳3丁目",
+    "spot": "店舗内",
+    "tel": "(047)306-8281",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9447757,
+     35.69453576
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川高谷店",
+    "address": "千葉県市川市高谷1626-1",
+    "area": "高谷",
+    "spot": "店舗内",
+    "tel": "(047)329-7745",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9121124,
+     35.67754069
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川湊新田二丁目店",
+    "address": "千葉県市川市湊新田2丁目9-12",
+    "area": "湊新田2丁目",
+    "spot": "店舗内",
+    "tel": "(047)306-7172",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9234544,
+     35.71322718
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川インター店",
+    "address": "千葉県市川市東大和田1丁目24-23",
+    "area": "東大和田1丁目",
+    "spot": "店舗内",
+    "tel": "(047)393-6007",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9110796,
+     35.71711937
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川大洲店",
+    "address": "千葉県市川市大洲2丁目8-32",
+    "area": "大洲2丁目",
+    "spot": "店舗内",
+    "tel": "(047)393-7221",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9570991,
+     35.72763727
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川若宮店",
+    "address": "千葉県市川市若宮3丁目50-19",
+    "area": "若宮3丁目",
+    "spot": "店舗内",
+    "tel": "(047)303-8511",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9109725,
+     35.67207357
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川福栄店",
+    "address": "千葉県市川市福栄3丁目10-10",
+    "area": "福栄3丁目",
+    "spot": "店舗内",
+    "tel": "(047)701-6778",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9045513,
+     35.74644855
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート東京医科歯科大学店",
+    "address": "千葉県市川市国府台2丁目8-28",
+    "area": "国府台2丁目",
+    "spot": "店舗内",
+    "tel": "(047)374-8120",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9019647,
+     35.67238788
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマートサクマ南行徳駅店",
+    "address": "千葉県市川市相之川4丁目17-2",
+    "area": "相之川4丁目",
+    "spot": "店舗内",
+    "tel": "(047)357-3902",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9019652,
+     35.75261407
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川国府台店",
+    "address": "千葉県市川市国府台5丁目26-6",
+    "area": "国府台5丁目",
+    "spot": "店舗内",
+    "tel": "(047)318-5788",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9501434,
+     35.70616245
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川二俣店",
+    "address": "千葉県市川市二俣1丁目6-12",
+    "area": "二俣1丁目",
+    "spot": "店舗内",
+    "tel": "(047)320-5251",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9277894,
+     35.72337206
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート京成八幡駅前店",
+    "address": "千葉県市川市八幡3丁目3-1",
+    "area": "八幡3丁目",
+    "spot": "店舗内",
+    "tel": "(047)325-6551",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9246923,
+     35.67977614
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川宝二丁目店",
+    "address": "千葉県市川市宝2丁目15-4",
+    "area": "宝2丁目",
+    "spot": "店舗内",
+    "tel": "(047)701-0261",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9380211,
+     35.74300228
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川曽谷一丁目店",
+    "address": "千葉県市川市曽谷1丁目20-21",
+    "area": "曽谷1丁目",
+    "spot": "店舗内",
+    "tel": "(047)318-5888",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9157484,
+     35.67607055
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート行徳駅前四丁目店",
+    "address": "千葉県市川市行徳駅前4丁目14-12",
+    "area": "行徳駅前4丁目",
+    "spot": "店舗内",
+    "tel": "(047)306-7575",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.898619,
+     35.67753222
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川相之川二丁目店",
+    "address": "千葉県市川市相之川2丁目6-19",
+    "area": "相之川2丁目",
+    "spot": "店舗内",
+    "tel": "(047)306-7300",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9517698,
+     35.75323002
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川大野駅前店",
+    "address": "千葉県市川市大野町2丁目205",
+    "area": "大野町2丁目",
+    "spot": "店舗内",
+    "tel": "(047)303-6966",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.92957,
+     35.72150337
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川八幡二丁目店",
+    "address": "千葉県市川市八幡2丁目8-13",
+    "area": "八幡2丁目",
+    "spot": "店舗内",
+    "tel": "(047)302-7231",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9145915,
+     35.67915903
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート薬ヒグチ行徳駅前公園店",
+    "address": "千葉県市川市行徳駅前4丁目22-1",
+    "area": "行徳駅前4丁目",
+    "spot": "店舗内",
+    "tel": "(047)356-4359",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8927307,
+     35.67660696
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川新井一丁目店",
+    "address": "千葉県市川市新井1丁目6-8",
+    "area": "新井1丁目",
+    "spot": "店舗内",
+    "tel": "(047)701-6011",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9256594,
+     35.72161356
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート本八幡駅西店",
+    "address": "千葉県市川市八幡3丁目6-6",
+    "area": "八幡3丁目",
+    "spot": "店舗内",
+    "tel": "(047)314-0861",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.920597,
+     35.6774068
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川入船店",
+    "address": "千葉県市川市入船14-1",
+    "area": "入船",
+    "spot": "店舗内",
+    "tel": "(047)701-3955",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9102107,
+     35.72871095
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川駅東店",
+    "address": "千葉県市川市新田5丁目18-13",
+    "area": "新田5丁目",
+    "spot": "店舗内",
+    "tel": "(047)323-0279",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8996801,
+     35.68173487
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川行徳街道店",
+    "address": "千葉県市川市相之川1丁目1-7",
+    "area": "相之川1丁目",
+    "spot": "店舗内",
+    "tel": "(047)306-8500",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9316633,
+     35.73308704
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川東菅野店",
+    "address": "千葉県市川市東菅野3丁目29-3",
+    "area": "東菅野3丁目",
+    "spot": "店舗内",
+    "tel": "(047)302-7221",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9429289,
+     35.72421183
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川北方二丁目店",
+    "address": "千葉県市川市北方2丁目24-13",
+    "area": "北方2丁目",
+    "spot": "店舗内",
+    "tel": "(047)302-7611",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9245876,
+     35.74846515
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川曽谷七丁目店",
+    "address": "千葉県市川市曽谷7丁目32-7",
+    "area": "曽谷7丁目",
+    "spot": "店舗内",
+    "tel": "(047)372-8634",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9386999,
+     35.701361
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川高谷一丁目店",
+    "address": "千葉県市川市高谷1丁目3-11",
+    "area": "高谷1丁目",
+    "spot": "店舗内",
+    "tel": "(047)314-2115",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9340406,
+     35.73674487
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川宮久保店",
+    "address": "千葉県市川市宮久保3丁目36-12",
+    "area": "宮久保3丁目",
+    "spot": "店舗内",
+    "tel": "(047)374-7004",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9705396,
+     35.75484613
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川大野町四丁目店",
+    "address": "千葉県市川市大野町4丁目2475-1",
+    "area": "大野町4丁目",
+    "spot": "店舗内",
+    "tel": "(047)337-3939",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9514611,
+     35.74336919
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川南大野店",
+    "address": "千葉県市川市南大野1丁目40",
+    "area": "南大野1丁目",
+    "spot": "店舗内",
+    "tel": "(047)303-7225",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9071235,
+     35.72887677
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川駅南口店",
+    "address": "千葉県市川市市川南1丁目10-1-213",
+    "area": "市川南1丁目",
+    "spot": "店舗内",
+    "tel": "(047)325-7137",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9021153,
+     35.67909668
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川欠真間店",
+    "address": "千葉県市川市欠真間1丁目4-10",
+    "area": "欠真間1丁目",
+    "spot": "店舗内",
+    "tel": "(047)701-4700",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9222438,
+     35.74474353
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川北インター東店",
+    "address": "千葉県市川市東国分2丁目2-1",
+    "area": "東国分2丁目",
+    "spot": "店舗内",
+    "tel": "(047)300-5051",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9082068,
+     35.73151939
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川駅北店",
+    "address": "千葉県市川市市川1丁目13-32",
+    "area": "市川1丁目",
+    "spot": "店舗内",
+    "tel": "(047)325-5415",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9108209,
+     35.73228008
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川真間店",
+    "address": "千葉県市川市真間1丁目12-4",
+    "area": "真間1丁目",
+    "spot": "店舗内",
+    "tel": "(047)325-7461",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9250528,
+     35.69172977
+    ]
+   },
+   "properties": {
+    "name": "ファミリーマート市川妙典駅店",
+    "address": "千葉県市川市富浜1丁目2-10",
+    "area": "富浜1丁目",
+    "spot": "店舗内",
+    "tel": "(047)307-1270",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9015002,
+     35.67341844
+    ]
+   },
+   "properties": {
+    "name": "ローソン南行徳駅北口店",
+    "address": "千葉県市川市相之川4丁目6-18",
+    "area": "相之川4丁目",
+    "spot": "店舗内",
+    "tel": "(047)395-2112",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9136658,
+     35.66200063
+    ]
+   },
+   "properties": {
+    "name": "ローソン市川塩浜店",
+    "address": "千葉県市川市塩浜4丁目2-3-102",
+    "area": "塩浜4丁目",
+    "spot": "店舗内",
+    "tel": "(047)303-3454",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9279523,
+     35.69192563
+    ]
+   },
+   "properties": {
+    "name": "ローソン妙典南口店",
+    "address": "千葉県市川市妙典4丁目9-32",
+    "area": "妙典4丁目",
+    "spot": "店舗内",
+    "tel": "(047)315-7590",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9119968,
+     35.68199825
+    ]
+   },
+   "properties": {
+    "name": "ローソン行徳駅前二丁目店",
+    "address": "千葉県市川市行徳駅前2丁目22-10",
+    "area": "行徳駅前2丁目",
+    "spot": "店舗内",
+    "tel": "(047)329-2300",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9087034,
+     35.67436577
+    ]
+   },
+   "properties": {
+    "name": "ローソン市川福栄三丁目店",
+    "address": "千葉県市川市福栄3丁目5-14",
+    "area": "福栄3丁目",
+    "spot": "店舗内",
+    "tel": "(047)312-6337",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9024132,
+     35.67114966
+    ]
+   },
+   "properties": {
+    "name": "ローソン市川南行徳一丁目店",
+    "address": "千葉県市川市南行徳1丁目19-5",
+    "area": "南行徳1丁目",
+    "spot": "店舗内",
+    "tel": "(047)303-3114",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9214978,
+     35.71577667
+    ]
+   },
+   "properties": {
+    "name": "ローソン市川東大和田ＴＤＫ前店",
+    "address": "千葉県市川市東大和田2丁目15-10",
+    "area": "東大和田2丁目",
+    "spot": "店舗内",
+    "tel": "(047)379-4139",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9238395,
+     35.66657492
+    ]
+   },
+   "properties": {
+    "name": "ローソン市川塩浜駅前店",
+    "address": "千葉県市川市塩浜2丁目3-10",
+    "area": "塩浜2丁目",
+    "spot": "店舗内",
+    "tel": "(047)306-9551",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9033144,
+     35.67948869
+    ]
+   },
+   "properties": {
+    "name": "ローソンストア100市川欠真間店",
+    "address": "千葉県市川市欠真間1丁目3-8 ｻﾝﾎﾜｲﾄ行徳",
+    "area": "欠真間1丁目",
+    "spot": "店舗内",
+    "tel": "(047)306-8599",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9520489,
+     35.75441222
+    ]
+   },
+   "properties": {
+    "name": "ローソンストア100市川大野駅前店",
+    "address": "千葉県市川市大野町2丁目1421-4",
+    "area": "大野町2丁目",
+    "spot": "店舗内",
+    "tel": "(047)303-5699",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9047676,
+     35.72925347
+    ]
+   },
+   "properties": {
+    "name": "ローソンストア100市川南三丁目店",
+    "address": "千葉県市川市市川南3丁目1-20ｼﾃｨｺｱ･ﾌﾄﾞｳ市川",
+    "area": "市川南3丁目",
+    "spot": "店舗内",
+    "tel": "(047)329-3499",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9267807,
+     35.72070144
+    ]
+   },
+   "properties": {
+    "name": "デイリーヤマザキ本八幡駅南口店",
+    "address": "千葉県市川市南八幡4丁目2-3",
+    "area": "南八幡4丁目",
+    "spot": "店舗内",
+    "tel": "(047)376-1300",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9132536,
+     35.71587284
+    ]
+   },
+   "properties": {
+    "name": "デイリーヤマザキ大洲二丁目店",
+    "address": "千葉県市川市大洲2丁目1-16",
+    "area": "大洲2丁目",
+    "spot": "店舗内",
+    "tel": "(047)370-4333",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9090927,
+     35.7292024
+    ]
+   },
+   "properties": {
+    "name": "デイリーヤマザキアクティオーレ市川店",
+    "address": "千葉県市川市市川1丁目4-17",
+    "area": "市川1丁目",
+    "spot": "店舗内",
+    "tel": "(047)326-8211",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9082063,
+     35.72970461
+    ]
+   },
+   "properties": {
+    "name": "デイリーヤマザキ市川駅前店",
+    "address": "千葉県市川市市川1丁目7-7",
+    "area": "市川1丁目",
+    "spot": "店舗内",
+    "tel": "(047)324-6517",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9069479,
+     35.73010425
+    ]
+   },
+   "properties": {
+    "name": "ニューヤマザキデイリーストア市川一丁目店",
+    "address": "千葉県市川市市川1丁目8-11",
+    "area": "市川1丁目",
+    "spot": "店舗内",
+    "tel": "(047)324-2611",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9070461,
+     35.73197477
+    ]
+   },
+   "properties": {
+    "name": "デイリーヤマザキ大門通り店",
+    "address": "千葉県市川市市川1丁目13-15",
+    "area": "市川1丁目",
+    "spot": "店舗内",
+    "tel": "(047)322-2303",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9481372,
+     35.74105226
+    ]
+   },
+   "properties": {
+    "name": "デイリーヤマザキ市川下貝塚三丁目店",
+    "address": "千葉県市川市下貝塚3丁目18-18",
+    "area": "下貝塚3丁目",
+    "spot": "店舗内",
+    "tel": "(047)372-7722",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9016389,
+     35.7307375
+    ]
+   },
+   "properties": {
+    "name": "デイリーヤマザキ市川南三丁目店",
+    "address": "千葉県市川市市川南3丁目14-33",
+    "area": "市川南3丁目",
+    "spot": "店舗内",
+    "tel": "(047)322-7825",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9037252,
+     35.7399105
+    ]
+   },
+   "properties": {
+    "name": "デイリーヤマザキ市川国府台店",
+    "address": "千葉県市川市市川4丁目4-17",
+    "area": "市川4丁目",
+    "spot": "店舗内",
+    "tel": "(047)375-3050",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9561246,
+     35.69482324
+    ]
+   },
+   "properties": {
+    "name": "デイリーヤマザキ市川二俣新町店",
+    "address": "千葉県市川市二俣678-67",
+    "area": "二俣",
+    "spot": "店舗内",
+    "tel": "(047)327-0660",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9515046,
+     35.75459227
+    ]
+   },
+   "properties": {
+    "name": "デイリーヤマザキ市川大野駅前店",
+    "address": "千葉県市川市大野町3丁目105",
+    "area": "大野町3丁目",
+    "spot": "店舗内",
+    "tel": "(047)338-5351",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9598491,
+     35.69165089
+    ]
+   },
+   "properties": {
+    "name": "デイリーヤマザキ市川二俣新町駅前店",
+    "address": "千葉県市川市二俣新町3丁目4",
+    "area": "二俣新町3丁目",
+    "spot": "店舗内",
+    "tel": "(047)328-5355",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9516794,
+     35.72599498
+    ]
+   },
+   "properties": {
+    "name": "ミニストップ市川若宮店",
+    "address": "千葉県市川市若宮3丁目54?4",
+    "area": "若宮3丁目",
+    "spot": "店舗内",
+    "tel": "(047)338-7362",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9034241,
+     35.67916126
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブンかけまま店",
+    "address": "千葉県市川市欠真間2丁目18-23",
+    "area": "欠真間2丁目",
+    "spot": "店舗内",
+    "tel": "(047)359-0961",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9018617,
+     35.67196391
+    ]
+   },
+   "properties": {
+    "name": "セブンイレブン市川南行徳駅前店",
+    "address": "千葉県市川市南行徳1丁目20-13",
+    "area": "南行徳1丁目",
+    "spot": "店舗内",
+    "tel": "(047)397-0308",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9576662,
+     35.73560097
+    ]
+   },
+   "properties": {
+    "name": "ミニストップ市川東高校前店",
+    "address": "千葉県市川市北方町4丁目2159-1",
+    "area": "北方町4丁目",
+    "spot": "店舗内",
+    "tel": "(047)303-0026",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9241055,
+     35.68719334
+    ]
+   },
+   "properties": {
+    "name": "ミニストップ市川富浜店",
+    "address": "千葉県市川市富浜2丁目17-8",
+    "area": "富浜2丁目",
+    "spot": "店舗内",
+    "tel": "(047)307-0550",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9178092,
+     35.68220722
+    ]
+   },
+   "properties": {
+    "name": "ミニストップ行徳駅前一丁目店",
+    "address": "千葉県市川市行徳駅前1丁目11-1",
+    "area": "行徳駅前1丁目",
+    "spot": "店舗内",
+    "tel": "(047)395-5880",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9284422,
+     35.733151
+    ]
+   },
+   "properties": {
+    "name": "ミニストップ東菅野二丁目店",
+    "address": "千葉県市川市東菅野2丁目13-21",
+    "area": "東菅野2丁目",
+    "spot": "店舗内",
+    "tel": "(047)324-1930",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9100461,
+     35.72257886
+    ]
+   },
+   "properties": {
+    "name": "ローソン市川新田三丁目南店",
+    "address": "千葉県市川市新田3丁目27-7",
+    "area": "新田3丁目",
+    "spot": "店舗内",
+    "tel": "(047)329-2766",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.921538,
+     35.699533
+    ]
+   },
+   "properties": {
+    "name": "ローソン市川行徳橋店",
+    "address": "千葉県市川市河原7-17",
+    "area": "河原",
+    "spot": "店舗内",
+    "tel": "(047)356-6702",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.946662,
+     35.751752
+    ]
+   },
+   "properties": {
+    "name": "ローソン市川大野店",
+    "address": "千葉県市川市大野町2丁目565-1",
+    "area": "大野町2丁目",
+    "spot": "店舗内",
+    "tel": "(047)303-1710",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.902397,
+     35.736681
+    ]
+   },
+   "properties": {
+    "name": "ローソン国府台駅前店",
+    "address": "千葉県市川市市川3丁目26-13-101",
+    "area": "市川3丁目",
+    "spot": "店舗内",
+    "tel": "(047)312-6800",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.949994,
+     35.736843
+    ]
+   },
+   "properties": {
+    "name": "ローソン市川東菅野五丁目店",
+    "address": "千葉県市川市東菅野5丁目22-17",
+    "area": "東菅野5丁目",
+    "spot": "店舗内",
+    "tel": "(047)338-0667",
+    "url": "https://www.city.ichikawa.lg.jp/pub01/0000458290.html"
+   }
+  }
+ ]
+}

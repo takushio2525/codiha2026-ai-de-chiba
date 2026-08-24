@@ -1,0 +1,2970 @@
+{
+ "type": "FeatureCollection",
+ "attribution": "「【市川市】指定緊急避難場所」（市川市オープンデータ）（https://opendata.pref.chiba.lg.jp/datasets/3295）を加工して作成",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.927977,
+     35.75359
+    ]
+   },
+   "properties": {
+    "name": "県立国分高校",
+    "address": "千葉県市川市稲越2丁目2-1",
+    "area": "稲越2丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)371-6100",
+    "url": "http://cms1.chiba-c.ed.jp/kokubun-h/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9570251,
+     35.77180422
+    ]
+   },
+   "properties": {
+    "name": "大町小学校",
+    "address": "千葉県市川市大町84-10",
+    "area": "大町",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)337-3610",
+    "url": "http://www.ohmachi-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9538513,
+     35.75031514
+    ]
+   },
+   "properties": {
+    "name": "大柏小学校",
+    "address": "千葉県市川市大野町2丁目1877",
+    "area": "大野町2丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)337-8141",
+    "url": "http://www.ohkashiwa-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9506194,
+     35.7424297
+    ]
+   },
+   "properties": {
+    "name": "大野小学校",
+    "address": "千葉県市川市南大野1丁目42-1",
+    "area": "南大野1丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)338-3000",
+    "url": "http://www.ohno-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9665082,
+     35.73957426
+    ]
+   },
+   "properties": {
+    "name": "柏井小学校",
+    "address": "千葉県市川市柏井町1丁目1149-1",
+    "area": "柏井町1丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)337-8877",
+    "url": "http://www.kashiwai-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9439461,
+     35.73666136
+    ]
+   },
+   "properties": {
+    "name": "宮久保小学校",
+    "address": "千葉県市川市宮久保5丁目７-1",
+    "area": "宮久保5丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)371-2747",
+    "url": "http://www.miyakubo-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.945658,
+     35.73271088
+    ]
+   },
+   "properties": {
+    "name": "北方小学校",
+    "address": "千葉県市川市北方町4丁目1356-1",
+    "area": "北方町4丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)339-1701",
+    "url": "http://www.kitakata-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.920899,
+     35.74496821
+    ]
+   },
+   "properties": {
+    "name": "国分小学校",
+    "address": "千葉県市川市東国分2丁目4-1",
+    "area": "東国分2丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)371-6793",
+    "url": "http://www.kokubun-syo.ichikawa-school.ed.jp/index/index.htm"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.92407,
+     35.754117
+    ]
+   },
+   "properties": {
+    "name": "稲越小学校",
+    "address": "千葉県市川市稲越３丁目21-8",
+    "area": "稲越３丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)373-8401",
+    "url": "http://www.inagoshi-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9265149,
+     35.74692438
+    ]
+   },
+   "properties": {
+    "name": "曽谷小学校",
+    "address": "千葉県市川市曽谷７丁目18-1",
+    "area": "曽谷７丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)371-7888",
+    "url": "http://www.soya-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9269705,
+     35.73981939
+    ]
+   },
+   "properties": {
+    "name": "百合台小学校",
+    "address": "千葉県市川市曽谷6丁目10-1",
+    "area": "曽谷6丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)374-1811",
+    "url": "https://ichikawa-school.ed.jp/yuridai-sho/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9157922,
+     35.7536361
+    ]
+   },
+   "properties": {
+    "name": "中国分小学校",
+    "address": "千葉県市川市中国分1丁目22-1",
+    "area": "中国分1丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)371-7886",
+    "url": "http://www.ckokubun-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9029049,
+     35.75382659
+    ]
+   },
+   "properties": {
+    "name": "国府台小学校",
+    "address": "千葉県市川市国府台5丁目25-4",
+    "area": "国府台5丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)372-4672",
+    "url": "http://www.kounodai-syo.ichikawa-school.ed.jp/index/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9102487,
+     35.73773236
+    ]
+   },
+   "properties": {
+    "name": "真間小学校",
+    "address": "千葉県市川市真間4丁目1-1",
+    "area": "真間4丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)372-4726",
+    "url": "http://www.mama-syo.ichikawa-school.ed.jp/index.htm"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9051063,
+     35.73216292
+    ]
+   },
+   "properties": {
+    "name": "市川小学校",
+    "address": "千葉県市川市市川2丁目32-5",
+    "area": "市川2丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)325-4758",
+    "url": "http://www.ichikawa-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9170157,
+     35.73458866
+    ]
+   },
+   "properties": {
+    "name": "菅野小学校",
+    "address": "千葉県市川市菅野6丁目14-1",
+    "area": "菅野6丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)324-5955",
+    "url": "http://www.sugano-syo.ichikawa-school.ed.jp/index.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9280693,
+     35.72572721
+    ]
+   },
+   "properties": {
+    "name": "八幡小学校",
+    "address": "千葉県市川市八幡3丁目24-1",
+    "area": "八幡3丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)325-4763",
+    "url": "http://www.yawata-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9521099,
+     35.726943
+    ]
+   },
+   "properties": {
+    "name": "若宮小学校",
+    "address": "千葉県市川市若宮3丁目54-10",
+    "area": "若宮3丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)339-2177",
+    "url": "http://www.wakamiya-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9377251,
+     35.72697537
+    ]
+   },
+   "properties": {
+    "name": "冨貴島小学校",
+    "address": "千葉県市川市八幡6丁目10-11",
+    "area": "八幡6丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)334-2624",
+    "url": "http://www.fukijima-syo.ichikawa-school.ed.jp/top.htm"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9438137,
+     35.72147947
+    ]
+   },
+   "properties": {
+    "name": "中山小学校",
+    "address": "千葉県市川市中山1丁目1-5",
+    "area": "中山1丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)335-2711",
+    "url": "http://www.nakayama-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9180946,
+     35.72414447
+    ]
+   },
+   "properties": {
+    "name": "平田小学校",
+    "address": "千葉県市川市平田3丁目28-1",
+    "area": "平田3丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)379-6761",
+    "url": "http://www.hirata-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9093152,
+     35.72686672
+    ]
+   },
+   "properties": {
+    "name": "宮田小学校",
+    "address": "千葉県市川市新田4丁目8-15",
+    "area": "新田4丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)379-7647",
+    "url": "http://www.miyata-syo.ichikawa-school.ed.jp/top.htm"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9216509,
+     35.71763281
+    ]
+   },
+   "properties": {
+    "name": "大和田小学校",
+    "address": "千葉県市川市大和田1丁目1-3",
+    "area": "大和田1丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)378-5001",
+    "url": "http://www.ohwada-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9068483,
+     35.72340942
+    ]
+   },
+   "properties": {
+    "name": "大洲小学校",
+    "address": "千葉県市川市大洲4丁目18-1",
+    "area": "大洲4丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)370-0300",
+    "url": "http://www.ohsu-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9156036,
+     35.71797588
+    ]
+   },
+   "properties": {
+    "name": "鶴指小学校",
+    "address": "千葉県市川市大和田4丁目11-1",
+    "area": "大和田4丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)379-3588",
+    "url": "http://www.tsurusashi-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9375524,
+     35.71393002
+    ]
+   },
+   "properties": {
+    "name": "鬼高小学校",
+    "address": "千葉県市川市鬼高2丁目13-5",
+    "area": "鬼高2丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)335-0304",
+    "url": "http://www.onitaka-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9218013,
+     35.71161877
+    ]
+   },
+   "properties": {
+    "name": "稲荷木小学校",
+    "address": "千葉県市川市稲荷木1丁目14-1",
+    "area": "稲荷木1丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)376-5961",
+    "url": "http://www.toukagi-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9440001,
+     35.69822959
+    ]
+   },
+   "properties": {
+    "name": "信篤小学校",
+    "address": "千葉県市川市原木2丁目16-1",
+    "area": "原木2丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)328-0165",
+    "url": "http://www.shintoku-syo.ichikawa-school.ed.jp/index.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9565326,
+     35.69688832
+    ]
+   },
+   "properties": {
+    "name": "二俣小学校",
+    "address": "千葉県市川市二俣6７8",
+    "area": "二俣",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)328-0105",
+    "url": "http://www.futamata-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9297468,
+     35.69602604
+    ]
+   },
+   "properties": {
+    "name": "妙典小学校",
+    "address": "千葉県市川市妙典2丁目14-2",
+    "area": "妙典2丁目",
+    "disasters": [
+     "洪水",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)399-5891",
+    "url": "http://www.myouden-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9237509,
+     35.69272697
+    ]
+   },
+   "properties": {
+    "name": "行徳小学校",
+    "address": "千葉県市川市富浜1丁目1-40",
+    "area": "富浜1丁目",
+    "disasters": [
+     "洪水",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)357-3116",
+    "url": "http://www.gyoutoku-syo.ichikawa-school.ed.jp/top/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9295658,
+     35.68108198
+    ]
+   },
+   "properties": {
+    "name": "幸小学校",
+    "address": "千葉県市川市幸1丁目11-1",
+    "area": "幸1丁目",
+    "disasters": [
+     "洪水",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)396-0770",
+    "url": "http://www.saiwai-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9015385,
+     35.68010933
+    ]
+   },
+   "properties": {
+    "name": "南行徳小学校",
+    "address": "千葉県市川市欠真間1丁目6-38",
+    "area": "欠真間1丁目",
+    "disasters": [
+     "洪水",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)357-3126",
+    "url": "http://www.sgyoutoku-syo.ichikawa-school.ed.jp/index.htm"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9163068,
+     35.68000131
+    ]
+   },
+   "properties": {
+    "name": "新浜小学校",
+    "address": "千葉県市川市行徳駅前4丁目5-1",
+    "area": "行徳駅前4丁目",
+    "disasters": [
+     "洪水",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)395-5331",
+    "url": "http://www.niihama-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9166168,
+     35.67458248
+    ]
+   },
+   "properties": {
+    "name": "南新浜小学校",
+    "address": "千葉県市川市新浜1丁目26-1",
+    "area": "新浜1丁目",
+    "disasters": [
+     "洪水",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)396-9731",
+    "url": "http://www.sniihama-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9300908,
+     35.68387511
+    ]
+   },
+   "properties": {
+    "name": "塩焼小学校",
+    "address": "千葉県市川市塩焼5丁目9-8",
+    "area": "塩焼5丁目",
+    "disasters": [
+     "洪水",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)397-1231",
+    "url": "http://www.shioyaki-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8905565,
+     35.67394011
+    ]
+   },
+   "properties": {
+    "name": "新井小学校",
+    "address": "千葉県市川市新井1丁目18-13",
+    "area": "新井1丁目",
+    "disasters": [
+     "洪水",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)357-1722",
+    "url": "http://www.arai-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9053239,
+     35.67151018
+    ]
+   },
+   "properties": {
+    "name": "富美浜小学校",
+    "address": "千葉県市川市南行徳2丁目3-1",
+    "area": "南行徳2丁目",
+    "disasters": [
+     "洪水",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)396-2522",
+    "url": "http://www.fumihama-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9071709,
+     35.6718462
+    ]
+   },
+   "properties": {
+    "name": "福栄小学校",
+    "address": "千葉県市川市南行徳2丁目2-1",
+    "area": "南行徳2丁目",
+    "disasters": [
+     "洪水",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)397-8115",
+    "url": "http://www.fukuei-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.914164,
+     35.665
+    ]
+   },
+   "properties": {
+    "name": "塩浜学園",
+    "address": "千葉県市川市塩浜4丁目5-1",
+    "area": "塩浜4丁目",
+    "disasters": [
+     "洪水",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)397-1250",
+    "url": "http://www.shiohama-syo.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9011785,
+     35.74496422
+    ]
+   },
+   "properties": {
+    "name": "第一中学校",
+    "address": "千葉県市川市国府台2丁目７-1",
+    "area": "国府台2丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)371-6045",
+    "url": "http://www.dai1-tyu.ichikawa-school.ed.jp/new/index.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9142289,
+     35.73913336
+    ]
+   },
+   "properties": {
+    "name": "第二中学校",
+    "address": "千葉県市川市須和田2丁目34-1",
+    "area": "須和田2丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)371-6188",
+    "url": "http://www.dai2-tyu.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9326189,
+     35.74030109
+    ]
+   },
+   "properties": {
+    "name": "第三中学校",
+    "address": "千葉県市川市曽谷3丁目2-1",
+    "area": "曽谷3丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)371-7341",
+    "url": "http://www.dai3-tyu.ichikawa-school.ed.jp/index.htm"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9456448,
+     35.72202615
+    ]
+   },
+   "properties": {
+    "name": "第四中学校",
+    "address": "千葉県市川市中山1丁目11-1",
+    "area": "中山1丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)335-3431",
+    "url": "http://www.dai4-tyu.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9568807,
+     35.75315115
+    ]
+   },
+   "properties": {
+    "name": "第五中学校",
+    "address": "千葉県市川市大野町3丁目1993",
+    "area": "大野町3丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)337-8344",
+    "url": "http://www.dai5-tyu.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9360084,
+     35.7108706
+    ]
+   },
+   "properties": {
+    "name": "第六中学校",
+    "address": "千葉県市川市鬼高3丁目16-1",
+    "area": "鬼高3丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)370-0535",
+    "url": "http://www.dai6-tyu.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9172933,
+     35.68652523
+    ]
+   },
+   "properties": {
+    "name": "第七中学校",
+    "address": "千葉県市川市末広1丁目1-48",
+    "area": "末広1丁目",
+    "disasters": [
+     "洪水",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)357-3183",
+    "url": "http://www.dai7-tyu.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9148677,
+     35.71921057
+    ]
+   },
+   "properties": {
+    "name": "第八中学校",
+    "address": "千葉県市川市大和田4丁目9-1",
+    "area": "大和田4丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)370-1394",
+    "url": "http://www.dai8-tyu.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9229924,
+     35.74888538
+    ]
+   },
+   "properties": {
+    "name": "東国分中学校",
+    "address": "千葉県市川市東国分3丁目5-1",
+    "area": "東国分3丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)371-5963",
+    "url": "http://www.ekokubun-tyu.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9457702,
+     35.73959506
+    ]
+   },
+   "properties": {
+    "name": "下貝塚中学校",
+    "address": "千葉県市川市下貝塚3丁目13-1",
+    "area": "下貝塚3丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)371-8800",
+    "url": "http://www.shimokai-tyu.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9452795,
+     35.69469942
+    ]
+   },
+   "properties": {
+    "name": "高谷中学校",
+    "address": "千葉県市川市高谷1627-4",
+    "area": "高谷",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)328-0211",
+    "url": "http://www.kouya-tyu.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9074261,
+     35.72111744
+    ]
+   },
+   "properties": {
+    "name": "大洲中学校",
+    "address": "千葉県市川市大洲4丁目21-5",
+    "area": "大洲4丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)378-5783",
+    "url": "http://www.ohsu-tyu.ichikawa-school.ed.jp/index.htm"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9337629,
+     35.68809629
+    ]
+   },
+   "properties": {
+    "name": "妙典中学校",
+    "address": "千葉県市川市妙典5丁目22-1",
+    "area": "妙典5丁目",
+    "disasters": [
+     "洪水",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)395-5811",
+    "url": "http://www.myouden-tyu.ichikawa-school.ed.jp/index.htm"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.910199,
+     35.6739144
+    ]
+   },
+   "properties": {
+    "name": "福栄中学校",
+    "address": "千葉県市川市福栄3丁目4-1",
+    "area": "福栄3丁目",
+    "disasters": [
+     "洪水",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)396-0701",
+    "url": "http://www.fukuei-tyu.ichikawa-school.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9072854,
+     35.67091194
+    ]
+   },
+   "properties": {
+    "name": "南行徳中学校",
+    "address": "千葉県市川市南行徳2丁目2-2",
+    "area": "南行徳2丁目",
+    "disasters": [
+     "洪水",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)397-5910",
+    "url": "http://www.sgyoutoku-tyu.ichikawa-school.ed.jp/welcome.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9169205,
+     35.73273428
+    ]
+   },
+   "properties": {
+    "name": "菅野公民館",
+    "address": "千葉県市川市菅野3丁目24-2",
+    "area": "菅野3丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)322-7761"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9653946,
+     35.74597857
+    ]
+   },
+   "properties": {
+    "name": "柏井公民館",
+    "address": "千葉県市川市柏井町2丁目844",
+    "area": "柏井町2丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)338-2988",
+    "url": "http://www.city.ichikawa.lg.jp/edu12/1421000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9507903,
+     35.72875632
+    ]
+   },
+   "properties": {
+    "name": "東部公民館",
+    "address": "千葉県市川市本北方3丁目19-16",
+    "area": "本北方3丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)337-8886",
+    "url": "http://www.city.ichikawa.lg.jp/edu12/1411000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9387998,
+     35.71321834
+    ]
+   },
+   "properties": {
+    "name": "鬼高公民館",
+    "address": "千葉県市川市鬼高2丁目12-23",
+    "area": "鬼高2丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)334-2612",
+    "url": "http://www.city.ichikawa.lg.jp/edu12/1421000001.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9417925,
+     35.70169625
+    ]
+   },
+   "properties": {
+    "name": "信篤公民館",
+    "address": "千葉県市川市高谷1丁目8-1",
+    "area": "高谷1丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)327-6807",
+    "url": "http://www.city.ichikawa.lg.jp/edu12/1441000001.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9132377,
+     35.749265
+    ]
+   },
+   "properties": {
+    "name": "西部公民館",
+    "address": "千葉県市川市中国分2丁目13-8",
+    "area": "中国分2丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)373-8175",
+    "url": "http://www.city.ichikawa.lg.jp/edu12/1421000003.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9182881,
+     35.69453896
+    ]
+   },
+   "properties": {
+    "name": "本行徳公民館",
+    "address": "千葉県市川市本行徳12-8",
+    "area": "本行徳",
+    "disasters": [
+     "洪水",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)359-1351",
+    "url": "http://www.city.ichikawa.lg.jp/edu12/1421000004.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9531751,
+     35.74516919
+    ]
+   },
+   "properties": {
+    "name": "大野公民館",
+    "address": "千葉県市川市南大野2丁目3-19",
+    "area": "南大野2丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)399-3400"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9065912,
+     35.73101292
+    ]
+   },
+   "properties": {
+    "name": "市川公民館",
+    "address": "千葉県市川市市川2丁目33-2",
+    "area": "市川2丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)321-1171"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.966261,
+     35.76598086
+    ]
+   },
+   "properties": {
+    "name": "少年自然の家",
+    "address": "千葉県市川市大町280-4",
+    "area": "大町",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)337-0533"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9073968,
+     35.74304188
+    ]
+   },
+   "properties": {
+    "name": "国府台スポーツセンター",
+    "address": "千葉県市川市国府台1丁目6-4",
+    "area": "国府台1丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)373-3111",
+    "url": "http://www.city.ichikawa.lg.jp/pub06/1521000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9144915,
+     35.66091851
+    ]
+   },
+   "properties": {
+    "name": "塩浜市民体育館",
+    "address": "千葉県市川市塩浜4丁目9-1",
+    "area": "塩浜4丁目",
+    "disasters": [
+     "洪水",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)398-2311"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9422528,
+     35.70167376
+    ]
+   },
+   "properties": {
+    "name": "信篤市民体育館",
+    "address": "千葉県市川市高谷1丁目8-2",
+    "area": "高谷1丁目",
+    "disasters": [
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)327-6336"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9064728,
+     35.72268622
+    ]
+   },
+   "properties": {
+    "name": "こども発達センター",
+    "address": "千葉県市川市大洲4丁目18-3",
+    "area": "大洲4丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)370-3561"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9273498,
+     35.71371619
+    ]
+   },
+   "properties": {
+    "name": "勤労福祉センター本館",
+    "address": "千葉県市川市南八幡2丁目20-1",
+    "area": "南八幡2丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)370-5201",
+    "url": "http://www.city.ichikawa.lg.jp/eco01/1112000001.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9211164,
+     35.71879467
+    ]
+   },
+   "properties": {
+    "name": "勤労福祉センター分館",
+    "address": "千葉県市川市南八幡5丁目20-3",
+    "area": "南八幡5丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)370-1357",
+    "url": "http://www.city.ichikawa.lg.jp/eco01/1112000001.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9120292,
+     35.75907287
+    ]
+   },
+   "properties": {
+    "name": "市川考古博物館",
+    "address": "千葉県市川市堀之内2丁目26-1",
+    "area": "堀之内2丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)373-2202",
+    "url": "http://www.city.ichikawa.lg.jp/edu14/1111000001.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9115618,
+     35.75981658
+    ]
+   },
+   "properties": {
+    "name": "市川歴史博物館",
+    "address": "千葉県市川市堀之内2丁目27-1",
+    "area": "堀之内2丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)373-6351"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.936107,
+     35.73694257
+    ]
+   },
+   "properties": {
+    "name": "宮久保老人いこいの家",
+    "address": "千葉県市川市宮久保4丁目2-4",
+    "area": "宮久保4丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)372-5755"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.931092,
+     35.72359256
+    ]
+   },
+   "properties": {
+    "name": "全日警ホール（八幡市民会館）",
+    "address": "千葉県市川市八幡4丁目2-1",
+    "area": "八幡4丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)335-1542",
+    "url": "https://www.city.ichikawa.lg.jp/cul01/1111000075.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9558348,
+     35.73768878
+    ]
+   },
+   "properties": {
+    "name": "県立市川東高校",
+    "address": "千葉県市川市北方町4丁目2191",
+    "area": "北方町4丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)338-6810",
+    "url": "http://www.chiba-c.ed.jp/ichikawahigashi-h/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.923362,
+     35.73973437
+    ]
+   },
+   "properties": {
+    "name": "県立市川昴高校",
+    "address": "千葉県市川市東国分1丁目1-1",
+    "area": "東国分1丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波"
+    ],
+    "tel": "(047)371-2841"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9044685,
+     35.74504856
+    ]
+   },
+   "properties": {
+    "name": "県立国府台高校",
+    "address": "千葉県市川市国府台2丁目4-1",
+    "area": "国府台2丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)373-2141"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9196087,
+     35.72318151
+    ]
+   },
+   "properties": {
+    "name": "県立市川工業高校",
+    "address": "千葉県市川市平田3丁目10-10",
+    "area": "平田3丁目",
+    "disasters": [
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)378-4186",
+    "url": "http://cms1.chiba-c.ed.jp/ichiko/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9442232,
+     35.69326304
+    ]
+   },
+   "properties": {
+    "name": "県立市川南高校",
+    "address": "千葉県市川市高谷1509",
+    "area": "高谷",
+    "disasters": [
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)328-6001",
+    "url": "http://www.chiba-c.ed.jp/ichikawaminami-h/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9132412,
+     35.66536249
+    ]
+   },
+   "properties": {
+    "name": "県立行徳高校",
+    "address": "千葉県市川市塩浜4丁目1-1",
+    "area": "塩浜4丁目",
+    "disasters": [
+     "洪水",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)395-1040",
+    "url": "http://www.chiba-c.ed.jp/gyotoku-h/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9464449,
+     35.73252832
+    ]
+   },
+   "properties": {
+    "name": "市川学園",
+    "address": "千葉県市川市本北方2丁目38-1",
+    "area": "本北方2丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)339-2681",
+    "url": "https://www.ichigaku.ac.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9381714,
+     35.73074612
+    ]
+   },
+   "properties": {
+    "name": "市川学園（第１グランド等）",
+    "address": "千葉県市川市東菅野4丁目1-1",
+    "area": "東菅野4丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)339-2681",
+    "url": "https://www.ichigaku.ac.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9304186,
+     35.733125
+    ]
+   },
+   "properties": {
+    "name": "昭和学院",
+    "address": "千葉県市川市東菅野2丁目1７-1",
+    "area": "東菅野2丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波"
+    ],
+    "tel": "(047)323-4171",
+    "url": "http://www.showa-gkn.ed.jp/js/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9038522,
+     35.74332703
+    ]
+   },
+   "properties": {
+    "name": "和洋学園",
+    "address": "千葉県市川市国府台2丁目3-1",
+    "area": "国府台2丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)371-1111",
+    "url": "http://www.wayo.ac.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9185103,
+     35.7319177
+    ]
+   },
+   "properties": {
+    "name": "日出学園",
+    "address": "千葉県市川市菅野3丁目23-1",
+    "area": "菅野3丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)323-3000"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9072681,
+     35.74142698
+    ]
+   },
+   "properties": {
+    "name": "千葉商科大学",
+    "address": "千葉県市川市国府台1丁目3-1",
+    "area": "国府台1丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)372-4111",
+    "url": "http://www.cuc.ac.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9295556,
+     35.72454557
+    ]
+   },
+   "properties": {
+    "name": "奥野木学園不二女子高校",
+    "address": "千葉県市川市八幡4丁目5-７",
+    "area": "八幡4丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)332-1898",
+    "url": "http://www.fujijyoshi.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.967012,
+     35.7649449
+    ]
+   },
+   "properties": {
+    "name": "奥野木学園大町不二グラウンド",
+    "address": "千葉県市川市大町280-12",
+    "area": "大町",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9155647,
+     35.73254495
+    ]
+   },
+   "properties": {
+    "name": "国府台女子学院",
+    "address": "千葉県市川市菅野3丁目24-1",
+    "area": "菅野3丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)322-7777",
+    "url": "http://www.konodai-gs.ac.jp/senior/index.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9659547,
+     35.76425015
+    ]
+   },
+   "properties": {
+    "name": "市川自然博物館",
+    "address": "千葉県市川市大町284",
+    "area": "大町",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)339-0477"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9653107,
+     35.737618
+    ]
+   },
+   "properties": {
+    "name": "姥山貝塚公園",
+    "address": "千葉県市川市柏井町1丁目1235",
+    "area": "柏井町1丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "url": "http://www.city.ichikawa.lg.jp/gre04/1111000004.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9071978,
+     35.75867486
+    ]
+   },
+   "properties": {
+    "name": "小塚山公園",
+    "address": "千葉県市川市北国分1丁目2７",
+    "area": "北国分1丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "url": "http://www.city.ichikawa.lg.jp/gre04/1511000004.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.907143,
+     35.74948824
+    ]
+   },
+   "properties": {
+    "name": "じゅん菜池緑地",
+    "address": "千葉県市川市中国分4丁目2７",
+    "area": "中国分4丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波"
+    ],
+    "tel": "(047)371-1254",
+    "url": "http://www.city.ichikawa.lg.jp/gre04/1521000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8987782,
+     35.7472002
+    ]
+   },
+   "properties": {
+    "name": "里見公園",
+    "address": "千葉県市川市国府台3丁目9",
+    "area": "国府台3丁目",
+    "disasters": [
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波"
+    ],
+    "tel": "(047)372-0062",
+    "url": "http://www.city.ichikawa.lg.jp/gre04/1111000001.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9078322,
+     35.73992347
+    ]
+   },
+   "properties": {
+    "name": "真間山弘法寺",
+    "address": "千葉県市川市真間4丁目9-1",
+    "area": "真間4丁目",
+    "disasters": [
+     "洪水",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)371-2242",
+    "url": "http://www.city.ichikawa.lg.jp/cul01/1551000030.html#03"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9128573,
+     35.73906393
+    ]
+   },
+   "properties": {
+    "name": "須和田公園",
+    "address": "千葉県市川市須和田2丁目34",
+    "area": "須和田2丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "url": "http://www.city.ichikawa.lg.jp/gre04/1111000005.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9169091,
+     35.73658662
+    ]
+   },
+   "properties": {
+    "name": "須和田自治会館（六所神社）",
+    "address": "千葉県市川市須和田2丁目22-７",
+    "area": "須和田2丁目",
+    "disasters": [
+     "洪水",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)372-9867"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9268969,
+     35.73562472
+    ]
+   },
+   "properties": {
+    "name": "東菅野児童交通公園",
+    "address": "千葉県市川市東菅野2丁目23-5",
+    "area": "東菅野2丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波"
+    ],
+    "tel": "(047)324-2990",
+    "url": "http://www.city.ichikawa.lg.jp/roa01/1111000004.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9446641,
+     35.72489343
+    ]
+   },
+   "properties": {
+    "name": "子之神社北方会館",
+    "address": "千葉県市川市北方3丁目17-23",
+    "area": "北方3丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)334-3966"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9311188,
+     35.72421533
+    ]
+   },
+   "properties": {
+    "name": "葛飾八幡宮",
+    "address": "千葉県市川市八幡4丁目2-1",
+    "area": "八幡4丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)336-4918",
+    "url": "http://www.city.ichikawa.lg.jp/cul01/1421000003.html#03"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9494078,
+     35.72076031
+    ]
+   },
+   "properties": {
+    "name": "法華経寺",
+    "address": "千葉県市川市中山2丁目10-1",
+    "area": "中山2丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)334-3433",
+    "url": "http://www.city.ichikawa.lg.jp/edu09/1551000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8991932,
+     35.72590358
+    ]
+   },
+   "properties": {
+    "name": "江戸川河川敷緑地",
+    "address": "千葉県市川市市川南3地先",
+    "area": "市川南",
+    "disasters": [
+     "崖崩れ・土石流・地滑り",
+     "地震"
+    ],
+    "url": "http://www.city.ichikawa.lg.jp/gre04/1541000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9107321,
+     35.71878729
+    ]
+   },
+   "properties": {
+    "name": "大洲防災公園",
+    "address": "千葉県市川市大洲1丁目18",
+    "area": "大洲1丁目",
+    "disasters": [
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波"
+    ],
+    "url": "http://www.city.ichikawa.lg.jp/gre04/1551000004.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9339898,
+     35.71693809
+    ]
+   },
+   "properties": {
+    "name": "ニッケコルトンプラザ",
+    "address": "千葉県市川市鬼高1丁目1-1",
+    "area": "鬼高1丁目",
+    "disasters": [
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)378-3551"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9285948,
+     35.71039138
+    ]
+   },
+   "properties": {
+    "name": "地方卸売市場",
+    "address": "千葉県市川市鬼高4丁目5-1",
+    "area": "鬼高4丁目",
+    "disasters": [
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)378-3611",
+    "url": "http://www.city.ichikawa.lg.jp/eco03/1111000001.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9477235,
+     35.70232632
+    ]
+   },
+   "properties": {
+    "name": "原木山妙行寺",
+    "address": "千葉県市川市原木1丁目24-1",
+    "area": "原木1丁目",
+    "disasters": [
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波"
+    ],
+    "tel": "(047)327-1461"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9272306,
+     35.69189904
+    ]
+   },
+   "properties": {
+    "name": "イオン市川妙典店駐車場",
+    "address": "千葉県市川市妙典4丁目4-1、5-3-1",
+    "area": "妙典4丁目",
+    "disasters": [
+     "洪水",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "url": "http://www.aeon.jp/aeon/ichikawamyoden/index.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9244568,
+     35.67397675
+    ]
+   },
+   "properties": {
+    "name": "ユニディ千鳥町店駐車場",
+    "address": "千葉県市川市千鳥町1",
+    "area": "千鳥町",
+    "disasters": [
+     "洪水",
+     "高潮",
+     "津波",
+     "内水氾濫"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9219095,
+     35.69836611
+    ]
+   },
+   "properties": {
+    "name": "新宿前公園",
+    "address": "千葉県市川市河原9",
+    "area": "河原",
+    "disasters": [
+     "高潮",
+     "地震",
+     "津波"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9220994,
+     35.68723941
+    ]
+   },
+   "properties": {
+    "name": "行徳中央公園",
+    "address": "千葉県市川市富浜3丁目10",
+    "area": "富浜3丁目",
+    "disasters": [
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "url": "http://www.city.ichikawa.lg.jp/gyo07/1111000006.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9288693,
+     35.68489092
+    ]
+   },
+   "properties": {
+    "name": "塩焼中央公園",
+    "address": "千葉県市川市塩焼5丁目6",
+    "area": "塩焼5丁目",
+    "disasters": [
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "url": "http://www.city.ichikawa.lg.jp/gyo07/1111000011.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9283632,
+     35.6786948
+    ]
+   },
+   "properties": {
+    "name": "行徳南部公園",
+    "address": "千葉県市川市幸2丁目4",
+    "area": "幸2丁目",
+    "disasters": [
+     "地震",
+     "津波"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9134191,
+     35.67918678
+    ]
+   },
+   "properties": {
+    "name": "駅前公園",
+    "address": "千葉県市川市湊新田2丁目4",
+    "area": "湊新田2丁目",
+    "disasters": [
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)397-5577"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9017032,
+     35.67515164
+    ]
+   },
+   "properties": {
+    "name": "南行徳公園",
+    "address": "千葉県市川市相之川4丁目1",
+    "area": "相之川4丁目",
+    "disasters": [
+     "高潮",
+     "地震",
+     "津波"
+    ],
+    "tel": "(047)357-7701",
+    "url": "http://www.city.ichikawa.lg.jp/gyo07/1111000005.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8901949,
+     35.67869801
+    ]
+   },
+   "properties": {
+    "name": "広尾防災公園",
+    "address": "千葉県市川市広尾2丁目3-2",
+    "area": "広尾2丁目",
+    "disasters": [
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)359-0155"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9071894,
+     35.66512754
+    ]
+   },
+   "properties": {
+    "name": "東海面公園",
+    "address": "千葉県市川市南行徳4丁目７",
+    "area": "南行徳4丁目",
+    "disasters": [
+     "高潮",
+     "地震"
+    ],
+    "url": "http://www.city.ichikawa.lg.jp/gyo07/1111000010.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9134086,
+     35.66008843
+    ]
+   },
+   "properties": {
+    "name": "塩浜一号公園",
+    "address": "千葉県市川市塩浜4丁目9",
+    "area": "塩浜4丁目",
+    "disasters": [
+     "洪水",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9333554,
+     35.71462259
+    ]
+   },
+   "properties": {
+    "name": "県立現代産業科学館駐車場",
+    "address": "千葉県市川市鬼高1丁目1",
+    "area": "鬼高1丁目",
+    "disasters": [
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "url": "http://www.chiba-muse.or.jp/SCIENCE/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9269295,
+     35.6878354
+    ]
+   },
+   "properties": {
+    "name": "塩焼２丁目広場",
+    "address": "千葉県市川市塩焼2丁目2",
+    "area": "塩焼2丁目",
+    "disasters": [
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.99,
+     35.7429
+    ]
+   },
+   "properties": {
+    "name": "筑波大学附属聴覚特別支援学校（グラウンド等）",
+    "address": "千葉県市川市国府台２丁目２",
+    "area": "国府台２丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "（047）371-4135"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.930509,
+     35.723727
+    ]
+   },
+   "properties": {
+    "name": "八幡市民交流館 ニコット",
+    "address": "千葉県市川市八幡4丁目2-1",
+    "area": "八幡4丁目",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "tel": "(047)321-6264",
+    "url": "https://www.city.ichikawa.lg.jp/res10/0000464319.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.935726,
+     35.687801
+    ]
+   },
+   "properties": {
+    "name": "ぴあぱーく妙典",
+    "address": "千葉県市川市下妙典941-3",
+    "area": "下妙典",
+    "disasters": [
+     "洪水",
+     "崖崩れ・土石流・地滑り",
+     "高潮",
+     "地震",
+     "津波",
+     "内水氾濫"
+    ],
+    "url": "https://www.city.ichikawa.lg.jp/gre04/0000411218.html"
+   }
+  }
+ ]
+}

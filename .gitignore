@@ -135,10 +135,15 @@ references/lectures/
 # このリポジトリは public なので履歴に入れない。提出直前に手元で作る（app/README.md 参照）。
 app/readme.txt
 
+# MapLibre の worker は node_modules から複製したもの（app/scripts/copy-maplibre-worker.mjs）。
+# 依存のコピーなのでコミットしない。npm run build / dev が毎回作り直す。
+app/public/maplibre/
+
 # ===== フロントエンドのビルド生成物・キャッシュ =====
 # 提出前に削除するよう提出要件で指示されているもの。
 # （__pycache__/ node_modules/ dist/ .cache/ は上のセクションで指定済み）
 .next/
+*.tsbuildinfo
 .nuxt/
 .output/
 .svelte-kit/

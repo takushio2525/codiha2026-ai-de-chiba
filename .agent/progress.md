@@ -20,3 +20,11 @@
 - 2026-08-24: `data/analysis/` に探索的分析を追加（スクリプト 5 本・グラフ 9 枚・`findings.md`）。
   市川市は町丁字で高齢化率が 6.6 倍ちがう／避難場所は全地区 839m 以内／AED が 0 箇所の地区が 96。
   クリーン venv（Python 3.12・3.14）で同一 PNG が出ることを確認済み。
+- 2026-08-24: `app/` に地図アプリの骨格を実装（Next.js 16 + MapLibre GL 6 + Tailwind v4）。
+  市川市の避難場所 123・AED 304・子育て施設 388 を地図に重ね、レイヤー切替とポップアップ、
+  OSRM による徒歩ナビ（Geolocation 拒否時は地図クリックで出発地点指定）まで。
+- 2026-08-24: `docker compose up` で起動を実機確認。**MapLibre v6 は worker が別ファイルになり、
+  バンドルすると読めない**ため `public/maplibre/` に配置して `setWorkerUrl` で指す
+  （`app/scripts/copy-maplibre-worker.mjs`）。これが無いと点が永久に出ない。
+- 2026-08-24: 市川市 CSV → GeoJSON 変換を `data/scripts/build_geojson.py` に追加。
+  避難場所 CSV 末尾の 6 行は「緯度経度の欠損」ではなく**全列が空の行**だったので SOURCE.md を訂正。

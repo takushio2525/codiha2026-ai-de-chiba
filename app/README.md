@@ -12,6 +12,107 @@ CODIHA 2026 のコード提出は「**作業ディレクトリ丸ごとの zip�
 
 ---
 
+## 動かす
+
+**必要なのは Docker Desktop だけ**（Node.js を入れる必要はない）。
+
+```bash
+cd app
+docker compose up          # 初回はイメージのビルドで数分かかる
+```
+
+起動したらブラウザで <http://localhost:3000> を開く。止めるときは `Ctrl-C`。
+コードを変えたあとは `docker compose up --build` でビルドし直す。
+
+```bash
+docker compose down                 # 片付け
+docker compose down --rmi local     # イメージごと消す
+```
+
+### 中身を書き換えながら開発する
+
+毎回 Docker をビルドし直すのは遅いので、UI をいじるときは手元で Next.js を動かす
+（保存すると自動で画面に反映される）。**Node.js 22 以上**が要る。
+
+```bash
+cd app
+npm install
+npm run dev                # http://localhost:3000
+```
+
+`npm run dev` / `npm run build` の前に `scripts/copy-maplibre-worker.mjs` が自動で走り、
+MapLibre の Web Worker を `public/maplibre/` に配置する（後述の「既知の制約」参照）。
+
+| コマンド | 何をするか |
+|---|---|
+| `npm run dev` | 開発サーバー（ホットリロードあり） |
+| `npm run build` | 本番ビルド。Docker の中でも同じものが走る |
+| `npm run typecheck` | TypeScript の型チェックだけ |
+
+### 地図に載せるデータを作り直す
+
+`public/data/*.geojson` は市川市の CSV から生成したもの。元データを更新したら作り直す。
+
+```bash
+# リポジトリのルートで
+python3 data/scripts/build_geojson.py
+```
+
+---
+
+## 何ができるか
+
+- 市川市の**指定緊急避難場所 123 件・AED 設置箇所 304 件・子育て施設 388 件**を地図に重ねる。
+  レイヤーごとに表示を切り替えられ、点をクリックすると名称・所在地・種別ごとの詳細が出る
+- **徒歩ナビ**: 現在地（または地図で指定した地点）から、表示中のレイヤーで最も近い地点までの
+  徒歩経路を引き、距離と所要時間の目安を出す。ポップアップの「ここへナビ」で任意の地点も選べる
+
+## 構成
+
+```
+app/
+├── Dockerfile            multi-stage（依存の取得 → ビルド → 実行）
+├── compose.yaml          docker compose up 用。web コンテナ 1 つだけ
+├── scripts/              ビルド前に走る補助スクリプト
+├── public/data/          市川市オープンデータから作った GeoJSON 3 本
+└── src/
+    ├── app/              画面（/ = 地図、/about = 出典、/api/routing = 経路の取得）
+    ├── components/       地図・操作パネル・経路カード・通知
+    └── lib/              レイヤー定義・ベースマップ・距離計算・出典
+```
+
+| 使っているもの | 何のために |
+|---|---|
+| Next.js（App Router）+ TypeScript | 画面と、経路サービスへの中継 API |
+| MapLibre GL JS | 地図の描画。認証キー不要 |
+| Tailwind CSS + lucide-react | 見た目とアイコン |
+| 国土地理院「淡色地図」タイル | 背景地図。認証キー不要 |
+| OSRM（FOSSGIS e.V. 提供） | 徒歩経路の計算。認証キー不要 |
+
+**データベースは使わない。** 地図に載せるデータは GeoJSON として同梱してあるので、
+コンテナは 1 つで完結する。
+
+## 既知の制約
+
+- **インターネット接続が要る。** 背景地図（国土地理院）と徒歩経路（OSRM）は外部サービスを
+  参照する。**認証キーやアカウントは不要**。
+  経路サービスにつながらないときは直線距離と徒歩 4.8 km/h からの概算に切り替え、
+  「経路を取得できませんでした」と画面に出す（無反応で止まることはない）。
+  背景地図が出ない場合も、施設の点と経路は表示される
+- **現在地の取得は `localhost` か HTTPS でのみ動く**（ブラウザの仕様）。
+  `docker compose up` 後に `http://localhost:3000` を開けば問題ない。
+  取得できない・許可されない場合は「地図をクリックして出発地点を指定」に自動で切り替わる
+- 経路サービス（FOSSGIS の OSRM）の利用規約に合わせ、**サーバー側で 1 秒あたり 1 リクエスト**に
+  制限している。連続で押すと少し待たされることがある
+- **MapLibre v6 の Web Worker は `public/maplibre/` に配置している。**
+  v6 から worker が別ファイルになり、バンドルすると自分の場所を見つけられなくなったため、
+  `scripts/copy-maplibre-worker.mjs` が `node_modules` からコピーし、
+  `setWorkerUrl()` でそこを指している。**このコピーが無いと、背景地図は出るのに
+  施設の点が永久に出ない**（`app/src/components/MapView.tsx` のコメント参照）
+- 町丁字の境界ポリゴンは市川市オープンデータに無いので、面ではなく点で表示している
+
+---
+
 ## 🚫 絶対に守るルール
 
 ### 1. ファイル名に日本語を使わない
@@ -55,7 +156,7 @@ app/
 ├── Dockerfile
 ├── compose.yaml
 ├── src/              ← コード（英数字名で自由に切る）
-└── data/             ← 使うデータ
+└── public/data/      ← 使うデータ（GeoJSON）
 ```
 
 ### `readme.txt` に書く内容

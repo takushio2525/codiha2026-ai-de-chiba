@@ -5,12 +5,14 @@
 > **このディレクトリは提出物ではない。**
 > 提出する zip は `app/` 配下だけ（`AGENTS.md` の「提出 zip の中身に日本語ファイル名を使わない」参照）。
 > ここのデータをサービスで使うなら、必要な分だけ `app/` 側にコピーする。
+> 地図アプリが使う 3 本は `data/scripts/build_geojson.py` が
+> `app/public/data/*.geojson` に書き出している。
 
 ## 構成
 
 ```
 data/
-├── scripts/            取得スクリプトと取得対象の一覧（manifest.json）
+├── scripts/            取得スクリプト・取得対象の一覧（manifest.json）・GeoJSON 変換
 ├── chiba-pref/
 │   ├── SOURCE.md       取得元・取得日・ライセンス・各ファイルの中身と注意点
 │   └── raw/            千葉県オープンデータサイトから取得した Excel 8 本
@@ -35,6 +37,15 @@ python3 data/scripts/fetch_datasets.py --force  # 取り直す
 - 取得先は `data/scripts/manifest.json`。追加するときはここに 1 行足す
 - 同一サイトへの連続アクセスは 2 秒あける。**大量クロールはしない**
 - **1 ファイル 20 MB を超えるものは保存しない**（スクリプトが弾く）。URL だけ `SOURCE.md` に書く
+
+## 地図アプリ用の GeoJSON を作り直す
+
+```bash
+python3 data/scripts/build_geojson.py           # app/public/data/ に 3 本出力
+```
+
+市川市の CSV（cp932）を読み、空行・緯度経度なし・市域外の座標を落として GeoJSON にする。
+除外した行は実行時に標準出力へ出る。諸元は `data/ichikawa-city/SOURCE.md`。
 
 ## 守ること
 

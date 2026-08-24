@@ -1,0 +1,7 @@
+node_modules
+.next
+*.tsbuildinfo
+npm-debug.log
+README.md
+readme.txt
+.DS_Store
