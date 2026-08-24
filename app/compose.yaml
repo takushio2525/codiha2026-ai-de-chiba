@@ -37,11 +37,18 @@ services:
       # リダイレクト URI ができてしまうので、ここで固定する。
       # 上の ports を変えたら app/.env に AUTH_URL を書いて上書きする。
       AUTH_URL: ${AUTH_URL:-http://localhost:3000}
+      # 投稿写真の置き場。下の uploads ボリュームをここにマウントする。
+      # ここを変えるときは Dockerfile の mkdir / chown も同じパスにすること。
+      UPLOADS_DIR: /app/uploads
     # Google ログイン用の鍵を書くファイル。**無くても起動する**（required: false）。
     # 置かなければ自動でデモログインに切り替わる（app/.env.example を参照）。
     env_file:
       - path: .env
         required: false
+    volumes:
+      # 投稿写真の実体。DB にはファイル名だけを記録する
+      # （.agent/architecture.md「投稿写真の保存」）。
+      - uploads:/app/uploads
     depends_on:
       db:
         # db の healthcheck が通るまで web を起動しない。
@@ -79,3 +86,5 @@ services:
 volumes:
   # 投稿を消さずにコンテナを作り直せるようにする
   db-data:
+  # 投稿写真の実体。db-data と同じく docker compose down -v で消える
+  uploads:
