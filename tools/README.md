@@ -20,12 +20,17 @@
 ```bash
 # リポジトリのルートで
 bash tools/package_submission.sh          # dist/ai-de-chiba-map.7z ができる
+bash tools/package_submission.sh --smoke  # ＋ 展開先で実際に起動して HTTP 200 まで見る
 ```
 
 `app/` をクリーンコピー（`node_modules/` `.next/` などは落とし、gitignore 済みだが提出必須の
 `readme.txt` は入れる）して 7z で固め、**展開し直して**必須ファイル・日本語ファイル名・
 キャッシュ混入・`docker compose config` を検査する。1 つでも落ちたらアーカイブを消して
 非 0 で終了する。詳細は [`../app/README.md`](../app/README.md) の「提出アーカイブを作る」。
+
+compose を叩くところは `-p pkgtest-<PID>` で専用プロジェクトに隔離してある。
+`compose.yaml` はプロジェクト名を固定しているので、そのまま叩くと同じマシンで
+起動中のコンテナを巻き込んでしまうため。
 
 ## まず読むもの
 

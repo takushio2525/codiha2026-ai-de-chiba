@@ -91,6 +91,7 @@ bash .github/scripts/secret_scan.sh
 
 # 提出アーカイブを作って検証（dist/ に出力。NG が 1 つでもあればアーカイブを消して非 0 終了）
 bash tools/package_submission.sh
+bash tools/package_submission.sh --smoke   # ＋ 展開先で実際に起動して HTTP 200 まで確認する
 
 # 評価用ログの判定
 python tools/verification/evaluate.py --input tools/verification/results/run.csv

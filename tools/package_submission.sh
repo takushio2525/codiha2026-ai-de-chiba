@@ -4,7 +4,11 @@
 #
 # package_submission.sh — CODIHA 2026 の提出アーカイブを作り、提出要件を満たすか検査する
 #
-#   bash tools/package_submission.sh [ベース名]      ベース名の既定は ai-de-chiba-map
+#   bash tools/package_submission.sh [ベース名] [--smoke [--smoke-port N]]
+#
+#     ベース名     zip / 7z のベース名 ＝ 展開後のディレクトリ名。既定は ai-de-chiba-map
+#     --smoke      展開先で実際に docker compose up して HTTP 200 が返るまで見る（既定は行わない）
+#     --smoke-port 起動テストのホスト側ポート。既定 3000。塞がっているときに変える
 #
 # app/ を一時ディレクトリへクリーンコピーし（node_modules/ .next/ など gitignore 対象は
 # 落とす。ただし gitignore 済みでも提出必須の readme.txt だけは入れる）、提出用の
@@ -25,7 +29,17 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 SRC_DIR="$REPO_ROOT/app"
 DIST_DIR="$REPO_ROOT/dist"
-BASE_NAME="${1:-$BASE_NAME_DEFAULT}"
+
+# compose の操作にはこのスクリプト専用の一意なプロジェクト名を使う。
+# compose.yaml は name: ichikawa-opendata-map を固定している（審査員が
+# ディレクトリ名に左右されず起動できるようにするため）ので、そのまま
+# docker compose を叩くと、同じマシンで誰かが起動中のコンテナを
+# 作り直したり落としたりしてしまう。-p で名前を分けて隔離する。
+COMPOSE_PROJECT="pkgtest-$$"
+
+BASE_NAME=""
+SMOKE=0
+SMOKE_PORT=3000
 
 # --- 検査結果の記録 -----------------------------------------------------
 NG_COUNT=0
@@ -35,6 +49,35 @@ ng()     { printf '[ NG ] %s\n' "$1"; NG_COUNT=$((NG_COUNT + 1)); }
 skip()   { printf '[SKIP] %s\n' "$1"; SKIP_COUNT=$((SKIP_COUNT + 1)); }
 detail() { printf '       %s\n' "$1"; }
 die()    { printf 'エラー: %s\n' "$1" >&2; exit 2; }
+
+# --- 引数 ---------------------------------------------------------------
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --smoke)        SMOKE=1; shift ;;
+        --smoke-port)   SMOKE=1; SMOKE_PORT="${2:-}"; shift 2 ;;
+        --smoke-port=*) SMOKE=1; SMOKE_PORT="${1#--smoke-port=}"; shift ;;
+        -h|--help)
+            cat <<'USAGE'
+bash tools/package_submission.sh [ベース名] [--smoke [--smoke-port N]]
+
+  ベース名       zip / 7z のベース名 ＝ 展開後のディレクトリ名。既定は ai-de-chiba-map
+  --smoke        展開先で実際に docker compose up して HTTP 200 が返るまで見る
+  --smoke-port N 起動テストのホスト側ポート。既定 3000。塞がっているときに変える
+USAGE
+            exit 0 ;;
+        -*) die "知らないオプションです: $1" ;;
+        *)
+            [ -z "$BASE_NAME" ] || die "引数が多すぎます: $1"
+            BASE_NAME="$1"; shift ;;
+    esac
+done
+[ -n "$BASE_NAME" ] || BASE_NAME="$BASE_NAME_DEFAULT"
+
+case "$SMOKE_PORT" in
+    ''|*[!0-9]*) die "--smoke-port には 1〜65535 の数値を指定してください（指定: '$SMOKE_PORT'）" ;;
+esac
+[ "$SMOKE_PORT" -ge 1 ] && [ "$SMOKE_PORT" -le 65535 ] \
+    || die "--smoke-port には 1〜65535 の数値を指定してください（指定: '$SMOKE_PORT'）"
 
 # --- 前提の確認 ---------------------------------------------------------
 # ベース名はそのまま展開後のディレクトリ名になる。提出要件でファイル名に
@@ -52,7 +95,22 @@ git -C "$REPO_ROOT" rev-parse --git-dir >/dev/null 2>&1 \
 
 # --- 作業場所 -----------------------------------------------------------
 STAGE_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/codiha-package.XXXXXX")" || die "一時ディレクトリを作れません"
-trap 'rm -rf "$STAGE_ROOT"' EXIT
+
+# 起動テストで立てたコンテナは、途中で止められても必ず落とす。
+# 落とす相手は -p で分けた専用プロジェクトだけなので、他の人が動かしている
+# ichikawa-opendata-map には触らない。
+SMOKE_UP=0
+SMOKE_OVERRIDE=""
+cleanup_smoke() {
+    [ "$SMOKE_UP" = "1" ] || return 0
+    SMOKE_UP=0
+    ( cd "$APP_ROOT" 2>/dev/null \
+      && docker compose -p "$COMPOSE_PROJECT" -f compose.yaml -f "$SMOKE_OVERRIDE" \
+             down --rmi local --remove-orphans ) > /dev/null 2>&1
+}
+cleanup() { cleanup_smoke; rm -rf "$STAGE_ROOT"; }
+trap cleanup EXIT
+trap 'cleanup; exit 130' INT TERM
 STAGE_PARENT="$STAGE_ROOT/stage"
 STAGE_DIR="$STAGE_PARENT/$BASE_NAME"
 EXTRACT_DIR="$STAGE_ROOT/extract"
@@ -251,13 +309,78 @@ if ! command -v docker >/dev/null 2>&1; then
 elif [ ! -f "$APP_ROOT/compose.yaml" ]; then
     skip "compose.yaml が無いので妥当性を確認できない"
 else
-    ( cd "$APP_ROOT" && docker compose config --quiet ) > "$STAGE_ROOT/compose.log" 2>&1
+    ( cd "$APP_ROOT" && docker compose -p "$COMPOSE_PROJECT" config --quiet ) \
+        > "$STAGE_ROOT/compose.log" 2>&1
     RC=$?
     if [ "$RC" -eq 0 ]; then
         ok "展開先で docker compose config が通る"
     else
         ng "展開先で docker compose config が通らない"
         head -10 "$STAGE_ROOT/compose.log" | while IFS= read -r e; do detail "$e"; done
+    fi
+fi
+
+# (9) 展開先で実際に起動して応答するか（--smoke のときだけ）
+# 立てるのは -p で分けた専用プロジェクト（$COMPOSE_PROJECT）。compose.yaml の
+# name: ichikawa-opendata-map には触らないので、誰かが起動中でも巻き込まない。
+if [ "$SMOKE" != "1" ]; then
+    :
+elif ! command -v docker >/dev/null 2>&1; then
+    skip "docker が無いので起動テストができない"
+elif ! command -v curl >/dev/null 2>&1; then
+    skip "curl が無いので起動テストの応答を確認できない"
+elif [ ! -f "$APP_ROOT/compose.yaml" ]; then
+    skip "compose.yaml が無いので起動テストができない"
+else
+    # サービス名とコンテナ側ポートは compose.yaml から取る（web / 3000 の決め打ちにしない）
+    SMOKE_SERVICE="$( ( cd "$APP_ROOT" \
+        && docker compose -p "$COMPOSE_PROJECT" config --services ) 2>/dev/null | head -1 )"
+    SMOKE_TARGET="$( ( cd "$APP_ROOT" \
+        && docker compose -p "$COMPOSE_PROJECT" config ) 2>/dev/null \
+        | awk '/target:/ { gsub(/[^0-9]/, "", $2); print $2; exit }' )"
+    [ -n "$SMOKE_TARGET" ] || SMOKE_TARGET=3000
+
+    if [ -z "$SMOKE_SERVICE" ]; then
+        ng "起動テスト: compose.yaml からサービス名を取れない"
+    else
+        # ホスト側のポートだけ差し替える。ports は既定だと追記マージなので !override で置き換える
+        SMOKE_OVERRIDE="$STAGE_ROOT/compose.smoke.yaml"
+        cat > "$SMOKE_OVERRIDE" <<YAML
+services:
+  $SMOKE_SERVICE:
+    ports: !override
+      - "$SMOKE_PORT:$SMOKE_TARGET"
+YAML
+        printf '       起動テスト中: docker compose -p %s up --build（localhost:%s）\n' \
+            "$COMPOSE_PROJECT" "$SMOKE_PORT"
+        # up が途中で失敗しても作りかけが残らないよう、叩く前に片付け対象にしておく
+        SMOKE_UP=1
+        ( cd "$APP_ROOT" && docker compose -p "$COMPOSE_PROJECT" \
+            -f compose.yaml -f "$SMOKE_OVERRIDE" up -d --build ) > "$STAGE_ROOT/smoke.log" 2>&1
+        RC=$?
+        if [ "$RC" -ne 0 ]; then
+            ng "起動テスト: docker compose up が失敗した"
+            detail "ポートが塞がっているなら --smoke-port で変える"
+            tail -8 "$STAGE_ROOT/smoke.log" | while IFS= read -r e; do detail "$e"; done
+        else
+            CODE=""
+            i=0
+            while [ "$i" -lt 90 ]; do
+                CODE="$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:$SMOKE_PORT/" 2>/dev/null)"
+                [ "$CODE" = "200" ] && break
+                i=$((i + 1))
+                sleep 1
+            done
+            if [ "$CODE" = "200" ]; then
+                ok "展開先で docker compose up が通り、http://localhost:$SMOKE_PORT/ が HTTP 200 を返す"
+            else
+                ng "起動テスト: 90 秒待っても HTTP 200 が返らない（最後の応答: ${CODE:-応答なし}）"
+                ( cd "$APP_ROOT" && docker compose -p "$COMPOSE_PROJECT" \
+                    -f compose.yaml -f "$SMOKE_OVERRIDE" logs --tail 8 ) 2>&1 \
+                    | while IFS= read -r e; do detail "$e"; done
+            fi
+        fi
+        cleanup_smoke
     fi
 fi
 
@@ -274,7 +397,12 @@ SIZE_MIB="$(wc -c < "$ARCHIVE" | awk '{ printf "%.1f", $1 / 1048576 }')"
 printf '結果: すべて OK（SKIP %d 件）\n' "$SKIP_COUNT"
 printf '提出アーカイブ: %s（%s MiB）\n' "$ARCHIVE" "$SIZE_MIB"
 printf '\nここから先は手で確認する:\n'
-printf '  - 書いた本人以外の環境で展開して docker compose up が通るか\n'
+if [ "$SMOKE" = "1" ]; then
+    printf '  - このマシンでの起動は上で確認済み。「書いた本人以外の環境」でも動くか\n'
+else
+    printf '  - 展開して docker compose up が通るか（--smoke を付けると自動で確認する）\n'
+    printf '    ＋ それを「書いた本人以外の環境」でも確認する\n'
+fi
 printf '  - Slack のチーム用プライベートチャンネルへ、先頭行に太字で「資料提出」と書いて\n'
 printf '    このアーカイブと説明資料 PDF 2 種を、チーム代表者が投稿したか\n'
 exit 0
