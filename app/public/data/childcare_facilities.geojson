@@ -1,0 +1,6914 @@
+{
+ "type": "FeatureCollection",
+ "attribution": "「【市川市】子育て施設」（市川市オープンデータ）（https://opendata.pref.chiba.lg.jp/datasets/3283）を加工して作成",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9179131,
+     35.75611894
+    ]
+   },
+   "properties": {
+    "name": "アンデルセン幼稚園",
+    "address": "千葉県市川市堀之内1丁目9-17",
+    "area": "堀之内1丁目",
+    "category": "私立幼稚園",
+    "tel": "(047)374-1751",
+    "url": "https://andersen-kindergarten.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9534368,
+     35.72697185
+    ]
+   },
+   "properties": {
+    "name": "若宮幼稚園",
+    "address": "千葉県市川市若宮3丁目53-4",
+    "area": "若宮3丁目",
+    "category": "私立幼稚園",
+    "tel": "(047)339-2057",
+    "url": "https://ichikawa-wakamiya-kg.jimdofree.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9364769,
+     35.72799194
+    ]
+   },
+   "properties": {
+    "name": "富貴島幼稚園",
+    "address": "千葉県市川市八幡6丁目12-12",
+    "area": "八幡6丁目",
+    "category": "私立幼稚園",
+    "tel": "(047)334-4860",
+    "url": "http://fukishima.jp/top.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9103596,
+     35.73045918
+    ]
+   },
+   "properties": {
+    "name": "自然幼稚園",
+    "address": "千葉県市川市市川1丁目24-21",
+    "area": "市川1丁目",
+    "category": "私立幼稚園",
+    "tel": "(047)322-4095",
+    "url": "https://ichikawashizen.wixsite.com/osanagononiwa"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8959189,
+     35.67856271
+    ]
+   },
+   "properties": {
+    "name": "和光幼稚園",
+    "address": "千葉県市川市相之川2丁目12-28",
+    "area": "相之川2丁目",
+    "category": "私立幼稚園",
+    "tel": "(047)316-1455",
+    "url": "https://www.ichikawa-wako.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9186402,
+     35.72997976
+    ]
+   },
+   "properties": {
+    "name": "日出学園幼稚園",
+    "address": "千葉県市川市菅野2丁目21-12",
+    "area": "菅野2丁目",
+    "category": "私立幼稚園",
+    "tel": "(047)322-4012",
+    "url": "http://kinder.hinode.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9318648,
+     35.72304126
+    ]
+   },
+   "properties": {
+    "name": "市川学園幼稚園",
+    "address": "千葉県市川市八幡5丁目1-10",
+    "area": "八幡5丁目",
+    "category": "認定こども園（幼稚園型）",
+    "tel": "(047)334-4770",
+    "url": "https://www.ichikawa-kindergarten.com/dai-ichi/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9378424,
+     35.73202963
+    ]
+   },
+   "properties": {
+    "name": "市川学園第２幼稚園",
+    "address": "千葉県市川市東菅野4丁目13-1",
+    "area": "東菅野4丁目",
+    "category": "認定こども園（幼稚園型）",
+    "tel": "(047)339-1531",
+    "url": "https://www.ichikawa-kindergarten.com/daini/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9494526,
+     35.71993161
+    ]
+   },
+   "properties": {
+    "name": "みどり幼稚園",
+    "address": "千葉県市川市中山3丁目10-4",
+    "area": "中山3丁目",
+    "category": "私立幼稚園",
+    "tel": "(047)334-1224",
+    "url": "http://www.midorikg.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9187727,
+     35.718034
+    ]
+   },
+   "properties": {
+    "name": "つくし幼稚園",
+    "address": "千葉県市川市大和田3丁目3-3",
+    "area": "大和田3丁目",
+    "category": "私立幼稚園",
+    "tel": "(047)376-5922",
+    "url": "https://tsukushi-kg.net/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9308165,
+     35.7356171
+    ]
+   },
+   "properties": {
+    "name": "昭和学院幼稚園",
+    "address": "千葉県市川市宮久保1丁目3-8",
+    "area": "宮久保1丁目",
+    "category": "私立幼稚園",
+    "tel": "(047)374-8300",
+    "url": "http://www.showagakuin-kg.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9264885,
+     35.72454013
+    ]
+   },
+   "properties": {
+    "name": "市川聖マリヤ幼稚園",
+    "address": "千葉県市川市八幡3丁目19-12",
+    "area": "八幡3丁目",
+    "category": "認定こども園（幼稚園型）",
+    "tel": "(047)323-5371",
+    "url": "https://ichikawa-stmary.org/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9067301,
+     35.74043842
+    ]
+   },
+   "properties": {
+    "name": "真間山幼稚園",
+    "address": "千葉県市川市真間4丁目9-1",
+    "area": "真間4丁目",
+    "category": "私立幼稚園",
+    "tel": "(047)371-7251",
+    "url": "https://mamasan.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9095807,
+     35.7248416
+    ]
+   },
+   "properties": {
+    "name": "共立幼稚園",
+    "address": "千葉県市川市新田4丁目15-27",
+    "area": "新田4丁目",
+    "category": "私立幼稚園",
+    "tel": "(047)377-0851",
+    "url": "http://kyouritsu-youchien.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9339516,
+     35.74045322
+    ]
+   },
+   "properties": {
+    "name": "曽谷幼稚園",
+    "address": "千葉県市川市曽谷1丁目4-1",
+    "area": "曽谷1丁目",
+    "category": "私立幼稚園",
+    "tel": "(047)371-5440",
+    "url": "http://soya-kindergarten.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9585533,
+     35.77501394
+    ]
+   },
+   "properties": {
+    "name": "大町不二幼稚園",
+    "address": "千葉県市川市大町103",
+    "area": "大町",
+    "category": "私立幼稚園",
+    "tel": "(047)337-8337",
+    "url": "https://oomachi-fujiyo.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9565491,
+     35.72955209
+    ]
+   },
+   "properties": {
+    "name": "わかたけ幼稚園",
+    "address": "千葉県市川市北方町4丁目1798",
+    "area": "北方町4丁目",
+    "category": "私立幼稚園",
+    "tel": "(047)338-1661",
+    "url": "http://wakatakekids.sakura.ne.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9185136,
+     35.71024184
+    ]
+   },
+   "properties": {
+    "name": "ソフィア幼稚園",
+    "address": "千葉県市川市稲荷木3丁目22-5",
+    "area": "稲荷木3丁目",
+    "category": "私立幼稚園",
+    "tel": "(047)379-1015",
+    "url": "http://www.sophia.ed.jp/#1"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9553198,
+     35.75369725
+    ]
+   },
+   "properties": {
+    "name": "浄光寺幼稚園",
+    "address": "千葉県市川市大野町3丁目1917",
+    "area": "大野町3丁目",
+    "category": "私立幼稚園",
+    "tel": "(047)337-8413",
+    "url": "http://www.jyokoji.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9275302,
+     35.75055486
+    ]
+   },
+   "properties": {
+    "name": "国分幼稚園",
+    "address": "千葉県市川市曽谷5丁目32-18",
+    "area": "曽谷5丁目",
+    "category": "私立幼稚園",
+    "tel": "(047)373-1481",
+    "url": "https://www.kokubun-monte.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9121853,
+     35.74283972
+    ]
+   },
+   "properties": {
+    "name": "いなほ幼稚園",
+    "address": "千葉県市川市国分3丁目4-12",
+    "area": "国分3丁目",
+    "category": "認定こども園（幼稚園型）",
+    "tel": "(047)373-2201",
+    "url": "https://inaho.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9569953,
+     35.73760198
+    ]
+   },
+   "properties": {
+    "name": "築葉根幼稚園",
+    "address": "千葉県市川市北方町4丁目2171",
+    "area": "北方町4丁目",
+    "category": "私立幼稚園",
+    "tel": "(047)338-4800",
+    "url": "http://www.tukubane.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9432814,
+     35.70339321
+    ]
+   },
+   "properties": {
+    "name": "原木幼稚園",
+    "address": "千葉県市川市原木1丁目8-1",
+    "area": "原木1丁目",
+    "category": "私立幼稚園",
+    "tel": "(047)327-1291",
+    "url": "https://www.baraki-youchien.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9202771,
+     35.68046201
+    ]
+   },
+   "properties": {
+    "name": "東浜幼稚園",
+    "address": "千葉県市川市行徳駅前3丁目12-14",
+    "area": "行徳駅前3丁目",
+    "category": "私立幼稚園",
+    "tel": "(047)396-5321",
+    "url": "https://www.ans.co.jp/k/higashihama/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9219888,
+     35.74271306
+    ]
+   },
+   "properties": {
+    "name": "三愛幼稚園",
+    "address": "千葉県市川市東国分1丁目20-12",
+    "area": "東国分1丁目",
+    "category": "私立幼稚園",
+    "tel": "(047)373-7272",
+    "url": "http://www.sanaiyouchien.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.907984,
+     35.66283452
+    ]
+   },
+   "properties": {
+    "name": "塩浜幼稚園",
+    "address": "千葉県市川市塩浜4丁目2-28-101",
+    "area": "塩浜4丁目",
+    "category": "私立幼稚園",
+    "tel": "(047)399-2578",
+    "url": "https://shiohama-youchien.ed.jp/index.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9033922,
+     35.74219369
+    ]
+   },
+   "properties": {
+    "name": "筑波大学附属聴覚特別支援学校幼稚部",
+    "address": "千葉県市川市国府台2丁目2-1",
+    "area": "国府台2丁目",
+    "category": "私立幼稚園",
+    "tel": "(047)371-4138",
+    "url": "http://www.deaf-s.tsukuba.ac.jp/youchibu/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9292467,
+     35.71921736
+    ]
+   },
+   "properties": {
+    "name": "南八幡さくら保育園",
+    "address": "千葉県市川市南八幡3丁目9-1",
+    "area": "南八幡3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)314-4190"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9037509,
+     35.73266717
+    ]
+   },
+   "properties": {
+    "name": "市川保育園",
+    "address": "千葉県市川市市川2丁目24-12",
+    "area": "市川2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)322-3363"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9466861,
+     35.7413427
+    ]
+   },
+   "properties": {
+    "name": "かいづか保育園",
+    "address": "千葉県市川市下貝塚3丁目9-3",
+    "area": "下貝塚3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)318-5766"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9029972,
+     35.67647606
+    ]
+   },
+   "properties": {
+    "name": "かけまま保育園",
+    "address": "千葉県市川市欠真間2丁目25-8",
+    "area": "欠真間2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)359-0378"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9146564,
+     35.6756785
+    ]
+   },
+   "properties": {
+    "name": "行徳第二保育園",
+    "address": "千葉県市川市行徳駅前4丁目26-10",
+    "area": "行徳駅前4丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)397-6671"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9161065,
+     35.67404991
+    ]
+   },
+   "properties": {
+    "name": "行徳第二保育園分園",
+    "address": "千葉県市川市新浜1丁目26-1",
+    "area": "新浜1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)701-5243"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9006747,
+     35.74636362
+    ]
+   },
+   "properties": {
+    "name": "国府台保育園",
+    "address": "千葉県市川市国府台2丁目9-13",
+    "area": "国府台2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)372-3740"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9166618,
+     35.68941099
+    ]
+   },
+   "properties": {
+    "name": "行徳あけぼの保育園",
+    "address": "千葉県市川市関ヶ島７-3",
+    "area": "関ヶ島",
+    "category": "認可私立保育所",
+    "tel": "(047)357-2283"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8947263,
+     35.67751313
+    ]
+   },
+   "properties": {
+    "name": "新井保育園",
+    "address": "千葉県市川市新井2丁目1-21",
+    "area": "新井2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)357-3211"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9030468,
+     35.7591514
+    ]
+   },
+   "properties": {
+    "name": "さかえ保育園",
+    "address": "千葉県市川市北国分1丁目14-26",
+    "area": "北国分1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)373-0149"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.923603,
+     35.74252902
+    ]
+   },
+   "properties": {
+    "name": "つくし保育園",
+    "address": "千葉県市川市東国分1丁目21-22",
+    "area": "東国分1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)373-1659"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9216305,
+     35.73819536
+    ]
+   },
+   "properties": {
+    "name": "まきば保育園",
+    "address": "千葉県市川市須和田1丁目29-15",
+    "area": "須和田1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)372-6012"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9263411,
+     35.67890766
+    ]
+   },
+   "properties": {
+    "name": "愛泉保育園",
+    "address": "千葉県市川市幸2丁目8-1７",
+    "area": "幸2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)396-2222"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9332368,
+     35.74305766
+    ]
+   },
+   "properties": {
+    "name": "百合台保育園",
+    "address": "千葉県市川市曽谷3丁目11-1",
+    "area": "曽谷3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)374-0789"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9548541,
+     35.72165238
+    ]
+   },
+   "properties": {
+    "name": "ときわ保育園",
+    "address": "千葉県市川市若宮2丁目19-13",
+    "area": "若宮2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)332-3030"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9049344,
+     35.67318989
+    ]
+   },
+   "properties": {
+    "name": "仁保育園",
+    "address": "千葉県市川市南行徳1丁目10-5",
+    "area": "南行徳1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)396-1241"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9348285,
+     35.70211708
+    ]
+   },
+   "properties": {
+    "name": "原木保育園",
+    "address": "千葉県市川市田尻5丁目15-9",
+    "area": "田尻5丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)379-5413"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9352698,
+     35.71083707
+    ]
+   },
+   "properties": {
+    "name": "杉の木保育園",
+    "address": "千葉県市川市鬼高3丁目18-1７",
+    "area": "鬼高3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)377-5933"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9677678,
+     35.74214395
+    ]
+   },
+   "properties": {
+    "name": "柏井保育園",
+    "address": "千葉県市川市柏井町2丁目７18-3",
+    "area": "柏井町2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)337-6541"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9520826,
+     35.75638483
+    ]
+   },
+   "properties": {
+    "name": "花の子保育園",
+    "address": "千葉県市川市大野町3丁目1668-1",
+    "area": "大野町3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)337-4188"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9289099,
+     35.72023448
+    ]
+   },
+   "properties": {
+    "name": "明徳本八幡駅保育園",
+    "address": "千葉県市川市八幡2丁目11-2",
+    "area": "八幡2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)318-0110"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9466445,
+     35.70063158
+    ]
+   },
+   "properties": {
+    "name": "わたぐも保育園",
+    "address": "千葉県市川市原木2丁目10-13",
+    "area": "原木2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)329-6006"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9019405,
+     35.67410947
+    ]
+   },
+   "properties": {
+    "name": "アップルナースリー保育園",
+    "address": "千葉県市川市相之川4丁目3-11F",
+    "area": "相之川4丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)359-0635"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9178389,
+     35.68688151
+    ]
+   },
+   "properties": {
+    "name": "すえひろ保育園",
+    "address": "千葉県市川市末広1丁目1-48",
+    "area": "末広1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)356-4152"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9047895,
+     35.72339528
+    ]
+   },
+   "properties": {
+    "name": "さくらんぼ保育園",
+    "address": "千葉県市川市市川南2丁目6-22",
+    "area": "市川南2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)322-3334"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9294038,
+     35.6906108
+    ]
+   },
+   "properties": {
+    "name": "じゃんぐる保育園",
+    "address": "千葉県市川市妙典4丁目10-4-102",
+    "area": "妙典4丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)397-1940"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.945177,
+     35.7032804
+    ]
+   },
+   "properties": {
+    "name": "うみかぜ保育園",
+    "address": "千葉県市川市原木1丁目15-24",
+    "area": "原木1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)328-2562"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.908734,
+     35.67812057
+    ]
+   },
+   "properties": {
+    "name": "キッド・ステイ南行徳保育園",
+    "address": "千葉県市川市香取2丁目19-10",
+    "area": "香取2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)390-1188"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8993699,
+     35.67542634
+    ]
+   },
+   "properties": {
+    "name": "太陽の子保育園",
+    "address": "千葉県市川市相之川3丁目10-15",
+    "area": "相之川3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)357-0478"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9063453,
+     35.72916076
+    ]
+   },
+   "properties": {
+    "name": "市川キッズステーション",
+    "address": "千葉県市川市市川南1丁目10-1ｻﾞ・ﾀﾜｰｽﾞｳｴｽﾄ3F",
+    "area": "市川南1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)322-8733"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9512048,
+     35.75558565
+    ]
+   },
+   "properties": {
+    "name": "市川大野ナーサリースクール",
+    "address": "千葉県市川市大野町 3丁目1438-1",
+    "area": "大野町 3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)339-3331"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8901252,
+     35.67955437
+    ]
+   },
+   "properties": {
+    "name": "広尾みらい保育園",
+    "address": "千葉県市川市広尾 2丁目3-1",
+    "area": "広尾 2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)390-2772"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.930951,
+     35.69060369
+    ]
+   },
+   "properties": {
+    "name": "あじさい保育園",
+    "address": "千葉県市川市妙典 5丁目12-16",
+    "area": "妙典 5丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)359-8231"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9367802,
+     35.69929141
+    ]
+   },
+   "properties": {
+    "name": "キッド・ステイ原木中山保育園",
+    "address": "千葉県市川市高谷 2丁目2-16",
+    "area": "高谷 2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)711-1180"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9166928,
+     35.68440323
+    ]
+   },
+   "properties": {
+    "name": "アスク行徳保育園",
+    "address": "千葉県市川市行徳駅前 1丁目5-14",
+    "area": "行徳駅前 1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)701-1117"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9208161,
+     35.71621431
+    ]
+   },
+   "properties": {
+    "name": "アスク本八幡保育園",
+    "address": "千葉県市川市大和田 1丁目5-2",
+    "area": "大和田 1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)300-8737"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9428876,
+     35.74104354
+    ]
+   },
+   "properties": {
+    "name": "ありのみ保育園",
+    "address": "千葉県市川市下貝塚 1丁目3-23",
+    "area": "下貝塚 1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)374-8700"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9355507,
+     35.71753474
+    ]
+   },
+   "properties": {
+    "name": "市川どろんこ保育園",
+    "address": "千葉県市川市鬼越 2丁目18-17",
+    "area": "鬼越 2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)302-7333"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9008224,
+     35.73130961
+    ]
+   },
+   "properties": {
+    "name": "小学館アカデミーいちかわ南保育園",
+    "address": "千葉県市川市市川南3丁目13-12",
+    "area": "市川南3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)325-8030"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9495148,
+     35.74634225
+    ]
+   },
+   "properties": {
+    "name": "こうぜん保育園市川",
+    "address": "千葉県市川市南大野 2丁目23-11",
+    "area": "南大野 2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)701-5920"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9026731,
+     35.67930497
+    ]
+   },
+   "properties": {
+    "name": "すくすくの杜南行徳園",
+    "address": "千葉県市川市欠真間 1丁目4-7",
+    "area": "欠真間 1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)395-5777"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9273738,
+     35.72496057
+    ]
+   },
+   "properties": {
+    "name": "保育ルームフェリーチェ京成八幡園",
+    "address": "千葉県市川市八幡 3丁目25-12",
+    "area": "八幡 3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)322-0727"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9124408,
+     35.68502346
+    ]
+   },
+   "properties": {
+    "name": "保育ルームフェリーチェ行徳園",
+    "address": "千葉県市川市湊 3丁目1１F",
+    "area": "湊 3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)398-7130"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9220923,
+     35.68920374
+    ]
+   },
+   "properties": {
+    "name": "キッド・ステイ妙典保育園",
+    "address": "千葉県市川市富浜 2丁目5-28",
+    "area": "富浜 2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)701-1188"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9024549,
+     35.66884946
+    ]
+   },
+   "properties": {
+    "name": "つばさ保育園",
+    "address": "千葉県市川市南行徳 3丁目12-12",
+    "area": "南行徳 3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)396-2980"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9057907,
+     35.67240578
+    ]
+   },
+   "properties": {
+    "name": "保育ルームフェリーチェ南行徳園",
+    "address": "千葉県市川市南行徳 1丁目12-21F",
+    "area": "南行徳 1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)396-0044"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9142367,
+     35.76215499
+    ]
+   },
+   "properties": {
+    "name": "北国分駅前しゃりっこ保育園",
+    "address": "千葉県市川市堀之内3丁目18-25 1・2F",
+    "area": "堀之内3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)712-1682"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9158027,
+     35.68056947
+    ]
+   },
+   "properties": {
+    "name": "ひまわりキッズ保育園",
+    "address": "千葉県市川市行徳駅前2丁目9-6",
+    "area": "行徳駅前2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)359-9101"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9118784,
+     35.7295606
+    ]
+   },
+   "properties": {
+    "name": "Milky Way International Nursery School 市川校",
+    "address": "千葉県市川市新田5丁目6-23　1F",
+    "area": "新田5丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)318-9222"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9109652,
+     35.73216294
+    ]
+   },
+   "properties": {
+    "name": "K's garden 真間駅前保育園",
+    "address": "千葉県市川市真間1丁目12-41F",
+    "area": "真間1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)704-9966"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9548938,
+     35.74216804
+    ]
+   },
+   "properties": {
+    "name": "そらまめ保育園市川大野",
+    "address": "千葉県市川市奉免町116-2",
+    "area": "奉免町",
+    "category": "認可私立保育所",
+    "tel": "(047)337-2822"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.912687,
+     35.72919687
+    ]
+   },
+   "properties": {
+    "name": "聖和保育園",
+    "address": "千葉県市川市新田5丁目4-2ﾚ･ｿｰﾙ市川",
+    "area": "新田5丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)316-2578"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9212242,
+     35.72472905
+    ]
+   },
+   "properties": {
+    "name": "メリーポピンズ市川ルーム",
+    "address": "千葉県市川市平田1丁目14-23　ＮＴＴ東日本市川ﾋﾞﾙ1階",
+    "area": "平田1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)712-6231"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9288843,
+     35.72952076
+    ]
+   },
+   "properties": {
+    "name": "キャリー保育園本八幡",
+    "address": "千葉県市川市東菅野1丁目18-8　2F",
+    "area": "東菅野1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)712-5505"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9269418,
+     35.6959442
+    ]
+   },
+   "properties": {
+    "name": "ゆう保育園",
+    "address": "千葉県市川市妙典2丁目4-12",
+    "area": "妙典2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)704-8347"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.925222,
+     35.68299972
+    ]
+   },
+   "properties": {
+    "name": "すみれキッズアカデミー",
+    "address": "千葉県市川市宝1丁目10-21",
+    "area": "宝1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)359-4972"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9158807,
+     35.68472278
+    ]
+   },
+   "properties": {
+    "name": "若葉インターナショナル幼保園行徳園",
+    "address": "千葉県市川市行徳駅前1丁目3-14",
+    "area": "行徳駅前1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)359-7700"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9390638,
+     35.73496997
+    ]
+   },
+   "properties": {
+    "name": "みやくぼ保育園",
+    "address": "千葉県市川市宮久保3丁目17-10",
+    "area": "宮久保3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)374-1510"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9112358,
+     35.67882292
+    ]
+   },
+   "properties": {
+    "name": "湊新田保育園",
+    "address": "千葉県市川市湊新田2丁目8-3",
+    "area": "湊新田2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)307-3532"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9307205,
+     35.6955592
+    ]
+   },
+   "properties": {
+    "name": "妙典保育園",
+    "address": "千葉県市川市妙典6丁目2-45",
+    "area": "妙典6丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)701-2311"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9178474,
+     35.68356829
+    ]
+   },
+   "properties": {
+    "name": "さくらキッズ保育園",
+    "address": "千葉県市川市行徳駅前1丁目8-17河幸第8ビル1階",
+    "area": "行徳駅前1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)711-2922"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9378939,
+     35.70227616
+    ]
+   },
+   "properties": {
+    "name": "認可保育園トドラースリング",
+    "address": "千葉県市川市田尻4丁目16-71F",
+    "area": "田尻4丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)702-9688"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9019101,
+     35.72625657
+    ]
+   },
+   "properties": {
+    "name": "リトルガーデンインターナショナル市川認可保育園",
+    "address": "千葉県市川市市川南4丁目2-19",
+    "area": "市川南4丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)383-9511"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9241074,
+     35.73327676
+    ]
+   },
+   "properties": {
+    "name": "市川かえで保育園",
+    "address": "千葉県市川市菅野5丁目10-1エクセレントタウン市川１F",
+    "area": "菅野5丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)322-7088"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9354565,
+     35.70600225
+    ]
+   },
+   "properties": {
+    "name": "原木中山こどもの木保育園",
+    "address": "千葉県市川市田尻3丁目6-36",
+    "area": "田尻3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)379-5021"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9208712,
+     35.67811199
+    ]
+   },
+   "properties": {
+    "name": "ちゃいれっく入船保育園",
+    "address": "千葉県市川市入船10-3",
+    "area": "入船",
+    "category": "認可私立保育所",
+    "tel": "(047)711-0241"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9145636,
+     35.67449665
+    ]
+   },
+   "properties": {
+    "name": "京進のほいくえんHOPPA新浜",
+    "address": "千葉県市川市新浜1丁目23-13　1F",
+    "area": "新浜1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)702-9671"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8997725,
+     35.67249443
+    ]
+   },
+   "properties": {
+    "name": "京進のほいくえんHOPPA南行徳駅前",
+    "address": "千葉県市川市新井3丁目4-1",
+    "area": "新井3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)307-9171"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9153097,
+     35.68433058
+    ]
+   },
+   "properties": {
+    "name": "らいおんハート行徳駅前保育園",
+    "address": "千葉県市川市行徳駅前1丁目19-19ヴォーナ・ヴィータ行徳駅前2階",
+    "area": "行徳駅前1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)383-9120"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9279626,
+     35.71859572
+    ]
+   },
+   "properties": {
+    "name": "ミルキーホーム本八幡みなみ園",
+    "address": "千葉県市川市南八幡3丁目12-21MC本八幡ビル1階",
+    "area": "南八幡3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)378-7078"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.921574,
+     35.72176172
+    ]
+   },
+   "properties": {
+    "name": "八幡南保育園",
+    "address": "千葉県市川市平田3丁目4-14",
+    "area": "平田3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)311-4010"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.929107,
+     35.71967821
+    ]
+   },
+   "properties": {
+    "name": "いろはな保育園本八幡",
+    "address": "千葉県市川市南八幡3丁目3-6",
+    "area": "南八幡3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)712-6730"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9121229,
+     35.68526416
+    ]
+   },
+   "properties": {
+    "name": "クオリスキッズ行徳保育園",
+    "address": "千葉県市川市湊2-9",
+    "area": "湊",
+    "category": "認可私立保育所",
+    "tel": "(047)318-2229"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.940486,
+     35.71915043
+    ]
+   },
+   "properties": {
+    "name": "K's garden 鬼越保育園",
+    "address": "千葉県市川市高石神10-1",
+    "area": "高石神",
+    "category": "認可私立保育所",
+    "tel": "(047)369-6366"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9119472,
+     35.7640277
+    ]
+   },
+   "properties": {
+    "name": "AIAI NURSERY 北国分",
+    "address": "千葉県市川市堀之内3丁目30-12-101インペリアル北国分",
+    "area": "堀之内3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)711-7335"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9125374,
+     35.72301314
+    ]
+   },
+   "properties": {
+    "name": "市川なないろ保育園",
+    "address": "千葉県市川市新田3丁目15-5",
+    "area": "新田3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)377-3477"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9119796,
+     35.7196798
+    ]
+   },
+   "properties": {
+    "name": "ソラストいちかわ保育園",
+    "address": "千葉県市川市大洲1丁目12-3",
+    "area": "大洲1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)370-0770"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.913886,
+     35.71904182
+    ]
+   },
+   "properties": {
+    "name": "デイジー保育園・市川市大和田",
+    "address": "千葉県市川市大和田4丁目8-７",
+    "area": "大和田4丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)321-6310"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9148489,
+     35.73520265
+    ]
+   },
+   "properties": {
+    "name": "AIAI NURSERY 菅野六丁目",
+    "address": "千葉県市川市菅野6丁目19-13",
+    "area": "菅野6丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)325-9098"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9242207,
+     35.72295157
+    ]
+   },
+   "properties": {
+    "name": "AIAI NURSERY 本八幡",
+    "address": "千葉県市川市八幡3丁目9-21",
+    "area": "八幡3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)321-4770"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9380187,
+     35.71514095
+    ]
+   },
+   "properties": {
+    "name": "ベアキッズ保育園",
+    "address": "千葉県市川市鬼高2丁目13-16",
+    "area": "鬼高2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)702-8712"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.957131,
+     35.7035037
+    ]
+   },
+   "properties": {
+    "name": "たかし保育園市川二俣",
+    "address": "千葉県市川市二俣2丁目11-6",
+    "area": "二俣2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)702-5101"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9274987,
+     35.68254988
+    ]
+   },
+   "properties": {
+    "name": "Milky Way International Nursery School 行徳校",
+    "address": "千葉県市川市宝1丁目4-13",
+    "area": "宝1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)711-2136"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.916462,
+     35.68101449
+    ]
+   },
+   "properties": {
+    "name": "クオリスキッズ行徳第2保育園",
+    "address": "千葉県市川市行徳駅前2丁目8-9　2階",
+    "area": "行徳駅前2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)323-6323"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9179086,
+     35.68039579
+    ]
+   },
+   "properties": {
+    "name": "まなびの森保育園行徳",
+    "address": "千葉県市川市行徳駅前3丁目7-9",
+    "area": "行徳駅前3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)711-1065"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.918045,
+     35.68525578
+    ]
+   },
+   "properties": {
+    "name": "京進のほいくえんHOPPA末広",
+    "address": "千葉県市川市末広1丁目3-10",
+    "area": "末広1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)303-3081"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9083051,
+     35.67545958
+    ]
+   },
+   "properties": {
+    "name": "K's garden 行徳保育園",
+    "address": "千葉県市川市福栄1丁目15-16",
+    "area": "福栄1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)383-9666"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8999206,
+     35.67750064
+    ]
+   },
+   "properties": {
+    "name": "みなみぎょうとく ゆずのき保育園",
+    "address": "千葉県市川市相之川3丁目1-9 1階",
+    "area": "相之川3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)711-4170"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8956536,
+     35.67274559
+    ]
+   },
+   "properties": {
+    "name": "スクルドエンジェル保育園南行徳園",
+    "address": "千葉県市川市新井3丁目17?13",
+    "area": "新井3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)312-6862"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9545409,
+     35.74380828
+    ]
+   },
+   "properties": {
+    "name": "京進のほいくえんHOPPA南大野",
+    "address": "千葉県市川市南大野2丁目3-1 3階",
+    "area": "南大野2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)382-5543"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9126186,
+     35.76268373
+    ]
+   },
+   "properties": {
+    "name": "北国分駅前第二しゃりっこ保育園",
+    "address": "千葉県市川市堀之内3丁目26-31",
+    "area": "堀之内3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)712-1616"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9283778,
+     35.73347764
+    ]
+   },
+   "properties": {
+    "name": "ミルキーホーム東菅野園",
+    "address": "千葉県市川市東菅野2丁目19-2",
+    "area": "東菅野2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)323-7755"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9365179,
+     35.72102703
+    ]
+   },
+   "properties": {
+    "name": "ぽっかぽっかにっけ保育園北方",
+    "address": "千葉県市川市北方1丁目8-2",
+    "area": "北方1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)711-3711"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9160841,
+     35.71224498
+    ]
+   },
+   "properties": {
+    "name": "ししの子保育園市川",
+    "address": "千葉県市川市大和田2丁目22-28",
+    "area": "大和田2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)374-3177"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9120125,
+     35.72815473
+    ]
+   },
+   "properties": {
+    "name": "Milky Way International Nursery School 市川新田校",
+    "address": "千葉県市川市新田5丁目9-8",
+    "area": "新田5丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)329-2584"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9146023,
+     35.72535561
+    ]
+   },
+   "properties": {
+    "name": "新田チャイルド保育園",
+    "address": "千葉県市川市新田2丁目15-8",
+    "area": "新田2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)318-3930"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9316581,
+     35.68884976
+    ]
+   },
+   "properties": {
+    "name": "市川妙典雲母保育園",
+    "address": "千葉県市川市妙典4丁目16-16-102",
+    "area": "妙典4丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)356-5321"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9213727,
+     35.69073471
+    ]
+   },
+   "properties": {
+    "name": "京進のほいくえんHOPPA妙典駅",
+    "address": "千葉県市川市本塩15-16",
+    "area": "本塩",
+    "category": "認可私立保育所",
+    "tel": "(047)704-9580"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.920396,
+     35.68174086
+    ]
+   },
+   "properties": {
+    "name": "ちゃいれっく末広保育園",
+    "address": "千葉県市川市末広2丁目16-11",
+    "area": "末広2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)318-3820"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9025078,
+     35.67110463
+    ]
+   },
+   "properties": {
+    "name": "ぶれあ保育園・南行徳",
+    "address": "千葉県市川市南行徳1丁目19-5 2階",
+    "area": "南行徳1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)317-6853"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9563844,
+     35.73529294
+    ]
+   },
+   "properties": {
+    "name": "市川梨の花保育園",
+    "address": "千葉県市川市北方町4丁目2083",
+    "area": "北方町4丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)711-5210"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9195703,
+     35.72747585
+    ]
+   },
+   "properties": {
+    "name": "AIAI NURSERY 菅野駅前",
+    "address": "千葉県市川市平田2丁目11-16",
+    "area": "平田2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)312-6515"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9235641,
+     35.72320944
+    ]
+   },
+   "properties": {
+    "name": "八幡チャイルド保育園",
+    "address": "千葉県市川市八幡3丁目10-20",
+    "area": "八幡3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)712-8123"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9058948,
+     35.72850193
+    ]
+   },
+   "properties": {
+    "name": "そらまめ保育園市川駅前",
+    "address": "千葉県市川市市川南1丁目9-29",
+    "area": "市川南1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)712-8871"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9022663,
+     35.72836238
+    ]
+   },
+   "properties": {
+    "name": "Milky Way International Nursery School 市川南校",
+    "address": "千葉県市川市市川南3丁目5-13-101",
+    "area": "市川南3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)704-9831"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9146711,
+     35.72683008
+    ]
+   },
+   "properties": {
+    "name": "スクルドエンジェル保育園市川新田園",
+    "address": "千葉県市川市新田1丁目24-17",
+    "area": "新田1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)318-3111"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9069394,
+     35.72263984
+    ]
+   },
+   "properties": {
+    "name": "まなびの森保育園市川",
+    "address": "千葉県市川市大洲4丁目18-4",
+    "area": "大洲4丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)712-5871"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9239025,
+     35.69698253
+    ]
+   },
+   "properties": {
+    "name": "AIAI NURSERY 妙典一丁目",
+    "address": "千葉県市川市妙典1丁目8-19",
+    "area": "妙典1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)711-4305"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9215962,
+     35.68917746
+    ]
+   },
+   "properties": {
+    "name": "市川富浜雲母保育園",
+    "address": "千葉県市川市富浜2丁目3-18",
+    "area": "富浜2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)356-0775"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9268307,
+     35.69162431
+    ]
+   },
+   "properties": {
+    "name": "ポピンズナーサリースクール妙典",
+    "address": "千葉県市川市妙典4丁目4-27",
+    "area": "妙典4丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)711-3381"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9247568,
+     35.69027525
+    ]
+   },
+   "properties": {
+    "name": "アルタキッズ妙典園",
+    "address": "千葉県市川市富浜2丁目7-2",
+    "area": "富浜2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)307-9927"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9290121,
+     35.6875941
+    ]
+   },
+   "properties": {
+    "name": "かえで保育園妙典",
+    "address": "千葉県市川市塩焼1丁目14-8",
+    "area": "塩焼1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)356-5525"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9316262,
+     35.69124677
+    ]
+   },
+   "properties": {
+    "name": "AIAI NURSERY 妙典五丁目",
+    "address": "千葉県市川市妙典5丁目9-11",
+    "area": "妙典5丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)316-1962"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9302705,
+     35.69326361
+    ]
+   },
+   "properties": {
+    "name": "AIAI NURSERY 妙典六丁目",
+    "address": "千葉県市川市妙典6丁目5-23",
+    "area": "妙典6丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)316-1930"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9025903,
+     35.72699639
+    ]
+   },
+   "properties": {
+    "name": "市川南保育園",
+    "address": "千葉県市川市市川南4丁目1-15",
+    "area": "市川南4丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)324-1155"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9296622,
+     35.69478315
+    ]
+   },
+   "properties": {
+    "name": "まなびの森保育園妙典",
+    "address": "千葉県市川市妙典6丁目1-13",
+    "area": "妙典6丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)303-3131"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9240822,
+     35.72011688
+    ]
+   },
+   "properties": {
+    "name": "Nest本八幡保育園",
+    "address": "千葉県市川市南八幡5丁目11-11",
+    "area": "南八幡5丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)376-8180"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9317192,
+     35.71841738
+    ]
+   },
+   "properties": {
+    "name": "まなびの森保育園本八幡",
+    "address": "千葉県市川市南八幡1丁目3-1",
+    "area": "南八幡1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)316-2570"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9406135,
+     35.70106668
+    ]
+   },
+   "properties": {
+    "name": "きららの杜保育園原木中山",
+    "address": "千葉県市川市高谷1丁目10-4",
+    "area": "高谷1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)314-1463"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.942435,
+     35.69794508
+    ]
+   },
+   "properties": {
+    "name": "かえで保育園原木中山",
+    "address": "千葉県市川市原木2丁目13-25",
+    "area": "原木2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)328-2900"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9007844,
+     35.67457347
+    ]
+   },
+   "properties": {
+    "name": "きららの杜保育園南行徳",
+    "address": "千葉県市川市相之川4丁目10-4",
+    "area": "相之川4丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)369-6877"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9500358,
+     35.75669191
+    ]
+   },
+   "properties": {
+    "name": "memorytree市川保育園",
+    "address": "千葉県市川市大野町3丁目1507-1",
+    "area": "大野町3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)339-3039"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9287487,
+     35.71564143
+    ]
+   },
+   "properties": {
+    "name": "ヴィラまなびの森保育園本八幡",
+    "address": "千葉県市川市南八幡1丁目19-18",
+    "area": "南八幡1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)711-0075"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9292667,
+     35.72659413
+    ]
+   },
+   "properties": {
+    "name": "かえで保育園本八幡",
+    "address": "千葉県市川市八幡3丁目29-16",
+    "area": "八幡3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)326-5122"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9289165,
+     35.71821115
+    ]
+   },
+   "properties": {
+    "name": "市川本八幡雲母保育園",
+    "address": "千葉県市川市南八幡3丁目12-9Calme南八幡",
+    "area": "南八幡3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)370-3811"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.933184,
+     35.68648174
+    ]
+   },
+   "properties": {
+    "name": "セレン保育園",
+    "address": "千葉県市川市本行徳1266-2",
+    "area": "本行徳",
+    "category": "認可私立保育所",
+    "tel": "(047)316-1703"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9319738,
+     35.7358035
+    ]
+   },
+   "properties": {
+    "name": "ミラッツ市川宮久保保育園",
+    "address": "千葉県市川市宮久保1丁目10-9",
+    "area": "宮久保1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)710-0691"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9391863,
+     35.7000514
+    ]
+   },
+   "properties": {
+    "name": "市川原木中山雲母保育園",
+    "address": "千葉県市川市高谷2丁目5-5",
+    "area": "高谷2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)328-0011"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9004314,
+     35.6716391
+    ]
+   },
+   "properties": {
+    "name": "ル・アンジェ南行徳保育園",
+    "address": "千葉県市川市新井3丁目5-1レフィールオーブ",
+    "area": "新井3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)711-0100"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9251049,
+     35.71847199
+    ]
+   },
+   "properties": {
+    "name": "e-こども園",
+    "address": "千葉県市川市南八幡4丁目14-41F",
+    "area": "南八幡4丁目",
+    "category": "認定こども園（保育所型）",
+    "tel": "(047)300-8850",
+    "url": "https://dai5kyo.or.jp/e-kodomoen/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9079975,
+     35.76324973
+    ]
+   },
+   "properties": {
+    "name": "認定こども園風の谷こども園",
+    "address": "千葉県市川市北国分4丁目10-3",
+    "area": "北国分4丁目",
+    "category": "認定こども園（保育所型）",
+    "tel": "(047)375-2700",
+    "url": "http://kazenotanihoikuen.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9401193,
+     35.73840541
+    ]
+   },
+   "properties": {
+    "name": "宮久保幼稚園",
+    "address": "千葉県市川市宮久保6丁目7-2",
+    "area": "宮久保6丁目",
+    "category": "認定こども園（幼稚園型）",
+    "tel": "(047)371-7320"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9062699,
+     35.67063004
+    ]
+   },
+   "properties": {
+    "name": "いずみ認定こども園",
+    "address": "千葉県市川市南行徳2丁目5-1",
+    "area": "南行徳2丁目",
+    "category": "認定こども園（地方裁量型）",
+    "tel": "(047)397-2211",
+    "url": "http://www.izumigakuin.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8934484,
+     35.67528606
+    ]
+   },
+   "properties": {
+    "name": "延命寺学園",
+    "address": "千葉県市川市新井1丁目9-2",
+    "area": "新井1丁目",
+    "category": "認定こども園（地方裁量型）",
+    "tel": "(047)357-1527",
+    "url": "http://enmeiji-gakuen2525.com/program.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9371196,
+     35.71062445
+    ]
+   },
+   "properties": {
+    "name": "幼保連携型認定こども園 鬼高幼稚園",
+    "address": "千葉県市川市鬼高3丁目14-18",
+    "area": "鬼高3丁目",
+    "category": "認定こども園（幼保連携型）",
+    "tel": "(047)370-6583"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9251297,
+     35.67832978
+    ]
+   },
+   "properties": {
+    "name": "認定こども園 COCOWA学園",
+    "address": "千葉県市川市幸2丁目12-23",
+    "area": "幸2丁目",
+    "category": "認定こども園（地方裁量型）",
+    "tel": "(047)711-0641"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9409405,
+     35.72579967
+    ]
+   },
+   "properties": {
+    "name": "認定こども園 アイリス幼稚園",
+    "address": "千葉県市川市北方2丁目29-9",
+    "area": "北方2丁目",
+    "category": "認定こども園（幼保連携型）",
+    "tel": "(047)335-5530"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9270261,
+     35.71819175
+    ]
+   },
+   "properties": {
+    "name": "白菊幼稚園",
+    "address": "千葉県市川市南八幡3丁目15-1",
+    "area": "南八幡3丁目",
+    "category": "認定こども園（幼稚園型）",
+    "tel": "(047)378-2160"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9181624,
+     35.73694536
+    ]
+   },
+   "properties": {
+    "name": "幼保連携型認定こども園　須和田幼稚園",
+    "address": "千葉県市川市須和田1丁目20-3",
+    "area": "須和田1丁目",
+    "category": "認定こども園（幼保連携型）",
+    "tel": "(047)371-5457"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9020705,
+     35.7261584
+    ]
+   },
+   "properties": {
+    "name": "リトルガーデン市川",
+    "address": "千葉県市川市市川南4丁目2-20サウスコートスカイ１階",
+    "area": "市川南4丁目",
+    "category": "認可外保育所",
+    "tel": "(047)710-8235",
+    "url": "http://littlegarden-inter.com/center/ichikawa/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9035665,
+     35.7321404
+    ]
+   },
+   "properties": {
+    "name": "KOALA KIDS",
+    "address": "千葉県市川市市川2丁目22-7ミキハイム市川２F",
+    "area": "市川2丁目",
+    "category": "認可外保育所",
+    "tel": "(047)316-0414",
+    "url": "https://www.koalakidsjapan.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.962704,
+     35.74251199
+    ]
+   },
+   "properties": {
+    "name": "ひだまりおやこ園",
+    "address": "千葉県市川市柏井町2丁目75-2",
+    "area": "柏井町2丁目",
+    "category": "認可外保育所",
+    "tel": "(047)338-1706",
+    "url": "http://hidamarihoiku.sakura.ne.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9036231,
+     35.67446187
+    ]
+   },
+   "properties": {
+    "name": "簡易保育園ベビーランド",
+    "address": "千葉県市川市相之川4丁目2-8-101",
+    "area": "相之川4丁目",
+    "category": "認可外保育所",
+    "tel": "(047)357-9939"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9033672,
+     35.67308893
+    ]
+   },
+   "properties": {
+    "name": "保育所キッズプラザ南行徳駅前園",
+    "address": "千葉県市川市南行徳1丁目9-15卓ビル２階",
+    "area": "南行徳1丁目",
+    "category": "認可外保育所",
+    "tel": "(047)307-8211",
+    "url": "http://kidsplaza-hoiku.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8972159,
+     35.67597326
+    ]
+   },
+   "properties": {
+    "name": "ぴかｷｯｽﾞランド",
+    "address": "千葉県市川市相之川3丁目14-1-101",
+    "area": "相之川3丁目",
+    "category": "認可外保育所",
+    "tel": "(047)359-1848",
+    "url": "http://pikapika-kids.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9068683,
+     35.6692698
+    ]
+   },
+   "properties": {
+    "name": "English SchoolイマジンJapan 南行徳児童園",
+    "address": "千葉県市川市南行徳2丁目12-７",
+    "area": "南行徳2丁目",
+    "category": "認可外保育所",
+    "tel": "(047)356-6988",
+    "url": "https://imagine-tokyo.co.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9325633,
+     35.74289688
+    ]
+   },
+   "properties": {
+    "name": "Babies ＆Meme",
+    "address": "千葉県市川市曽谷3丁目12-22",
+    "area": "曽谷3丁目",
+    "category": "認可外保育所",
+    "tel": "(047)375-8758"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9330381,
+     35.71675301
+    ]
+   },
+   "properties": {
+    "name": "バイリンガル幼児園KidsDuoInternationalニッケコルトンプラザ市川",
+    "address": "千葉県市川市鬼高1丁目1-1",
+    "area": "鬼高1丁目",
+    "category": "認可外保育所",
+    "tel": "(047)321-6955",
+    "url": "https://www.kdi.ac/access/ichikawa/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9259353,
+     35.69182134
+    ]
+   },
+   "properties": {
+    "name": "Little gems International School東京ベイ校",
+    "address": "千葉県市川市妙典4丁目3-31グレースコート妙典１Ｆ",
+    "area": "妙典4丁目",
+    "category": "認可外保育所",
+    "tel": "(047)321-6151",
+    "url": "https://www.lgis-tokyobay.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9432845,
+     35.70356849
+    ]
+   },
+   "properties": {
+    "name": "原木スマイルナーサリー",
+    "address": "千葉県市川市原木1丁目8-1",
+    "area": "原木1丁目",
+    "category": "その他",
+    "tel": "(047)323-6181"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9400877,
+     35.73844979
+    ]
+   },
+   "properties": {
+    "name": "宮久保幼稚園０１２",
+    "address": "千葉県市川市宮久保6丁目7-2",
+    "area": "宮久保6丁目",
+    "category": "その他",
+    "tel": "(047)372-8666",
+    "url": "https://miyakubo.jp/?course=%E5%AE%AE%E4%B9%85%E4%BF%9D%E5%B9%BC%E7%A8%9A%E5%9C%92012%E6%A6%82%E8%A6%81"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9123119,
+     35.68191801
+    ]
+   },
+   "properties": {
+    "name": "ひなた保育園行徳駅前ルーム",
+    "address": "千葉県市川市行徳駅前2丁目23-14メゾン・ベルツリー1階",
+    "area": "行徳駅前2丁目",
+    "category": "その他",
+    "tel": "(047)311-4848",
+    "url": "http://hinata-gyoutoku.npo-megumino.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9060224,
+     35.72825247
+    ]
+   },
+   "properties": {
+    "name": "いろはな保育園市川南",
+    "address": "千葉県市川市市川南1丁目9-30啓成ハイツ市川1階",
+    "area": "市川南1丁目",
+    "category": "その他",
+    "tel": "(047)318-2503",
+    "url": "https://irohana-hoiku.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9206076,
+     35.7256335
+    ]
+   },
+   "properties": {
+    "name": "クオリスキッズ平田保育園",
+    "address": "千葉県市川市平田2丁目5-4",
+    "area": "平田2丁目",
+    "category": "その他",
+    "tel": "(047)711-2925",
+    "url": "https://www.fivet.co.jp/hirata/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.928185,
+     35.7222052
+    ]
+   },
+   "properties": {
+    "name": "ミルキーホーム本八幡きた園",
+    "address": "千葉県市川市八幡2丁目6-18第三本八幡ダイヤモンドマンション201号・202号",
+    "area": "八幡2丁目",
+    "category": "その他",
+    "tel": "(047)333-7062",
+    "url": "https://www.ssss.co.jp/school-list/milkyhome-motoyawatakitaen-4/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9020495,
+     35.67160134
+    ]
+   },
+   "properties": {
+    "name": "南行徳えがお保育園",
+    "address": "千葉県市川市南行徳1丁目19-222階",
+    "area": "南行徳1丁目",
+    "category": "その他",
+    "tel": "(047)711-3971",
+    "url": "http://www.egao-hoikuen.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9521077,
+     35.75313757
+    ]
+   },
+   "properties": {
+    "name": "保育園エンゼルハウス市川大野園",
+    "address": "千葉県市川市大野町2丁目2161F",
+    "area": "大野町2丁目",
+    "category": "その他",
+    "tel": "(047)339-7721",
+    "url": "https://lotus-hoiku.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9013546,
+     35.75701416
+    ]
+   },
+   "properties": {
+    "name": "ぽんておうちえん",
+    "address": "千葉県市川市国府台6丁目1-22",
+    "area": "国府台6丁目",
+    "category": "その他",
+    "tel": "(047)375-2511"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9089493,
+     35.72974323
+    ]
+   },
+   "properties": {
+    "name": "市川みんと保育園",
+    "address": "千葉県市川市市川1丁目5-12スウィングコート市川1階",
+    "area": "市川1丁目",
+    "category": "その他",
+    "tel": "(047)711-3360"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9080103,
+     35.73111741
+    ]
+   },
+   "properties": {
+    "name": "そらいろおうちえん",
+    "address": "千葉県市川市市川1丁目12-23メゾンドロワール101号室",
+    "area": "市川1丁目",
+    "category": "その他",
+    "tel": "(047)712-5022",
+    "url": "https://www.sorairoouchien.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9080647,
+     35.72853397
+    ]
+   },
+   "properties": {
+    "name": "きらら保育園市川南",
+    "address": "千葉県市川市市川南1丁目1-1ザタワーズイースト216号室",
+    "area": "市川南1丁目",
+    "category": "その他",
+    "tel": "(047)704-8547",
+    "url": "https://www.kilala.ed.jp/ichikawa/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9294795,
+     35.7213366
+    ]
+   },
+   "properties": {
+    "name": "いろはな保育園本八幡北",
+    "address": "千葉県市川市八幡2丁目8-10ハレアライ1階101",
+    "area": "八幡2丁目",
+    "category": "その他",
+    "tel": "(047)314-1708",
+    "url": "https://irohana-hoiku.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9266414,
+     35.72384842
+    ]
+   },
+   "properties": {
+    "name": "Little K's アクス本八幡保育園",
+    "address": "千葉県市川市八幡3丁目4-11階",
+    "area": "八幡3丁目",
+    "category": "その他",
+    "tel": "(047)712-5866",
+    "url": "https://www.ksgarden.jp/littleatop.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9302454,
+     35.7221255
+    ]
+   },
+   "properties": {
+    "name": "こえだ保育園",
+    "address": "千葉県市川市八幡2丁目1-14",
+    "area": "八幡2丁目",
+    "category": "その他",
+    "tel": "(047)713-8995",
+    "url": "https://www.koedahoikuen.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9284081,
+     35.7220955
+    ]
+   },
+   "properties": {
+    "name": "ル・アンジェ本八幡保育園",
+    "address": "千葉県市川市八幡2丁目7-13N-stage 1階",
+    "area": "八幡2丁目",
+    "category": "その他",
+    "tel": "(047)383-9650",
+    "url": "https://www.leange.co.jp/nursery/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9386479,
+     35.72705584
+    ]
+   },
+   "properties": {
+    "name": "森のこどもえん",
+    "address": "千葉県市川市北方2丁目37-4",
+    "area": "北方2丁目",
+    "category": "その他",
+    "tel": "(047)314-1758",
+    "url": "https://www.morikodo.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9453287,
+     35.71756898
+    ]
+   },
+   "properties": {
+    "name": "はっぴー市川園",
+    "address": "千葉県市川市中山4丁目7-13",
+    "area": "中山4丁目",
+    "category": "その他",
+    "tel": "(047)336-0881",
+    "url": "http://happy-hoikuen.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.908814,
+     35.73448783
+    ]
+   },
+   "properties": {
+    "name": "トライキッズ保育園",
+    "address": "千葉県市川市真間2丁目13-8ウエストヴィレッジ1階",
+    "area": "真間2丁目",
+    "category": "その他",
+    "tel": "(047)323-6403",
+    "url": "https://trykidshoikuen.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9316727,
+     35.6904912
+    ]
+   },
+   "properties": {
+    "name": "妙典えがお保育園",
+    "address": "千葉県市川市妙典5丁目16-25",
+    "area": "妙典5丁目",
+    "category": "その他",
+    "tel": "(047)712-5620",
+    "url": "http://www.egao-hoikuen.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9182424,
+     35.73738474
+    ]
+   },
+   "properties": {
+    "name": "小規模保育所リトルすわだ",
+    "address": "千葉県市川市須和田1丁目22-4",
+    "area": "須和田1丁目",
+    "category": "その他",
+    "tel": "(047)712-0211"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9300449,
+     35.71944815
+    ]
+   },
+   "properties": {
+    "name": "いろはな保育園本八幡東",
+    "address": "千葉県市川市南八幡3丁目1-6BROS本八幡1階",
+    "area": "南八幡3丁目",
+    "category": "その他",
+    "tel": "(047)316-1652",
+    "url": "https://irohana-hoiku.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9257992,
+     35.71993381
+    ]
+   },
+   "properties": {
+    "name": "保育ルームキューティー市川",
+    "address": "千葉県市川市南八幡4丁目6-14ヴェルドミール高英1階101",
+    "area": "南八幡4丁目",
+    "category": "その他",
+    "tel": "(047)727-3879",
+    "url": "https://room-cutie.com/ichikawa/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9105932,
+     35.73207825
+    ]
+   },
+   "properties": {
+    "name": "Little K's真間駅前保育園",
+    "address": "千葉県市川市市川1丁目26-11 1F",
+    "area": "市川1丁目",
+    "category": "その他",
+    "tel": "(047)321-6066",
+    "url": "https://www.ksgarden.jp/littlemprogram.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9147577,
+     35.68323797
+    ]
+   },
+   "properties": {
+    "name": "にじのき保育園",
+    "address": "千葉県市川市行徳駅前1丁目24-1",
+    "area": "行徳駅前1丁目",
+    "category": "その他",
+    "tel": "(047)307-3622",
+    "url": "https://nijinoki.ed.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9011108,
+     35.67424019
+    ]
+   },
+   "properties": {
+    "name": "ねっこ保育園",
+    "address": "千葉県市川市相之川4丁目10-81階",
+    "area": "相之川4丁目",
+    "category": "その他",
+    "tel": "(047)307-9996",
+    "url": "https://nekkohoiku.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9199153,
+     35.67888652
+    ]
+   },
+   "properties": {
+    "name": "ル・アンジェ行徳保育園",
+    "address": "千葉県市川市入船12-21-101",
+    "area": "入船",
+    "category": "その他",
+    "tel": "(047)314-1773",
+    "url": "https://www.leange.co.jp/nursery/gyotoku/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.954839,
+     35.75510335
+    ]
+   },
+   "properties": {
+    "name": "小規模保育園hikari",
+    "address": "千葉県市川市大野町3丁目1811-13",
+    "area": "大野町3丁目",
+    "category": "その他",
+    "tel": "(047)710-0022",
+    "url": "http://www.jyokoji.ed.jp/hikari/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9567262,
+     35.73017054
+    ]
+   },
+   "properties": {
+    "name": "wakatakeわんぱくgarden",
+    "address": "千葉県市川市北方町4丁目1800-31",
+    "area": "北方町4丁目",
+    "category": "その他",
+    "tel": "(047)702-3803",
+    "url": "http://wakatakekids.sakura.ne.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9079576,
+     35.73169152
+    ]
+   },
+   "properties": {
+    "name": "＆KIDSいろのはほいくえん",
+    "address": "千葉県市川市市川1丁目13-32",
+    "area": "市川1丁目",
+    "category": "その他",
+    "tel": "(047)321-6946",
+    "url": "http://www.andkids.fun/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9310749,
+     35.73235702
+    ]
+   },
+   "properties": {
+    "name": "童夢ガーデン本八幡",
+    "address": "千葉県市川市東菅野3丁目18-101階",
+    "area": "東菅野3丁目",
+    "category": "その他",
+    "tel": "(047)374-3313"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9494526,
+     35.71993161
+    ]
+   },
+   "properties": {
+    "name": "みどりキッズガーデン",
+    "address": "千葉県市川市中山3丁目10-4",
+    "area": "中山3丁目",
+    "category": "その他",
+    "tel": "(047)334-1224"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9370582,
+     35.72228909
+    ]
+   },
+   "properties": {
+    "name": "ぽっかぽっかにっけなーさりー",
+    "address": "千葉県市川市北方1丁目3-7",
+    "area": "北方1丁目",
+    "category": "その他",
+    "tel": "(047)316-1130"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9065945,
+     35.72806545
+    ]
+   },
+   "properties": {
+    "name": "保育＆スクールＷｈｉｚｚＫｉｄｓ市川駅前園",
+    "address": "千葉県市川市市川南1丁目8-29",
+    "area": "市川南1丁目",
+    "category": "その他",
+    "tel": "(047)326-1506",
+    "url": "http://www.whizzkids.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9426006,
+     35.7017918
+    ]
+   },
+   "properties": {
+    "name": "小規模保育園ミニミー",
+    "address": "千葉県市川市原木2丁目1-1",
+    "area": "原木2丁目",
+    "category": "その他",
+    "tel": "(047)328-6111",
+    "url": "https://www.i-nursery.co.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9169508,
+     35.68330632
+    ]
+   },
+   "properties": {
+    "name": "すくすく行徳ほいくえん",
+    "address": "千葉県市川市行徳駅前1丁目7-91階",
+    "area": "行徳駅前1丁目",
+    "category": "その他",
+    "tel": "(047)705-0682"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9050887,
+     35.67208532
+    ]
+   },
+   "properties": {
+    "name": "incipit保育園",
+    "address": "千葉県市川市南行徳1丁目12-7-101",
+    "area": "南行徳1丁目",
+    "category": "その他",
+    "tel": "(047)314-1183"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9018846,
+     35.67206158
+    ]
+   },
+   "properties": {
+    "name": "ゆずのき保育いちかわぎょうとく園",
+    "address": "千葉県市川市南行徳1丁目20-132階",
+    "area": "南行徳1丁目",
+    "category": "その他",
+    "tel": "(047)314-8192",
+    "url": "https://yuzunoki-blog.net/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9140331,
+     35.76216372
+    ]
+   },
+   "properties": {
+    "name": "しゃりっこキッズ保育園",
+    "address": "千葉県市川市堀之内3丁目18-25 グリーンマノリアル2階",
+    "area": "堀之内3丁目",
+    "category": "その他",
+    "tel": "(047)712-1681"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9037339,
+     35.72894283
+    ]
+   },
+   "properties": {
+    "name": "育脳保育園みらいっぽ市川南",
+    "address": "千葉県市川市市川南3丁目3-10",
+    "area": "市川南3丁目",
+    "category": "その他",
+    "tel": "(047)314-8015"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9117978,
+     35.72631289
+    ]
+   },
+   "properties": {
+    "name": "市川さんさん保育園",
+    "address": "千葉県市川市新田2丁目31-25 SAP ICHIKAWA 1階",
+    "area": "新田2丁目",
+    "category": "その他",
+    "tel": "(047)712-7520"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9250646,
+     35.7204705
+    ]
+   },
+   "properties": {
+    "name": "Kids Resort MOTOYAWATA",
+    "address": "千葉県市川市南八幡4丁目4-17 ナイスアーバン本八幡",
+    "area": "南八幡4丁目",
+    "category": "その他",
+    "tel": "(047)711-1871"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9279347,
+     35.71982849
+    ]
+   },
+   "properties": {
+    "name": "本八幡はっぴー保育園",
+    "address": "千葉県市川市南八幡3丁目7-1 村山ビル2階",
+    "area": "南八幡3丁目",
+    "category": "その他",
+    "tel": "(047)393-0881"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9278345,
+     35.71953536
+    ]
+   },
+   "properties": {
+    "name": "サンライズキッズ保育園市川園",
+    "address": "千葉県市川市南八幡3丁目7-19大和ビル2階",
+    "area": "南八幡3丁目",
+    "category": "その他",
+    "tel": "(050)5807-2379"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9262308,
+     35.71805359
+    ]
+   },
+   "properties": {
+    "name": "保育ルームキューティーアイ",
+    "address": "千葉県市川市南八幡3丁目14-17  bill aina 3階 B",
+    "area": "南八幡3丁目",
+    "category": "その他",
+    "tel": "(047)712-8555"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9056432,
+     35.67271892
+    ]
+   },
+   "properties": {
+    "name": "南行徳せいわ保育園",
+    "address": "千葉県市川市南行徳1丁目6-12 サンシティ南行徳I 105号",
+    "area": "南行徳1丁目",
+    "category": "その他",
+    "tel": "(047)316-1165"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9281816,
+     35.7454693
+    ]
+   },
+   "properties": {
+    "name": "みらいそや保育園",
+    "address": "千葉県市川市曽谷5丁目5-3",
+    "area": "曽谷5丁目",
+    "category": "その他",
+    "tel": "(047)701-5421"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9083731,
+     35.72691755
+    ]
+   },
+   "properties": {
+    "name": "市川南はっぴー保育園",
+    "address": "千葉県市川市市川南1丁目2-7",
+    "area": "市川南1丁目",
+    "category": "その他",
+    "tel": "(047)323-0881"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9089165,
+     35.72928734
+    ]
+   },
+   "properties": {
+    "name": "MIRATZ市川保育園",
+    "address": "千葉県市川市市川1丁目4-17 アクティオーレ市川3階",
+    "area": "市川1丁目",
+    "category": "その他",
+    "tel": "(047)307-9160"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9027667,
+     35.73798164
+    ]
+   },
+   "properties": {
+    "name": "ムースナーサリー",
+    "address": "千葉県市川市市川3丁目27-16　ライオンズマンション国府台102号",
+    "area": "市川3丁目",
+    "category": "その他",
+    "tel": "(047)319-8201"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8993972,
+     35.67346686
+    ]
+   },
+   "properties": {
+    "name": "南行徳トライキッズ",
+    "address": "千葉県市川市相之川4丁目13-18　K&Fフラッツ?U１階",
+    "area": "相之川4丁目",
+    "category": "その他",
+    "tel": "(047)712-5655"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.901303,
+     35.6714387
+    ]
+   },
+   "properties": {
+    "name": "南行徳サンフラワー保育園",
+    "address": "千葉県市川市南行徳1丁目21-6フランシール1階",
+    "area": "南行徳1丁目",
+    "category": "その他",
+    "tel": "(047)314-8448"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9004314,
+     35.6716391
+    ]
+   },
+   "properties": {
+    "name": "ル・アンジェ南行徳小規模保育園",
+    "address": "千葉県市川市新井3丁目5-1",
+    "area": "新井3丁目",
+    "category": "その他",
+    "tel": "(047)303-3500"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9035544,
+     35.74607769
+    ]
+   },
+   "properties": {
+    "name": "つくしんぼ保育所",
+    "address": "千葉県市川市国府台1‐7‐1",
+    "area": "国府台",
+    "category": "その他",
+    "tel": "(047)375-4742"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9250331,
+     35.72311005
+    ]
+   },
+   "properties": {
+    "name": "育脳保育園みらいっぽ",
+    "address": "千葉県市川市八幡3丁目8-19",
+    "area": "八幡3丁目",
+    "category": "認可外保育所",
+    "tel": "(080)3415-4173",
+    "url": "https://www.mirai-ku.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9585936,
+     35.6958581
+    ]
+   },
+   "properties": {
+    "name": "R: KiDS ICHIKAWA保育園",
+    "address": "千葉県市川市二俣678-551F",
+    "area": "二俣",
+    "category": "認可外保育所",
+    "tel": "(047)318-3332"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9080278,
+     35.73104227
+    ]
+   },
+   "properties": {
+    "name": "にじいろおうちえん",
+    "address": "千葉県市川市市川1丁目12-23　2F",
+    "area": "市川1丁目",
+    "category": "認可外保育所",
+    "tel": "(047)712-5022",
+    "url": "https://www.nijiiroouchien.com"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9062794,
+     35.72907256
+    ]
+   },
+   "properties": {
+    "name": "オルカキッズ保育園",
+    "address": "千葉県市川市市川南1丁目10-1-215",
+    "area": "市川南1丁目",
+    "category": "認可外保育所",
+    "tel": "(047)318-3036",
+    "url": "https://orcakidz.com"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9143134,
+     35.68383011
+    ]
+   },
+   "properties": {
+    "name": "コンパス幼保園　市川校",
+    "address": "千葉県市川市行徳駅前1丁目22-13　4F",
+    "area": "行徳駅前1丁目",
+    "category": "認可外保育所",
+    "tel": "(047)321-6330",
+    "url": "http://compass.fun"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9169851,
+     35.68450454
+    ]
+   },
+   "properties": {
+    "name": "らいおんハート保育園",
+    "address": "千葉県市川市行徳駅前1丁目5-1　1F",
+    "area": "行徳駅前1丁目",
+    "category": "認可外保育所",
+    "tel": "(047)704-8600"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9417853,
+     35.6973621
+    ]
+   },
+   "properties": {
+    "name": "いちかわ保育所",
+    "address": "千葉県市川市高谷3丁目1-20",
+    "area": "高谷3丁目",
+    "category": "認可外保育所",
+    "tel": "(047)329-6087"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9200902,
+     35.7222682
+    ]
+   },
+   "properties": {
+    "name": "いせやナーサリー本八幡園",
+    "address": "千葉県市川市平田3丁目11-20",
+    "area": "平田3丁目",
+    "category": "認可外保育所",
+    "tel": "(047)711-4751",
+    "url": "https://iseya-nursery.co.jp"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.926,
+     35.718
+    ]
+   },
+   "properties": {
+    "name": "スクルドエンジェル保育園本八幡園",
+    "address": "千葉県市川市南八幡3丁目14-17",
+    "area": "南八幡3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)711-3030"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.91,
+     35.751
+    ]
+   },
+   "properties": {
+    "name": "AIAI NURSERY 中国分",
+    "address": "千葉県市川市中国分3丁目3-1",
+    "area": "中国分3丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)703-8352"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.948,
+     35.743
+    ]
+   },
+   "properties": {
+    "name": "市川南大野雲母保育園",
+    "address": "千葉県市川市南大野1丁目22-11",
+    "area": "南大野1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)338-7721"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.903,
+     35.731
+    ]
+   },
+   "properties": {
+    "name": "ル・アンジェ市川保育園",
+    "address": "千葉県市川市市川2丁目10-5",
+    "area": "市川2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)325-1255"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.941,
+     35.742
+    ]
+   },
+   "properties": {
+    "name": "あつた家庭的保育",
+    "address": "千葉県市川市下貝塚3丁目31-5",
+    "area": "下貝塚3丁目",
+    "category": "その他"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9004314,
+     35.6716391
+    ]
+   },
+   "properties": {
+    "name": "Bloomingスクール",
+    "address": "千葉県市川市行徳駅前3丁目1-16",
+    "area": "行徳駅前3丁目",
+    "category": "その他",
+    "tel": "(047)399-0757"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.925,
+     35.72
+    ]
+   },
+   "properties": {
+    "name": "Lauren Forest International School",
+    "address": "千葉県市川市南八幡4-4-5-1F",
+    "area": "南八幡4丁目",
+    "category": "認可外保育所",
+    "tel": "(047)711-1410"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.965627,
+     35.7392
+    ]
+   },
+   "properties": {
+    "name": "みさと保育園",
+    "address": "千葉県市川市柏井町1-1100-1",
+    "area": "柏井町1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)711-5010"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.93836,
+     35.721829
+    ]
+   },
+   "properties": {
+    "name": "やまと北方保育園",
+    "address": "千葉県市川市北方1-12-3",
+    "area": "北方1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)321-4610"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.915674,
+     35.752455
+    ]
+   },
+   "properties": {
+    "name": "中国分保育園",
+    "address": "千葉県市川市中国分2-13-1",
+    "area": "中国分2丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)703-8261"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.937024,
+     35.73031
+    ]
+   },
+   "properties": {
+    "name": "市川学園キッズフォレスト",
+    "address": "千葉県市川市東菅野4-1-1",
+    "area": "東菅野4丁目",
+    "category": "その他",
+    "tel": "(047)711-8341"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.913399,
+     35.716304
+    ]
+   },
+   "properties": {
+    "name": "すくすく大洲保育園",
+    "address": "千葉県市川市大洲1-2-28",
+    "area": "大洲1丁目",
+    "category": "認可私立保育所",
+    "tel": "(047)711-3816"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9096322,
+     35.72102686
+    ]
+   },
+   "properties": {
+    "name": "大洲幼稚園",
+    "address": "千葉県市川市大洲4丁目3-12",
+    "area": "大洲4丁目",
+    "category": "公立幼稚園",
+    "tel": "(047)370-3648",
+    "url": "https://www.city.ichikawa.lg.jp/page/5041.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9007408,
+     35.67951768
+    ]
+   },
+   "properties": {
+    "name": "南行徳幼稚園",
+    "address": "千葉県市川市欠真間1丁目6-15",
+    "area": "欠真間1丁目",
+    "category": "公立幼稚園",
+    "tel": "(047)358-5333",
+    "url": "https://www.city.ichikawa.lg.jp/page/4090.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9256261,
+     35.74038914
+    ]
+   },
+   "properties": {
+    "name": "百合台幼稚園",
+    "address": "千葉県市川市曽谷6丁目10-1",
+    "area": "曽谷6丁目",
+    "category": "公立幼稚園",
+    "tel": "(047)373-8937",
+    "url": "https://www.city.ichikawa.lg.jp/page/7117.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.929709,
+     35.68490236
+    ]
+   },
+   "properties": {
+    "name": "塩焼幼稚園",
+    "address": "千葉県市川市塩焼5丁目9-1",
+    "area": "塩焼5丁目",
+    "category": "公立幼稚園",
+    "tel": "(047)397-3857",
+    "url": "https://www.city.ichikawa.lg.jp/page/5039.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9194637,
+     35.72473525
+    ]
+   },
+   "properties": {
+    "name": "市川市立平田保育園",
+    "address": "千葉県市川市平田1丁目20-16",
+    "area": "平田1丁目",
+    "category": "認可公立保育所",
+    "tel": "(047)324-1311",
+    "url": "https://www.city.ichikawa.lg.jp/page/5691.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9517289,
+     35.72425714
+    ]
+   },
+   "properties": {
+    "name": "市川市立若宮保育園",
+    "address": "千葉県市川市若宮3丁目７-6",
+    "area": "若宮3丁目",
+    "category": "認可公立保育所",
+    "tel": "(047)334-2115",
+    "url": "https://www.city.ichikawa.lg.jp/page/7405.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9355406,
+     35.72846333
+    ]
+   },
+   "properties": {
+    "name": "市川市立富貴島保育園",
+    "address": "千葉県市川市八幡6丁目14-19",
+    "area": "八幡6丁目",
+    "category": "認可公立保育所",
+    "tel": "(047)336-1144",
+    "url": "https://www.city.ichikawa.lg.jp/page/4455.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9118244,
+     35.72353264
+    ]
+   },
+   "properties": {
+    "name": "市川市立新田保育園",
+    "address": "千葉県市川市新田3丁目21-1",
+    "area": "新田3丁目",
+    "category": "認可公立保育所",
+    "tel": "(047)370-4557",
+    "url": "https://www.city.ichikawa.lg.jp/page/6640.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9322476,
+     35.71144831
+    ]
+   },
+   "properties": {
+    "name": "市川市立鬼高保育園",
+    "address": "千葉県市川市鬼高1丁目11-20",
+    "area": "鬼高1丁目",
+    "category": "認可公立保育所",
+    "tel": "(047)378-8186",
+    "url": "https://www.city.ichikawa.lg.jp/page/8057.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9136693,
+     35.678463
+    ]
+   },
+   "properties": {
+    "name": "市川市立行徳保育園",
+    "address": "千葉県市川市行徳駅前4丁目22-1７",
+    "area": "行徳駅前4丁目",
+    "category": "認可公立保育所",
+    "tel": "(047)395-4843",
+    "url": "https://www.city.ichikawa.lg.jp/page/7442.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9259245,
+     35.74847236
+    ]
+   },
+   "properties": {
+    "name": "市川市立曽谷保育園",
+    "address": "千葉県市川市曽谷７丁目28-15",
+    "area": "曽谷７丁目",
+    "category": "認可公立保育所",
+    "tel": "(047)373-5530",
+    "url": "https://www.city.ichikawa.lg.jp/page/6740.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9501569,
+     35.73016264
+    ]
+   },
+   "properties": {
+    "name": "市川市立本北方保育園",
+    "address": "千葉県市川市本北方2丁目40-23",
+    "area": "本北方2丁目",
+    "category": "認可公立保育所",
+    "tel": "(047)338-5982",
+    "url": "https://www.city.ichikawa.lg.jp/page/6766.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9272661,
+     35.73286875
+    ]
+   },
+   "properties": {
+    "name": "市川市立菅野保育園",
+    "address": "千葉県市川市菅野4丁目12-16",
+    "area": "菅野4丁目",
+    "category": "認可公立保育所",
+    "tel": "(047)326-4452",
+    "url": "https://www.city.ichikawa.lg.jp/page/7416.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9263963,
+     35.68830583
+    ]
+   },
+   "properties": {
+    "name": "市川市立塩焼保育園",
+    "address": "千葉県市川市塩焼2丁目2-5",
+    "area": "塩焼2丁目",
+    "category": "認可公立保育所",
+    "tel": "(047)396-0169",
+    "url": "https://www.city.ichikawa.lg.jp/page/4284.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9246551,
+     35.71164358
+    ]
+   },
+   "properties": {
+    "name": "市川市立稲荷木保育園",
+    "address": "千葉県市川市稲荷木1丁目26-16",
+    "area": "稲荷木1丁目",
+    "category": "認可公立保育所",
+    "tel": "(047)377-5070",
+    "url": "https://www.city.ichikawa.lg.jp/page/7191.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9164024,
+     35.72526019
+    ]
+   },
+   "properties": {
+    "name": "市川市立新田第2保育園",
+    "address": "千葉県市川市新田2丁目1-24",
+    "area": "新田2丁目",
+    "category": "認可公立保育所",
+    "tel": "(047)376-9036",
+    "url": "https://www.city.ichikawa.lg.jp/page/6641.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9245588,
+     35.68533269
+    ]
+   },
+   "properties": {
+    "name": "市川市立塩焼第2保育園",
+    "address": "千葉県市川市塩焼3丁目11-15",
+    "area": "塩焼3丁目",
+    "category": "認可公立保育所",
+    "tel": "(047)395-5176",
+    "url": "https://www.city.ichikawa.lg.jp/page/4285.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9113897,
+     35.66312311
+    ]
+   },
+   "properties": {
+    "name": "市川市立塩浜保育園",
+    "address": "千葉県市川市塩浜4丁目2-10-101",
+    "area": "塩浜4丁目",
+    "category": "認可公立保育所",
+    "tel": "(047)397-2628",
+    "url": "https://www.city.ichikawa.lg.jp/page/4268.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.953028,
+     35.74288706
+    ]
+   },
+   "properties": {
+    "name": "市川市立大野保育園",
+    "address": "千葉県市川市南大野2丁目4-5",
+    "area": "南大野2丁目",
+    "category": "認可公立保育所",
+    "tel": "(047)337-4551",
+    "url": "https://www.city.ichikawa.lg.jp/page/4338.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9091299,
+     35.67957464
+    ]
+   },
+   "properties": {
+    "name": "市川市立香取保育園",
+    "address": "千葉県市川市香取2丁目6-25",
+    "area": "香取2丁目",
+    "category": "認可公立保育所",
+    "tel": "(047)357-4191",
+    "url": "https://www.city.ichikawa.lg.jp/page/8013.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.934465,
+     35.686939
+    ]
+   },
+   "properties": {
+    "name": "妙典こども地域交流館",
+    "address": "千葉県市川市本行徳1266番地1",
+    "area": "本行徳1266番地",
+    "category": "その他",
+    "ages": "全年齢",
+    "hours": "10時 - 20時",
+    "tel": "(047)316-0456",
+    "url": "https://www.city.ichikawa.lg.jp/page/4896.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.934068,
+     35.687069
+    ]
+   },
+   "properties": {
+    "name": "妙典親子つどいの広場",
+    "address": "千葉県市川市本行徳1266番地1",
+    "area": "本行徳1266番地",
+    "category": "その他",
+    "tel": "080-3499-7517",
+    "url": "https://www.city.ichikawa.lg.jp/page/7518.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.918705,
+     35.685227
+    ]
+   },
+   "properties": {
+    "name": "末広親子つどいの広場",
+    "address": "千葉県市川市末広1丁目1-31",
+    "area": "末広1丁目",
+    "category": "その他",
+    "tel": "(047)359-1671",
+    "url": "https://www.city.ichikawa.lg.jp/page/7518.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9266183,
+     35.72355939
+    ]
+   },
+   "properties": {
+    "name": "八幡親子つどいの広場",
+    "address": "千葉県市川市八幡3丁目4-1",
+    "area": "八幡3丁目",
+    "category": "その他",
+    "tel": "080-3499-7433",
+    "url": "https://www.city.ichikawa.lg.jp/page/7518.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9166496,
+     35.67463591
+    ]
+   },
+   "properties": {
+    "name": "新浜親子つどいの広場",
+    "address": "千葉県市川市新浜1丁目26-1",
+    "area": "新浜1丁目",
+    "category": "その他",
+    "tel": "070-1369-0574",
+    "url": "https://www.city.ichikawa.lg.jp/page/7518.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8986617,
+     35.66974838
+    ]
+   },
+   "properties": {
+    "name": "新井親子つどいの広場",
+    "address": "千葉県市川市新井3丁目31-1",
+    "area": "新井3丁目",
+    "category": "その他",
+    "tel": "070-1369-0498",
+    "url": "https://www.city.ichikawa.lg.jp/page/7518.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9494526,
+     35.71993161
+    ]
+   },
+   "properties": {
+    "name": "みどりようちえんベイビーセンター",
+    "address": "千葉県市川市中山3丁目10-4",
+    "area": "中山3丁目",
+    "category": "その他",
+    "tel": "(047)334-1224",
+    "url": "https://www.midorikg.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9512352,
+     35.75558954
+    ]
+   },
+   "properties": {
+    "name": "CMS市川大野子育て支援センター",
+    "address": "千葉県市川市大野町3丁目1438-1",
+    "area": "大野町3丁目",
+    "category": "その他",
+    "tel": "(047)339-3331",
+    "url": "http://ins.tksg.ed.jp/childcare/index.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9301414,
+     35.73437097
+    ]
+   },
+   "properties": {
+    "name": "昭和学院もこもこ・こどもセンター",
+    "address": "千葉県市川市東菅野2丁目17-1",
+    "area": "東菅野2丁目",
+    "category": "その他",
+    "tel": "(047)326-2213",
+    "url": "http://www.showagakuin.ac.jp/mokomoko/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9062765,
+     35.72906302
+    ]
+   },
+   "properties": {
+    "name": "CMSいちかわキッズ子育て支援センター",
+    "address": "千葉県市川市市川南1丁目10-1ザタワーズウエスト3階",
+    "area": "市川南1丁目",
+    "category": "その他",
+    "tel": "(047)322-8733",
+    "url": "http://iks.tksg.ed.jp/childcare/index.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.908734,
+     35.67812057
+    ]
+   },
+   "properties": {
+    "name": "キッド・ステイこどもセンター",
+    "address": "千葉県市川市香取2丁目19-10",
+    "area": "香取2丁目",
+    "category": "その他",
+    "tel": "(047)390-1180",
+    "url": "http://www.kidstay.jp/kidscenter/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9045634,
+     35.72365203
+    ]
+   },
+   "properties": {
+    "name": "チェリーズ・こどもセンター",
+    "address": "千葉県市川市市川南2丁目6-22",
+    "area": "市川南2丁目",
+    "category": "その他",
+    "tel": "(047)322-0064",
+    "url": "http://kikkokai.wixsite.com/kikkokai/blank-1"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9466597,
+     35.7006287
+    ]
+   },
+   "properties": {
+    "name": "わたぐも・こどもセンター",
+    "address": "千葉県市川市原木2丁目10-13",
+    "area": "原木2丁目",
+    "category": "その他",
+    "tel": "(070)6657-7695",
+    "url": "https://watagumocenter.web.fc2.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9307187,
+     35.69557209
+    ]
+   },
+   "properties": {
+    "name": "妙典保育園地域子育て支援センター",
+    "address": "千葉県市川市妙典6丁目2-45",
+    "area": "妙典6丁目",
+    "category": "その他",
+    "tel": "(047)398-1631",
+    "url": "https://www.ans.co.jp/u/suginokikai/myoden/index.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.92632,
+     35.67890767
+    ]
+   },
+   "properties": {
+    "name": "シーガル・こどもセンター",
+    "address": "千葉県市川市幸2丁目8-17",
+    "area": "幸2丁目",
+    "category": "その他",
+    "tel": "(047)396-2252",
+    "url": "http://www.aisen.or.jp/seagull/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9005387,
+     35.7461462
+    ]
+   },
+   "properties": {
+    "name": "こあらっこ・こどもセンター",
+    "address": "千葉県市川市国府台2丁目9-13",
+    "area": "国府台2丁目",
+    "category": "その他",
+    "tel": "(047)373-1408",
+    "url": "http://www.kounodaihoikuen.com/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9079875,
+     35.76321014
+    ]
+   },
+   "properties": {
+    "name": "さかえ・こどもセンター",
+    "address": "千葉県市川市北国分4丁目10-3",
+    "area": "北国分4丁目",
+    "category": "その他",
+    "tel": "(047)373-0191",
+    "url": "https://kazenotanihoikuen.com/center.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.913029,
+     35.66331897
+    ]
+   },
+   "properties": {
+    "name": "塩浜こども館",
+    "address": "千葉県市川市塩浜4丁目3ハイタウン塩浜1号棟103号",
+    "area": "塩浜4丁目",
+    "category": "児童館",
+    "ages": "０～18歳未満",
+    "hours": "9時 - 17時",
+    "tel": "(047)396-1765",
+    "url": "https://www.city.ichikawa.lg.jp/page/4690.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.906034,
+     35.73121589
+    ]
+   },
+   "properties": {
+    "name": "市川こども館",
+    "address": "千葉県市川市市川2丁目33-6",
+    "area": "市川2丁目",
+    "category": "児童館",
+    "ages": "０～18歳未満",
+    "hours": "9時 - 17時",
+    "tel": "(047)322-1404",
+    "url": "https://www.city.ichikawa.lg.jp/page/4690.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9418194,
+     35.70170712
+    ]
+   },
+   "properties": {
+    "name": "信篤こども館",
+    "address": "千葉県市川市高谷1丁目8-1",
+    "area": "高谷1丁目",
+    "category": "児童館",
+    "ages": "０～18歳未満",
+    "hours": "9時 - 17時",
+    "tel": "(047)327-0141",
+    "url": "https://www.city.ichikawa.lg.jp/page/4690.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9273946,
+     35.7436586
+    ]
+   },
+   "properties": {
+    "name": "曽谷こども館",
+    "address": "千葉県市川市曽谷6丁目25-5",
+    "area": "曽谷6丁目",
+    "category": "児童館",
+    "ages": "０～18歳未満",
+    "hours": "9時 - 17時",
+    "tel": "(047)372-2892",
+    "url": "https://www.city.ichikawa.lg.jp/page/4690.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8991291,
+     35.68023216
+    ]
+   },
+   "properties": {
+    "name": "相之川こども館",
+    "address": "千葉県市川市相之川1丁目3-７",
+    "area": "相之川1丁目",
+    "category": "児童館",
+    "ages": "０～18歳未満",
+    "hours": "9時 - 17時",
+    "tel": "(047)356-7381",
+    "url": "https://www.city.ichikawa.lg.jp/page/4690.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9064923,
+     35.72272942
+    ]
+   },
+   "properties": {
+    "name": "大洲こども館",
+    "address": "千葉県市川市大洲4丁目18-3",
+    "area": "大洲4丁目",
+    "category": "児童館",
+    "ages": "０～18歳未満",
+    "hours": "9時 - 17時",
+    "tel": "(047)376-1212",
+    "url": "https://www.city.ichikawa.lg.jp/page/4690.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9322024,
+     35.71605852
+    ]
+   },
+   "properties": {
+    "name": "中央こども館",
+    "address": "千葉県市川市鬼高1丁目1-4",
+    "area": "鬼高1丁目",
+    "category": "児童館",
+    "ages": "０～18歳未満",
+    "hours": "10時 - 18時(土日祝17時）",
+    "tel": "(047)320-3337",
+    "url": "https://www.city.ichikawa.lg.jp/page/4690.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9133368,
+     35.74937749
+    ]
+   },
+   "properties": {
+    "name": "中国分こども館",
+    "address": "千葉県市川市中国分2丁目13-8",
+    "area": "中国分2丁目",
+    "category": "児童館",
+    "ages": "０～18歳未満",
+    "hours": "9時 - 17時",
+    "tel": "(047)375-6547",
+    "url": "https://www.city.ichikawa.lg.jp/page/4690.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9344194,
+     35.70333316
+    ]
+   },
+   "properties": {
+    "name": "田尻こども館",
+    "address": "千葉県市川市田尻4丁目13-3",
+    "area": "田尻4丁目",
+    "category": "児童館",
+    "ages": "０～18歳未満",
+    "hours": "9時 - 17時",
+    "tel": "(047)379-1863",
+    "url": "https://www.city.ichikawa.lg.jp/page/4690.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9274452,
+     35.71385327
+    ]
+   },
+   "properties": {
+    "name": "南八幡こども館",
+    "address": "千葉県市川市南八幡2丁目20-1",
+    "area": "南八幡2丁目",
+    "category": "児童館",
+    "ages": "０～18歳未満",
+    "hours": "9時 - 17時",
+    "tel": "(047)376-1118",
+    "url": "https://www.city.ichikawa.lg.jp/page/4690.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9654137,
+     35.74600142
+    ]
+   },
+   "properties": {
+    "name": "柏井こども館",
+    "address": "千葉県市川市柏井町2丁目844",
+    "area": "柏井町2丁目",
+    "category": "児童館",
+    "ages": "０～18歳未満",
+    "hours": "9時 - 17時",
+    "tel": "(047)339-3754",
+    "url": "https://www.city.ichikawa.lg.jp/page/4690.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9508315,
+     35.72880347
+    ]
+   },
+   "properties": {
+    "name": "本北方こども館",
+    "address": "千葉県市川市本北方3丁目19-16",
+    "area": "本北方3丁目",
+    "category": "児童館",
+    "ages": "０～18歳未満",
+    "hours": "9時 - 17時",
+    "tel": "(047)337-8936",
+    "url": "https://www.city.ichikawa.lg.jp/page/4690.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9307205,
+     35.69555925
+    ]
+   },
+   "properties": {
+    "name": "いちかわファミリー・サポート・センター妙典支部",
+    "address": "千葉県市川市妙典6丁目2-45",
+    "area": "妙典6丁目",
+    "category": "その他",
+    "hours": "9時 - 17時",
+    "tel": "(047)701-2321",
+    "url": "https://www.city.ichikawa.lg.jp/page/2916.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9108749,
+     35.71797728
+    ]
+   },
+   "properties": {
+    "name": "いちかわファミリー・サポート・センター大洲本部",
+    "address": "千葉県市川市大洲1丁目18-1",
+    "area": "大洲1丁目",
+    "category": "その他",
+    "hours": "9時 - 17時",
+    "tel": "(047)377-5503",
+    "url": "https://www.city.ichikawa.lg.jp/page/2916.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.921577,
+     35.71145542
+    ]
+   },
+   "properties": {
+    "name": "稲荷木小学校放課後保育クラブ",
+    "address": "千葉県市川市稲荷木1丁目14-1",
+    "area": "稲荷木1丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9161189,
+     35.71810933
+    ]
+   },
+   "properties": {
+    "name": "鶴指小学校放課後保育クラブ",
+    "address": "千葉県市川市大和田4丁目11-1",
+    "area": "大和田4丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9144451,
+     35.66457967
+    ]
+   },
+   "properties": {
+    "name": "塩浜学園放課後保育クラブ",
+    "address": "千葉県市川市塩浜4丁目5-1",
+    "area": "塩浜4丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9275724,
+     35.74679
+    ]
+   },
+   "properties": {
+    "name": "曽谷小学校放課後保育クラブ",
+    "address": "千葉県市川市曽谷７丁目18-1",
+    "area": "曽谷７丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9055184,
+     35.73177608
+    ]
+   },
+   "properties": {
+    "name": "市川小学校放課後保育クラブ",
+    "address": "千葉県市川市市川2丁目32-5",
+    "area": "市川2丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9274798,
+     35.72556167
+    ]
+   },
+   "properties": {
+    "name": "八幡小学校放課後保育クラブ",
+    "address": "千葉県市川市八幡3丁目24-1",
+    "area": "八幡3丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9107106,
+     35.73767578
+    ]
+   },
+   "properties": {
+    "name": "真間小学校放課後保育クラブ",
+    "address": "千葉県市川市真間4丁目1-1",
+    "area": "真間4丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9438774,
+     35.72179489
+    ]
+   },
+   "properties": {
+    "name": "中山小学校放課後保育クラブ",
+    "address": "千葉県市川市中山1丁目1-5",
+    "area": "中山1丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9209007,
+     35.74493378
+    ]
+   },
+   "properties": {
+    "name": "国分小学校放課後保育クラブ",
+    "address": "千葉県市川市東国分2丁目4-1",
+    "area": "東国分2丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9539237,
+     35.75032239
+    ]
+   },
+   "properties": {
+    "name": "大柏小学校放課後保育クラブ",
+    "address": "千葉県市川市大野町2丁目18７７",
+    "area": "大野町2丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9094069,
+     35.72688728
+    ]
+   },
+   "properties": {
+    "name": "宮田小学校放課後保育クラブ",
+    "address": "千葉県市川市新田4丁目8-15",
+    "area": "新田4丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.937639,
+     35.72700131
+    ]
+   },
+   "properties": {
+    "name": "冨貴島小学校放課後保育クラブ",
+    "address": "千葉県市川市八幡6丁目10-11",
+    "area": "八幡6丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9521861,
+     35.72692475
+    ]
+   },
+   "properties": {
+    "name": "若宮小学校放課後保育クラブ",
+    "address": "千葉県市川市若宮3丁目54-10",
+    "area": "若宮3丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9029744,
+     35.75346336
+    ]
+   },
+   "properties": {
+    "name": "国府台小学校放課後保育クラブ",
+    "address": "千葉県市川市国府台5丁目25-4",
+    "area": "国府台5丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9181589,
+     35.72431253
+    ]
+   },
+   "properties": {
+    "name": "平田小学校放課後保育クラブ",
+    "address": "千葉県市川市平田3丁目28-1",
+    "area": "平田3丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9374452,
+     35.71397675
+    ]
+   },
+   "properties": {
+    "name": "鬼高小学校放課後保育クラブ",
+    "address": "千葉県市川市鬼高2丁目13-5",
+    "area": "鬼高2丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9170864,
+     35.73457083
+    ]
+   },
+   "properties": {
+    "name": "菅野小学校放課後保育クラブ",
+    "address": "千葉県市川市菅野6丁目14-1",
+    "area": "菅野6丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9232961,
+     35.69231928
+    ]
+   },
+   "properties": {
+    "name": "行徳小学校放課後保育クラブ",
+    "address": "千葉県市川市富浜1丁目1-40",
+    "area": "富浜1丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9439221,
+     35.69818803
+    ]
+   },
+   "properties": {
+    "name": "信篤小学校放課後保育クラブ",
+    "address": "千葉県市川市原木2丁目16-1",
+    "area": "原木2丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9015519,
+     35.68034533
+    ]
+   },
+   "properties": {
+    "name": "南行徳小学校放課後保育クラブ",
+    "address": "千葉県市川市欠真間1丁目6-38",
+    "area": "欠真間1丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9439311,
+     35.73664031
+    ]
+   },
+   "properties": {
+    "name": "宮久保小学校放課後保育クラブ",
+    "address": "千葉県市川市宮久保5丁目７-1",
+    "area": "宮久保5丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9566057,
+     35.69691381
+    ]
+   },
+   "properties": {
+    "name": "二俣小学校放課後保育クラブ",
+    "address": "千葉県市川市二俣6７8",
+    "area": "二俣",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9161221,
+     35.75350008
+    ]
+   },
+   "properties": {
+    "name": "中国分小学校放課後保育クラブ",
+    "address": "千葉県市川市中国分1丁目22-1",
+    "area": "中国分1丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9570198,
+     35.77176258
+    ]
+   },
+   "properties": {
+    "name": "大町小学校放課後保育クラブ",
+    "address": "千葉県市川市大町84-10",
+    "area": "大町",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9453845,
+     35.73241156
+    ]
+   },
+   "properties": {
+    "name": "北方小学校放課後保育クラブ",
+    "address": "千葉県市川市北方町4丁目1356-1",
+    "area": "北方町4丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.916267,
+     35.67995753
+    ]
+   },
+   "properties": {
+    "name": "新浜小学校放課後保育クラブ",
+    "address": "千葉県市川市行徳駅前4丁目5-1",
+    "area": "行徳駅前4丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9270532,
+     35.73982742
+    ]
+   },
+   "properties": {
+    "name": "百合台小学校放課後保育クラブ",
+    "address": "千葉県市川市曽谷6丁目10-1",
+    "area": "曽谷6丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9053996,
+     35.67150064
+    ]
+   },
+   "properties": {
+    "name": "富美浜小学校放課後保育クラブ",
+    "address": "千葉県市川市南行徳2丁目3-1",
+    "area": "南行徳2丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9665111,
+     35.73955586
+    ]
+   },
+   "properties": {
+    "name": "柏井小学校放課後保育クラブ",
+    "address": "千葉県市川市柏井町1丁目1149-1",
+    "area": "柏井町1丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.906817,
+     35.72342764
+    ]
+   },
+   "properties": {
+    "name": "大洲小学校放課後保育クラブ",
+    "address": "千葉県市川市大洲4丁目18-1",
+    "area": "大洲4丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9295475,
+     35.68105631
+    ]
+   },
+   "properties": {
+    "name": "幸小学校放課後保育クラブ",
+    "address": "千葉県市川市幸1丁目11-1",
+    "area": "幸1丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8905439,
+     35.67393328
+    ]
+   },
+   "properties": {
+    "name": "新井小学校放課後保育クラブ",
+    "address": "千葉県市川市新井1丁目18-13",
+    "area": "新井1丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9165486,
+     35.67456711
+    ]
+   },
+   "properties": {
+    "name": "南新浜小学校放課後保育クラブ",
+    "address": "千葉県市川市新浜1丁目26-1",
+    "area": "新浜1丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9505949,
+     35.74241172
+    ]
+   },
+   "properties": {
+    "name": "大野小学校放課後保育クラブ",
+    "address": "千葉県市川市南大野1丁目42-1",
+    "area": "南大野1丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9301144,
+     35.68391319
+    ]
+   },
+   "properties": {
+    "name": "塩焼小学校放課後保育クラブ",
+    "address": "千葉県市川市塩焼5丁目9-8",
+    "area": "塩焼5丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9244383,
+     35.75423317
+    ]
+   },
+   "properties": {
+    "name": "稲越小学校放課後保育クラブ",
+    "address": "千葉県市川市稲越3-21-8",
+    "area": "稲越",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9209813,
+     35.71762239
+    ]
+   },
+   "properties": {
+    "name": "大和田小学校放課後保育クラブ",
+    "address": "千葉県市川市大和田1丁目2-6・1-3",
+    "area": "大和田1丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9067145,
+     35.67187839
+    ]
+   },
+   "properties": {
+    "name": "福栄小学校放課後保育クラブ",
+    "address": "千葉県市川市南行徳2丁目2-1",
+    "area": "南行徳2丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.930118,
+     35.69601861
+    ]
+   },
+   "properties": {
+    "name": "妙典小学校放課後保育クラブ",
+    "address": "千葉県市川市妙典2丁目14-2・11-13",
+    "area": "妙典2丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9278232,
+     35.68030056
+    ]
+   },
+   "properties": {
+    "name": "幸公民館放課後保育クラブ",
+    "address": "千葉県市川市幸1丁目16-18",
+    "area": "幸1丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9054363,
+     35.67535847
+    ]
+   },
+   "properties": {
+    "name": "富美浜地域ふれあい館放課後保育クラブ",
+    "address": "千葉県市川市欠真間2丁目31-5",
+    "area": "欠真間2丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.921845,
+     35.68901233
+    ]
+   },
+   "properties": {
+    "name": "行徳地域ふれあい館放課後保育クラブ",
+    "address": "千葉県市川市富浜2丁目5-19",
+    "area": "富浜2丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9099691,
+     35.67912342
+    ]
+   },
+   "properties": {
+    "name": "香取地域ふれあい館放課後保育クラブ",
+    "address": "千葉県市川市香取2丁目19-1",
+    "area": "香取2丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.926,
+     35.7235
+    ]
+   },
+   "properties": {
+    "name": "八幡放課後保育クラブ",
+    "address": "千葉県市川市八幡3丁目4-1",
+    "area": "八幡3丁目",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.918307,
+     35.69456
+    ]
+   },
+   "properties": {
+    "name": "本行徳公民館放課後保育クラブ",
+    "address": "千葉県市川市本行徳12-8",
+    "area": "本行徳",
+    "category": "放課後児童クラブ",
+    "tel": "(047)383-9419",
+    "url": "http://www.city.ichikawa.lg.jp/page/4935.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9157441,
+     35.71813018
+    ]
+   },
+   "properties": {
+    "name": "鶴指小学校放課後子ども教室",
+    "address": "千葉県市川市大和田4丁目11-1",
+    "area": "大和田4丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(080)4598-2985",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9145958,
+     35.66483574
+    ]
+   },
+   "properties": {
+    "name": "塩浜学園放課後子ども教室",
+    "address": "千葉県市川市塩浜4丁目5-1",
+    "area": "塩浜4丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(080)4598-2987",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9212873,
+     35.71144442
+    ]
+   },
+   "properties": {
+    "name": "稲荷木小学校放課後子ども教室",
+    "address": "千葉県市川市稲荷木1丁目14-1",
+    "area": "稲荷木1丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(080)4598-2993",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9266754,
+     35.7469213
+    ]
+   },
+   "properties": {
+    "name": "曽谷小学校放課後子ども教室",
+    "address": "千葉県市川市曽谷７丁目18-1",
+    "area": "曽谷７丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(080)4598-2991",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9280277,
+     35.72567495
+    ]
+   },
+   "properties": {
+    "name": "八幡小学校放課後子ども教室",
+    "address": "千葉県市川市八幡3丁目24-1",
+    "area": "八幡3丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(080)4598-2995",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9052769,
+     35.73215889
+    ]
+   },
+   "properties": {
+    "name": "市川小学校放課後子ども教室",
+    "address": "千葉県市川市市川2丁目32-5",
+    "area": "市川2丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(080)4598-2994",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9094348,
+     35.72684911
+    ]
+   },
+   "properties": {
+    "name": "宮田小学校放課後子ども教室",
+    "address": "千葉県市川市新田4丁目8-15",
+    "area": "新田4丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(080)4598-2990",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9181442,
+     35.72420643
+    ]
+   },
+   "properties": {
+    "name": "平田地域ふれあい館放課後子ども教室",
+    "address": "千葉県市川市平田2丁目16-７",
+    "area": "平田2丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(080)4598-2989",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9053754,
+     35.6715528
+    ]
+   },
+   "properties": {
+    "name": "富美浜小学校放課後子ども教室",
+    "address": "千葉県市川市南行徳2丁目3-1",
+    "area": "南行徳2丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(080)4598-2996",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9029729,
+     35.75351914
+    ]
+   },
+   "properties": {
+    "name": "国府台小学校放課後子ども教室",
+    "address": "千葉県市川市国府台5丁目25-4",
+    "area": "国府台5丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(070)5015-3352",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9158949,
+     35.7537245
+    ]
+   },
+   "properties": {
+    "name": "中国分小学校放課後子ども教室",
+    "address": "千葉県市川市中国分1丁目22-1",
+    "area": "中国分1丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(070)5015-3447",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9570158,
+     35.77180061
+    ]
+   },
+   "properties": {
+    "name": "大町小学校放課後子ども教室",
+    "address": "千葉県市川市大町84-10",
+    "area": "大町",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(080)9449-0942",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9242126,
+     35.75417015
+    ]
+   },
+   "properties": {
+    "name": "稲越小学校放課後子ども教室",
+    "address": "千葉県市川市稲越3丁目21-8",
+    "area": "稲越3丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(070)1585-6531",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.966397,
+     35.73952627
+    ]
+   },
+   "properties": {
+    "name": "柏井小学校放課後子ども教室",
+    "address": "千葉県市川市柏井町1丁目1149-1",
+    "area": "柏井町1丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(080)4720-8767",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9454843,
+     35.73244205
+    ]
+   },
+   "properties": {
+    "name": "北方小学校放課後子ども教室",
+    "address": "千葉県市川市北方町4丁目1356-1",
+    "area": "北方町4丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(080)7321-5495",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9209309,
+     35.74486922
+    ]
+   },
+   "properties": {
+    "name": "国分小学校放課後子ども教室",
+    "address": "千葉県市川市東国分2丁目4-1",
+    "area": "東国分2丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(080)9442-4165",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9256429,
+     35.74038793
+    ]
+   },
+   "properties": {
+    "name": "百合台小学校放課後子ども教室",
+    "address": "千葉県市川市曽谷6丁目10-1",
+    "area": "曽谷6丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(080)9444-7471",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9236598,
+     35.6928173
+    ]
+   },
+   "properties": {
+    "name": "行徳小学校放課後子ども教室",
+    "address": "千葉県市川市富浜1丁目1-40",
+    "area": "富浜1丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(070)4510-8012",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.890519,
+     35.67396326
+    ]
+   },
+   "properties": {
+    "name": "新井小学校放課後子ども教室",
+    "address": "千葉県市川市新井1丁目18-13",
+    "area": "新井1丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(070)4510-9281",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9166732,
+     35.67463864
+    ]
+   },
+   "properties": {
+    "name": "南新浜小学校放課後子ども教室",
+    "address": "千葉県市川市新浜1丁目26-1",
+    "area": "新浜1丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(070)4510-9280",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9218881,
+     35.71758874
+    ]
+   },
+   "properties": {
+    "name": "大和田小学校放課後子ども教室",
+    "address": "千葉県市川市大和田1丁目1-3",
+    "area": "大和田1丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(070)7591-6796",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9439979,
+     35.6982635
+    ]
+   },
+   "properties": {
+    "name": "信篤小学校放課後子ども教室",
+    "address": "千葉県市川市原木2丁目16-1",
+    "area": "原木2丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(070)2186-8473",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9566153,
+     35.69696348
+    ]
+   },
+   "properties": {
+    "name": "二俣小学校放課後子ども教室",
+    "address": "千葉県市川市二俣678",
+    "area": "二俣",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(070)2186-8474",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9503423,
+     35.74229358
+    ]
+   },
+   "properties": {
+    "name": "大野小学校放課後子ども教室",
+    "address": "千葉県市川市市川市南大野1丁目42-１",
+    "area": "市川市南大野1丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(070)8801-1527",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9516824,
+     35.72691768
+    ]
+   },
+   "properties": {
+    "name": "若宮小学校放課後子ども教室",
+    "address": "千葉県市川市市川市若宮3丁目54-10",
+    "area": "市川市若宮3丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(070)8801-1526",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9434013,
+     35.72128304
+    ]
+   },
+   "properties": {
+    "name": "中山小学校放課後子ども教室",
+    "address": "千葉県市川市市川市中山1丁目1-5",
+    "area": "市川市中山1丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(070)8801-1528",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9293885,
+     35.69632455
+    ]
+   },
+   "properties": {
+    "name": "妙典小学校放課後子ども教室",
+    "address": "千葉県市川市市川市妙典2丁目14-2",
+    "area": "市川市妙典2丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(070)8801-1529",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.91005,
+     35.73787473
+    ]
+   },
+   "properties": {
+    "name": "真間小学校放課後子ども教室",
+    "address": "千葉県市川市市川市真間4丁目1-1",
+    "area": "市川市真間4丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(070)8801-1530",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9163969,
+     35.73415369
+    ]
+   },
+   "properties": {
+    "name": "菅野小学校放課後子ども教室",
+    "address": "千葉県市川市市川市菅野6丁目14-1",
+    "area": "市川市菅野6丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(070)8801-1531",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9306016,
+     35.68434995
+    ]
+   },
+   "properties": {
+    "name": "塩焼小学校放課後子ども教室",
+    "address": "千葉県市川市市川市塩焼5丁目9-8",
+    "area": "市川市塩焼5丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(080)4808-3766",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9298989,
+     35.68102148
+    ]
+   },
+   "properties": {
+    "name": "幸小学校放課後子ども教室",
+    "address": "千葉県市川市市川市幸1丁目11-1",
+    "area": "市川市幸1丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(080)7965-4359",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9539237,
+     35.75032239
+    ]
+   },
+   "properties": {
+    "name": "大柏小学校放課後子ども教室",
+    "address": "千葉県市川市大野町2丁目1877",
+    "area": "大野町2丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(080)9207-5814",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9439311,
+     35.73664031
+    ]
+   },
+   "properties": {
+    "name": "宮久保小学校放課後子ども教室",
+    "address": "千葉県市川市宮久保5丁目７-1",
+    "area": "宮久保5丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(080)9208-0064",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9015519,
+     35.68034533
+    ]
+   },
+   "properties": {
+    "name": "南行徳小学校放課後子ども教室",
+    "address": "千葉県市川市欠真間1丁目6-38",
+    "area": "欠真間1丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(090)2041-7393",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9067145,
+     35.67187839
+    ]
+   },
+   "properties": {
+    "name": "福栄小学校放課後子ども教室",
+    "address": "千葉県市川市南行徳2丁目2-1",
+    "area": "南行徳2丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(090)2041-7402",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9374452,
+     35.71397675
+    ]
+   },
+   "properties": {
+    "name": "鬼高小学校放課後子ども教室",
+    "address": "千葉県市川市鬼高2丁目13-5",
+    "area": "鬼高2丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(080)3086-2881",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.916267,
+     35.67995753
+    ]
+   },
+   "properties": {
+    "name": "新浜小学校放課後子ども教室",
+    "address": "千葉県市川市行徳駅前4丁目5-1",
+    "area": "行徳駅前4丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(080)9447-2378",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.937639,
+     35.72700131
+    ]
+   },
+   "properties": {
+    "name": "冨貴島小学校放課後子ども教室",
+    "address": "千葉県市川市八幡6丁目10-11",
+    "area": "八幡6丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(080)3086-1657",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.906817,
+     35.72342764
+    ]
+   },
+   "properties": {
+    "name": "大洲小学校放課後子ども教室",
+    "address": "千葉県市川市大洲4丁目18-1",
+    "area": "大洲4丁目",
+    "category": "その他",
+    "ages": "小学生",
+    "hours": "8:00 - 17:00",
+    "tel": "(080)3086-2533",
+    "url": "http://www.city.ichikawa.lg.jp/page/6461.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9065427,
+     35.72249844
+    ]
+   },
+   "properties": {
+    "name": "あおぞらキッズ",
+    "address": "千葉県市川市大洲4丁目18-3",
+    "area": "大洲4丁目",
+    "category": "その他",
+    "tel": "(047)376-1113"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.906301,
+     35.72261322
+    ]
+   },
+   "properties": {
+    "name": "おひさまキッズ",
+    "address": "千葉県市川市大洲4丁目18-3",
+    "area": "大洲4丁目",
+    "category": "その他",
+    "tel": "(047)376-1113"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.906301,
+     35.72261322
+    ]
+   },
+   "properties": {
+    "name": "こども発達相談室",
+    "address": "千葉県市川市大洲4丁目18-3",
+    "area": "大洲4丁目",
+    "tel": "047(370)3577"
+   }
+  }
+ ]
+}
