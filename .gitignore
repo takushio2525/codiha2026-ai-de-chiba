@@ -110,6 +110,7 @@ _autosave-*.kicad_pcb
 # ===== 開発ツールの生成物 =====
 .playwright-mcp/
 .wrangler/
+# dist/ は tools/package_submission.sh が提出アーカイブを置く場所でもある
 dist/
 .cache/
 
@@ -125,7 +126,8 @@ references/lectures/
 評価/
 
 # ===== 提出物（zip 化の対象と成果物）=====
-# 提出は app/ を丸ごと固めた zip / 7z。固めたアーカイブ自体はコミットしない。
+# 提出は app/ を丸ごと固めた zip / 7z（tools/package_submission.sh が dist/ に作る）。
+# 固めたアーカイブ自体はコミットしない。
 # オープンデータの配布アーカイブなど、正当に追跡したいものは `git add -f` で追加する。
 *.zip
 *.7z
