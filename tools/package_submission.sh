@@ -224,7 +224,10 @@ else
     if [ "$BOM" = "efbbbf" ]; then
         ng "readme.txt に UTF-8 BOM が付いている（提出要件は BOM なし）"
         detail "消し方: tail -c +4 app/readme.txt > /tmp/r && mv /tmp/r app/readme.txt"
-    elif ! iconv -f UTF-8 -t UTF-8 < "$README_TXT" > /dev/null 2>&1; then
+    # 変換結果は /dev/null ではなく一時ファイルへ出す。環境によっては iconv が
+    # /dev/null への書き出しで "Inappropriate ioctl for device" を返し、
+    # 中身が正しい UTF-8 でも NG になってアーカイブを消してしまうため。
+    elif ! iconv -f UTF-8 -t UTF-8 "$README_TXT" > "$STAGE_ROOT/readme-utf8-check" 2>/dev/null; then
         ng "readme.txt が UTF-8 として読めない（Shift_JIS などになっている）"
         detail "UTF-8 に変換し直してください"
     else
