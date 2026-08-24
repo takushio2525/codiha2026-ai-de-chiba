@@ -28,6 +28,27 @@ type Props = {
 
 const PHOTO_MAX_MIB = Math.round(PHOTO_MAX_BYTES / 1024 / 1024);
 
+/** 入力例（プレースホルダ）。
+ *
+ * **フォームの見せ方だけの話**なので、投稿そのものの定義（`lib/reports.ts` の
+ * `REPORT_CATEGORIES`）ではなくフォーム側に置く。DB にも API にも出ていかない。
+ * 定義に無いカテゴリが来ても空欄になるだけで、入力の妨げにはならない。
+ */
+const PLACEHOLDERS: Partial<Record<ReportCategory, { title: string; body: string }>> = {
+  hazard: {
+    title: "例: ○○交差点のガードレールが折れている",
+    body: "どうなっているか、どのくらい危ないかを書いてください。",
+  },
+  flood: {
+    title: "例: ○○通りが冠水して通れない",
+    body: "どのあたりが、どのくらい浸かっているかを書いてください。",
+  },
+  spot: {
+    title: "例: ○○の直売所で買える市川の梨",
+    body: "どこが良いか、いつ行くのがおすすめかを書いてください。",
+  },
+};
+
 /** 投稿フォーム（画面 S-4）。地図の上にモーダルで出す。
  *
  * 入力欄は `lib/reports.ts` のカテゴリ定義から組み立てる。
@@ -41,6 +62,7 @@ export default function ReportForm({
   onSubmitted,
 }: Props) {
   const def = reportCategoryDef(category);
+  const placeholder = PLACEHOLDERS[category];
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [details, setDetails] = useState<Record<string, string>>(() =>
@@ -186,7 +208,7 @@ export default function ReportForm({
               onChange={(event) => setTitle(event.target.value)}
               maxLength={TITLE_MAX_LENGTH}
               required
-              placeholder="例: ○○交差点のガードレールが折れている"
+              placeholder={placeholder?.title}
               className="mt-1.5 w-full rounded-xl border border-line px-3 py-2.5 text-[13.5px] text-ink transition placeholder:text-ink-muted/70 focus:border-ink focus:outline-none"
             />
           </label>
@@ -204,7 +226,7 @@ export default function ReportForm({
               maxLength={BODY_MAX_LENGTH}
               required
               rows={4}
-              placeholder="どうなっているか、どのくらい危ないかを書いてください。"
+              placeholder={placeholder?.body}
               className="mt-1.5 w-full resize-y rounded-xl border border-line px-3 py-2.5 text-[13.5px] leading-relaxed text-ink transition placeholder:text-ink-muted/70 focus:border-ink focus:outline-none"
             />
           </label>
