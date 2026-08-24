@@ -74,7 +74,7 @@ __pycache__/
 *.egg-info/
 .venv/
 venv/
-.env
+# .env は下の「環境変数（秘匿情報）」節にまとめてある
 
 # ===== Node / 一般 =====
 node_modules/
@@ -132,6 +132,15 @@ references/lectures/
 *.zip
 *.7z
 *.tar.gz
+
+# ===== 環境変数（秘匿情報）=====
+# Google OAuth のクライアントシークレット・AUTH_SECRET・DB のパスワードを置く場所。
+# このリポジトリは public なので、履歴に一度でも入ると誰でも読める。
+# Next.js は .env.local / .env.production.local も既定で読むため、まとめて除外する。
+# リポジトリに置いてよいのは値が空の .env.example だけ（app/README.md 参照）。
+.env
+.env.local
+.env.*.local
 
 # app/readme.txt は提出者の氏名・所属を書くファイル。
 # このリポジトリは public なので履歴に入れない。提出直前に手元で作る（app/README.md 参照）。

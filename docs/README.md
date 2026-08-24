@@ -21,12 +21,16 @@
 
 | パス | 内容 |
 |---|---|
+| `design/requirements.md` | **CHIZUBA の要件定義書**（**何を作るかの正本**。機能 F-1〜F-8・ロール・投稿モデル・画面・実装順序） |
 | `before_coding.md` | **開始前ガイド**（担当の切り方・インターフェース・public/private の線引き） |
-| `design/assignments.md` | **担当表**（記入テンプレ。開始前に埋める） |
-| `design/interfaces.md` | **チーム間インターフェース定義書**（記入テンプレ。開始前に埋める） |
-| `design/data_flow.md` | データフロー図のテンプレート |
-| `design/protocol.md` | 通信プロトコル設計のテンプレート（通信が必要な場合） |
+| `design/assignments.md` | **担当表**（記入テンプレ。**まだ空欄。開始前に埋める**） |
+| `design/interfaces.md` | **チーム間インターフェース定義書**（記入済み。つなぎ目 I-1〜I-9） |
+| `design/data_flow.md` | データフロー図のテンプレート（**中身は `.agent/architecture.md` に集約済み。二重管理しない**） |
+| `design/protocol.md` | 通信プロトコル設計のテンプレート（**中身は `design/interfaces.md` に集約済み。二重管理しない**） |
 | `decisions/0001-template.md` | ADR（Architecture Decision Record）のテンプレート |
+
+**構成・データフロー・設計判断の正本は [`../.agent/architecture.md`](../.agent/architecture.md)。**
+`docs/` は人間向け、`.agent/` は AI 向けだが、**同じことを 2 か所に書かない**。
 
 ### ADR とは
 
@@ -37,10 +41,10 @@
 
 ## こんなときに使う
 
+- **何の機能を作るのか知りたい / 機能を足したい** → `design/requirements.md`（**正本**）
 - **誰が何を担当するか決めたい** → `before_coding.md` → `design/assignments.md`
-- **担当同士の受け渡し形式を決めたい** → `design/interfaces.md`
-- システムのデータの流れを図にして共有したい → `design/data_flow.md`
-- 通信の仕様を統一したい → `design/protocol.md`
+- **担当同士の受け渡し形式を決めたい / API を実装する** → `design/interfaces.md`
+- システム構成・データの流れを知りたい → `../.agent/architecture.md`
 - 大きな設計判断（言語選定、ライブラリ選定等）を記録したい → `decisions/`
 
 ## 不要な班は

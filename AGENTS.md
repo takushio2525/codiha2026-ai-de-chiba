@@ -10,12 +10,18 @@ Claude Code 用の `CLAUDE.md` は、このファイルへのリダイレクト 
 
 ## プロジェクト概要
 
-- **何を作るか**: 千葉県・市町村の**オープンデータ**を活用し、地域の課題解決に繋がる
-  サービスを実装する。**扱う課題とプロダクトはまだ確定していない**（アイデア出しフェーズ）。
-  ただし**地図 × オープンデータの土台**は先に作ってあり、`app/` で動く
-  （市川市の避難場所・AED・子育て施設を地図に重ね、そこまでの徒歩経路を出す）。
-  プロダクトが決まったら、この土台の上に載せる
-- **誰が使うか**: 〈対象となる住民・自治体などを、プロダクトが決まったら書く〉
+- **何を作るか**: **CHIZUBA**（**CHI**ba + **ZU**（地図）+ **BA**（場））。
+  千葉県の地図系サービスを 1 つに束ね、**住民と行政が相互に情報を投稿できる**ウェブサイト。
+  柱は**防災**（ハザードマップ・老朽化/危険箇所の市民報告・浸水報告・注意案内）と
+  **観光**（景観スポット・周遊ルート・おすすめ投稿）の 2 つ。
+  **対応は千葉県全域、デモデータは市川市**（市町村はコードでパラメータ化する）。
+  既にある**地図 × オープンデータの土台**（`app/`。市川市の避難場所・AED・子育て施設を
+  地図に重ね、徒歩経路を出す）の上に載せる。
+  **機能・ロール・実装順序の正本は `docs/design/requirements.md`**
+- **誰が使うか**: **千葉県の住民**（危険箇所や冠水を現場から報告し、ハザードマップと
+  周辺の投稿を見る）、**来訪者**（景観スポットとお土産を探す・投稿する）、
+  **自治体職員**（投稿に公式コメントを付け、対応状況を更新し、おすすめを発信する）。
+  **閲覧はログイン不要**、投稿にだけログインが要る
 - **イベント**: ちばオープンデータアイデアソン・ハッカソン（CODIHA）2026・ハッカソン部門
 - **チーム**: 愛で千葉は救えるのか（担当は `docs/design/assignments.md`）
 
@@ -41,13 +47,19 @@ Claude Code 用の `CLAUDE.md` は、このファイルへのリダイレクト 
 
 | 領域 | 技術 | 場所 |
 |---|---|---|
-| サービス本体 | **Next.js（App Router）+ TypeScript**。Docker 公式イメージ `node:22-slim` の multi-stage で `docker compose up` 一発起動。DB なし・1 コンテナ | `app/` |
+| サービス本体 | **Next.js（App Router）+ TypeScript**。Docker 公式イメージ `node:22-slim` の multi-stage で `docker compose up` 一発起動 | `app/` |
+| データベース | **PostgreSQL 17**（`postgres:17-alpine`・DOI）。住民・行政の投稿を保存する。`depends_on` + `healthcheck` で待ち合わせ。**PostGIS は使わない**（緯度経度の数値カラム） | `app/db/`（予定） |
+| 認証 | **Auth.js（NextAuth）+ Google OAuth**。**キー未設定の環境では自動でデモログインに落ちる**ので、審査員は `docker compose up` だけで投稿機能まで試せる | `app/src/lib/auth.ts`（予定） |
 | 地図 | **MapLibre GL JS** + 国土地理院「淡色地図」タイル（**認証キー不要**） | `app/src/components/MapView.tsx` |
 | 徒歩経路 | **OSRM**（FOSSGIS e.V. 提供・**認証キー不要**）。サーバー側 API で中継し、UA 明示と 1 秒 1 リクエストの制限を守る | `app/src/app/api/routing/` |
+| ハザードマップ | 国土地理院**「重ねるハザードマップ」のラスタタイル**（洪水・高潮・津波・**認証キー不要**）。ブラウザが直接読む | `app/src/lib/`（予定） |
+| 気象 | **気象庁 防災情報 JSON**（アメダス実況・府県予報・**認証キー不要**）。サーバー側で中継しキャッシュする | `app/src/app/api/weather/`（予定） |
 | 見た目 | Tailwind CSS v4 + lucide-react（アイコンは SVG。絵文字は使わない） | `app/src/` |
 | データ整形 | Python（標準ライブラリのみ）。市川市 CSV → GeoJSON | `data/scripts/build_geojson.py` |
 
-**認証キーが要る外部サービス（Mapbox / Google 等）は使わない。**
+**認証キーが要る外部サービス（Mapbox 等）は使わない。**
+唯一の例外が Google OAuth で、**キーが未設定なら自動でデモログインに切り替わる**構成にしてある
+（詳細は `docs/design/requirements.md` §8）。
 審査員の環境で追加設定なしに動くことを最優先にしている。
 ベースイメージは Docker 公式イメージ（DOI）、タグは固定する（`latest` を使わない）。
 
@@ -56,7 +68,8 @@ Claude Code 用の `CLAUDE.md` は、このファイルへのリダイレクト 
 | パス | 何があるか |
 |---|---|
 | `課題/2026-09-09_CODIHA2026_提出要件.md` | **提出要件の正本**。締切・0 点条件・審査基準・readme.txt の書式 |
-| `app/` | **提出するサービス本体**（市川市オープンデータマップ）。ここを丸ごと zip 化して提出する。動かし方と既知の制約は `app/README.md` |
+| `docs/design/requirements.md` | **何を作るかの正本**。機能一覧（F-1〜F-8）・ユーザーロール・投稿モデル・画面一覧・**実装順序** |
+| `app/` | **提出するサービス本体**（CHIZUBA）。ここを丸ごと zip 化して提出する。動かし方と既知の制約は `app/README.md` |
 | `app/src/lib/layers.ts` | 地図に載せるレイヤーの定義（データ・色・ポップアップ項目）。**データを足すならここから** |
 | `app/src/lib/credits.ts` | 出典（クレジット）の正本。地図の隅と `/about` の両方がここを見る |
 | `data/scripts/build_geojson.py` | 市川市 CSV → `app/public/data/*.geojson` の変換（cp932・市域外座標の除外） |
@@ -152,7 +165,10 @@ for s in data/analysis/scripts/0*.py; do data/analysis/.venv/bin/python "$s"; do
 |---|---|
 | ディレクトリ構成 | ルート `README.md` とそのディレクトリの `README.md` |
 | CI ワークフロー | `README.md` の秘匿情報スキャンの説明 |
+| 機能の追加・削除・仕様変更 | `docs/design/requirements.md`（**正本**。ここを直さずに機能を足さない） |
 | データ形式・通信仕様 | `docs/design/interfaces.md`（変更は PR で） |
+| DB スキーマ | `app/db/init/*.sql`・`docs/design/requirements.md` §5・`docs/design/interfaces.md` I-7 |
+| 認証まわり | `docs/design/requirements.md` §8・`app/.env.example`・`app/README.md`・提出用 `readme.txt` の「ログイン情報」 |
 | 担当の変更 | `docs/design/assignments.md` |
 | 起動手順（`compose.yaml` など） | このファイルの「よく使うコマンド」と `app/README.md` |
 | ディレクトリの追加・削除 | そのディレクトリの `README.md`（何のフォルダか） |
