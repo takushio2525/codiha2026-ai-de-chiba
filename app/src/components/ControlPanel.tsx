@@ -14,7 +14,6 @@ import {
   LogIn,
   MapPin,
   Navigation,
-  Plus,
   Shield,
   TriangleAlert,
   Waves,
