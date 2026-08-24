@@ -28,3 +28,6 @@
   （`app/scripts/copy-maplibre-worker.mjs`）。これが無いと点が永久に出ない。
 - 2026-08-24: 市川市 CSV → GeoJSON 変換を `data/scripts/build_geojson.py` に追加。
   避難場所 CSV 末尾の 6 行は「緯度経度の欠損」ではなく**全列が空の行**だったので SOURCE.md を訂正。
+- 2026-08-24: 提出アーカイブの生成と検証を `tools/package_submission.sh` に自動化。
+  gitignore 判定で `app/` をクリーンコピー（readme.txt だけ強制同梱）→ 7z 化 → 展開し直して
+  必須ファイル・BOM・日本語名・キャッシュ混入・compose を検査。NG ならアーカイブを消して非 0 終了。

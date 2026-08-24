@@ -66,6 +66,7 @@ Claude Code 用の `CLAUDE.md` は、このファイルへのリダイレクト 
 | `data/analysis/findings.md` | **取得したオープンデータの所見**。アイデア出しはここから読む |
 | `data/` | 取得したオープンデータ（`<ソース>/raw/`）・取得スクリプト・分析（`data/README.md` に規約） |
 | `assets/` | オープンデータの検討用サンプル・データ形式のメモ |
+| `tools/package_submission.sh` | **提出アーカイブの生成と検証**。`dist/` に 7z を作り、展開し直して提出要件（必須ファイル・日本語名・キャッシュ混入）を確認する |
 | `tools/verification/` | 評価指標の計測・判定 |
 | `.agent/` | AI 向けの詳細仕様と作業文脈（下記） |
 | `CONTRIBUTING.md` | Git の使い方・開発ルール（人間向けの正本） |
@@ -87,6 +88,9 @@ python3 data/scripts/build_geojson.py
 
 # 秘匿情報スキャン（コミット前に実行できる）
 bash .github/scripts/secret_scan.sh
+
+# 提出アーカイブを作って検証（dist/ に出力。NG が 1 つでもあればアーカイブを消して非 0 終了）
+bash tools/package_submission.sh
 
 # 評価用ログの判定
 python tools/verification/evaluate.py --input tools/verification/results/run.csv
@@ -154,6 +158,7 @@ for s in data/analysis/scripts/0*.py; do data/analysis/.venv/bin/python "$s"; do
 | `data/` に取得先を追加 | `data/scripts/manifest.json` と `data/<ソース>/SOURCE.md`（出典・ライセンス） |
 | 地図に載せるデータを追加・変更 | `data/scripts/build_geojson.py`・`app/src/lib/layers.ts`・`app/src/lib/credits.ts`・`app/README.md` |
 | 外部サービス（地図タイル・経路）を変更 | `app/src/lib/credits.ts`（出典）・`app/README.md` の「既知の制約」・このファイルの技術スタック |
+| 提出物の作り方・検証項目 | `tools/package_submission.sh`・`app/README.md` の「提出アーカイブを作る」・このファイルの「よく使うコマンド」 |
 
 ### 6. 完了報告の前に確認する
 

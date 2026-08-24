@@ -8,11 +8,24 @@
 
 ## 構成
 
-| ディレクトリ | 用途 | 状態 |
+| 中身 | 用途 | 状態 |
 |---|---|---|
+| [`package_submission.sh`](package_submission.sh) | **提出アーカイブの生成と検証**（下記） | **動くスクリプト** |
 | [`verification/`](verification/) | **評価・検証の型**（MOE/MOP の指標決め → 計測 → 判定 → 作図） | **動くスクリプト入り** |
 | `example_benchmark/` | 性能測定スクリプトの書き方サンプル（Python 想定） | 置き方の例（中身は空） |
 | `example_analysis/` | オープンデータの解析スクリプトの置き場（Python 想定） | 置き方の例（中身は空） |
+
+## 提出アーカイブを作る
+
+```bash
+# リポジトリのルートで
+bash tools/package_submission.sh          # dist/ai-de-chiba-map.7z ができる
+```
+
+`app/` をクリーンコピー（`node_modules/` `.next/` などは落とし、gitignore 済みだが提出必須の
+`readme.txt` は入れる）して 7z で固め、**展開し直して**必須ファイル・日本語ファイル名・
+キャッシュ混入・`docker compose config` を検査する。1 つでも落ちたらアーカイブを消して
+非 0 で終了する。詳細は [`../app/README.md`](../app/README.md) の「提出アーカイブを作る」。
 
 ## まず読むもの
 

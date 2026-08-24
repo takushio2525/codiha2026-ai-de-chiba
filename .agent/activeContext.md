@@ -28,7 +28,8 @@
 2. 決まったら `AGENTS.md` の「誰が使うか」を埋め、`docs/design/assignments.md` に担当を書く
 3. 機能を足すときは `app/src/lib/layers.ts`（レイヤー定義）から。
    データを増やすなら `data/scripts/build_geojson.py` に変換を足す
-4. 提出物のうち **`readme.txt`・説明資料 PDF 2 種はまだ無い**。9/9 に向けて作る
+4. 提出物のうち **`readme.txt`・説明資料 PDF 2 種はまだ無い**。9/9 に向けて作る。
+   固めるのは `bash tools/package_submission.sh`（検証込み）。**手で zip しない**
 
 ## 現フェーズで読むべきドキュメント
 
