@@ -84,6 +84,33 @@ def childcare_props(row: dict) -> dict:
     }
 
 
+def scenic_props(row: dict) -> dict:
+    """いちかわ景観100選。日本語と英語の解説をそのまま持つ（F-5）。
+
+    `備考` 列がカテゴリ（まち並み／自然／歴史・文化／生活風景）。複数該当するものは
+    **読点「、」区切りの 1 セル**にまとまっている（半角カンマは 1 件も使われていない）。
+    地図で色分けするため配列に開き、**先頭を主カテゴリ**として扱う。
+
+    `画像` `画像2` 列は `ATTACH/...` の相対パスで、配信先が見つからない
+    （市サイトの想定される 3 通りの URL すべてで 404 を実測）。**使わない**。
+    区切りがバックスラッシュの行が 69 件あり、表記も揃っていない。
+    """
+    categories = [c.strip() for c in text(row, "備考").split("、") if c.strip()]
+    return {
+        "nameEn": text(row, "名称_英語"),
+        "description": text(row, "説明"),
+        "descriptionEn": text(row, "説明_英語"),
+        "access": text(row, "アクセス方法"),
+        "categories": categories,
+        # MapLibre は GeoJSON の配列プロパティを文字列に畳んでしまい、地図の
+        # 色分け式（match）やフィルタから配列として読めない。色を決める主カテゴリは
+        # **文字列の別キー**で持たせる
+        "categoryPrimary": categories[0] if categories else "",
+        "tel": text(row, "連絡先電話番号"),
+        "url": text(row, "URL"),
+    }
+
+
 DATASETS = [
     {
         "src": "emergency_evacuation_sites.csv",
@@ -105,6 +132,13 @@ DATASETS = [
         "label": "子育て施設",
         "dataset_url": "https://opendata.pref.chiba.lg.jp/datasets/3283",
         "props": childcare_props,
+    },
+    {
+        "src": "scenic_spots.csv",
+        "out": "scenic_spots.geojson",
+        "label": "景観100選",
+        "dataset_url": "https://opendata.pref.chiba.lg.jp/datasets/3291",
+        "props": scenic_props,
     },
 ]
 

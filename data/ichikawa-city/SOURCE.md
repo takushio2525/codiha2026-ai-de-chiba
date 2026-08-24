@@ -39,12 +39,13 @@
 | `public_facilities.csv` | 公共施設一覧（バリアフリー情報付き） | 330 | 60 | 84 KB | [3280](https://opendata.pref.chiba.lg.jp/datasets/3280) |
 | `parks_and_green_spaces.csv` | 都市公園・都市緑地一覧 | 436 | 31 | 77 KB | [3293](https://opendata.pref.chiba.lg.jp/datasets/3293) |
 | `medical_relief_stations.csv` | 医療救護所（災害時に開設する救護拠点） | 6 | 31 | 1 KB | [3297](https://opendata.pref.chiba.lg.jp/datasets/3297) |
+| `scenic_spots.csv` | 景観100選（名称・解説の日英・カテゴリ・アクセス方法） | 100 | 59 | 60 KB | [3291](https://opendata.pref.chiba.lg.jp/datasets/3291) |
 
 **個人情報は含まない**（すべて施設・地域単位の集計または公開施設情報）。
 
 ## 地図アプリ向けの GeoJSON
 
-`app/` の地図に載せている 3 本は、ここの CSV から
+`app/` の地図に載せている 4 本は、ここの CSV から
 [`data/scripts/build_geojson.py`](../scripts/build_geojson.py) で変換して
 `app/public/data/` に出力している（`python3 data/scripts/build_geojson.py`）。
 
@@ -53,6 +54,7 @@
 | `evacuation_sites.geojson` | `emergency_evacuation_sites.csv`（129 行） | **123** | 全列が空の行 6 |
 | `aed_locations.geojson` | `aed_locations.csv`（305 行） | **304** | 経度が市域外の 1 件（下記） |
 | `childcare_facilities.geojson` | `childcare_facilities.csv`（388 行） | **388** | なし |
+| `scenic_spots.geojson` | `scenic_spots.csv`（100 行） | **100** | なし（全件に緯度経度があり、全件が市域内） |
 
 除外の内訳は変換スクリプトが実行時に標準出力へ出す。
 市域の判定に使う箱は `data/analysis/scripts/04_ichikawa_facility_gap.py` の `BBOX` と同じ値。
@@ -73,5 +75,16 @@
   都市公園にも同様の空行が 6 行ある
 - **`childcare_facilities.csv` の `収容定員` 列は全行空**（388 行すべて欠損）。定員では比較できないので
   施設数で見るしかない
+- **景観100選の `備考` 列がカテゴリで、区切りは読点「、」。** 半角カンマは 1 件も使われていない
+  （実測: 100 行中 0 件）。`「、」` で分割すると まち並み 65・自然 39・歴史・文化 26・生活風景 14 に開く。
+  **1 件が最大 3 カテゴリを持ち、複数該当が 41 件**ある
+- **景観100選の画像列（`画像` `画像2`）は使えない。** 値は `ATTACH/<UUID>.jpg` の相対パスで、
+  配信先が特定できない（市サイトの想定される 3 通りの URL すべてで **404** を実測・2026-08-24）。
+  さらに **69 件は区切りがバックスラッシュ**（`ATTACH\...`）で表記も揃っていない
+- **景観100選の解説は短い。** 日本語は 19〜88 文字（中央値 47）で、**1〜2 文のキャプション**として扱う。
+  英語（`説明_英語`）は 57〜365 文字（中央値 147）と日本語より長い。**全 100 件に日英とも入っている**
+- **景観100選で埋まっていない列が多い。** `アクセス方法` 73 件・`URL` 38 件・`連絡先電話番号` 25 件・
+  `所在地_町字` 89 件。`利用可能曜日` `開始時間` `終了時間` `料金(基本)` はすべて空なので、
+  **営業時間や料金は出せない**
 - **町丁字のポリゴン（境界）は公開されていない。** 地図上で面として塗るには
   [国土数値情報の小地域境界](https://nlftp.mlit.go.jp/) など別のデータが要る

@@ -25,7 +25,8 @@
         {"file": "nursing_care_facilities.csv",    "url": "https://www.city.ichikawa.lg.jp/uploaded/attachment/53054.csv", "page": "https://opendata.pref.chiba.lg.jp/datasets/3287", "title": "【市川市】介護サービス事業所一覧（令和8年4月1日）"},
         {"file": "public_facilities.csv",          "url": "https://www.city.ichikawa.lg.jp/uploaded/attachment/53042.csv", "page": "https://opendata.pref.chiba.lg.jp/datasets/3280", "title": "【市川市】公共施設一覧（令和8年4月1日）"},
         {"file": "parks_and_green_spaces.csv",     "url": "https://www.city.ichikawa.lg.jp/uploaded/attachment/53065.csv", "page": "https://opendata.pref.chiba.lg.jp/datasets/3293", "title": "【市川市】都市公園・都市緑地一覧（令和8年4月1日）"},
-        {"file": "medical_relief_stations.csv",    "url": "https://www.city.ichikawa.lg.jp/uploaded/attachment/53073.csv", "page": "https://opendata.pref.chiba.lg.jp/datasets/3297", "title": "【市川市】医療救護所（令和8年4月1日）"}
+        {"file": "medical_relief_stations.csv",    "url": "https://www.city.ichikawa.lg.jp/uploaded/attachment/53073.csv", "page": "https://opendata.pref.chiba.lg.jp/datasets/3297", "title": "【市川市】医療救護所（令和8年4月1日）"},
+        {"file": "scenic_spots.csv",             "url": "https://www.city.ichikawa.lg.jp/uploaded/attachment/53061.csv", "page": "https://opendata.pref.chiba.lg.jp/datasets/3291", "title": "【市川市】景観100選"}
       ]
     }
   ]
