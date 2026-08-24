@@ -124,5 +124,29 @@ references/lectures/
 授業資料/
 評価/
 
+# ===== 提出物（zip 化の対象と成果物）=====
+# 提出は app/ を丸ごと固めた zip / 7z。固めたアーカイブ自体はコミットしない。
+# オープンデータの配布アーカイブなど、正当に追跡したいものは `git add -f` で追加する。
+*.zip
+*.7z
+*.tar.gz
+
+# app/readme.txt は提出者の氏名・所属を書くファイル。
+# このリポジトリは public なので履歴に入れない。提出直前に手元で作る（app/README.md 参照）。
+app/readme.txt
+
+# ===== フロントエンドのビルド生成物・キャッシュ =====
+# 提出前に削除するよう提出要件で指示されているもの。
+# （__pycache__/ node_modules/ dist/ .cache/ は上のセクションで指定済み）
+.next/
+.nuxt/
+.output/
+.svelte-kit/
+.turbo/
+.parcel-cache/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
 # ===== その他 =====
 *.tmp
