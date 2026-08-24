@@ -21,7 +21,14 @@
 *.toml   text eol=lf
 *.sh     text eol=lf
 
+# 取得したオープンデータは原本のまま保つ。
+# CSV は cp932・CRLF で配布されており、`* text=auto eol=lf` に任せると改行が
+# 書き換わって配布元とバイトが一致しなくなる。
+data/**/raw/**  -text
+
 # バイナリ扱い
+*.xls    binary
+*.xlsx   binary
 *.pdf    binary
 *.png    binary
 *.jpg    binary
