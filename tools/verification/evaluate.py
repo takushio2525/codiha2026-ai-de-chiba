@@ -151,7 +151,7 @@ def render_markdown(path, rows, metrics):
     lines.append(f"- 行数: {len(rows)}")
     lines.append("")
     lines.append("> 計測条件（機器構成・環境・試行回数）は `metrics.md` に書き足すこと。")
-    lines.append("> 条件が分からない数字は報告書に使えない。")
+    lines.append("> 条件が分からない数字は提出資料に使えない。")
     lines.append("")
     lines.append("| ID | 指標 | 実測値 | 目標 | 判定 | 備考 |")
     lines.append("|---|---|---|---|:---:|---|")
@@ -163,7 +163,7 @@ def render_markdown(path, rows, metrics):
     failed = [m for m in metrics if m.ok is False]
     if failed:
         lines.append(f"**FAIL: {len(failed)} 件**  "
-                     "— 未達の指標は「なぜ届かなかったか」を報告書に書く。")
+                     "— 未達の指標は「なぜ届かなかったか」を説明資料に書く。")
         lines.append("原因を分析して書けば、FAIL でも評価は下がらない。")
     else:
         lines.append("**すべて PASS**（判定対象の指標のみ）")

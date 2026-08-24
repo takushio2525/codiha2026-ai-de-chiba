@@ -50,7 +50,7 @@ gantt
     デモ動画撮影         :d2, after c1, 2d
 
     section フェーズ6: 発表
-    報告書執筆           :e1, after d1, 10d
+    説明資料の作成       :e1, after d1, 10d
     発表スライド         :e2, after d2, 5d
     最終発表             :milestone, after e1, 0d
 ```
