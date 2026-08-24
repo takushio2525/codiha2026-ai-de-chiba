@@ -21,7 +21,7 @@ const createdAtJst = (column: string) =>
 
 /** 投稿 1 件ぶんの列。写真・コメントの集計は LATERAL でまとめて引く。 */
 const REPORT_COLUMNS = `
-  r.id, r.category, r.title, r.body, r.lat, r.lon, r.city_code, r.status, r.details,
+  r.id, r.category, r.title, r.body, r.lat, r.lon, r.city_code, r.status, r.details, r.user_id,
   u.display_name AS author_name,
   u.role         AS author_role,
   ${createdAtJst("r.created_at")} AS created_at,
@@ -52,6 +52,7 @@ type ReportRow = {
   lon: number;
   city_code: string;
   status: ReportStatus;
+  user_id: string | number;
   details: Record<string, unknown> | null;
   author_name: string;
   author_role: "user" | "gov";
@@ -133,10 +134,12 @@ export async function listReports(filter: ReportFilter): Promise<ReportFeature[]
   return rows.map(toFeature);
 }
 
-/** 投稿を 1 件引く。無ければ null。 */
-export async function findReport(
-  id: number,
-): Promise<{ properties: ReportProperties; coordinates: [number, number] } | null> {
+/** 投稿を 1 件引く。無ければ null。
+ *  `authorId` は権限の判定用で、レスポンスにそのまま載せてはいけない。 */
+export async function findReport(id: number): Promise<
+  | { properties: ReportProperties; coordinates: [number, number]; authorId: number }
+  | null
+> {
   const rows = await query<ReportRow>(
     `SELECT ${REPORT_COLUMNS} ${REPORT_FROM} WHERE r.id = $1`,
     [id],
@@ -145,6 +148,7 @@ export async function findReport(
   return {
     properties: toProperties(rows[0]),
     coordinates: [rows[0].lon, rows[0].lat],
+    authorId: Number(rows[0].user_id),
   };
 }
 

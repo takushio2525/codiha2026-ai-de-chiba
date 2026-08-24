@@ -22,6 +22,9 @@ export async function GET(_request: NextRequest, context: Context) {
   const id = parseId((await context.params).id);
   if (id === null) return apiFail("投稿が見つかりませんでした。", 404);
 
+  // 閲覧はログイン不要。セッションは「削除ボタンを出すか」の判断にだけ使う
+  const { user } = await getSessionView();
+
   try {
     const found = await findReport(id);
     if (!found) return apiFail("投稿が見つかりませんでした。", 404);
@@ -32,6 +35,7 @@ export async function GET(_request: NextRequest, context: Context) {
       report: found.properties,
       coordinates: found.coordinates,
       comments,
+      isAuthor: user !== null && user.id === found.authorId,
     } satisfies ReportDetail);
   } catch (error) {
     if (error instanceof DbUnavailableError) return dbUnavailable();

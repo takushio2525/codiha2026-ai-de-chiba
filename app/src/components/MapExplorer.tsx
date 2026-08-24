@@ -3,16 +3,39 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { FeatureCollection, Point } from "geojson";
 
+import type { SessionView } from "@/lib/auth";
 import { nearestDestination, type LngLat } from "@/lib/geo";
 import { initialHazardOpacity, initialHazardVisibility, type HazardId } from "@/lib/hazards";
 import { LAYERS, type FacilityProps, type LayerId } from "@/lib/layers";
+import {
+  EMPTY_REPORT_COLLECTION,
+  REPORT_CATEGORIES,
+  type ReportCategory,
+  type ReportCollection,
+} from "@/lib/reports";
+import { fetchReports } from "@/lib/reportsApi";
 import { fetchWalkingRoute, type RouteTarget, type WalkingRoute } from "@/lib/routing";
 import ControlPanel, { type Busy } from "./ControlPanel";
 import MapView, { type LayerData, type PanelBox } from "./MapView";
+import ReportForm from "./ReportForm";
+import ReportPanel from "./ReportPanel";
 import Toast, { type ToastMessage } from "./Toast";
 
 /** 市川市のだいたいの範囲。現在地がここから外れたときに一言添えるために使う。 */
 const CITY_BOUNDS = { lat: [35.58, 35.84], lng: [139.82, 140.04] } as const;
+
+/** P3 で投稿できるのは危険箇所（F-2）だけ。浸水（F-3）と観光おすすめ（F-6）は
+ *  カテゴリ定義を共有したまま、それぞれ P4・P5 で入り口を足す。 */
+const POSTABLE_CATEGORY: ReportCategory = "hazard";
+
+/** 地図の上で何を指定させているか。出発地点と投稿位置で同じクリックを使い分ける。 */
+type PickTarget = "origin" | "report";
+
+function initialReportVisibility(): Record<ReportCategory, boolean> {
+  return Object.fromEntries(
+    REPORT_CATEGORIES.map((category) => [category.id, category.defaultVisible]),
+  ) as Record<ReportCategory, boolean>;
+}
 
 function inCity([lng, lat]: LngLat): boolean {
   return (
@@ -46,7 +69,14 @@ function currentPosition(): Promise<LngLat> {
   });
 }
 
-export default function MapExplorer() {
+type Props = {
+  /** ログイン状態と認証モード（interfaces.md I-8）。サーバー側で 1 回決めたものを受け取る */
+  session: SessionView;
+  /** 表示する市町村（JIS X 0402 の 5 桁）。全域対応のため定数を埋め込まない */
+  cityCode: string;
+};
+
+export default function MapExplorer({ session, cityCode }: Props) {
   const [data, setData] = useState<LayerData | null>(null);
   const [dataError, setDataError] = useState(false);
   const [visible, setVisible] = useState<Record<LayerId, boolean>>({
@@ -60,11 +90,25 @@ export default function MapExplorer() {
   const [hazardOpacity, setHazardOpacity] =
     useState<Record<HazardId, number>>(initialHazardOpacity);
   const [origin, setOrigin] = useState<LngLat | null>(null);
-  const [pickMode, setPickMode] = useState(false);
+  const [pickTarget, setPickTarget] = useState<PickTarget | null>(null);
   const [route, setRoute] = useState<WalkingRoute | null>(null);
   const [busy, setBusy] = useState<Busy>("idle");
   const [toast, setToast] = useState<ToastMessage | null>(null);
   const [collapsed, setCollapsed] = useState(false);
+
+  // ---- 投稿（F-2）----
+  const [reports, setReports] = useState<ReportCollection>(EMPTY_REPORT_COLLECTION);
+  const [reportVisible, setReportVisible] =
+    useState<Record<ReportCategory, boolean>>(initialReportVisibility);
+  const [selectedReportId, setSelectedReportId] = useState<number | null>(null);
+  /** 投稿フォームを開いている状態（位置が決まってから開く） */
+  const [composing, setComposing] = useState<{ category: ReportCategory; coords: LngLat } | null>(
+    null,
+  );
+  /** 地図を寄せる指示。同じ地点でも押し直せるよう nonce を添える */
+  const [focus, setFocus] = useState<{ coords: LngLat; nonce: number } | null>(null);
+  const focusNonce = useRef(0);
+
   // 操作パネルは地図に重なっている。実寸を測って地図の余白に渡し、
   // 初期表示も経路のフィットも「パネルに隠れていない範囲」にそろえる。
   const panelRef = useRef<HTMLElement>(null);
@@ -90,6 +134,31 @@ export default function MapExplorer() {
       }
     })();
     return () => { cancelled = true; };
+  }, []);
+
+  /** 投稿を読み直す。**DB が落ちていても地図は出す**ので、失敗しても空のまま続ける。 */
+  const loadReports = useCallback(
+    async (options?: { quiet?: boolean }) => {
+      const result = await fetchReports({ city: cityCode });
+      if (result.ok) {
+        setReports(result.value);
+        return;
+      }
+      if (!options?.quiet) setToast({ kind: "warning", text: result.reason });
+    },
+    [cityCode],
+  );
+
+  useEffect(() => {
+    void loadReports({ quiet: true });
+  }, [loadReports]);
+
+  // 投稿一覧（/reports）から「地図で見る」で来たときは、その投稿を開く
+  useEffect(() => {
+    const requested = new URLSearchParams(window.location.search).get("report");
+    if (!requested) return;
+    const id = Number(requested);
+    if (Number.isSafeInteger(id) && id > 0) setSelectedReportId(id);
   }, []);
 
   useEffect(() => {
@@ -153,7 +222,7 @@ export default function MapExplorer() {
       } catch (error) {
         setBusy("idle");
         pendingRef.current = destination;
-        setPickMode(true);
+        setPickTarget("origin");
         setCollapsed(false);
         setToast({
           kind: "warning",
@@ -194,7 +263,7 @@ export default function MapExplorer() {
       } catch (error) {
         setBusy("idle");
         pendingRef.current = null;   // 最寄りは出発地点が決まってから選び直す
-        setPickMode(true);
+        setPickTarget("origin");
         setCollapsed(false);
         setToast({
           kind: "warning",
@@ -204,10 +273,17 @@ export default function MapExplorer() {
     })();
   }, [data, origin, visible, routeFrom, runRoute]);
 
-  const handlePickOrigin = useCallback(
+  /** 地図のクリック。今なにを指定させているかで振り分ける。 */
+  const handleMapPick = useCallback(
     (point: LngLat) => {
+      if (pickTarget === "report") {
+        setPickTarget(null);
+        setComposing({ category: POSTABLE_CATEGORY, coords: point });
+        return;
+      }
+
       setOrigin(point);
-      setPickMode(false);
+      setPickTarget(null);
       if (!data) return;
       const pending = pendingRef.current;
       pendingRef.current = null;
@@ -215,7 +291,7 @@ export default function MapExplorer() {
       if (destination) void runRoute(point, destination);
       else setToast({ kind: "info", text: "出発地点を設定しました。" });
     },
-    [data, visible, runRoute],
+    [pickTarget, data, visible, runRoute],
   );
 
   const handleNavigateTo = useCallback(
@@ -238,6 +314,34 @@ export default function MapExplorer() {
     setHazardOpacity((prev) => ({ ...prev, [id]: value }));
   }, []);
 
+  const toggleReportCategory = useCallback((id: ReportCategory) => {
+    setReportVisible((prev) => ({ ...prev, [id]: !prev[id] }));
+  }, []);
+
+  /** 投稿の場所を地図で指定してもらう。 */
+  const startComposing = useCallback(() => {
+    setComposing(null);
+    setSelectedReportId(null);
+    setPickTarget("report");
+    setCollapsed(false);
+    setToast({ kind: "info", text: "地図をクリックして、投稿する場所を指定してください。" });
+  }, []);
+
+  const locate = useCallback((coords: LngLat) => {
+    focusNonce.current += 1;
+    setFocus({ coords, nonce: focusNonce.current });
+  }, []);
+
+  const reportCounts = REPORT_CATEGORIES.reduce(
+    (counts, category) => {
+      counts[category.id] = reports.features.filter(
+        (feature) => feature.properties.category === category.id,
+      ).length;
+      return counts;
+    },
+    {} as Record<ReportCategory, number>,
+  );
+
   return (
     <main className="relative h-full w-full overflow-hidden bg-canvas">
       {data ? (
@@ -248,9 +352,14 @@ export default function MapExplorer() {
           hazardOpacity={hazardOpacity}
           origin={origin}
           route={route}
-          pickMode={pickMode}
-          onPickOrigin={handlePickOrigin}
+          pickMode={pickTarget !== null}
+          onPickOrigin={handleMapPick}
           onNavigate={handleNavigateTo}
+          reports={reports}
+          reportVisible={reportVisible}
+          selectedReportId={selectedReportId}
+          onSelectReport={setSelectedReportId}
+          focus={focus}
           panel={panel}
         />
       ) : (
@@ -276,10 +385,10 @@ export default function MapExplorer() {
           onToggleHazard={toggleHazard}
           onChangeHazardOpacity={changeHazardOpacity}
           origin={origin}
-          pickMode={pickMode}
+          pickMode={pickTarget === "origin"}
           onTogglePickMode={() => {
             pendingRef.current = null;
-            setPickMode((prev) => !prev);
+            setPickTarget((prev) => (prev === "origin" ? null : "origin"));
           }}
           onNavigateNearest={handleNavigateNearest}
           busy={busy}
@@ -287,11 +396,52 @@ export default function MapExplorer() {
           onClearRoute={() => setRoute(null)}
           collapsed={collapsed}
           onToggleCollapsed={() => setCollapsed((prev) => !prev)}
+          reportCounts={reportCounts}
+          reportVisible={reportVisible}
+          onToggleReportCategory={toggleReportCategory}
+          postableCategory={POSTABLE_CATEGORY}
+          canPost={session.user !== null}
+          picking={pickTarget === "report"}
+          onStartComposing={startComposing}
+        />
+      ) : null}
+
+      {selectedReportId !== null ? (
+        <ReportPanel
+          reportId={selectedReportId}
+          user={session.user}
+          onClose={() => setSelectedReportId(null)}
+          onChanged={() => void loadReports({ quiet: true })}
+          onDeleted={() => {
+            setSelectedReportId(null);
+            setToast({ kind: "info", text: "投稿を削除しました。" });
+          }}
+          onLocate={locate}
+        />
+      ) : null}
+
+      {composing ? (
+        <ReportForm
+          category={composing.category}
+          coordinates={composing.coords}
+          onRepick={() => {
+            setComposing(null);
+            startComposing();
+          }}
+          onClose={() => setComposing(null)}
+          onSubmitted={(report) => {
+            setComposing(null);
+            // 投稿したカテゴリが非表示のままだと、投稿が地図に出ない
+            setReportVisible((prev) => ({ ...prev, [report.category]: true }));
+            setSelectedReportId(report.id);
+            setToast({ kind: "info", text: "投稿しました。地図にピンが追加されます。" });
+            void loadReports({ quiet: true });
+          }}
         />
       ) : null}
 
       {toast ? (
-        <div className="pointer-events-none absolute inset-x-3 top-3 z-20 mx-auto max-w-md md:left-auto md:right-4 md:mx-0 md:w-[22rem]">
+        <div className="pointer-events-none absolute inset-x-3 top-3 z-40 mx-auto max-w-md md:left-auto md:right-4 md:mx-0 md:w-[22rem]">
           <Toast toast={toast} onDismiss={() => setToast(null)} />
         </div>
       ) : null}

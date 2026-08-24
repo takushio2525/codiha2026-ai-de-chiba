@@ -209,6 +209,10 @@ export type ReportDetail = {
   /** 地図を投稿の位置へ寄せるために返す。[経度, 緯度] */
   coordinates: [number, number];
   comments: ReportComment[];
+  /** 今ログインしている人がこの投稿の投稿者か。**削除ボタンを出すかの判断にだけ使う**。
+   *  投稿者の ID は返さない（表示名とロール以外を出さないため）ので、
+   *  サーバーがセッションと突き合わせた結果だけを渡す。権限判定は API 側で改めて行う */
+  isAuthor: boolean;
 };
 
 /** GeoJSON 以外の経路はすべてこの形（interfaces.md の共通の約束 2）。 */

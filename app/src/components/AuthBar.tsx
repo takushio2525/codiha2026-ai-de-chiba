@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LogIn, ShieldCheck, UserRound } from "lucide-react";
+import { List, LogIn, ShieldCheck, UserRound } from "lucide-react";
 
 import { getSessionView } from "@/lib/auth";
 import { signOutAction } from "@/lib/authActions";
@@ -21,6 +21,14 @@ export default async function AuthBar() {
           デモモードで動作中
         </span>
       ) : null}
+
+      <Link
+        href="/reports"
+        className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 font-medium text-ink-sub transition hover:bg-[#f1f2f4] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+      >
+        <List aria-hidden className="size-3.5" />
+        投稿一覧
+      </Link>
 
       <div className="ml-auto flex items-center gap-2.5">
         {user ? (
