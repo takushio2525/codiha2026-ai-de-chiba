@@ -6,55 +6,53 @@
 ## 全体
 
 - **コメント・ドキュメント・コミットメッセージはすべて日本語**
-- マジックナンバーを直接書かない。設定ファイル（例: `ProjectConfig.h`）に集める
+- マジックナンバーを直接書かない。設定ファイルか環境変数に集める
 - 「あとで直す」コードには `TODO:` を付け、Issue 番号も添える
+
+## `app/` 配下の絶対ルール（提出要件）
+
+- **ファイル名・ディレクトリ名に日本語を使わない**（英数字・`_`・`-` のみ）
+- **秘密情報をコードに直書きしない。** 環境変数か `compose.yaml` の `environment` 経由。
+  ただし提出物は審査員が動かすので、**外部サービスの API キーが無いと動かない構成は避ける**
+- コンテナ内のパスを前提にする。ホスト側の絶対パスを書かない
+- 生成物・キャッシュ（`__pycache__/`・`.next/`・`node_modules/` 等）はコミットしない
 
 ## 命名
 
 | 対象 | 規則 | 例 |
 |---|---|---|
-| クラス・型 | PascalCase | `SerialLinkModule` |
-| 関数・変数 | camelCase | `updateInput` |
-| 定数 | UPPER_SNAKE_CASE | `LED_PIN` |
-| ファイル | 中身のクラス名と揃える | `SerialLinkModule.h` |
+| クラス・型 | PascalCase | `OpenDataLoader` |
+| 関数・変数 | 〈言語の慣習に合わせる。Python なら snake_case〉 | `load_dataset` |
+| 定数 | UPPER_SNAKE_CASE | `DATA_DIR` |
+| ファイル | 中身に合わせる | `loader.py` |
 
-〈使う言語に合わせて書き換える〉
+〈実装言語が決まったら、その言語の標準スタイルに書き換える〉
 
-## C++ / Arduino（`firmware/`）
+## Docker
 
-- ヘッダは `#pragma once` でガードする
-- ヘッダには**宣言だけ**を書き、実装は `.cpp` に分ける
-- モジュールは `IModule` を継承し、入力なら `updateInput()`、出力なら `updateOutput()` を実装する
-- **モジュール同士を直接呼ばない。** やり取りは `SystemData` 経由
-- 依存の向きは **モジュール → `SystemData.h`** の一方向。
-  各モジュールの Data 構造体は `SystemData.h` に置き、`SystemData.h` からは何も include しない
-- Arduino の API を使う `.cpp` は `<Arduino.h>` を明示的に include する
-- `delay()` を使わない。周期処理は `ModuleTimer` を使う
-- 共有資源（`Serial` / I2C / SPI）は `main.cpp` の `setup()` で開く。モジュール側で開かない
-- 2 台以上で使うコードは `common/lib/` へ。**コピペで増やさない**
-
-## Python（`tools/`）
-
-- 標準ライブラリで済むものは追加ライブラリを使わない
-- 外部ライブラリが要るときは、入っていない場合に**分かるエラーメッセージを出して終わる**
-- `argparse` で引数を受け、`--help` だけで使い方が分かるようにする
+- `Dockerfile` と `compose.yaml` は `app/` 直下に置く
+- ベースイメージはタグを固定する（`python:3.12-slim` のように。`latest` を使わない）
+- ホストと受け渡すファイルは `volumes` でバインドする
+- 依存する起動順があるなら `depends_on` + `healthcheck` で待つ
+- ホストから繋ぐならポートを `compose.yaml` に明記し、**`readme.txt` にも同じ番号を書く**
 
 ## ファイル配置
 
 | 置くもの | 場所 |
 |---|---|
-| 2 台以上のマイコンで使うコード | `firmware/common/lib/` |
-| 1 台だけで使うコード | `firmware/node_XX/lib/` |
-| 複数の Processing スケッチで使う部品 | `pc_app/common/`（`sync_common.py` で配る） |
-| 計測・評価のスクリプト | `tools/verification/` |
-| データのサンプル | `assets/examples/` |
+| 提出するサービス本体 | `app/` |
+| 提出に必要な `readme.txt` / `Dockerfile` / `compose.yaml` | `app/` 直下 |
+| オープンデータの検討用サンプル | `assets/examples/` |
+| 開発用・評価用のスクリプト（提出しない） | `tools/` |
+
+**`tools/` は提出 zip に含めない。** 提出物に必要なものは `app/` の中に置く。
 
 ## やらないこと
 
 | やらない | 代わりに |
 |---|---|
-| 個人情報・著作物をコミットする | private リポジトリへ（`docs/before_coding.md` の線引き表） |
+| 個人情報・著作物をコミットする | 置かない（`docs/before_coding.md` の線引き表） |
 | `main` へ直接 push する | ブランチを切って PR |
 | `rebase` を使う | `merge` で main を取り込む |
 | 同じコードを 2 か所にコピーする | 共通の置き場へ移す |
-| 動作確認せずに「完了」と報告する | 実際に動かして結果を確かめる |
+| 動作確認せずに「完了」と報告する | `docker compose up` で実際に起動して確かめる |

@@ -12,30 +12,6 @@
     "[yaml]": { "editor.tabSize": 2 },
     "[json]": { "editor.tabSize": 2 },
     "[jsonc]": { "editor.tabSize": 2 },
-    "[markdown]": { "files.trimTrailingWhitespace": false },
-
-    "C_Cpp.default.cppStandard": "c++17",
-    "C_Cpp.default.cStandard": "c11",
-    "C_Cpp.default.intelliSenseMode": "gcc-x64",
-
-    "latex-workshop.latex.tools": [
-        {
-            "name": "latexmk",
-            "command": "latexmk",
-            "args": [
-                "-synctex=1",
-                "-interaction=nonstopmode",
-                "-file-line-error",
-                "-pdfdvi",
-                "-outdir=%OUTDIR%",
-                "%DOC%"
-            ],
-            "env": {}
-        }
-    ],
-    "latex-workshop.latex.recipes": [
-        { "name": "latexmk (platex)", "tools": ["latexmk"] }
-    ],
-    "latex-workshop.latex.autoBuild.run": "onFileChange",
-    "latex-workshop.view.pdf.viewer": "tab"
+    "[dockerfile]": { "editor.tabSize": 2 },
+    "[markdown]": { "files.trimTrailingWhitespace": false }
 }

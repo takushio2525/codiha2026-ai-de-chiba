@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """計測した CSV を読み、評価指標を計算して PASS / FAIL の表を出す。
 
-serial_logger.py が出した CSV（elapsed_ms, line）を想定しているが、
-同じ形式なら手作りの CSV でも動く。
+`elapsed_ms, line` の 2 列を持つ CSV を想定している。
+アプリのログから作っても、手で書いても、形式が合っていれば動く。
 
 使い方:
     python evaluate.py --input results/run_001.csv
