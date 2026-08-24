@@ -1,0 +1,32 @@
+{
+  "note": "検討用に取得するオープンデータの一覧。千葉県分は千葉県オープンデータサイト（data eye）の resource_download、市川市分は市川市公式サイトの配布ファイルを直接取得する（data eye 側の市川市リソースは resource_download が 500 を返すため）。",
+  "retrieved_at": "2026-08-24",
+  "sources": [
+    {
+      "dir": "chiba-pref",
+      "resources": [
+        {"file": "population_by_municipality_2024.xlsx",     "url": "https://opendata.pref.chiba.lg.jp/resource_download/5349",  "page": "https://opendata.pref.chiba.lg.jp/datasets/240", "title": "第1表 市区町村別推計人口（令和6年）"},
+        {"file": "natural_change_by_municipality_2024.xlsx", "url": "https://opendata.pref.chiba.lg.jp/resource_download/5350",  "page": "https://opendata.pref.chiba.lg.jp/datasets/240", "title": "第2表 市区町村別自然動態（男女別）（令和6年）"},
+        {"file": "social_change_by_municipality_2024.xlsx",  "url": "https://opendata.pref.chiba.lg.jp/resource_download/5352",  "page": "https://opendata.pref.chiba.lg.jp/datasets/240", "title": "第3表 市区町村別社会動態（男女別）（令和6年）"},
+        {"file": "elderly_by_municipality_1995.xls",         "url": "https://opendata.pref.chiba.lg.jp/resource_download/16024", "page": "https://opendata.pref.chiba.lg.jp/datasets/813", "title": "県内市町村別の高齢者人口（平成7年）"},
+        {"file": "elderly_by_municipality_2015.xls",         "url": "https://opendata.pref.chiba.lg.jp/resource_download/15984", "page": "https://opendata.pref.chiba.lg.jp/datasets/813", "title": "県内市町村別の高齢者人口（平成27年）"},
+        {"file": "elderly_by_municipality_2021.xlsx",        "url": "https://opendata.pref.chiba.lg.jp/resource_download/15973", "page": "https://opendata.pref.chiba.lg.jp/datasets/813", "title": "県内市町村別の高齢者人口（令和3年）"},
+        {"file": "licensed_nursery_schools_2023.xlsx",       "url": "https://opendata.pref.chiba.lg.jp/resource_download/48664", "page": "https://opendata.pref.chiba.lg.jp/datasets/421", "title": "子育て施設一覧（認可保育所）（令和5年6月）"},
+        {"file": "tourism_visitors_2019.xls",                "url": "https://opendata.pref.chiba.lg.jp/resource_download/15828", "page": "https://opendata.pref.chiba.lg.jp/datasets/793", "title": "令和元年千葉県観光入込調査報告書図表データ"}
+      ]
+    },
+    {
+      "dir": "ichikawa-city",
+      "resources": [
+        {"file": "population_by_area_and_age.csv", "url": "https://www.city.ichikawa.lg.jp/uploaded/attachment/53550.csv", "page": "https://opendata.pref.chiba.lg.jp/datasets/3282", "title": "【市川市】地域・年齢別人口（令和8年4月1日）"},
+        {"file": "childcare_facilities.csv",       "url": "https://www.city.ichikawa.lg.jp/uploaded/attachment/53047.csv", "page": "https://opendata.pref.chiba.lg.jp/datasets/3283", "title": "【市川市】子育て施設一覧（令和8年4月1日）"},
+        {"file": "emergency_evacuation_sites.csv", "url": "https://www.city.ichikawa.lg.jp/uploaded/attachment/53552.csv", "page": "https://opendata.pref.chiba.lg.jp/datasets/3295", "title": "【市川市】指定緊急避難場所一覧（令和8年4月1日）"},
+        {"file": "aed_locations.csv",              "url": "https://www.city.ichikawa.lg.jp/uploaded/attachment/53056.csv", "page": "https://opendata.pref.chiba.lg.jp/datasets/3288", "title": "【市川市】AED設置箇所一覧（令和8年4月1日）"},
+        {"file": "nursing_care_facilities.csv",    "url": "https://www.city.ichikawa.lg.jp/uploaded/attachment/53054.csv", "page": "https://opendata.pref.chiba.lg.jp/datasets/3287", "title": "【市川市】介護サービス事業所一覧（令和8年4月1日）"},
+        {"file": "public_facilities.csv",          "url": "https://www.city.ichikawa.lg.jp/uploaded/attachment/53042.csv", "page": "https://opendata.pref.chiba.lg.jp/datasets/3280", "title": "【市川市】公共施設一覧（令和8年4月1日）"},
+        {"file": "parks_and_green_spaces.csv",     "url": "https://www.city.ichikawa.lg.jp/uploaded/attachment/53065.csv", "page": "https://opendata.pref.chiba.lg.jp/datasets/3293", "title": "【市川市】都市公園・都市緑地一覧（令和8年4月1日）"},
+        {"file": "medical_relief_stations.csv",    "url": "https://www.city.ichikawa.lg.jp/uploaded/attachment/53073.csv", "page": "https://opendata.pref.chiba.lg.jp/datasets/3297", "title": "【市川市】医療救護所（令和8年4月1日）"}
+      ]
+    }
+  ]
+}

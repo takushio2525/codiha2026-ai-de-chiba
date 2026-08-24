@@ -1,0 +1,12 @@
+# 分析スクリプト（data/analysis/scripts/）の依存。
+#   python3 -m venv data/analysis/.venv
+#   data/analysis/.venv/bin/pip install -r data/analysis/requirements.txt
+# 動作を確認した Python: 3.12.13 と 3.14.7（クリーン venv で同一の PNG が出ることを確認済み）
+#
+# matplotlib-fontja は japanize-matplotlib の後継。import して japanize() を呼ぶと
+# IPAexGothic が登録され、日本語ラベルが豆腐にならない。
+matplotlib==3.11.1
+matplotlib-fontja==1.1.0
+openpyxl==3.1.5
+pandas==3.0.5
+xlrd==2.0.2

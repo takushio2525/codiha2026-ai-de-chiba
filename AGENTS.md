@@ -53,6 +53,8 @@ Claude Code 用の `CLAUDE.md` は、このファイルへのリダイレクト 
 | `docs/before_coding.md` | **開始前に決めること**（担当の切り方・つなぎ目・public/private の線引き） |
 | `docs/design/assignments.md` | 担当表。誰が何を持っているか |
 | `docs/design/interfaces.md` | **コンポーネント間のデータ形式**。ここを変える変更は影響が広い |
+| `data/analysis/findings.md` | **取得したオープンデータの所見**。アイデア出しはここから読む |
+| `data/` | 取得したオープンデータ（`<ソース>/raw/`）・取得スクリプト・分析（`data/README.md` に規約） |
 | `assets/` | オープンデータの検討用サンプル・データ形式のメモ |
 | `tools/verification/` | 評価指標の計測・判定 |
 | `.agent/` | AI 向けの詳細仕様と作業文脈（下記） |
@@ -69,6 +71,10 @@ bash .github/scripts/secret_scan.sh
 
 # 評価用ログの判定
 python tools/verification/evaluate.py --input tools/verification/results/run.csv
+
+# オープンデータの取得と分析（詳細は data/README.md, data/analysis/README.md）
+python3 data/scripts/fetch_datasets.py
+for s in data/analysis/scripts/0*.py; do data/analysis/.venv/bin/python "$s"; done
 ```
 
 ---
@@ -126,6 +132,7 @@ python tools/verification/evaluate.py --input tools/verification/results/run.csv
 | 担当の変更 | `docs/design/assignments.md` |
 | 起動手順（`compose.yaml` など） | このファイルの「よく使うコマンド」と `app/README.md` |
 | ディレクトリの追加・削除 | そのディレクトリの `README.md`（何のフォルダか） |
+| `data/` に取得先を追加 | `data/scripts/manifest.json` と `data/<ソース>/SOURCE.md`（出典・ライセンス） |
 
 ### 6. 完了報告の前に確認する
 
