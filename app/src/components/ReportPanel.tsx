@@ -27,6 +27,7 @@ import {
   type ReportProperties,
 } from "@/lib/reports";
 import { deleteReport, fetchReportDetail, submitComment } from "@/lib/reportsApi";
+import FloodRainfall from "./FloodRainfall";
 
 type Props = {
   reportId: number;
@@ -254,6 +255,9 @@ export default function ReportPanel({
                   ))}
                 </dl>
               ) : null}
+
+              {/* 浸水（F-3）だけ、投稿時点の雨量を出す。取れなかった投稿もその旨を出す */}
+              <FloodRainfall category={report.category} details={report.details} />
 
               {isAuthor ? (
                 <div className="mt-3">

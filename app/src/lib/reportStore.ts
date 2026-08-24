@@ -182,7 +182,9 @@ export async function createReport(input: {
   lon: number;
   cityCode: string;
   userId: number;
-  details: Record<string, string>;
+  /** カテゴリ固有の項目。選択肢は文字列だが、**サーバーが決める雨量は数値**なので
+   *  `unknown` で受ける（何を入れてよいかの正本は interfaces.md I-4） */
+  details: Record<string, unknown>;
   photos: NewPhoto[];
 }): Promise<number> {
   return withTransaction(async (client) => {

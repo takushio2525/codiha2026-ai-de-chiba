@@ -7,17 +7,21 @@
  *   - POST は**ログイン必須**。`city_code` はクライアントから受け取らず、
  *     サーバーが座標を市町村マスタの bbox と突き合わせて決める（詐称を防ぐ）
  *   - **写真の保存に成功して DB の INSERT に失敗したら、保存した写真を消す**
+ *   - 浸水（`flood`）の投稿は、**サーバーが投稿時点の雨量を取って `details` に焼き込む**。
+ *     取れなくても投稿は成功させる（現場で投稿できないほうが害が大きい・I-4）
  */
 import type { NextRequest } from "next/server";
 
 import { apiFail, dbUnavailable } from "@/lib/apiResponse";
 import { getSessionView } from "@/lib/auth";
 import { DbUnavailableError } from "@/lib/db";
+import { observeRainfall } from "@/lib/jma";
 import { DEMO_CITY_CODE, findMunicipality } from "@/lib/municipalities";
 import { removePhotos, savePhoto } from "@/lib/photoStore";
 import { parseCityCode, parseListQuery, parseReportForm } from "@/lib/reportInput";
 import { REQUEST_MAX_BYTES, type ReportCollection } from "@/lib/reports";
 import { createReport, findReport, listReports, resolveCityCode } from "@/lib/reportStore";
+import { toFloodDetails } from "@/lib/weather";
 
 /** 投稿は増えるのでキャッシュしない。 */
 export const dynamic = "force-dynamic";
@@ -86,6 +90,16 @@ export async function POST(request: NextRequest) {
       return apiFail("この場所に対応している市町村がまだ登録されていません。", 400);
     }
 
+    // 浸水報告（F-3）は投稿した瞬間の雨量を記録に残す。**クライアントは値を送れない**
+    // （F-4 の注意案内の根拠になるので、投稿者が自由に入れられてはいけない・I-4）。
+    // 最寄りのアメダスが遠い / 気象庁が落ちているときは null が返る。
+    // **そのときも投稿は通す**。雨量が無いことを理由に浸水報告を弾かない。
+    const details: Record<string, unknown> = { ...input.details };
+    if (input.category === "flood") {
+      const observed = await observeRainfall(input.lat, input.lon);
+      if (observed) Object.assign(details, toFloodDetails(observed));
+    }
+
     try {
       for (const photo of input.photos) {
         savedFiles.push(await savePhoto(photo.bytes, photo.mimeType));
@@ -98,7 +112,7 @@ export async function POST(request: NextRequest) {
         lon: input.lon,
         cityCode,
         userId: user.id,
-        details: input.details,
+        details,
         photos: input.photos.map((photo, index) => ({
           fileName: savedFiles[index],
           mimeType: photo.mimeType,
