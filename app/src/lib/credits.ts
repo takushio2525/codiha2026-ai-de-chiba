@@ -25,6 +25,13 @@ export const DATA_CREDITS: Credit[] = [
     license: "国土地理院コンテンツ利用規約",
   },
   {
+    what: "ハザードマップ（洪水・高潮・津波の浸水想定）",
+    text: "出典:「ハザードマップポータルサイト」（作成: 国土交通省各地方整備局等・都道府県）"
+      + "が配信するタイルを重ねて表示",
+    href: "https://disaportal.gsi.go.jp/",
+    license: "公共データ利用規約（第 1.0 版）PDL1.0",
+  },
+  {
     what: "徒歩経路の計算",
     text: "OSRM（FOSSGIS e.V. 提供）／道路データは OpenStreetMap contributors",
     href: "https://routing.openstreetmap.de/about.html",
@@ -35,6 +42,7 @@ export const DATA_CREDITS: Credit[] = [
 /** 地図の隅（MapLibre の attribution）に出す短い版。HTML 断片として渡す。 */
 export const MAP_ATTRIBUTION: string[] = [
   '<a href="https://www.city.ichikawa.lg.jp/page/4744.html" target="_blank" rel="noreferrer">市川市オープンデータ</a>を加工して作成',
+  'ハザードマップ: <a href="https://disaportal.gsi.go.jp/" target="_blank" rel="noreferrer">ハザードマップポータルサイト</a>',
   '経路: <a href="https://routing.openstreetmap.de/about.html" target="_blank" rel="noreferrer">OSRM / FOSSGIS</a>',
   '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> contributors',
   // FOSSGIS の利用規約が求めている「地図を修正する」リンク

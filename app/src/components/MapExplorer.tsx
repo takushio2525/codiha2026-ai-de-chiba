@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { FeatureCollection, Point } from "geojson";
 
 import { nearestDestination, type LngLat } from "@/lib/geo";
+import { initialHazardOpacity, initialHazardVisibility, type HazardId } from "@/lib/hazards";
 import { LAYERS, type FacilityProps, type LayerId } from "@/lib/layers";
 import { fetchWalkingRoute, type RouteTarget, type WalkingRoute } from "@/lib/routing";
 import ControlPanel, { type Busy } from "./ControlPanel";
@@ -53,6 +54,11 @@ export default function MapExplorer() {
     aed: true,
     childcare: true,
   });
+  // ハザードマップ（浸水想定）の重ね。初期値は定義側（lib/hazards.ts）が持つ
+  const [hazardVisible, setHazardVisible] =
+    useState<Record<HazardId, boolean>>(initialHazardVisibility);
+  const [hazardOpacity, setHazardOpacity] =
+    useState<Record<HazardId, number>>(initialHazardOpacity);
   const [origin, setOrigin] = useState<LngLat | null>(null);
   const [pickMode, setPickMode] = useState(false);
   const [route, setRoute] = useState<WalkingRoute | null>(null);
@@ -224,12 +230,22 @@ export default function MapExplorer() {
     setVisible((prev) => ({ ...prev, [id]: !prev[id] }));
   }, []);
 
+  const toggleHazard = useCallback((id: HazardId) => {
+    setHazardVisible((prev) => ({ ...prev, [id]: !prev[id] }));
+  }, []);
+
+  const changeHazardOpacity = useCallback((id: HazardId, value: number) => {
+    setHazardOpacity((prev) => ({ ...prev, [id]: value }));
+  }, []);
+
   return (
     <main className="relative h-full w-full overflow-hidden bg-canvas">
       {data ? (
         <MapView
           data={data}
           visible={visible}
+          hazardVisible={hazardVisible}
+          hazardOpacity={hazardOpacity}
           origin={origin}
           route={route}
           pickMode={pickMode}
@@ -255,6 +271,10 @@ export default function MapExplorer() {
           ) as Record<LayerId, number>}
           visible={visible}
           onToggleLayer={toggleLayer}
+          hazardVisible={hazardVisible}
+          hazardOpacity={hazardOpacity}
+          onToggleHazard={toggleHazard}
+          onChangeHazardOpacity={changeHazardOpacity}
           origin={origin}
           pickMode={pickMode}
           onTogglePickMode={() => {

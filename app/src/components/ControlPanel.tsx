@@ -3,18 +3,31 @@
 import {
   Baby,
   ChevronDown,
+  CloudRain,
   HeartPulse,
   LoaderCircle,
   LocateFixed,
   MapPin,
   Navigation,
   Shield,
+  Waves,
+  Wind,
   type LucideIcon,
 } from "lucide-react";
 
 import type { LngLat } from "@/lib/geo";
+import {
+  HAZARDS,
+  HAZARD_OPACITY_MAX,
+  HAZARD_OPACITY_MIN,
+  HAZARD_OPACITY_STEP,
+  visibleHazardLegends,
+  type HazardIconName,
+  type HazardId,
+} from "@/lib/hazards";
 import { LAYERS, type IconName, type LayerId } from "@/lib/layers";
 import type { WalkingRoute } from "@/lib/routing";
+import HazardLegend from "./HazardLegend";
 import RouteCard from "./RouteCard";
 
 const ICONS: Record<IconName, LucideIcon> = {
@@ -23,12 +36,22 @@ const ICONS: Record<IconName, LucideIcon> = {
   baby: Baby,
 };
 
+const HAZARD_ICONS: Record<HazardIconName, LucideIcon> = {
+  cloudRain: CloudRain,
+  wind: Wind,
+  waves: Waves,
+};
+
 export type Busy = "idle" | "locating" | "routing";
 
 type Props = {
   counts: Record<LayerId, number>;
   visible: Record<LayerId, boolean>;
   onToggleLayer: (id: LayerId) => void;
+  hazardVisible: Record<HazardId, boolean>;
+  hazardOpacity: Record<HazardId, number>;
+  onToggleHazard: (id: HazardId) => void;
+  onChangeHazardOpacity: (id: HazardId, value: number) => void;
   origin: LngLat | null;
   pickMode: boolean;
   onTogglePickMode: () => void;
@@ -45,6 +68,10 @@ export default function ControlPanel({
   counts,
   visible,
   onToggleLayer,
+  hazardVisible,
+  hazardOpacity,
+  onToggleHazard,
+  onChangeHazardOpacity,
   origin,
   pickMode,
   onTogglePickMode,
@@ -57,6 +84,8 @@ export default function ControlPanel({
   ref,
 }: Props) {
   const anyVisible = LAYERS.some((layer) => visible[layer.id]);
+  // 凡例は、表示中のハザードが使っているものだけを出す（洪水と津波・高潮で段階が違う）
+  const legends = visibleHazardLegends(hazardVisible);
 
   return (
     <aside
@@ -75,7 +104,7 @@ export default function ControlPanel({
             市川市 オープンデータマップ
           </h1>
           <p className="mt-0.5 truncate text-[11.5px] text-ink-muted">
-            避難場所・AED・子育て施設と、そこまでの徒歩経路
+            ハザードマップと、避難場所・AED・子育て施設への徒歩経路
           </p>
         </div>
         <button
@@ -214,6 +243,91 @@ export default function ControlPanel({
             </p>
           ) : null}
 
+        </section>
+
+        <section className="border-t border-line px-4 py-3.5">
+          <h2 className="text-[11px] font-semibold tracking-wide text-ink-muted">
+            ハザードマップ（浸水想定）
+          </h2>
+          <ul className="mt-2 space-y-1.5">
+            {HAZARDS.map((hazard) => {
+              const Icon = HAZARD_ICONS[hazard.icon];
+              const on = hazardVisible[hazard.id];
+              const percent = Math.round(hazardOpacity[hazard.id] * 100);
+              return (
+                <li
+                  key={hazard.id}
+                  className={`overflow-hidden rounded-xl border transition ${
+                    on ? "border-ink-muted/40 bg-[#fafafa]" : "border-line"
+                  }`}
+                >
+                  <button
+                    type="button"
+                    role="switch"
+                    aria-checked={on}
+                    onClick={() => onToggleHazard(hazard.id)}
+                    className="flex w-full items-center gap-3 px-3 py-2.5 text-left transition hover:bg-[#f4f4f3] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ink"
+                  >
+                    <span
+                      aria-hidden
+                      className={`grid size-8 shrink-0 place-items-center rounded-lg transition ${
+                        on ? "bg-ink text-white" : "bg-[#f1f2f4] text-[#9aa0a8]"
+                      }`}
+                    >
+                      <Icon className="size-4" />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-[13.5px] font-semibold text-ink">
+                        {hazard.label}
+                      </span>
+                      <span className="mt-0.5 block truncate text-[11px] leading-relaxed text-ink-muted">
+                        {hazard.summary}
+                      </span>
+                    </span>
+                    <span
+                      aria-hidden
+                      className={`relative h-5 w-9 shrink-0 rounded-full transition ${on ? "bg-ink" : "bg-[#d5d8dc]"}`}
+                    >
+                      <span
+                        className={`absolute top-0.5 size-4 rounded-full bg-white shadow transition-all ${on ? "left-[1.125rem]" : "left-0.5"}`}
+                      />
+                    </span>
+                  </button>
+
+                  {on ? (
+                    <label className="flex items-center gap-2.5 border-t border-line px-3 py-2">
+                      <span className="shrink-0 text-[11px] text-ink-muted">不透明度</span>
+                      <input
+                        type="range"
+                        min={HAZARD_OPACITY_MIN}
+                        max={HAZARD_OPACITY_MAX}
+                        step={HAZARD_OPACITY_STEP}
+                        value={hazardOpacity[hazard.id]}
+                        onChange={(event) =>
+                          onChangeHazardOpacity(hazard.id, Number(event.target.value))
+                        }
+                        aria-label={`${hazard.label}の不透明度`}
+                        className="h-1 min-w-0 flex-1 cursor-pointer accent-ink"
+                      />
+                      <span className="w-9 shrink-0 text-right text-[11px] text-ink-sub tabular-nums">
+                        {percent}%
+                      </span>
+                    </label>
+                  ) : null}
+                </li>
+              );
+            })}
+          </ul>
+
+          {legends.length > 0 ? (
+            <div className="mt-3 rounded-xl border border-line bg-surface px-3 py-3">
+              <HazardLegend legends={legends} withSource />
+            </div>
+          ) : (
+            <p className="mt-2 text-[11.5px] leading-relaxed text-ink-muted">
+              重ねたい想定を選ぶと、浸水深の凡例と出典が表示されます。
+            </p>
+          )}
         </section>
 
         <footer className="border-t border-line bg-[#fafafa] px-4 py-3 text-[11px] leading-relaxed text-ink-muted">

@@ -6,16 +6,13 @@
 
 ## 現在の対象
 
-**P2（DB と認証の基盤）まで実装済み。次は P3（投稿基盤 + 危険箇所報告・F-2）。**
+**プロダクトは CHIZUBA。P2（DB と認証）まで実装済み。次は P3（投稿基盤・F-2）。**
 
-- **P0**（地図・避難場所 123・AED 304・子育て施設 388・徒歩ナビ）: main にある
-- **P1**（ハザードマップ・F-1）: ブランチ `feat/p1-hazard-map` で実装済み・PR 待ち
-- **P2**（DB + 認証・F-8 のデモ側）: ブランチ `feat/p2-db-auth` で実装済み・PR 待ち。
-  `cd app && docker compose up` で `web` + `db` の 2 コンテナが立ち、
-  `/login` のデモログインで一般／行政（市川市）としてログインできる
+`cd app && docker compose up` → <http://localhost:3000> で、洪水・高潮・津波の浸水想定を
+重ねられ（ON/OFF・不透明度・凡例・出典）、避難場所 123・AED 304・子育て施設 388 と徒歩ナビが動く。
+**コンテナは `web` + `db` の 2 つ**。`/login` で一般／行政（市川市）としてログインできる。
 
-何を作るかの正本は **`docs/design/requirements.md`**（機能 F-1〜F-8・ロール 3 段階・
-投稿モデルの統一・画面 S-1〜S-7・実装順序 P1〜P8）。
+何を作るかの正本は **`docs/design/requirements.md`**（機能 F-1〜F-8・画面 S-1〜S-7・実装順序）。
 
 ## 直近の観点
 
@@ -26,10 +23,14 @@ P4（浸水）・P5（観光）・P6（行政応答）はカテゴリと表示�
 P3 で使う土台はもう揃っている:
 
 - `reports` / `report_photos` / `report_comments` テーブルは **P2 で作成済み**
-  （`app/db/init/001_schema.sql`。スキーマを変えたら `docker compose down -v`）
+  （`app/db/init/001_schema.sql`。**スキーマを変えたら `docker compose down -v`**）
 - ログインユーザーは `getSessionView()`（`app/src/lib/auth.ts`）で
   `{ id, displayName, role, govCityCode }` が取れる。**権限判定は必ず API 側で行う**
 - 写真の保存先（`uploads` ボリューム）は**まだ無い**。P3 で `compose.yaml` に足す
+
+P1 で分かった注意点: **浸水深の凡例は 1 つではない**（洪水 6 段階／津波・高潮 8 段階）。
+**「色が付いていない＝安全」ではない**ので、想定区域が未公表の地域があることを凡例に常時出す。
+定義は `app/src/lib/hazards.ts` に集めてあるので、レイヤーを足すならそこから。
 
 審査のコード評価は **実装割合 × 動作割合の掛け算**。
 `requirements.md` §9-1 の「全フェーズ共通の完了条件」5 項目
@@ -44,18 +45,19 @@ P3 で使う土台はもう揃っている:
 2. **P4 以降**は `requirements.md` §9-2 の順に進める
 3. 提出物のうち **`readme.txt`・説明資料 PDF 2 種はまだ無い**。9/9 に向けて作る。
    固めるのは `bash tools/package_submission.sh`（検証込み）。**手で zip しない**
-4. `docs/design/assignments.md` の担当表がまだ空欄
+4. `docs/design/assignments.md` の担当表がまだ空欄。誰がどのフェーズを持つか埋める
 
 ## 現フェーズで読むべきドキュメント
 
 - **P3 に入る前に必ず**: `docs/design/interfaces.md` の **I-3・I-4・I-5**（投稿 API の仕様と
   異常時の約束）、`docs/design/requirements.md` §4（投稿を 1 モデルに統一した理由）
-- **DB を触る段**: `app/db/init/001_schema.sql`（**物理スキーマの正本**）、
-  `docs/design/interfaces.md` I-7
-- **認証を使う段**: `app/src/lib/auth.ts`、`docs/design/requirements.md` §8
-- **アプリに手を入れる段**: `.agent/architecture.md`、`.agent/conventions.md`、
-  `app/README.md`（**既知の制約**）
+- **DB / 認証を触る段**: `app/db/init/001_schema.sql`（**物理スキーマの正本**）と
+  `interfaces.md` I-7、`app/src/lib/auth.ts` と `requirements.md` §8
+- **アプリに手を入れる段**: `.agent/architecture.md`（構成・データフロー・認証フロー・
+  全域対応の建付け）、`.agent/conventions.md`、`app/README.md`（**既知の制約**）
 - **提出物の判断**: `課題/2026-09-09_CODIHA2026_提出要件.md`（**正本**）
+- **データを増やす段**: `data/analysis/findings.md`、
+  `data/chiba-pref/SOURCE.md`, `data/ichikawa-city/SOURCE.md`（出典・ライセンス・落とし穴）
 
 ## 決まっていること（変わりにくい前提）
 

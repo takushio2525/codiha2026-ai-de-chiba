@@ -15,6 +15,13 @@ import type {
 import { GSI_ATTRIBUTION, ICHIKAWA_CENTER, INITIAL_ZOOM, basemapStyle } from "@/lib/basemap";
 import { MAP_ATTRIBUTION } from "@/lib/credits";
 import type { LngLat } from "@/lib/geo";
+import {
+  HAZARDS,
+  HAZARD_RENDER_MINZOOM,
+  hazardLayerId,
+  hazardSourceId,
+  type HazardId,
+} from "@/lib/hazards";
 import { LAYERS, pointLayerId, type FacilityProps, type LayerDef, type LayerId } from "@/lib/layers";
 import type { RouteTarget, WalkingRoute } from "@/lib/routing";
 
@@ -23,6 +30,9 @@ export type LayerData = Record<LayerId, FeatureCollection<Point, FacilityProps>>
 type Props = {
   data: LayerData;
   visible: Record<LayerId, boolean>;
+  /** ハザードマップ（浸水想定）の重ね。レイヤーごとに ON/OFF と不透明度を持つ */
+  hazardVisible: Record<HazardId, boolean>;
+  hazardOpacity: Record<HazardId, number>;
   origin: LngLat | null;
   route: WalkingRoute | null;
   /** true のあいだは、地図のどこをクリックしても出発地点の指定になる */
@@ -124,6 +134,8 @@ function buildPopup(
 export default function MapView({
   data,
   visible,
+  hazardVisible,
+  hazardOpacity,
   origin,
   route,
   pickMode,
@@ -183,6 +195,32 @@ export default function MapView({
 
       map.on("load", () => {
         if (disposed) return;
+
+        // ハザードの重ねは背景地図のすぐ上（経路と施設の点より下）に敷く。
+        // 想定区域が無い場所のタイルは 404 になるが、MapLibre は黙って描かないだけなので
+        // エラー処理は要らない。「白紙 = 危険なし」ではないことは凡例の注意書きで伝える。
+        for (const hazard of HAZARDS) {
+          map.addSource(hazardSourceId(hazard.id), {
+            type: "raster",
+            tiles: [hazard.tiles],
+            tileSize: 256,
+            minzoom: hazard.minzoom,
+            maxzoom: hazard.maxzoom,
+          });
+          map.addLayer({
+            id: hazardLayerId(hazard.id),
+            type: "raster",
+            source: hazardSourceId(hazard.id),
+            // 引きすぎた縮尺では描かない（タイルの要求も止まる）
+            minzoom: HAZARD_RENDER_MINZOOM,
+            layout: { visibility: hazardVisible[hazard.id] ? "visible" : "none" },
+            paint: {
+              "raster-opacity": hazardOpacity[hazard.id],
+              // 浸水深は段階ごとの色なので、拡大時に中間色を作らせない
+              "raster-resampling": "nearest",
+            },
+          });
+        }
 
         // 経路は施設の点より下に敷く（点が線に隠れないように）
         map.addSource("route-line", { type: "geojson", data: EMPTY });
@@ -304,6 +342,28 @@ export default function MapView({
       );
     }
   }, [ready, visible]);
+
+  // ---- ハザードの重ねの表示切り替え ----
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !ready) return;
+    for (const hazard of HAZARDS) {
+      map.setLayoutProperty(
+        hazardLayerId(hazard.id),
+        "visibility",
+        hazardVisible[hazard.id] ? "visible" : "none",
+      );
+    }
+  }, [ready, hazardVisible]);
+
+  // ---- ハザードの重ねの不透明度 ----
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !ready) return;
+    for (const hazard of HAZARDS) {
+      map.setPaintProperty(hazardLayerId(hazard.id), "raster-opacity", hazardOpacity[hazard.id]);
+    }
+  }, [ready, hazardOpacity]);
 
   // ---- 経路と、出発地点・目的地の点 ----
   useEffect(() => {
