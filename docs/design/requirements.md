@@ -349,9 +349,10 @@ PostGIS が要るのは「ポリゴンとの交差判定」を DB でやりた�
 public リポジトリでは誰でも過去コミットから読める。コミット前に
 `bash .github/scripts/secret_scan.sh` を実行する。
 
-> **実装前にやること**: Next.js は `.env.local` も既定で読むため、
-> 開発者が `app/.env.local` を作る可能性が高い。**`.gitignore` に `.env.local` を
-> 追加してから**認証の実装に入る（`.env` だけでは防げない）。
+Next.js は `.env` だけでなく **`.env.local` / `.env.production.local` も既定で読む**ため、
+開発者が `app/.env.local` を作る可能性が高い。`.env` だけを除外していても防げないので、
+**`.gitignore` に `.env` `.env.local` `.env.*.local` の 3 つをまとめて入れてある**
+（この要件定義と同じ PR で対応済み）。
 
 ### 8-5. 必要な環境変数
 
