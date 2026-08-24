@@ -90,6 +90,7 @@ codiha2026-ai-de-chiba/
 │   ├── before_coding.md  ★ 書き始める前に全員で読む
 │   ├── design/           担当表・インターフェース定義・データフロー・プロトコル
 │   └── decisions/        設計判断の記録（ADR）
+├── data/           ★ 取得したオープンデータと探索的分析（所見は data/analysis/findings.md）
 ├── assets/         オープンデータの検討用サンプル・データ形式のメモ
 ├── tools/          補助スクリプト（データ解析・評価/検証）
 ├── meetings/       議事録・WBS・ガントチャート
