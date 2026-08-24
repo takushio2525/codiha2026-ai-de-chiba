@@ -1,12 +1,26 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { FeatureCollection, Point } from "geojson";
 
 import type { SessionView } from "@/lib/auth";
-import { nearestDestination, type LngLat } from "@/lib/geo";
-import { initialHazardOpacity, initialHazardVisibility, type HazardId } from "@/lib/hazards";
+import {
+  facilityCandidates,
+  nearestCandidate,
+  scenicCandidates,
+  type LngLat,
+  type NavCandidate,
+} from "@/lib/geo";
+import { initialHazardOpacity, type HazardId } from "@/lib/hazards";
 import { LAYERS, type FacilityProps, type LayerId } from "@/lib/layers";
+import {
+  DEFAULT_MAP_MODE,
+  hazardVisibilityFor,
+  layerVisibilityFor,
+  mapModeDef,
+  reportVisibilityFor,
+  type MapMode,
+} from "@/lib/mapModes";
 import {
   EMPTY_REPORT_COLLECTION,
   REPORT_CATEGORIES,
@@ -15,6 +29,7 @@ import {
 } from "@/lib/reports";
 import { fetchReports } from "@/lib/reportsApi";
 import { fetchWalkingRoute, type RouteTarget, type WalkingRoute } from "@/lib/routing";
+import { SCENIC_FILE, type ScenicProps } from "@/lib/scenic";
 import ControlPanel, { type Busy } from "./ControlPanel";
 import MapView, { type LayerData, type PanelBox } from "./MapView";
 import ReportForm from "./ReportForm";
@@ -24,31 +39,14 @@ import Toast, { type ToastMessage } from "./Toast";
 /** 市川市のだいたいの範囲。現在地がここから外れたときに一言添えるために使う。 */
 const CITY_BOUNDS = { lat: [35.58, 35.84], lng: [139.82, 140.04] } as const;
 
-/** P3 で投稿できるのは危険箇所（F-2）だけ。浸水（F-3）と観光おすすめ（F-6）は
- *  カテゴリ定義を共有したまま、それぞれ P4・P5 で入り口を足す。 */
-const POSTABLE_CATEGORY: ReportCategory = "hazard";
-
 /** 地図の上で何を指定させているか。出発地点と投稿位置で同じクリックを使い分ける。 */
 type PickTarget = "origin" | "report";
-
-function initialReportVisibility(): Record<ReportCategory, boolean> {
-  return Object.fromEntries(
-    REPORT_CATEGORIES.map((category) => [category.id, category.defaultVisible]),
-  ) as Record<ReportCategory, boolean>;
-}
 
 function inCity([lng, lat]: LngLat): boolean {
   return (
     lat >= CITY_BOUNDS.lat[0] && lat <= CITY_BOUNDS.lat[1] &&
     lng >= CITY_BOUNDS.lng[0] && lng <= CITY_BOUNDS.lng[1]
   );
-}
-
-/** 最寄り地点の探索結果を、経路の目的地に変換する。 */
-function toTarget(nearest: ReturnType<typeof nearestDestination>): RouteTarget | null {
-  return nearest
-    ? { name: nearest.name, coords: nearest.coords, kind: nearest.layer.label, color: nearest.layer.color }
-    : null;
 }
 
 function currentPosition(): Promise<LngLat> {
@@ -74,21 +72,27 @@ type Props = {
   session: SessionView;
   /** 表示する市町村（JIS X 0402 の 5 桁）。全域対応のため定数を埋め込まない */
   cityCode: string;
+  /** 最初のモード（S-1 防災 / S-2 観光）。URL の `?mode=` をサーバー側で読んだもの */
+  initialMode: MapMode;
 };
 
-export default function MapExplorer({ session, cityCode }: Props) {
+export default function MapExplorer({ session, cityCode, initialMode }: Props) {
+  // 地図のモード（S-1 防災 / S-2 観光）。表示するレイヤーの組の既定が変わる
+  const [mode, setMode] = useState<MapMode>(initialMode);
   const [data, setData] = useState<LayerData | null>(null);
   const [dataError, setDataError] = useState(false);
-  const [visible, setVisible] = useState<Record<LayerId, boolean>>({
-    evacuation: true,
-    aed: true,
-    childcare: true,
-  });
-  // ハザードマップ（浸水想定）の重ね。初期値は定義側（lib/hazards.ts）が持つ
-  const [hazardVisible, setHazardVisible] =
-    useState<Record<HazardId, boolean>>(initialHazardVisibility);
+  const [visible, setVisible] = useState<Record<LayerId, boolean>>(() =>
+    layerVisibilityFor(initialMode),
+  );
+  // ハザードマップ（浸水想定）の重ね。防災モードは lib/hazards.ts の既定、観光モードは全部 OFF
+  const [hazardVisible, setHazardVisible] = useState<Record<HazardId, boolean>>(() =>
+    hazardVisibilityFor(initialMode),
+  );
   const [hazardOpacity, setHazardOpacity] =
     useState<Record<HazardId, number>>(initialHazardOpacity);
+  // 景観スポット（F-5）。読み込めなくても地図と他のレイヤーは出す（interfaces.md I-1）
+  const [scenic, setScenic] = useState<FeatureCollection<Point, ScenicProps> | null>(null);
+  const [scenicVisible, setScenicVisible] = useState(() => mapModeDef(initialMode).scenic);
   const [origin, setOrigin] = useState<LngLat | null>(null);
   const [pickTarget, setPickTarget] = useState<PickTarget | null>(null);
   const [route, setRoute] = useState<WalkingRoute | null>(null);
@@ -98,9 +102,12 @@ export default function MapExplorer({ session, cityCode }: Props) {
 
   // ---- 投稿（F-2）----
   const [reports, setReports] = useState<ReportCollection>(EMPTY_REPORT_COLLECTION);
-  const [reportVisible, setReportVisible] =
-    useState<Record<ReportCategory, boolean>>(initialReportVisibility);
+  const [reportVisible, setReportVisible] = useState<Record<ReportCategory, boolean>>(() =>
+    reportVisibilityFor(initialMode),
+  );
   const [selectedReportId, setSelectedReportId] = useState<number | null>(null);
+  /** 投稿する場所を地図で指定してもらっている最中のカテゴリ */
+  const [pickingCategory, setPickingCategory] = useState<ReportCategory | null>(null);
   /** 投稿フォームを開いている状態（位置が決まってから開く） */
   const [composing, setComposing] = useState<{ category: ReportCategory; coords: LngLat } | null>(
     null,
@@ -136,7 +143,24 @@ export default function MapExplorer({ session, cityCode }: Props) {
     return () => { cancelled = true; };
   }, []);
 
-  /** 投稿を読み直す。**DB が落ちていても地図と静的レイヤーは出す**ので、
+  // 景観スポットは施設レイヤーとは別に読む。**片方が落ちてももう片方は出す**（I-1）
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch(SCENIC_FILE);
+        if (!res.ok) throw new Error(SCENIC_FILE);
+        const collection = (await res.json()) as FeatureCollection<Point, ScenicProps>;
+        if (!cancelled) setScenic(collection);
+      } catch {
+        // 読めなければ景観スポットだけ出さない。地図も他のレイヤーもそのまま動く
+        if (!cancelled) setScenic(null);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, []);
+
+    /** 投稿を読み直す。**DB が落ちていても地図と静的レイヤーは出す**ので、
    *  失敗しても投稿が空のまま続ける（interfaces.md I-3）。
    *  ただし**黙っては捨てない**。0 件なのか読めなかったのかが分からないと誤解を生む。 */
   const loadReports = useCallback(async () => {
@@ -182,7 +206,17 @@ export default function MapExplorer({ session, cityCode }: Props) {
     return () => clearTimeout(timer);
   }, [toast]);
 
-  const runRoute = useCallback(async (from: LngLat, destination: RouteTarget) => {
+  /** 徒歩ナビの候補。**表示中の施設レイヤーと景観スポットを同じ土俵に並べる**ので、
+   *  観光モードで施設を全部外していても「最寄りの地点へ」が使える。 */
+  const navCandidates: NavCandidate[] = useMemo(
+    () => [
+      ...(data ? facilityCandidates(data, LAYERS, visible) : []),
+      ...scenicCandidates(scenic, scenicVisible),
+    ],
+    [data, visible, scenic, scenicVisible],
+  );
+
+    const runRoute = useCallback(async (from: LngLat, destination: RouteTarget) => {
     setBusy("routing");
     try {
       const result = await fetchWalkingRoute(from, destination);
@@ -233,10 +267,9 @@ export default function MapExplorer({ session, cityCode }: Props) {
   );
 
   const handleNavigateNearest = useCallback(() => {
-    if (!data) return;
     const from = origin;
     if (from) {
-      void routeFrom(toTarget(nearestDestination(from, data, LAYERS, visible)));
+      void routeFrom(nearestCandidate(from, navCandidates));
       return;
     }
     // 出発地点が無い場合は、位置情報を取ってから最寄りを決め直す必要がある。
@@ -253,7 +286,7 @@ export default function MapExplorer({ session, cityCode }: Props) {
             text: "現在地が市川市の外にあります。市内から試すときは「出発地点を地図で指定する」を使ってください。",
           });
         }
-        const target = toTarget(nearestDestination(here, data, LAYERS, visible));
+        const target = nearestCandidate(here, navCandidates);
         if (!target) {
           setToast({ kind: "info", text: "表示中のデータに地点がありません。" });
           return;
@@ -270,27 +303,28 @@ export default function MapExplorer({ session, cityCode }: Props) {
         });
       }
     })();
-  }, [data, origin, visible, routeFrom, runRoute]);
+  }, [origin, navCandidates, routeFrom, runRoute]);
 
   /** 地図のクリック。今なにを指定させているかで振り分ける。 */
   const handleMapPick = useCallback(
     (point: LngLat) => {
       if (pickTarget === "report") {
         setPickTarget(null);
-        setComposing({ category: POSTABLE_CATEGORY, coords: point });
+        // 押されたボタンのカテゴリで開く。指定中でなければ何も開かない
+        if (pickingCategory) setComposing({ category: pickingCategory, coords: point });
+        setPickingCategory(null);
         return;
       }
 
       setOrigin(point);
       setPickTarget(null);
-      if (!data) return;
       const pending = pendingRef.current;
       pendingRef.current = null;
-      const destination = pending ?? toTarget(nearestDestination(point, data, LAYERS, visible));
+      const destination = pending ?? nearestCandidate(point, navCandidates);
       if (destination) void runRoute(point, destination);
       else setToast({ kind: "info", text: "出発地点を設定しました。" });
     },
-    [pickTarget, data, visible, runRoute],
+    [pickTarget, pickingCategory, navCandidates, runRoute],
   );
 
   const handleNavigateTo = useCallback(
@@ -317,13 +351,42 @@ export default function MapExplorer({ session, cityCode }: Props) {
     setReportVisible((prev) => ({ ...prev, [id]: !prev[id] }));
   }, []);
 
-  /** 投稿の場所を地図で指定してもらう。 */
-  const startComposing = useCallback(() => {
+  /** 投稿の場所を地図で指定してもらう。カテゴリはボタンごとに決まる。 */
+  const startComposing = useCallback((category: ReportCategory) => {
     setComposing(null);
     setSelectedReportId(null);
     setPickTarget("report");
+    setPickingCategory(category);
     setCollapsed(false);
     setToast({ kind: "info", text: "地図をクリックして、投稿する場所を指定してください。" });
+  }, []);
+
+  const toggleScenic = useCallback(() => {
+    setScenicVisible((prev) => !prev);
+  }, []);
+
+  /**
+   * モードを切り替える（S-1 防災 ⇄ S-2 観光）。
+   *
+   * 変えるのは**表示している組だけ**で、画面もデータも作り直さない。
+   * 開いている詳細パネルと投稿フォームは閉じる（別のモードのものが残ると混乱するため）。
+   * URL に `?mode=` を残すので、共有したリンクと再読み込みで同じモードに戻る。
+   */
+  const changeMode = useCallback((next: MapMode) => {
+    setMode(next);
+    setVisible(layerVisibilityFor(next));
+    setHazardVisible(hazardVisibilityFor(next));
+    setReportVisible(reportVisibilityFor(next));
+    setScenicVisible(mapModeDef(next).scenic);
+    setSelectedReportId(null);
+    setComposing(null);
+    setPickTarget(null);
+    setPickingCategory(null);
+
+    const url = new URL(window.location.href);
+    if (next === DEFAULT_MAP_MODE) url.searchParams.delete("mode");
+    else url.searchParams.set("mode", next);
+    window.history.replaceState(null, "", url);
   }, []);
 
   const locate = useCallback((coords: LngLat) => {
@@ -354,6 +417,8 @@ export default function MapExplorer({ session, cityCode }: Props) {
           pickMode={pickTarget !== null}
           onPickOrigin={handleMapPick}
           onNavigate={handleNavigateTo}
+          scenic={scenic}
+          scenicVisible={scenicVisible}
           reports={reports}
           reportVisible={reportVisible}
           selectedReportId={selectedReportId}
@@ -374,11 +439,16 @@ export default function MapExplorer({ session, cityCode }: Props) {
       {data ? (
         <ControlPanel
           ref={panelRef}
+          mode={mode}
+          onChangeMode={changeMode}
           counts={Object.fromEntries(
             LAYERS.map((layer) => [layer.id, data[layer.id].features.length]),
           ) as Record<LayerId, number>}
           visible={visible}
           onToggleLayer={toggleLayer}
+          scenicCount={scenic?.features.length ?? 0}
+          scenicVisible={scenicVisible}
+          onToggleScenic={toggleScenic}
           hazardVisible={hazardVisible}
           hazardOpacity={hazardOpacity}
           onToggleHazard={toggleHazard}
@@ -398,9 +468,9 @@ export default function MapExplorer({ session, cityCode }: Props) {
           reportCounts={reportCounts}
           reportVisible={reportVisible}
           onToggleReportCategory={toggleReportCategory}
-          postableCategory={POSTABLE_CATEGORY}
+          postableCategories={mapModeDef(mode).postable}
           canPost={session.user !== null}
-          picking={pickTarget === "report"}
+          pickingCategory={pickTarget === "report" ? pickingCategory : null}
           onStartComposing={startComposing}
         />
       ) : null}
@@ -424,8 +494,8 @@ export default function MapExplorer({ session, cityCode }: Props) {
           category={composing.category}
           coordinates={composing.coords}
           onRepick={() => {
-            setComposing(null);
-            startComposing();
+            // 選び直しでもカテゴリは変えない（フォームで選んだ内容は捨てる）
+            startComposing(composing.category);
           }}
           onClose={() => setComposing(null)}
           onSubmitted={(report) => {

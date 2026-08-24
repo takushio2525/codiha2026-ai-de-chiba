@@ -19,6 +19,13 @@ export const DATA_CREDITS: Credit[] = [
     license: "CC BY 4.0",
   },
   {
+    what: "景観スポット（いちかわ景観100選）",
+    text: "「【市川市】景観100選」（市川市オープンデータ）を加工して作成。"
+      + "名称・解説（日本語・英語）・カテゴリ・アクセス方法は元データのまま表示している",
+    href: "https://opendata.pref.chiba.lg.jp/datasets/3291",
+    license: "CC BY 4.0",
+  },
+  {
     what: "背景地図",
     text: "国土地理院「淡色地図」タイル",
     href: "https://maps.gsi.go.jp/development/ichiran.html",
