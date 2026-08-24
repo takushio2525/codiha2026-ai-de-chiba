@@ -63,3 +63,19 @@
   `redirect_uri` が `http://0.0.0.0:3000/...` になる。`compose.yaml` で `AUTH_URL` を固定して解決。
 - 2026-08-24: `tools/package_submission.sh` の起動テストがサービス一覧の先頭（＝ `db`）を掴む
   ようになっていたので、**ホストにポートを公開しているサービス**を選ぶよう修正。
+- 2026-08-24: **P3 完了**。投稿基盤 + 危険箇所報告（F-2）を実装（`feat/p3-posts`）。
+  `GET/POST /api/reports`・`GET/DELETE /api/reports/:id`・`POST /api/reports/:id/comments`・
+  `GET /api/photos/:id/:n` と、投稿フォーム S-4・詳細パネル S-3・一覧 S-5・地図のピン。
+- 2026-08-24: 投稿の定義（カテゴリ・色・固有項目・上限）を `app/src/lib/reports.ts` の
+  `REPORT_CATEGORIES` 1 箇所に集約。フォーム・詳細・一覧・地図が全部そこを読むので、
+  **P4（浸水）・P5（観光）はカテゴリを 1 行足すだけ**で入り口が増える。
+- 2026-08-24: 詳細パネル用に **`GET /api/reports/:id` を I-5 に追加**（interfaces.md を更新）。
+  投稿者の ID は返さず、サーバーが突き合わせた `isAuthor` だけを返して削除ボタンの出し分けに使う。
+- 2026-08-24: `compose.yaml` に `uploads` ボリュームを追加し、`Dockerfile` で `/app/uploads` を
+  `node` 所有にした。**実機で `USER node` から書けることを確認**（volume は空のときイメージ側の所有者を継ぐ）。
+- 2026-08-24: 実測でわかったこと — **写真の置き場を環境変数にすると Next のビルドがパスを追えず、
+  「プロジェクト全体を出力に同梱する」警告が 3 件出る**。`path.join(process.cwd(), "uploads", …)` に
+  固定して解消。実行イメージが無駄に膨らむのを防ぐ。
+- 2026-08-24: 入力の健全性（requirements.md 10-1 の必須 2 項目）を実装。写真は JPEG/PNG/WebP・
+  1 枚 5 MB・3 枚・1 リクエスト 10 MB で、**申告 MIME だけでなく先頭バイトも検査**する。
+  `city_code`・`is_official`・`rainfallMm` はクライアントから受け取らずサーバーが決める。

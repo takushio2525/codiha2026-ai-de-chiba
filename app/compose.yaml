@@ -42,6 +42,12 @@ services:
     env_file:
       - path: .env
         required: false
+    volumes:
+      # 投稿写真の実体。DB にはファイル名だけを記録する
+      # （.agent/architecture.md「投稿写真の保存」）。
+      # 置き場は src/lib/photoStore.ts が「作業ディレクトリ直下の uploads/」に
+      # 固定している。WORKDIR が /app なのでここにマウントする。
+      - uploads:/app/uploads
     depends_on:
       db:
         # db の healthcheck が通るまで web を起動しない。
@@ -79,3 +85,5 @@ services:
 volumes:
   # 投稿を消さずにコンテナを作り直せるようにする
   db-data:
+  # 投稿写真の実体。db-data と同じく docker compose down -v で消える
+  uploads:

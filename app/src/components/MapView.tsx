@@ -23,6 +23,11 @@ import {
   type HazardId,
 } from "@/lib/hazards";
 import { LAYERS, pointLayerId, type FacilityProps, type LayerDef, type LayerId } from "@/lib/layers";
+import {
+  REPORT_CATEGORIES,
+  type ReportCategory,
+  type ReportCollection,
+} from "@/lib/reports";
 import type { RouteTarget, WalkingRoute } from "@/lib/routing";
 
 export type LayerData = Record<LayerId, FeatureCollection<Point, FacilityProps>>;
@@ -39,11 +44,44 @@ type Props = {
   pickMode: boolean;
   onPickOrigin: (point: LngLat) => void;
   onNavigate: (destination: RouteTarget) => void;
+  /** 住民・行政の投稿（GeoJSON）。静的レイヤーと同じ形で受け取る */
+  reports: ReportCollection;
+  /** 投稿のカテゴリごとの表示 ON/OFF */
+  reportVisible: Record<ReportCategory, boolean>;
+  /** 詳細パネルで開いている投稿。地図の上で強調する */
+  selectedReportId: number | null;
+  onSelectReport: (id: number) => void;
+  /** 指定した地点へ地図を寄せる。同じ地点でも押し直せるよう毎回新しい値を渡す */
+  focus: { coords: LngLat; nonce: number } | null;
   /** 操作パネルの実寸。地図の余白に反映する */
   panel: PanelBox;
 };
 
 const EMPTY: FeatureCollection = { type: "FeatureCollection", features: [] };
+
+/** 投稿のソースとレイヤー。施設の点とは別に持つ（色と形を変えて区別するため）。 */
+const REPORT_SOURCE = "reports";
+const REPORT_HALO_LAYER = "report-halo";
+const REPORT_POINT_LAYER = "report-points";
+
+/** カテゴリごとの色。定義は lib/reports.ts が正本。 */
+function reportColorExpression(): unknown[] {
+  const expression: unknown[] = ["match", ["get", "category"]];
+  for (const category of REPORT_CATEGORIES) expression.push(category.id, category.color);
+  expression.push("#7b818b"); // 知らないカテゴリ（将来の追加）は灰色で出す
+  return expression;
+}
+
+/** 表示 ON のカテゴリだけを描く。全部 OFF なら 1 つも描かない。 */
+function reportFilterExpression(visible: Record<ReportCategory, boolean>): unknown[] {
+  const shown = REPORT_CATEGORIES.filter((c) => visible[c.id]).map((c) => c.id);
+  return ["in", ["get", "category"], ["literal", shown]];
+}
+
+/** 選んでいる投稿だけ縁を太くする。 */
+function reportStrokeExpression(selectedId: number | null): unknown[] {
+  return ["case", ["==", ["get", "id"], selectedId ?? -1], 4, 1.8];
+}
 
 /** 操作パネルの見た目の大きさ。地図の余白に反映する。 */
 export type PanelBox = { width: number; height: number };
@@ -141,6 +179,11 @@ export default function MapView({
   pickMode,
   onPickOrigin,
   onNavigate,
+  reports,
+  reportVisible,
+  selectedReportId,
+  onSelectReport,
+  focus,
   panel,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -150,9 +193,9 @@ export default function MapView({
 
   // イベントハンドラは地図の生成時に 1 度だけ登録するので、
   // そこから見える props は ref 経由にして常に最新を読む。
-  const latest = useRef({ pickMode, onPickOrigin, onNavigate, panel });
+  const latest = useRef({ pickMode, onPickOrigin, onNavigate, onSelectReport, panel });
   useEffect(() => {
-    latest.current = { pickMode, onPickOrigin, onNavigate, panel };
+    latest.current = { pickMode, onPickOrigin, onNavigate, onSelectReport, panel };
   });
 
   // ---- 地図の生成（マウント時に 1 度だけ）----
@@ -286,6 +329,54 @@ export default function MapView({
           });
         }
 
+        // 住民・行政の投稿。施設の点より上に置き、**白い縁取り + 濃い輪郭**で
+        // オープンデータの点（白い細縁）と見分けられるようにする。
+        map.addSource(REPORT_SOURCE, { type: "geojson", data: reports });
+        map.addLayer({
+          id: REPORT_HALO_LAYER,
+          type: "circle",
+          source: REPORT_SOURCE,
+          filter: reportFilterExpression(reportVisible) as never,
+          paint: {
+            "circle-radius": [
+              "interpolate", ["linear"], ["zoom"],
+              10, 6, 13, 8.5, 16, 12.5, 18, 16,
+            ],
+            "circle-color": "#ffffff",
+            "circle-opacity": 0.95,
+          },
+        });
+        map.addLayer({
+          id: REPORT_POINT_LAYER,
+          type: "circle",
+          source: REPORT_SOURCE,
+          filter: reportFilterExpression(reportVisible) as never,
+          paint: {
+            "circle-radius": [
+              "interpolate", ["linear"], ["zoom"],
+              10, 4, 13, 6, 16, 9.5, 18, 13,
+            ],
+            "circle-color": reportColorExpression() as never,
+            "circle-stroke-width": reportStrokeExpression(selectedReportId) as never,
+            "circle-stroke-color": "#16181d",
+          },
+        });
+
+        map.on("click", REPORT_POINT_LAYER, (event: MapLayerMouseEvent) => {
+          if (latest.current.pickMode) return; // 出発地点・投稿位置の指定が優先
+          const feature = event.features?.[0];
+          const id = feature?.properties?.id;
+          if (typeof id !== "number" && typeof id !== "string") return;
+          popupRef.current?.remove();
+          latest.current.onSelectReport(Number(id));
+        });
+        map.on("mouseenter", REPORT_POINT_LAYER, () => {
+          if (!latest.current.pickMode) map.getCanvas().style.cursor = "pointer";
+        });
+        map.on("mouseleave", REPORT_POINT_LAYER, () => {
+          map.getCanvas().style.cursor = latest.current.pickMode ? "crosshair" : "";
+        });
+
         // 出発地点と目的地。色ではなく塗りの向き（濃/白）で見分けられるようにする
         map.addSource("route-points", { type: "geojson", data: EMPTY });
         map.addLayer({
@@ -364,6 +455,41 @@ export default function MapView({
       map.setPaintProperty(hazardLayerId(hazard.id), "raster-opacity", hazardOpacity[hazard.id]);
     }
   }, [ready, hazardOpacity]);
+
+  // ---- 投稿の中身 ----
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !ready) return;
+    const source = map.getSource(REPORT_SOURCE) as { setData: (d: unknown) => void } | undefined;
+    source?.setData(reports);
+  }, [ready, reports]);
+
+  // ---- 投稿のカテゴリごとの表示 ----
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !ready) return;
+    const filter = reportFilterExpression(reportVisible) as never;
+    map.setFilter(REPORT_HALO_LAYER, filter);
+    map.setFilter(REPORT_POINT_LAYER, filter);
+  }, [ready, reportVisible]);
+
+  // ---- 詳細パネルで開いている投稿の強調 ----
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !ready) return;
+    map.setPaintProperty(
+      REPORT_POINT_LAYER,
+      "circle-stroke-width",
+      reportStrokeExpression(selectedReportId) as never,
+    );
+  }, [ready, selectedReportId]);
+
+  // ---- 指定された地点へ寄せる（投稿一覧から開いたときなど）----
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !ready || !focus) return;
+    map.easeTo({ center: focus.coords, zoom: Math.max(map.getZoom(), 15), duration: 700 });
+  }, [ready, focus]);
 
   // ---- 経路と、出発地点・目的地の点 ----
   useEffect(() => {

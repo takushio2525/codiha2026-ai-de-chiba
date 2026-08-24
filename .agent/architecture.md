@@ -149,7 +149,11 @@ GOOGLE_CLIENT_ID と GOOGLE_CLIENT_SECRET が両方ある？
 | ハザードの重ねと浸水深の凡例 | `app/src/lib/hazards.ts`・`app/src/components/HazardLegend.tsx` | — |
 | 経路の中継 API | `app/src/app/api/routing/route.ts` | `curl 'localhost:3000/api/routing?from=139.93,35.72&to=139.92,35.75'` |
 | 気象の中継 API | `app/src/app/api/weather/`（予定） | `curl 'localhost:3000/api/weather?city=12203'` |
-| 投稿 API | `app/src/app/api/reports/`（予定） | `curl 'localhost:3000/api/reports?city=12203'` |
+| 投稿 API | `app/src/app/api/reports/` | `curl 'localhost:3000/api/reports?city=12203'` |
+| 写真の配信 | `app/src/app/api/photos/` | `curl -I 'localhost:3000/api/photos/1/1'` |
+| 投稿の定義（カテゴリ・上限・型） | `app/src/lib/reports.ts` | — |
+| 投稿の読み書き（SQL） | `app/src/lib/reportStore.ts`・`app/src/lib/photoStore.ts` | — |
+| 投稿の画面 | `app/src/components/ReportForm.tsx`（S-4）・`ReportPanel.tsx`（S-3）・`app/src/app/reports/`（S-5） | `npm run dev` |
 | 認証 | `app/src/lib/auth.ts` | `/login` を開く |
 | DB スキーマ | `app/db/init/*.sql` | `docker compose exec db psql -U chizuba -d chizuba` |
 | CSV → GeoJSON 変換 | `data/scripts/build_geojson.py` | `python3 data/scripts/build_geojson.py` |
@@ -235,6 +239,8 @@ GOOGLE_CLIENT_ID と GOOGLE_CLIENT_SECRET が両方ある？
 | **DB クライアント** | **`pg`（node-postgres）** | 純 JS。ORM もマイグレーションツールも入れず、依存とビルドリスクを増やさない |
 | **スキーマ投入** | `/docker-entrypoint-initdb.d` に SQL をマウント | 審査員の初回起動で確実にスキーマができる。追加の手順が要らない |
 | **投稿写真の保存** | **named volume にファイル、DB にはファイル名** | DB の行が軽く、一覧の取得が速い。**`Dockerfile` で `/app/uploads` を作って `node` 所有にしておく**（そうしないと volume が root 所有になり、`USER node` で書けない） |
+| **写真の置き場のパス** | **`process.cwd()/uploads` に固定**（環境変数で差し替えない） | Next のビルドはファイル操作のパスを静的に追う。追えないと「プロジェクト全体を出力に同梱する」動きになり、実行イメージが膨らむ（実測でビルド警告 3 件） |
+| **投稿写真の形式の検査** | **申告された MIME に加えて先頭バイトも見る** | 拡張子と Content-Type は書き換えられる。画像でないものを画像として置かれるのを防ぐ最低限（`requirements.md` §10-1） |
 | **認証** | Auth.js（NextAuth）+ Google OAuth、**キー未設定時はデモログイン** | 審査員が `docker compose up` だけで投稿機能まで試せるようにするため |
 | **セッション** | JWT（DB セッションを持たない） | テーブルとコードが 1 つ減る |
 | **投稿モデル** | **危険箇所・浸水・観光おすすめを 1 テーブルに統一**（`category` + `details` JSON） | API・フォーム・地図レイヤーが 3 倍にならない。詳細は `requirements.md` §4 |

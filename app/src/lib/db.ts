@@ -9,7 +9,7 @@
  * DB に繋がらないときは DbUnavailableError を投げる。呼び出し側はこれを捕まえて
  * 503 を返し、**地図と静的レイヤーは出したまま**にする（投稿だけ空になる）。
  */
-import { Pool, type QueryResultRow } from "pg";
+import { Pool, type PoolClient, type QueryResultRow } from "pg";
 
 /** 接続できない・応答が返らないときに投げる。呼び出し側で 503 に変換する。 */
 export class DbUnavailableError extends Error {
@@ -84,4 +84,36 @@ function isConnectionError(error: unknown): boolean {
     code === "57P03" || // cannot_connect_now（起動途中）
     error.message.includes("timeout exceeded when trying to connect")
   );
+}
+
+/** トランザクションを 1 本張って処理を通す。
+ *
+ * 投稿の作成のように「reports に 1 行 + report_photos に n 行」を
+ * まとめて成立させたいときに使う。途中で例外が出たら ROLLBACK して投げ直すので、
+ * 呼び出し側は「失敗したら DB には何も残っていない」前提で後始末できる
+ * （写真の実体を消す、など。docs/design/interfaces.md I-4）。
+ */
+export async function withTransaction<T>(
+  run: (client: PoolClient) => Promise<T>,
+): Promise<T> {
+  let client: PoolClient;
+  try {
+    client = await getPool().connect();
+  } catch (error) {
+    throw new DbUnavailableError(error);
+  }
+
+  try {
+    await client.query("BEGIN");
+    const result = await run(client);
+    await client.query("COMMIT");
+    return result;
+  } catch (error) {
+    // ROLLBACK 自体が失敗しても、元の例外を握りつぶさない
+    await client.query("ROLLBACK").catch(() => undefined);
+    if (isConnectionError(error)) throw new DbUnavailableError(error);
+    throw error;
+  } finally {
+    client.release();
+  }
 }

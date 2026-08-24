@@ -146,6 +146,10 @@ references/lectures/
 # このリポジトリは public なので履歴に入れない。提出直前に手元で作る（app/README.md 参照）。
 app/readme.txt
 
+# 投稿写真の実体。コンテナでは named volume に置くが、npm run dev で手元から
+# 動かしたときは app/uploads/ に溜まる。投稿されたものなのでコミットしない。
+app/uploads/
+
 # MapLibre の worker は node_modules から複製したもの（app/scripts/copy-maplibre-worker.mjs）。
 # 依存のコピーなのでコミットしない。npm run build / dev が毎回作り直す。
 app/public/maplibre/

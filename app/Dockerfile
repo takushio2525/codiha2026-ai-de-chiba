@@ -37,6 +37,12 @@ COPY --from=builder --chown=node:node /app/public ./public
 COPY --from=builder --chown=node:node /app/.next/standalone ./
 COPY --from=builder --chown=node:node /app/.next/static ./.next/static
 
+# 投稿写真の置き場。named volume を /app/uploads にマウントするが、
+# **ボリュームが空のときは、この位置にあるディレクトリの中身と所有者を引き継ぐ**。
+# ここで node 所有にしておかないとボリュームが root 所有になり、
+# USER node で書けなくなる（.agent/architecture.md「投稿写真の保存」）。
+RUN mkdir -p /app/uploads && chown node:node /app/uploads
+
 USER node
 EXPOSE 3000
 CMD ["node", "server.js"]

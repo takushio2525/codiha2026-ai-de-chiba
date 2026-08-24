@@ -1,15 +1,22 @@
 "use client";
 
+import Link from "next/link";
 import {
   Baby,
+  Camera,
   ChevronDown,
   CloudRain,
+  Droplets,
   HeartPulse,
+  List,
   LoaderCircle,
   LocateFixed,
+  LogIn,
   MapPin,
   Navigation,
+  Plus,
   Shield,
+  TriangleAlert,
   Waves,
   Wind,
   type LucideIcon,
@@ -26,6 +33,12 @@ import {
   type HazardId,
 } from "@/lib/hazards";
 import { LAYERS, type IconName, type LayerId } from "@/lib/layers";
+import {
+  REPORT_CATEGORIES,
+  reportCategoryDef,
+  type ReportCategory,
+  type ReportIconName,
+} from "@/lib/reports";
 import type { WalkingRoute } from "@/lib/routing";
 import HazardLegend from "./HazardLegend";
 import RouteCard from "./RouteCard";
@@ -40,6 +53,12 @@ const HAZARD_ICONS: Record<HazardIconName, LucideIcon> = {
   cloudRain: CloudRain,
   wind: Wind,
   waves: Waves,
+};
+
+const REPORT_ICONS: Record<ReportIconName, LucideIcon> = {
+  triangleAlert: TriangleAlert,
+  droplets: Droplets,
+  camera: Camera,
 };
 
 export type Busy = "idle" | "locating" | "routing";
@@ -61,6 +80,17 @@ type Props = {
   onClearRoute: () => void;
   collapsed: boolean;
   onToggleCollapsed: () => void;
+  /** カテゴリごとの投稿の件数 */
+  reportCounts: Record<ReportCategory, number>;
+  reportVisible: Record<ReportCategory, boolean>;
+  onToggleReportCategory: (id: ReportCategory) => void;
+  /** いま投稿できるカテゴリ（P3 は危険箇所だけ。浸水は P4・観光は P5 で足す） */
+  postableCategory: ReportCategory;
+  /** ログイン済みか。**表示の出し分けにしか使わない**（権限判定は API 側） */
+  canPost: boolean;
+  /** 投稿する場所を地図で指定してもらっている最中か */
+  picking: boolean;
+  onStartComposing: () => void;
   ref?: React.Ref<HTMLElement>;
 };
 
@@ -81,9 +111,18 @@ export default function ControlPanel({
   onClearRoute,
   collapsed,
   onToggleCollapsed,
+  reportCounts,
+  reportVisible,
+  onToggleReportCategory,
+  postableCategory,
+  canPost,
+  picking,
+  onStartComposing,
   ref,
 }: Props) {
   const anyVisible = LAYERS.some((layer) => visible[layer.id]);
+  // いま投稿できるカテゴリ（ボタンの文言に使う）
+  const postable = reportCategoryDef(postableCategory);
   // 凡例は、表示中のハザードが使っているものだけを出す（洪水と津波・高潮で段階が違う）
   const legends = visibleHazardLegends(hazardVisible);
 
@@ -104,7 +143,7 @@ export default function ControlPanel({
             市川市 オープンデータマップ
           </h1>
           <p className="mt-0.5 truncate text-[11.5px] text-ink-muted">
-            ハザードマップと、避難場所・AED・子育て施設への徒歩経路
+            ハザードマップ・住民の投稿と、避難場所などへの徒歩経路
           </p>
         </div>
         <button
@@ -186,6 +225,103 @@ export default function ControlPanel({
               );
             })}
           </ul>
+        </section>
+
+        <section className="border-t border-line px-4 py-3.5">
+          <div className="flex items-baseline justify-between gap-2">
+            <h2 className="text-[11px] font-semibold tracking-wide text-ink-muted">みんなの投稿</h2>
+            <Link
+              href="/reports"
+              className="inline-flex shrink-0 items-center gap-1 text-[11px] font-medium text-ink-sub underline decoration-line underline-offset-2 transition hover:text-ink hover:decoration-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+            >
+              <List aria-hidden className="size-3" />
+              一覧で見る
+            </Link>
+          </div>
+
+          {canPost ? (
+            <button
+              type="button"
+              onClick={onStartComposing}
+              aria-pressed={picking}
+              className={[
+                "mt-2 flex w-full items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-[13px] font-semibold transition",
+                "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink",
+                picking
+                  ? "border border-ink bg-ink/5 text-ink"
+                  : "bg-ink text-white hover:bg-[#31353d]",
+              ].join(" ")}
+            >
+              {picking ? (
+                <MapPin aria-hidden className="size-4" />
+              ) : (
+                <Plus aria-hidden className="size-4" />
+              )}
+              {picking ? "地図をクリックして場所を指定" : `${postable.label}を投稿する`}
+            </button>
+          ) : (
+            <Link
+              href="/login"
+              className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl border border-line px-3 py-2.5 text-[12.5px] font-medium text-ink-sub transition hover:border-ink-muted/40 hover:bg-[#fafafa] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+            >
+              <LogIn aria-hidden className="size-4" />
+              投稿するにはログイン
+            </Link>
+          )}
+
+          <ul className="mt-2 space-y-1.5">
+            {REPORT_CATEGORIES.map((category) => {
+              const Icon = REPORT_ICONS[category.icon];
+              const on = reportVisible[category.id];
+              return (
+                <li key={category.id}>
+                  <button
+                    type="button"
+                    role="switch"
+                    aria-checked={on}
+                    onClick={() => onToggleReportCategory(category.id)}
+                    className="flex w-full items-center gap-3 rounded-xl border border-line px-3 py-2.5 text-left transition hover:border-ink-muted/40 hover:bg-[#fafafa] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+                  >
+                    <span
+                      aria-hidden
+                      className="grid size-8 shrink-0 place-items-center rounded-lg transition"
+                      style={{
+                        backgroundColor: on ? category.color : "#f1f2f4",
+                        color: on ? "#ffffff" : "#9aa0a8",
+                      }}
+                    >
+                      <Icon className="size-4" />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="flex items-baseline gap-1.5">
+                        <span className="truncate text-[13.5px] font-semibold text-ink">
+                          {category.label}
+                        </span>
+                        <span className="shrink-0 text-[11px] text-ink-muted tabular-nums">
+                          {reportCounts[category.id]} 件
+                        </span>
+                      </span>
+                      <span className="mt-0.5 block truncate text-[11px] leading-relaxed text-ink-muted">
+                        {category.summary}
+                      </span>
+                    </span>
+                    <span
+                      aria-hidden
+                      className={`relative h-5 w-9 shrink-0 rounded-full transition ${on ? "bg-ink" : "bg-[#d5d8dc]"}`}
+                    >
+                      <span
+                        className={`absolute top-0.5 size-4 rounded-full bg-white shadow transition-all ${on ? "left-[1.125rem]" : "left-0.5"}`}
+                      />
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+
+          <p className="mt-2 text-[11.5px] leading-relaxed text-ink-muted">
+            ピンをクリックすると、写真・説明・コメントが読めます。閲覧にログインは要りません。
+          </p>
         </section>
 
         <section className="border-t border-line px-4 py-3.5">
