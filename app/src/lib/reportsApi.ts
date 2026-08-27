@@ -3,6 +3,10 @@
  * 失敗したときは**画面にそのまま出せる日本語**を返す約束なので、
  * サーバーの `reason` をそのまま通し、通信そのものが失敗したときだけここで文を作る
  * （docs/design/interfaces.md の「共通の約束」）。
+ *
+ * **どの経路も例外を投げない。** 呼び出し側（画面）は `ok` を見るだけでよく、
+ * try/catch を書かなくて済むようにしてある。その決まりを 1 か所で守るのが
+ * 下の `request()` で、**各関数は「どこを叩くか」と「成功したら何を取り出すか」だけを書く**。
  */
 import type { DateRange } from "./reportRange";
 import {
@@ -31,6 +35,43 @@ async function failure(response: Response, fallback: string): Promise<{ ok: fals
   return { ok: false, reason: fallback };
 }
 
+/**
+ * API を 1 本叩いて `ApiResult` に均す。**この経路だけが fetch を呼ぶ。**
+ *
+ *   - HTTP が失敗（`ok` が false）… サーバーの `reason` を優先し、無ければ `fallback`
+ *   - 通信そのものが失敗・本文が読めない … `NETWORK_ERROR`
+ *
+ * `read` は**成功したときだけ**呼ぶ。ここで本文の読み取りごと try に入れているので、
+ * 200 なのに JSON が壊れていた場合も画面には日本語の理由が返る。
+ */
+async function request<T>(
+  path: string,
+  options: {
+    init?: RequestInit;
+    /** サーバーが理由を返さなかったときの文言 */
+    fallback: string;
+    /** 成功したときに本文から値を取り出す。本文を読まない経路（DELETE）もある */
+    read: (response: Response) => Promise<T>;
+  },
+): Promise<ApiResult<T>> {
+  try {
+    const response = await fetch(path, options.init);
+    if (!response.ok) return failure(response, options.fallback);
+    return { ok: true, value: await options.read(response) };
+  } catch {
+    return { ok: false, reason: NETWORK_ERROR };
+  }
+}
+
+/** JSON の本体を送るときの共通部分（POST / PATCH）。 */
+function jsonBody(method: "POST" | "PATCH", payload: unknown): RequestInit {
+  return {
+    method,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  };
+}
+
 /** 投稿の一覧（GeoJSON）。**DB が落ちていても地図は出す**ので、失敗したら空で返す。 */
 export async function fetchReports(params: {
   city: string;
@@ -47,37 +88,29 @@ export async function fetchReports(params: {
   if (params.range?.from) query.set("from", params.range.from);
   if (params.range?.to) query.set("to", params.range.to);
   if (params.query && params.query.length > 0) query.set("q", params.query);
-  try {
-    const response = await fetch(`/api/reports?${query.toString()}`, { cache: "no-store" });
-    if (!response.ok) return failure(response, "投稿を読み込めませんでした。");
-    const collection = (await response.json()) as ReportCollection;
-    return { ok: true, value: collection ?? EMPTY_REPORT_COLLECTION };
-  } catch {
-    return { ok: false, reason: NETWORK_ERROR };
-  }
+  return request(`/api/reports?${query.toString()}`, {
+    init: { cache: "no-store" },
+    fallback: "投稿を読み込めませんでした。",
+    read: async (response) => ((await response.json()) as ReportCollection) ?? EMPTY_REPORT_COLLECTION,
+  });
 }
 
 /** 投稿 1 件の詳細（コメント付き）。 */
 export async function fetchReportDetail(id: number): Promise<ApiResult<ReportDetail>> {
-  try {
-    const response = await fetch(`/api/reports/${id}`, { cache: "no-store" });
-    if (!response.ok) return failure(response, "投稿を読み込めませんでした。");
-    return { ok: true, value: (await response.json()) as ReportDetail };
-  } catch {
-    return { ok: false, reason: NETWORK_ERROR };
-  }
+  return request(`/api/reports/${id}`, {
+    init: { cache: "no-store" },
+    fallback: "投稿を読み込めませんでした。",
+    read: async (response) => (await response.json()) as ReportDetail,
+  });
 }
 
 /** 投稿の作成。写真を含むので multipart（FormData）で送る。 */
 export async function submitReport(form: FormData): Promise<ApiResult<ReportProperties>> {
-  try {
-    const response = await fetch("/api/reports", { method: "POST", body: form });
-    if (!response.ok) return failure(response, "投稿を保存できませんでした。");
-    const body = (await response.json()) as { report: ReportProperties };
-    return { ok: true, value: body.report };
-  } catch {
-    return { ok: false, reason: NETWORK_ERROR };
-  }
+  return request("/api/reports", {
+    init: { method: "POST", body: form },
+    fallback: "投稿を保存できませんでした。",
+    read: async (response) => ((await response.json()) as { report: ReportProperties }).report,
+  });
 }
 
 /** コメントの追加。 */
@@ -85,18 +118,11 @@ export async function submitComment(
   reportId: number,
   body: string,
 ): Promise<ApiResult<ReportComment>> {
-  try {
-    const response = await fetch(`/api/reports/${reportId}/comments`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ body }),
-    });
-    if (!response.ok) return failure(response, "コメントを保存できませんでした。");
-    const payload = (await response.json()) as { comment: ReportComment };
-    return { ok: true, value: payload.comment };
-  } catch {
-    return { ok: false, reason: NETWORK_ERROR };
-  }
+  return request(`/api/reports/${reportId}/comments`, {
+    init: jsonBody("POST", { body }),
+    fallback: "コメントを保存できませんでした。",
+    read: async (response) => ((await response.json()) as { comment: ReportComment }).comment,
+  });
 }
 
 /** 投稿の更新（interfaces.md I-5 の PATCH）。
@@ -115,27 +141,18 @@ export async function patchReport(
     details?: Record<string, string>;
   },
 ): Promise<ApiResult<ReportProperties>> {
-  try {
-    const response = await fetch(`/api/reports/${reportId}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(patch),
-    });
-    if (!response.ok) return failure(response, "投稿を更新できませんでした。");
-    const payload = (await response.json()) as { report: ReportProperties };
-    return { ok: true, value: payload.report };
-  } catch {
-    return { ok: false, reason: NETWORK_ERROR };
-  }
+  return request(`/api/reports/${reportId}`, {
+    init: jsonBody("PATCH", patch),
+    fallback: "投稿を更新できませんでした。",
+    read: async (response) => ((await response.json()) as { report: ReportProperties }).report,
+  });
 }
 
-/** 投稿の削除（投稿者本人のみ）。 */
+/** 投稿の削除（投稿者本人のみ）。**本文は読まない**（成功したことだけが要る）。 */
 export async function deleteReport(reportId: number): Promise<ApiResult<null>> {
-  try {
-    const response = await fetch(`/api/reports/${reportId}`, { method: "DELETE" });
-    if (!response.ok) return failure(response, "投稿を削除できませんでした。");
-    return { ok: true, value: null };
-  } catch {
-    return { ok: false, reason: NETWORK_ERROR };
-  }
+  return request(`/api/reports/${reportId}`, {
+    init: { method: "DELETE" },
+    fallback: "投稿を削除できませんでした。",
+    read: async () => null,
+  });
 }
