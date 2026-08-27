@@ -97,7 +97,8 @@ codiha2026-ai-de-chiba/
 ├── docs/           設計ドキュメント
 │   ├── before_coding.md  ★ 書き始める前に全員で読む
 │   ├── design/           担当表・インターフェース定義・データフロー・プロトコル
-│   └── decisions/        設計判断の記録（ADR）
+│   ├── decisions/        設計判断の記録（ADR）
+│   └── presentation/     ★ 発表前に読む技術解説（アーキテクチャ図・想定質疑つき PDF）
 ├── data/           ★ 取得したオープンデータと探索的分析（所見は data/analysis/findings.md）
 ├── assets/         オープンデータの検討用サンプル・データ形式のメモ
 ├── tools/          補助スクリプト（データ解析・評価/検証）
@@ -125,6 +126,7 @@ codiha2026-ai-de-chiba/
 | 2 | [`課題/2026-09-09_CODIHA2026_提出要件.md`](課題/2026-09-09_CODIHA2026_提出要件.md) | **提出要件の正本**（0 点条件を含む） |
 | 3 | [`docs/before_coding.md`](docs/before_coding.md) | 書き始める前に決めること（担当の切り方・つなぎ目・public/private の線引き） |
 | 4 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | Git の初期設定・ブランチの使い方・PR の出し方 |
+| 5 | [`docs/presentation/`](docs/presentation/) | **発表前に読む技術解説**（構成・技術選定の理由・想定質疑 22 問・用語集・数字の早見表） |
 
 > **コード編集を始める前に、必ず `git pull` でリポジトリを最新化する。**
 > 取り込まずに作業を始めると、後でコンフリクトが大量発生して時間を溶かす。
