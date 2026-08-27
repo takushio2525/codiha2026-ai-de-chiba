@@ -259,6 +259,16 @@ export const DEMO_PHOTO_CREDITS: PhotoCredit[] = [
   },
 ];
 
+/* **景観スポットの写真の出典は `lib/scenicPhotos.ts` にある**（このファイルではない）。
+ *
+ * デモ投稿の写真（上の `DEMO_PHOTO_CREDITS`）と違い、景観スポットの写真は
+ * **取得スクリプトが出典ごと自動生成する**ので、生成物をそのまま正本にしている
+ * （`data/scripts/build_scenic_photos_ts.py`）。ここに写すと二重管理になる。
+ *
+ * 画面に出す場所は 2 つ。地図のポップアップ（作者とライセンスだけ）と、
+ * `/about` の「景観100選のスポット写真」節（54 枚ぶんの全部）。
+ */
+
 /** 地図の隅（MapLibre の attribution）に出す短い版。HTML 断片として渡す。 */
 export const MAP_ATTRIBUTION: string[] = [
   '<a href="https://www.city.ichikawa.lg.jp/page/4744.html" target="_blank" rel="noreferrer">市川市オープンデータ</a>を加工して作成',

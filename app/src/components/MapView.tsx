@@ -39,6 +39,7 @@ import {
   scenicColor,
   type ScenicProps,
 } from "@/lib/scenic";
+import { scenicPhoto, scenicPhotoSrc, type ScenicPhoto } from "@/lib/scenicPhotos";
 
 export type LayerData = Record<LayerId, FeatureCollection<Point, FacilityProps>>;
 
@@ -219,6 +220,73 @@ function buildPopup(
   return root;
 }
 
+/** 景観スポットの写真（ウィキメディア・コモンズ）。**写真があるスポットだけ**に付く。
+ *
+ * **CC BY と CC BY-SA は作者の表示が条件**なので、作者名とライセンスを写真の上に重ねて
+ * 必ず一緒に出す。作者名からコモンズの説明ページ（＝出典）へ、ライセンス名からその条文へ飛ぶ。
+ * 54 枚ぶんの一覧は `/about` の「景観100選のスポット写真」節にある。
+ *
+ * 高さを固定しているのは、**ポップアップ全体がスマホで 40dvh しか無い**ため
+ * （`.agent/conventions.md` のモバイルファースト）。写真に高さを預けると解説が読めなくなる。
+ */
+function buildScenicPhoto(photo: ScenicPhoto, spotName: string): HTMLElement {
+  const figure = document.createElement("figure");
+  figure.className =
+    "relative m-0 h-[104px] w-full shrink-0 overflow-hidden bg-[#eceef1] md:h-[132px]";
+
+  const img = document.createElement("img");
+  img.src = scenicPhotoSrc(photo);
+  // 装飾ではなく中身なので alt を入れる。読み上げで「〜の写真」と分かるようにする
+  img.alt = `${spotName}の写真`;
+  img.loading = "lazy";
+  img.decoding = "async";
+  img.className = "h-full w-full object-cover";
+
+  const caption = document.createElement("figcaption");
+  caption.className =
+    "absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/45 to-transparent " +
+    "px-3 pt-5 pb-1.5 text-[10px] leading-tight text-white";
+
+  // 撮影地が市川市の外のものだけ、先に断りを出す（いまは三番瀬だけ）
+  if (photo.placeNote) {
+    const note = document.createElement("span");
+    note.className = "block font-medium text-white/95";
+    note.textContent = photo.placeNote;
+    caption.append(note);
+  }
+
+  const credit = document.createElement("span");
+  credit.className = "block text-white/90";
+  const linkClass =
+    "underline decoration-white/40 underline-offset-2 hover:decoration-white";
+
+  // 作者名 → コモンズの説明ページ（＝出典）
+  const artistLink = document.createElement("a");
+  artistLink.href = photo.page;
+  artistLink.target = "_blank";
+  artistLink.rel = "noreferrer";
+  artistLink.className = linkClass;
+  artistLink.textContent = photo.artist;
+  credit.append(document.createTextNode("撮影: "), artistLink, document.createTextNode(" / "));
+
+  // ライセンス名 → その条文。パブリックドメインには条文が無いので文字だけ出す
+  if (photo.licenseUrl) {
+    const licenseLink = document.createElement("a");
+    licenseLink.href = photo.licenseUrl;
+    licenseLink.target = "_blank";
+    licenseLink.rel = "noreferrer";
+    licenseLink.className = linkClass;
+    licenseLink.textContent = photo.license;
+    credit.append(licenseLink);
+  } else {
+    credit.append(document.createTextNode(photo.license));
+  }
+  caption.append(credit);
+
+  figure.append(img, caption);
+  return figure;
+}
+
 /** 景観スポットのポップアップ（F-5）。**日本語と英語の解説を切り替えられる**。
  *
  * 元データは 100 件すべてに日英の解説を持っている。日本語は 1〜2 文のキャプション、
@@ -367,6 +435,9 @@ function buildScenicPopup(
 
   render("ja");
   body.classList.add("pb-3");
+  // 写真があるスポットだけ先頭に帯を足す。無ければ今までどおりの並び
+  const photo = scenicPhoto(props.name);
+  if (photo) scroll.append(buildScenicPhoto(photo, props.name ?? "この場所"));
   scroll.append(head, name, nameEn, tags, switcher, body);
   root.append(scroll, footer);
   return root;

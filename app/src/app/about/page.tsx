@@ -5,11 +5,16 @@ import { ArrowLeft } from "lucide-react";
 import HazardLegend from "@/components/HazardLegend";
 import { DATA_CREDITS, DEMO_PHOTO_CREDITS } from "@/lib/credits";
 import { HAZARD_LEGENDS } from "@/lib/hazards";
+import { SCENIC_PHOTOS } from "@/lib/scenicPhotos";
 
 export const metadata: Metadata = {
   title: "出典とライセンス",
   description: "このアプリが使っているオープンデータ・地図タイル・経路サービスの出典。",
 };
+
+const scenicEntries = Object.entries(SCENIC_PHOTOS).sort(([a], [b]) =>
+  a.localeCompare(b, "ja"),
+);
 
 export default function AboutPage() {
   return (
@@ -195,6 +200,69 @@ export default function AboutPage() {
                   <span className="mx-1.5 text-ink-muted">/</span>
                   <a
                     href={credit.page}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline decoration-line underline-offset-2 transition hover:decoration-ink"
+                  >
+                    コモンズの説明ページ
+                  </a>
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* 景観スポットに付けた写真の出典（54 枚ぶんの全部）。
+            地図のポップアップには作者とライセンスだけを出し、全体の一覧はここに置く。
+            操作パネルの「出典とライセンス」からここへ来る（components/ControlPanel.tsx） */}
+        <section id="scenic-photos" className="mt-8 scroll-mt-6 rounded-2xl border border-line bg-surface p-4">
+          <h2 className="text-[13px] font-semibold text-ink">景観100選のスポット写真</h2>
+          <p className="mt-1.5 text-[12.5px] leading-relaxed text-ink-sub">
+            観光マップの景観スポットのうち
+            <strong className="font-semibold text-ink">{scenicEntries.length} か所</strong>
+            に、ウィキメディア・コモンズの写真を添えています。
+            元データ（いちかわ景観100選）の画像列は配信先が見つからないため、使っていません。
+          </p>
+          <p className="mt-2 text-[12.5px] leading-relaxed text-ink-sub">
+            <strong className="font-semibold text-ink">
+              再利用が許されているもの（CC0・パブリックドメイン・CC BY・CC BY-SA）だけ
+            </strong>
+            を選んでいます。加工したのは縮小と再圧縮だけです。
+            どの写真がどの場所のものかは 1 枚ずつ目で確かめました
+            （同じ名前で別の土地にある場所の写真が検索に多く混ざるためです）。
+          </p>
+          <p className="mt-2 text-[12.5px] leading-relaxed text-ink-sub">
+            <strong className="font-semibold text-ink">「東京湾三番瀬」だけは船橋市側から撮影</strong>
+            された写真です。三番瀬の干潟は市川市から船橋市にまたがっていて、
+            市川市側から撮られた再利用可能な写真が見つかりませんでした。
+          </p>
+          <ul className="mt-3 space-y-2.5">
+            {scenicEntries.map(([spot, photo]) => (
+              <li key={photo.file} className="text-[12px] leading-relaxed">
+                <p>
+                  <span className="font-medium text-ink">{spot}</span>
+                  {photo.placeNote ? (
+                    <span className="text-ink-muted">（{photo.placeNote}）</span>
+                  ) : null}
+                </p>
+                <p className="text-ink-sub">
+                  {photo.artist}
+                  <span className="mx-1.5 text-ink-muted">/</span>
+                  {photo.licenseUrl ? (
+                    <a
+                      href={photo.licenseUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="underline decoration-line underline-offset-2 transition hover:decoration-ink"
+                    >
+                      {photo.license}
+                    </a>
+                  ) : (
+                    <span>{photo.license}</span>
+                  )}
+                  <span className="mx-1.5 text-ink-muted">/</span>
+                  <a
+                    href={photo.page}
                     target="_blank"
                     rel="noreferrer"
                     className="underline decoration-line underline-offset-2 transition hover:decoration-ink"
