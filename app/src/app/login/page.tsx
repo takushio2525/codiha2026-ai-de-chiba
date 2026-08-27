@@ -5,6 +5,7 @@ import { ArrowLeft, LogIn, TriangleAlert, UserRound } from "lucide-react";
 import DemoLoginForm from "@/components/DemoLoginForm";
 import { getSessionView } from "@/lib/auth";
 import { googleSignInAction, signOutAction } from "@/lib/authActions";
+import { GOV_PIN_REQUIRED } from "@/lib/govPin";
 import { DEMO_CITY_CODE, findMunicipality } from "@/lib/municipalities";
 
 export const metadata: Metadata = {
@@ -104,8 +105,9 @@ export default async function LoginPage() {
                 Google の認証キーが設定されていないため、デモモードで動いています。
                 表示名を入れるだけでログインでき、
                 <strong className="font-medium text-ink">投稿・コメント・行政操作まで全機能を試せます</strong>。
+                {GOV_PIN_REQUIRED ? "なお、この環境では行政ユーザーだけ PIN で守っています。" : ""}
               </p>
-              <DemoLoginForm govCityName={govCityName} />
+              <DemoLoginForm govCityName={govCityName} govPinRequired={GOV_PIN_REQUIRED} />
             </>
           )}
         </section>
