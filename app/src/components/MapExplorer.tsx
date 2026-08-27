@@ -110,7 +110,13 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
   const [route, setRoute] = useState<WalkingRoute | null>(null);
   const [busy, setBusy] = useState<Busy>("idle");
   const [toast, setToast] = useState<ToastMessage | null>(null);
-  const [collapsed, setCollapsed] = useState(false);
+  /** 操作パネル（スマホでは下からせり上がるシート）を畳んでいるか。
+   *
+   *  **既定は畳んだ状態。** 開いたまま出すと 375px×667px で地図が高さ 119px しか
+   *  見えず（main の 2 割）、地図を見に来た人が最初に見るのがパネルになってしまう。
+   *  md 以上ではこのパネルは左の固定パネルで地図に重ならないので、
+   *  本文側の `md:block` が効いてこの値に関係なく開いたままになる。 */
+  const [collapsed, setCollapsed] = useState(true);
 
   // ---- 投稿（F-2）----
   const [reports, setReports] = useState<ReportCollection>(EMPTY_REPORT_COLLECTION);

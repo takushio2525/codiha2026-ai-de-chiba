@@ -171,6 +171,8 @@ export default function ControlPanel({
   const postable = postableCategories.map(reportCategoryDef);
   // 凡例は、表示中のハザードが使っているものだけを出す（洪水と津波・高潮で段階が違う）
   const legends = visibleHazardLegends(hazardVisible);
+  // 注意案内（F-4）を出している状態か。畳んだヘッダーにも 1 行だけ出すのに使う
+  const alerting = floodAlert !== null && reportVisible.flood;
 
   return (
     <aside
@@ -183,7 +185,11 @@ export default function ControlPanel({
         "md:flex md:flex-col",
       ].join(" ")}
     >
-      <header className="flex items-center gap-3 px-4 py-3">
+      {/* **スマホではこのヘッダーがシートの取っ手**。28px 角のシェブロンだけを的にすると
+          指では狙いにくいので、ヘッダー全体を覆うボタンを重ねて当たる面を広げている
+          （飾りは pointer-events-none で下に敷く）。md 以上ではこのパネルは
+          開閉しない左の固定パネルなので、ボタンごと出さない。 */}
+      <header className="relative flex items-center gap-3 px-4 py-3">
         {/* タブのアイコンと同じマーク。ここが画面の中で一番大きいブランドの出どころ */}
         <BrandMark className="size-8" />
         <div className="min-w-0 flex-1">
@@ -191,22 +197,35 @@ export default function ControlPanel({
           <h1 className="text-[17px] leading-none font-bold tracking-[0.16em] text-ink">
             CHIZUBA
           </h1>
-          <p className="mt-1.5 truncate text-[11.5px] text-ink-muted">
+          {/* 畳んでいると注意案内（F-4）が中に隠れてしまうので、見出しだけここに出す。
+              md 以上では中身がいつも見えているため出さない */}
+          {alerting && collapsed ? (
+            <p className="mt-1 flex items-center gap-1.5 text-[11.5px] leading-tight font-semibold text-[#0b4a6f] md:hidden">
+              <CloudRain aria-hidden className="size-3.5 shrink-0" />
+              <span className="truncate">浸水報告のある地域に、雨の予報</span>
+            </p>
+          ) : null}
+          <p
+            className={[
+              "mt-1.5 truncate text-[11.5px] text-ink-muted",
+              alerting && collapsed ? "hidden md:block" : "",
+            ].join(" ")}
+          >
             千葉の地図に、住民と行政の「いま」を重ねる
           </p>
         </div>
+        <span aria-hidden className="pointer-events-none shrink-0 p-1.5 text-ink-muted md:hidden">
+          <ChevronDown
+            className={`size-4 transition-transform ${collapsed ? "" : "rotate-180"}`}
+          />
+        </span>
         <button
           type="button"
           onClick={onToggleCollapsed}
           aria-expanded={!collapsed}
           aria-label={collapsed ? "操作パネルを開く" : "操作パネルを閉じる"}
-          className="shrink-0 rounded-lg p-1.5 text-ink-muted transition hover:bg-[#f1f2f4] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:hidden"
-        >
-          <ChevronDown
-            aria-hidden
-            className={`size-4 transition-transform ${collapsed ? "" : "rotate-180"}`}
-          />
-        </button>
+          className="absolute inset-0 rounded-t-2xl transition active:bg-[#f1f2f4]/70 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ink md:hidden"
+        />
       </header>
 
       <div
