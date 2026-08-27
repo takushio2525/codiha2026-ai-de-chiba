@@ -15,11 +15,15 @@ export default async function AuthBar() {
 
   return (
     <header className="flex h-9 shrink-0 items-center gap-2.5 border-b border-line bg-surface px-3 text-[11.5px]">
-      {/* どの画面にいてもブランドが見えるようにする。押すと地図（トップ）へ戻る */}
+      {/* どの画面にいてもブランドが見えるようにする。押すと地図（トップ）へ戻る。
+          スマホで隠すのは、帯が「デモモードで動作中」＋投稿一覧＋ログイン状態で
+          すでに埋まっているため。割り込ませると表示名が幅 0 まで潰れ、
+          行政バッジが画面の外へはみ出す（386px 幅で実測）。スマホでも
+          地図の操作パネルと /about の見出しにワードマークが出る。 */}
       <Link
         href="/"
         aria-label="CHIZUBA のトップ（地図）へ"
-        className="shrink-0 rounded-lg px-1 py-1 text-[12px] leading-none font-bold tracking-[0.16em] text-ink transition hover:bg-[#f1f2f4] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+        className="hidden shrink-0 rounded-lg px-1 py-1 text-[12px] leading-none font-bold tracking-[0.16em] text-ink transition hover:bg-[#f1f2f4] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink sm:inline-block"
       >
         CHIZUBA
       </Link>
