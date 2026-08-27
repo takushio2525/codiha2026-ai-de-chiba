@@ -7,7 +7,7 @@ import { DATA_CREDITS, DEMO_PHOTO_CREDITS } from "@/lib/credits";
 import { HAZARD_LEGENDS } from "@/lib/hazards";
 
 export const metadata: Metadata = {
-  title: "出典とライセンス｜市川市 オープンデータマップ",
+  title: "出典とライセンス",
   description: "このアプリが使っているオープンデータ・地図タイル・経路サービスの出典。",
 };
 
@@ -23,10 +23,24 @@ export default function AboutPage() {
           地図に戻る
         </Link>
 
-        <h1 className="mt-5 text-2xl font-semibold tracking-tight text-ink">出典とライセンス</h1>
+        {/* このページへの入口は地図の「詳しい出典」なので、見出しは出典のまま。
+            ただし直接開かれても何のサービスか分かるよう、頭にブランドの説明を置く。 */}
+        <section className="mt-5 rounded-2xl border border-line bg-surface p-5 shadow-[0_12px_30px_-26px_rgb(0_0_0/0.5)]">
+          <p className="text-[19px] leading-none font-bold tracking-[0.16em] text-ink">CHIZUBA</p>
+          <p className="mt-3 text-[13.5px] leading-relaxed text-ink-sub">
+            千葉県の地図系サービスを 1 つに束ね、
+            <strong className="font-semibold text-ink">住民と行政が相互に情報を投稿できる</strong>
+            ウェブサイトです。ハザードマップや施設のオープンデータの上に、危険箇所・浸水・
+            観光おすすめといった「いまの千葉」を重ねます。
+          </p>
+          <p className="mt-2.5 text-[12px] text-ink-muted">対応: 千葉県全域（デモデータは市川市）</p>
+        </section>
+
+        <h1 className="mt-8 text-2xl font-semibold tracking-tight text-ink">出典とライセンス</h1>
         <p className="mt-2 text-[13.5px] leading-relaxed text-ink-sub">
-          このアプリは、市川市が公開しているオープンデータを地図に重ねて表示します。
-          データ・背景地図・経路計算のそれぞれについて、提供元と利用条件を以下に示します。
+          CHIZUBA は、市川市のオープンデータに、国土地理院の背景地図・国土交通省のハザードマップ・
+          気象庁の気象データ・OpenStreetMap の道路データを重ねています。
+          それぞれについて、提供元と利用条件を以下に示します。
         </p>
 
         <ul className="mt-6 space-y-3">
