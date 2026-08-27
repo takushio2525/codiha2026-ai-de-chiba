@@ -319,3 +319,28 @@ export function exportHref(params: {
 export function exportFileName(format: ExportFormat, cityCode: string, date: string): string {
   return `chizuba-reports-${cityCode}-${date.replaceAll("-", "")}.${format}`;
 }
+
+/** 書き出したファイルの Content-Type。 */
+export const EXPORT_CONTENT_TYPE: Record<ExportFormat, string> = {
+  // Excel 対策の BOM を付けるので、文字コードは UTF-8 と明示する
+  csv: "text/csv; charset=utf-8",
+  // RFC 7946 が定めた MIME
+  geojson: "application/geo+json; charset=utf-8",
+};
+
+/** 書き出した時刻（JST の ISO 8601）。`sv-SE` は `YYYY-MM-DD HH:MM:SS` で出る。 */
+const JST_STAMP = new Intl.DateTimeFormat("sv-SE", {
+  timeZone: "Asia/Tokyo",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+  hour12: false,
+});
+
+/** GeoJSON の `generatedAt` に入れる、いまの時刻。 */
+export function nowJstIso(now: Date = new Date()): string {
+  return `${JST_STAMP.format(now).replace(" ", "T")}+09:00`;
+}

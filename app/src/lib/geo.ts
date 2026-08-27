@@ -28,8 +28,10 @@ export function haversineMeters(a: LngLat, b: LngLat): number {
 /**
  * 徒歩ナビの目的地の候補。オープンデータの施設と景観スポットを同じ形にそろえる。
  *
- * `routing.ts` の `RouteTarget` と同じ形（構造的にそのまま渡せる）。
- * **`routing.ts` はこのファイルを読む側**なので、型を輸入せず自前で持つ（循環参照を避ける）。
+ * **`routing.ts` の `RouteTarget` はこの型の別名**。候補から選んだものが
+ * そのまま目的地になるので、形が食い違うことはあり得ない。
+ * 定義をこちら側に置いているのは、`routing.ts` がこのファイルを読む側だから
+ * （逆向きに import すると循環参照になる）。
  */
 export type NavCandidate = {
   name: string;

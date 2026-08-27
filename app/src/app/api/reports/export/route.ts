@@ -17,40 +17,18 @@ import type { NextRequest } from "next/server";
 import { apiFail } from "@/lib/apiResponse";
 import { resolveListQuery, withDb } from "@/lib/apiRoute";
 import {
+  EXPORT_CONTENT_TYPE,
   exportFileName,
   isExportFormat,
+  nowJstIso,
   toCsv,
   toGeoJson,
-  type ExportFormat,
 } from "@/lib/reportExport";
 import { describeRange, todayJst } from "@/lib/reportRange";
 import { REPORTS_MAX_LIMIT } from "@/lib/reports";
 import { listReports } from "@/lib/reportStore";
 
 export const dynamic = "force-dynamic";
-
-/** 書き出した時刻（JST の ISO 8601）。`sv-SE` は `YYYY-MM-DD HH:MM:SS` で出る。 */
-const JST_STAMP = new Intl.DateTimeFormat("sv-SE", {
-  timeZone: "Asia/Tokyo",
-  year: "numeric",
-  month: "2-digit",
-  day: "2-digit",
-  hour: "2-digit",
-  minute: "2-digit",
-  second: "2-digit",
-  hour12: false,
-});
-
-function nowJstIso(): string {
-  return `${JST_STAMP.format(new Date()).replace(" ", "T")}+09:00`;
-}
-
-const CONTENT_TYPE: Record<ExportFormat, string> = {
-  // Excel 対策の BOM を付けるので、文字コードは UTF-8 と明示する
-  csv: "text/csv; charset=utf-8",
-  // RFC 7946 が定めた MIME
-  geojson: "application/geo+json; charset=utf-8",
-};
 
 export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams;
@@ -87,7 +65,7 @@ export async function GET(request: NextRequest) {
 
     return new Response(body, {
       headers: {
-        "Content-Type": CONTENT_TYPE[format],
+        "Content-Type": EXPORT_CONTENT_TYPE[format],
         // ファイル名に日本語を入れない（Content-Disposition は ASCII が無難）
         "Content-Disposition":
           `attachment; filename="${exportFileName(format, municipality.code, todayJst())}"`,
