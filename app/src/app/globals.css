@@ -71,3 +71,56 @@ body {
   font-size: 11px;
   line-height: 1.5;
 }
+
+/* ---- 不透明度のスライダー ----
+   ハザードの重ねの濃さを変える input[type="range"]（操作パネル）。
+   **要素の高さがそのまま指の当たり判定になる。** 見た目のトラックに合わせて
+   h-1 を当てていたので、高さ 4px の帯を指で掴むことになっていた（実測）。
+   要素は 36px の高さを取り、細く見せるのはトラックの描画だけにする。 */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 2.25rem;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: #d5d8dc;
+}
+
+input[type="range"]::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background: #d5d8dc;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  /* 4px のトラックの中心に円の中心を合わせる（(20 - 4) / 2） */
+  margin-top: -8px;
+  border: 2px solid #ffffff;
+  border-radius: 999px;
+  background: var(--color-ink);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ffffff;
+  border-radius: 999px;
+  background: var(--color-ink);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
+}
+
+input[type="range"]:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+  border-radius: 999px;
+}

@@ -634,7 +634,8 @@ export default function ControlPanel({
                           onChangeHazardOpacity(hazard.id, Number(event.target.value))
                         }
                         aria-label={`${hazard.label}の不透明度`}
-                        className="h-1 min-w-0 flex-1 cursor-pointer accent-ink"
+                        // 高さ（＝指の当たり判定）とつまみの見た目は globals.css が持つ
+                        className="min-w-0 flex-1"
                       />
                       <span className="w-9 shrink-0 text-right text-[11px] text-ink-sub tabular-nums">
                         {percent}%
