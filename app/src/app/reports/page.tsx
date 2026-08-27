@@ -210,6 +210,13 @@ function ReportRow({ feature }: { feature: ReportFeature }) {
             <span className="rounded-full bg-[#f1f2f4] px-2 py-0.5 text-[10.5px] font-medium text-ink-sub">
               {reportStatusLabel(report.status)}
             </span>
+            {/* 行政が出した投稿（F-7 の公式おすすめなど）。住民の投稿と一目で区別する */}
+            {report.authorRole === "gov" ? (
+              <span className="inline-flex items-center gap-1 rounded-full bg-[#0072b2] px-1.5 py-0.5 text-[10px] font-medium text-white">
+                <ShieldCheck aria-hidden className="size-3" />
+                行政の公式投稿
+              </span>
+            ) : null}
             {report.hasOfficialComment ? (
               <span className="inline-flex items-center gap-1 rounded-full bg-[#0072b2] px-1.5 py-0.5 text-[10px] font-medium text-white">
                 <ShieldCheck aria-hidden className="size-3" />

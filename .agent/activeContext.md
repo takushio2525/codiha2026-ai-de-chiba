@@ -6,45 +6,43 @@
 
 ## 現在の対象
 
-**プロダクトは CHIZUBA。P4（浸水報告・F-3 ＋ 注意案内・F-4）まで実装済み。**
-**次は P5（観光・F-5/F-6）と P6（行政応答・F-7）。**
+**プロダクトは CHIZUBA。P5（観光・F-5/F-6）まで実装済み。次は P6（行政応答・F-7）。**
 
 `cd app && docker compose up` → <http://localhost:3000> で、ハザードマップ（洪水・高潮・津波）と
 避難場所 123・AED 304・子育て施設 388・徒歩ナビが動き、**ログインして危険箇所と浸水を投稿でき、
 浸水には投稿時点の雨量が自動で焼き込まれ、雨の予報が出ているときは過去の浸水報告に注意案内が出る**。
 一覧は `/reports`。**閲覧はログイン不要**。
+**ヘッダー直下のタブで防災マップ / 観光マップを切り替えられる**。観光マップでは景観100選
+100 件が日英の解説つきで出て、観光おすすめ（お土産を含む）を住民と行政の両方が投稿できる。
 
 何を作るかの正本は **`docs/design/requirements.md`**（機能 F-1〜F-8・画面 S-1〜S-7・実装順序）。
 
 ## 直近の観点
 
-**気象は「サーバーで取ってキャッシュし、ブラウザには結果だけ渡す」形に固まった。**
-上流の取得は `app/src/lib/jma.ts`（サーバー専用）、型と表示と F-4 の判定は
-`app/src/lib/weather.ts`（ブラウザからも読む）に分かれている。
+**気象は「サーバーで取ってキャッシュし、ブラウザには結果だけ渡す」形。** 上流の取得は
+`app/src/lib/jma.ts`（サーバー専用）、型・表示・F-4 の判定は `app/src/lib/weather.ts`。
 
-- **P5（観光・F-5/F-6）でやること**: `MapExplorer.tsx` の `POSTABLE_CATEGORIES` に
-  `"spot"` を足せば投稿の入り口が増える。景観100選の GeoJSON 化（F-5）は別作業
-- **P6（行政応答・F-7）でやること**: `PATCH /api/reports/:id`（`status` の更新）。
-  **`GET`・`DELETE`・コメントは P3 で実装済み、`PATCH` だけが未実装**。
-  コメントの `is_official` はもうサーバーが判定していて、行政の発言はバッジで区別されている
+- **P5（観光）は完了**。表示するレイヤーの組と投稿できるカテゴリは**モードごとの定義**
+  （`app/src/lib/mapModes.ts`）が持つ。決めるのは初期値だけで、あとの足し引きは自由
+- **P6（行政応答・F-7）でやること**: `PATCH /api/reports/:id`（`status` の更新）だけが未実装。
+  `GET`・`DELETE`・コメントは P3 済みで、`is_official` はサーバーが判定しバッジで区別している
 - **F-4 の文言は気象業務法の線に触れる。** 「浸水するでしょう」に類する予報表現を
   足さない。判定は `buildFloodAlert` 1 箇所、文言は `FloodAlertCard.tsx` 1 箇所
 
-雨量は**最寄りのアメダスの値**であって、その地点の実測値ではない（市川市に観測所が無く
-最寄りの船橋まで約 10 km）。**観測所名と距離を必ず併記する**建付けを崩さない。
+雨量は**最寄りのアメダスの値**で、その地点の実測値ではない（市川市に観測所が無く船橋まで
+約 10 km）。**観測所名と距離を必ず併記する**建付けを崩さない。
 
-投稿写真は `uploads` ボリューム（コンテナの `/app/uploads`）。**`docker compose down -v` は写真も
-一緒に消す**。置き場のパスは環境変数で差し替えない（Next がパスを追えず、実行イメージが膨らむ）。
+投稿写真は `uploads` ボリューム（`/app/uploads`）。**`docker compose down -v` は写真も消す**。
+置き場は環境変数で差し替えない（Next がパスを追えず実行イメージが膨らむ）。
 
-審査のコード評価は **実装割合 × 動作割合の掛け算**。
-`requirements.md` §9-1 の「全フェーズ共通の完了条件」5 項目
-（`docker compose up` だけで起動・前フェーズが壊れていない・typecheck・
-`package_submission.sh --smoke`・`secret_scan.sh`）を**毎フェーズ通してから次へ行く**。
+審査のコード評価は **実装割合 × 動作割合の掛け算**。`requirements.md` §9-1 の
+「全フェーズ共通の完了条件」5 項目（`docker compose up` だけで起動・前フェーズが壊れていない・
+typecheck・`package_submission.sh --smoke`・`secret_scan.sh`）を**毎フェーズ通す**。
 
 ## 次の一手
 
-1. **P5: 観光モード（F-5・F-6）** — 景観100選の GeoJSON 化と、投稿カテゴリ `spot` の開放
-2. **P6: 行政からの応答（F-7）** — `PATCH /api/reports/:id` で対応状況を更新する
+1. **P6: 行政からの応答（F-7）** — `PATCH /api/reports/:id` で対応状況を更新する
+2. **P7・P8** は `requirements.md` §9-2 の順に進める（F-4 は P4 で前倒し済み）
 3. 提出物のうち **`readme.txt`・説明資料 PDF 2 種はまだ無い**。9/9 に向けて作る。
    固めるのは `bash tools/package_submission.sh`（検証込み）。**手で zip しない**
 4. `docs/design/assignments.md` の担当表がまだ空欄。誰がどのフェーズを持つか埋める
@@ -54,6 +52,7 @@
 - **気象まわりを触る段**: `docs/design/interfaces.md` の **I-6**（上流 JSON の諸元・
   降水確率のしきい値・異常時の約束）と `app/src/lib/jma.ts` の頭（実測で分かった落とし穴）
 - **注意案内の文言を触る段**: `docs/design/requirements.md` §3-1（**気象業務法の線**）
+- **地図に何か足す段**: `mapModes.ts`（モードの組）・`scenic.ts`（景観）・`layers.ts`（施設）
 - **投稿まわりを触る段**: `app/src/lib/reports.ts`（カテゴリ定義の正本）・`interfaces.md` I-3〜I-5・`app/db/init/001_schema.sql`
 - **アプリに手を入れる段**: `.agent/architecture.md`・`.agent/conventions.md`・`app/README.md`（**既知の制約**）
 - **提出物の判断**: `課題/2026-09-09_CODIHA2026_提出要件.md`（**正本**）

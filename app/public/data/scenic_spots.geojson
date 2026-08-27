@@ -1,0 +1,2375 @@
+{
+ "type": "FeatureCollection",
+ "attribution": "「【市川市】景観100選」（市川市オープンデータ）（https://opendata.pref.chiba.lg.jp/datasets/3291）を加工して作成",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9016091,
+     35.73823992
+    ]
+   },
+   "properties": {
+    "name": "江戸川",
+    "address": "千葉県市川市",
+    "nameEn": "Edogawa River",
+    "description": "四季折々の川面の風情と景観を楽しむことができる。散歩やサイクリングを通して、多くの市民から愛される憩いの場。",
+    "descriptionEn": "You can enjoy the different river atmosphere and landscapes of the four seasons. A place of recreation and relaxation for citizens.",
+    "categories": [
+     "自然"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8978529,
+     35.73107271
+    ]
+   },
+   "properties": {
+    "name": "江戸川からの眺め",
+    "address": "千葉県市川市",
+    "nameEn": "The View From Edogawa River",
+    "description": "遠く富士山や丹沢山地が望め、夕日とスカイツリーは絶景。",
+    "descriptionEn": "You can enjoy Mt. Fuji and Tanzawa Sanchi Mountains. At sunset,the view of Skytree is stunning.",
+    "access": "JR 市川駅、京成線国府台駅、東西線妙典駅",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9152765,
+     35.71007811
+    ]
+   },
+   "properties": {
+    "name": "江戸川に架かる橋からの眺め",
+    "address": "千葉県市川市",
+    "nameEn": "The View From Bridges over the Edogawa River",
+    "description": "釣り船とボート、木々の緑、夕景など橋を渡る人々それぞれが素晴らしい景色を見ることができる。",
+    "descriptionEn": "People crossing the bridges over Edogawa River can see wonderful scenery such as fishing boats, the green trees and the setting sun.",
+    "access": "場所:市川橋、江戸川大橋、行徳橋、新行徳橋、市川大橋",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9024359,
+     35.72205927
+    ]
+   },
+   "properties": {
+    "name": "市民納涼花火大会",
+    "address": "千葉県市川市市川南4丁目地先",
+    "area": "市川南4丁目",
+    "nameEn": "Citizens' Summer Evening Fireworks Festival",
+    "description": "夏の夜空を彩る約1 万4 千発のビッグイベント。毎年8 月第1 土曜日開催。",
+    "descriptionEn": "A big event in which 14,000 fireworks light up the summer night sky. It is held on the first Saturday in August every year.",
+    "access": "JR 市川駅　徒歩15 分",
+    "categories": [
+     "生活風景"
+    ],
+    "categoryPrimary": "生活風景",
+    "url": "http://www.ichikawa-hanabi.jp/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9295309,
+     35.69735255
+    ]
+   },
+   "properties": {
+    "name": "江戸川沿いの桜並木",
+    "address": "千葉県市川市",
+    "nameEn": "Cherry blossoms and trees along the coast of Edogawa",
+    "description": "市川南地先に約４０本、妙典地先に約５０本、国府台地先に約３０本あり、「市民参加型のさくらオーナー制度」により管理している。",
+    "descriptionEn": "About 40 cherry trees in Ichikawa Minami area, 50 in Myoden area and 30 in Konodai area are managed under the Citizens Ownership System.",
+    "categories": [
+     "自然",
+     "まち並み"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9668043,
+     35.77436956
+    ]
+   },
+   "properties": {
+    "name": "大町周辺の森",
+    "address": "千葉県市川市大町地先",
+    "area": "大町",
+    "nameEn": "The forest around Ohmachi",
+    "description": "都市に残る自然景観。スギやヒノキなどの森。この森を活動拠点としている「わんぱくの森の会」及び「大町教育の森の会」は第5回市川市景観賞受賞。",
+    "descriptionEn": "The natural landscape left in the city. Forests of cedar and cypress. \"Wanpaku Forest Association\" and \"Omachi Education Forest Association\" are based in these forests and won the Fifth Ichikawa City Landscape Award.",
+    "categories": [
+     "自然"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9678242,
+     35.77222071
+    ]
+   },
+   "properties": {
+    "name": "大町梨街道",
+    "address": "千葉県市川市大町地先",
+    "area": "大町",
+    "nameEn": "Ohmachi pears street",
+    "description": "約50軒もの梨屋が軒を連ね、街道にはためくのぼり旗は、市川市の夏の風物詩となっている。",
+    "descriptionEn": "The street is lined with about 50 pear stands. The scenery of many flags of pear stand waving on the street has become summer tradition of Ichikawa.",
+    "access": "北総線大町駅　国道464号線沿い",
+    "categories": [
+     "まち並み",
+     "生活風景"
+    ],
+    "categoryPrimary": "まち並み"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9657955,
+     35.76963881
+    ]
+   },
+   "properties": {
+    "name": "梨畑と梨作りの風景",
+    "address": "千葉県市川市大町地先",
+    "area": "大町",
+    "nameEn": "View of Pear Fields and Pear Gowers at Work",
+    "description": "梨は江戸時代から続く市川の代表的な特産物。5 月に白い花が棚一面に咲き誇り、上から眺めると白い絨毯のよう。",
+    "descriptionEn": "Pear is a representative specialty of Ichikawa since the Edo period. In May white flowers are in full bloom on the shelf, looking like a white carpet from above.",
+    "access": "北総線大町駅　徒歩10分（大野町、大町周辺）",
+    "categories": [
+     "自然",
+     "生活風景"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9689887,
+     35.7669497
+    ]
+   },
+   "properties": {
+    "name": "大町自然観察園",
+    "address": "千葉県市川市大町284",
+    "area": "大町",
+    "nameEn": "Ohmachi Nature Observation Park",
+    "description": "谷津の地形や湧水を活かした公園。7 月下旬? 8 月上旬がホタル、春秋のバラ、晩秋のモミジが見所。（入場無料、有料P あり）",
+    "descriptionEn": "A park that takes advantage of Yatsu terrain and springs. Fireflies Between late July and  early August, roses in spring and autumn, and maples in late autumn are worth seeing. (Admissions free, Parking Available)",
+    "access": "北総線大町駅下車徒歩5分。ＪＲ本八幡駅、市川大野駅　バス　動植物園下車徒歩3 分",
+    "categories": [
+     "自然"
+    ],
+    "categoryPrimary": "自然",
+    "url": "https://www.city.ichikawa.lg.jp/env02/1111000111.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9658306,
+     35.76383322
+    ]
+   },
+   "properties": {
+    "name": "動植物園",
+    "address": "千葉県市川市大町284",
+    "area": "大町",
+    "nameEn": "Animal and Botanical Garden",
+    "description": "小動物とのふれあいがテーマの動物園。レッサーパンダやスマトラオランウータン、流しカワウソが人気（入場有料、有料P あり）。隣接した観賞植物園では熱帯植物や多肉植物も（観賞植",
+    "descriptionEn": "A zoo with the theme of contact with small animals. Red pandas, Sumatran orangutans and flowing otters are very popular (Admission fee required, parking available). There are also tropical plants and succulent plants (ornamental plants) in adjacent Botanical Garden.",
+    "access": "ＪＲ本八幡駅、市川大野駅　バス　動植物園下車",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み",
+    "tel": "047-338-1960",
+    "url": "http://www.city.ichikawa.lg.jp/zoo/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9722026,
+     35.76050167
+    ]
+   },
+   "properties": {
+    "name": "市川霊園とイチョウ並木",
+    "address": "千葉県市川市大野町4丁目2481",
+    "area": "大野町4丁目",
+    "nameEn": "Ichikawa Cemetery and Ginkgo trees",
+    "description": "全長約1km にわたって続く並木。12 月初旬頃に紅葉が見ごろとなる。春には桜も見もの。",
+    "descriptionEn": "A total length of about 1 km of row of gingko trees. Autumn leaves are at their best in the beginning of December. The cherry blossoms in spring are also worth seeing.",
+    "access": "ＪＲ市川大野駅　バス（柏井車庫行）市営霊園下車",
+    "categories": [
+     "自然"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9116617,
+     35.75966288
+    ]
+   },
+   "properties": {
+    "name": "歴史博物館",
+    "address": "千葉県市川市堀之内2丁目27-1",
+    "area": "堀之内2丁目",
+    "nameEn": "Museum of History",
+    "description": "中世から近代までの資料を展示。( 入館無料、Ｐあり）※特別展は有料の場合あり",
+    "descriptionEn": "Exhibits cover the Middle Ages to Modern Era. (Admission free, except for special events. Parking available.)",
+    "access": "北総線北国分駅　徒歩8 分",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み",
+    "tel": "047-373-6351",
+    "url": "https://www.city.ichikawa.lg.jp/catpage/shisei-history.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9074861,
+     35.7580213
+    ]
+   },
+   "properties": {
+    "name": "小塚山公園",
+    "address": "千葉県市川市北国分1丁目26",
+    "area": "北国分1丁目",
+    "nameEn": "Kozukayama Koen Park",
+    "description": "住宅街の中に緑があり、隣接してアスレチックもある。週末の晴れた日には多くの人が集まり賑わう。",
+    "descriptionEn": "Located in a residential area and provides a precious green space. Features an outdoor recreation and adventure course.",
+    "access": "北総線北国分駅　徒歩13 分",
+    "categories": [
+     "自然",
+     "まち並み"
+    ],
+    "categoryPrimary": "自然",
+    "tel": "047-373-9834",
+    "url": "http://www.city.ichikawa.lg.jp/gre04/1511000004.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9216613,
+     35.75204085
+    ]
+   },
+   "properties": {
+    "name": "国分川鯉のぼりフェティバル",
+    "address": "千葉県市川市東国分3丁目9",
+    "area": "東国分3丁目",
+    "nameEn": "Kokubugawa River Koinobori Carp Streamer Festival",
+    "description": "毎年ゴールデンウィークに開催。５００以上の鯉のぼりが大空を泳ぐ姿は一見の価値あり。第７回市川市景観賞受賞。",
+    "descriptionEn": "Held on Golden Week every year. More than 500 carp flags swimming in the sky is worth seeing. Won the Seventh Ichikawa Landscape Award.",
+    "access": "ＪＲ市川駅北口　バス　国分操車場下車　徒歩２分",
+    "categories": [
+     "生活風景"
+    ],
+    "categoryPrimary": "生活風景"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.906351,
+     35.75133743
+    ]
+   },
+   "properties": {
+    "name": "じゅん菜池緑地",
+    "address": "千葉県市川市中国分4丁目27",
+    "area": "中国分4丁目",
+    "nameEn": "Junsai-Ike Pond Park",
+    "description": "四季折々の自然の姿に触れられる憩いの場所。春の「梅祭り」では野点も。（P あり）",
+    "descriptionEn": "A resting place where you can experience nature season to season. At the Plum Festival held in spring, you can enjoy open-air tea ceremony. (Parking Available.)",
+    "access": "ＪＲ市川駅北口　バス　じゅん菜池下車",
+    "categories": [
+     "自然",
+     "まち並み"
+    ],
+    "categoryPrimary": "自然",
+    "tel": "047-371-1254",
+    "url": "http://www.city.ichikawa.lg.jp/gre04/1521000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9366625,
+     35.74924293
+    ]
+   },
+   "properties": {
+    "name": "弁天池公園",
+    "address": "千葉県市川市曽谷2丁目33",
+    "area": "曽谷2丁目",
+    "nameEn": "Bentenike Pond Park",
+    "description": "池の真ん中にある島には祠があり、橋で渡れる。遊具広場には、ジャングルジムや藤棚がある。",
+    "descriptionEn": "There is a small shrine on the island in the middle of the pond, to which you can access by a bridge. There are jungle gym and wisteria trellis at the playground..",
+    "access": "JR市川駅北口　バス曽谷郵便局下車　徒歩5分",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み",
+    "url": "http://www.city.ichikawa.lg.jp/gre04/1531000004.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9527395,
+     35.75320921
+    ]
+   },
+   "properties": {
+    "name": "万葉植物園",
+    "address": "千葉県市川市大野町2丁目1857",
+    "area": "大野町2丁目",
+    "nameEn": "Man'yo Botanical Garden",
+    "description": "万葉集に詠まれている植物を和歌とともに展示。（入場無料）",
+    "descriptionEn": "Exhibits plants depicted in the poems of Man'yoshu, an ancient poetry book, together with the texts of those poems. (Admission free.) 047-337-9866",
+    "access": "ＪＲ市川大野駅　徒歩5 分",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み",
+    "tel": "047-337-9866",
+    "url": "http://www.city.ichikawa.lg.jp/gre04/1511000002.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8988917,
+     35.74757931
+    ]
+   },
+   "properties": {
+    "name": "里見公園",
+    "address": "千葉県市川市国府台3丁目9",
+    "area": "国府台3丁目",
+    "nameEn": "Satomi Koen Park",
+    "description": "安房の里見氏と小田原北条氏の古戦場。緑と桜が見事な景色を織りなす憩いの公園。毎年3月下旬「桜まつり」開催。（Ｐあり）",
+    "descriptionEn": "An ancient battlefield. A rest park with beautiful scenery intertwined with green and cherry blossoms. The Cherry Blossom Festival is held in late March every year. (Parking available.)",
+    "access": "ＪＲ市川駅北口　バス　国立病院下車　徒歩3 分",
+    "categories": [
+     "自然",
+     "まち並み"
+    ],
+    "categoryPrimary": "自然",
+    "tel": "047-372-0062",
+    "url": "http://www.city.ichikawa.lg.jp/gre04/1111000001.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8979329,
+     35.74839822
+    ]
+   },
+   "properties": {
+    "name": "里見公園からの東京・江戸川の眺め",
+    "address": "千葉県市川市国府台3丁目9",
+    "area": "国府台3丁目",
+    "nameEn": "View of Tokyo and Edogawa River from Satomi Koen Park",
+    "description": "そばを流れる江戸川や東京スカイツリー、富士山の眺めが朝焼け・夕焼けともに楽しめる。",
+    "descriptionEn": "The scenery of Edogawa, Tokyo Skytree and Mt. Fuji can all be enjoyed in the morning and sunset.",
+    "categories": [
+     "まち並み",
+     "歴史・文化"
+    ],
+    "categoryPrimary": "まち並み"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8989347,
+     35.74661046
+    ]
+   },
+   "properties": {
+    "name": "国府台斜面緑地",
+    "address": "千葉県市川市国府台3丁目9",
+    "area": "国府台3丁目",
+    "nameEn": "Konodai Sloping Green Space",
+    "description": "千葉県の玄関口としての「緑のシンボル」。江戸川区側からの眺めが安らぎを与える。",
+    "descriptionEn": "As the \"green symbol\" of the porch in Chiba prefecture, it gives people peace from Edogawa Ward.",
+    "categories": [
+     "自然"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9044891,
+     35.74375673
+    ]
+   },
+   "properties": {
+    "name": "和洋学園のラウンジからの眺め",
+    "address": "千葉県市川市国府台2丁目3-1",
+    "area": "国府台2丁目",
+    "nameEn": "View from the lounge of Wayo University",
+    "description": "斜面緑地と調和する色彩の外観が特徴。18階ラウンジからは江戸川が間近に見下ろせる。",
+    "descriptionEn": "The lounge on the 18th floor offers a close view of Edogawa. The lounge is available to the visitors of Culture Museum.",
+    "access": "ＪＲ市川駅北口　バス　真間山下下車",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9166287,
+     35.74348739
+    ]
+   },
+   "properties": {
+    "name": "下総国分寺周辺",
+    "address": "千葉県市川市国分3丁目20-1",
+    "area": "国分3丁目",
+    "nameEn": "The Neighborhood o Kazusakokubuji-temple",
+    "description": "天平13 年（741 年）聖武天皇の命令によって建立された下総国分僧寺跡。（国史跡）",
+    "descriptionEn": "National historic site of Shimosa Kokubun Monks Temple built in 741 by order of Emperor Shomu,",
+    "access": "ＪＲ市川駅北口バス　国分下車　徒歩5 分",
+    "categories": [
+     "歴史・文化"
+    ],
+    "categoryPrimary": "歴史・文化",
+    "tel": "047-371-7221",
+    "url": "http://www.city.ichikawa.lg.jp/edu09/1541000004.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9350877,
+     35.74915298
+    ]
+   },
+   "properties": {
+    "name": "曽谷の高台からの眺め",
+    "address": "千葉県市川市曽谷2丁目地先",
+    "area": "曽谷2丁目",
+    "nameEn": "View from the higher ground of Soya area",
+    "description": "夕日と富士山と東京スカイツリーが一直線に並ぶカメラマン必見の眺望。",
+    "descriptionEn": "The setting sun, Mt. Fuji and Tokyo Skytree are lined up in a row, which is a must-see scenery for photographers.",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9272446,
+     35.74735247
+    ]
+   },
+   "properties": {
+    "name": "曽谷小学校前の桜並木",
+    "address": "千葉県市川市曽谷7丁目18-1",
+    "area": "曽谷7丁目",
+    "nameEn": "Cherry Blossom Road in front of Soya Elementary School",
+    "description": "南北に約600m 続く並木。毎年4 月上旬「桜祭り」開催。",
+    "descriptionEn": "Approx. 600 m in the total length. The Cherry Blossom Festival is held in early April every year.",
+    "access": "ＪＲ市川駅北口　バス　曽谷公民館下車　徒歩５分",
+    "categories": [
+     "自然",
+     "まち並み"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9350607,
+     35.74741326
+    ]
+   },
+   "properties": {
+    "name": "曽谷貝塚",
+    "address": "千葉県市川市曽谷2丁目15",
+    "area": "曽谷2丁目",
+    "nameEn": "Soya Kaizuka Shell Mound",
+    "description": "表層が貝殻に覆われている馬蹄形（U 字型）の貝塚では最大級。（国史跡）10 月に「縄文祭り」開催。",
+    "descriptionEn": "The largest horseshoe-shaped shell mound in Japan which was formed in the late Jomon Period. (A national historc site) The \"Jomon Festival\" is held in October.",
+    "access": "Ｊ Ｒ 本八幡駅北口　バス曽谷下車　徒歩10 分",
+    "categories": [
+     "歴史・文化"
+    ],
+    "categoryPrimary": "歴史・文化",
+    "url": "http://www.city.ichikawa.lg.jp/edu09/1511000005.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9357066,
+     35.74551954
+    ]
+   },
+   "properties": {
+    "name": "春日神社と周辺の街並み",
+    "address": "千葉県市川市曽谷2丁目7-5",
+    "area": "曽谷2丁目",
+    "nameEn": "Kasugajinjya Shrine and the surrounding streets",
+    "description": "境内に江戸時代の道六神を納めた祠のある古社。周辺には藁葺き屋根の家が点在するなど落ち着いた風情ある景観。",
+    "descriptionEn": "An old shrine enshrines Dourokujin God of Edo period. Calm scenery of houses with straw roofs scattering around them.",
+    "access": "ＪＲ市川駅北口バス　曽谷郵便局下車",
+    "categories": [
+     "歴史・文化",
+     "まち並み"
+    ],
+    "categoryPrimary": "歴史・文化"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9518876,
+     35.7443615
+    ]
+   },
+   "properties": {
+    "name": "こざと公園周辺",
+    "address": "千葉県市川市南大野2丁目5、-6",
+    "area": "南大野2丁目",
+    "nameEn": "Kozato Koen Park and its surroundings",
+    "description": "全長約300m の調整池として造られ、周囲は散策路となっている。多くの鳥類が集まる街なかのオアシス。",
+    "descriptionEn": "Built as a regulating reservoir. Its surroundings are walking path. An oasis on the street where many birds gather.",
+    "access": "ＪＲ市川大野駅北口バス大柏出張所下車",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9531914,
+     35.74581028
+    ]
+   },
+   "properties": {
+    "name": "市川パークハイツと周辺の緑",
+    "address": "千葉県市川市南大野2丁目3-3",
+    "area": "南大野2丁目",
+    "nameEn": "\"Ichikawa Park Heights\", the appartment, and the surrounding green",
+    "description": "建物の周囲には緑道があり、見上げるほどの大きなケヤキがある。",
+    "descriptionEn": "There is a greenway around the building, and there is a huge zelkova tree.",
+    "categories": [
+     "自然",
+     "まち並み"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9510487,
+     35.74395357
+    ]
+   },
+   "properties": {
+    "name": "南大野1丁目の街並み",
+    "address": "千葉県市川市南大野1丁目地先",
+    "area": "南大野1丁目",
+    "nameEn": "The cityscape of Minami-Ono 1chome",
+    "description": "四季折々の草花とイチョウやカツラの街路樹に囲まれた街並みのコラボレーションが魅力的。",
+    "descriptionEn": "The cityscape surrounded by flowers of four seasons, gingko trees, and Katsura treees is fascinating.",
+    "categories": [
+     "自然",
+     "まち並み"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9653749,
+     35.73736119
+    ]
+   },
+   "properties": {
+    "name": "姥山貝塚公園",
+    "address": "千葉県市川市柏井町1丁目1207",
+    "area": "柏井町1丁目",
+    "nameEn": "Ubayama Kaizuka Shell Mound",
+    "description": "縄文時代中期（ 約4500 年前）?後期（約3000 年前）の大規模な馬蹄形（U 字型）貝塚。初めて当時の竪穴住居が完全な形で発見された。（国史跡、P あり）",
+    "descriptionEn": "Large-scale horseshoe-shaped (U-shaped) shell mound built between mid to late Jomon period. The pit house at that time was found in complete form for the first time. (National historical site, parking available)",
+    "access": "ＪＲ下総中山駅　バス　姥山貝塚公園入口下車　徒歩5 分",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み",
+    "url": "http://www.city.ichikawa.lg.jp/gre04/1111000004.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9540433,
+     35.74178085
+    ]
+   },
+   "properties": {
+    "name": "大柏川と桜並木",
+    "address": "千葉県市川市",
+    "nameEn": "Ogashiwa-Gawa River and row of cherry trees",
+    "description": "春から秋にかけて桜並木とともに、野の花を楽しめる。",
+    "descriptionEn": "From spring to autumn, together with the cherry trees along Ogashiwa-Gawa River, you can enjoy the wild flowers.",
+    "categories": [
+     "自然",
+     "まち並み"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.953671,
+     35.7347062
+    ]
+   },
+   "properties": {
+    "name": "市民プール",
+    "address": "千葉県市川市北方町4丁目2270-3",
+    "area": "北方町4丁目",
+    "nameEn": "Public Swimming Pool",
+    "description": "東京スカイツリーから富士山まで見渡せる夏の憩いの場。流水プール、子供プール（滑り台付）などがある。",
+    "descriptionEn": "You can have a veiw of Tokyo Skytree and Mt. Fuji. There are running water swimming pool, children's swimming pool (with slide) and so on.",
+    "access": "JR本八幡駅北口　バス 大野中央病院下車　徒歩5分",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9504447,
+     35.73581324
+    ]
+   },
+   "properties": {
+    "name": "大柏川第一調節池緑地",
+    "address": "千葉県市川市北方町4丁目1444-59",
+    "area": "北方町4丁目",
+    "nameEn": "The First Ogashiwa-Gawa River Regulating Reservoir and green space",
+    "description": "洪水対策を目的に、かつての北方の自然を復元し、多様な動植物の生育環境を管理する調節池。年間100種類以上の野鳥が飛来。当調節池を活動拠点にしているぼっけ生きもの倶楽部は第6回?",
+    "descriptionEn": "Built for the purpose of flood control. It restores the former nature of the northern part of the city and manages growing environment for variety of animals and plants. More than 100 species of wild birds fly in every year.",
+    "access": "JR本八幡駅北口　バス大野中央病院下車　徒歩3分",
+    "categories": [
+     "自然"
+    ],
+    "categoryPrimary": "自然",
+    "tel": "047-337-7111",
+    "url": "http://www.city.ichikawa.lg.jp/gre05/1111000012.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9455993,
+     35.73252232
+    ]
+   },
+   "properties": {
+    "name": "北方小学校からの眺め",
+    "address": "千葉県市川市北方町4丁目1356-1",
+    "area": "北方町4丁目",
+    "nameEn": "View from Kitakata Elementary School",
+    "description": "子之神社の緑や、春には桜並木が見渡せる。",
+    "descriptionEn": "The trees of Neno Jinja Shrine and row of cherry trees in spring can be seen from here.",
+    "access": "JR 本八幡駅北口　バス　本北方一丁目下車　徒歩3 分",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9446863,
+     35.72490853
+    ]
+   },
+   "properties": {
+    "name": "子之神社",
+    "address": "千葉県市川市北方3丁目17-23",
+    "area": "北方3丁目",
+    "nameEn": "Neno Jinjya Shrine",
+    "description": "ムクノキやコナラなどの樹木に囲まれ、高い石階段を登ると市内を見渡せる。",
+    "descriptionEn": "Surrounded by trees such as muku trees and English oak, You can climb high stone stairs and look around the city.",
+    "access": "JR 本八幡駅北口　バス　本北方一丁目下車　徒歩3 分",
+    "categories": [
+     "歴史・文化"
+    ],
+    "categoryPrimary": "歴史・文化"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9464741,
+     35.72278277
+    ]
+   },
+   "properties": {
+    "name": "東山魁夷記念館",
+    "address": "千葉県市川市中山1丁目16-2",
+    "area": "中山1丁目",
+    "nameEn": "Higashiyama Kaii Memorial Hall",
+    "description": "日本画の巨匠・東山魁夷画伯の作品を常設展示。かつて画伯が留学していた ドイツを思わせる、八角形の塔のある西洋風の外観。（入館有料、P あり）",
+    "descriptionEn": "The works of painter Kaii Higashiyama, a master of Japanese painting, are on permanent display. The western-style appearance of octagonal towers is reminiscent of Germany, where painters once studied. (Admission fee, parking available.)",
+    "access": "JR 下総中山駅北口徒歩20 分",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み",
+    "tel": "047-333-2011",
+    "url": "http://www.city.ichikawa.lg.jp/higashiyama/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.949289,
+     35.72061075
+    ]
+   },
+   "properties": {
+    "name": "中山法華経寺",
+    "address": "千葉県市川市中山2丁目10-1",
+    "area": "中山2丁目",
+    "nameEn": "Nakayama Hokekyoji Temple",
+    "description": "日蓮聖人が説法を行った日蓮宗最古の大本山。五重塔をはじめ国宝・重要文化財多数あり。",
+    "descriptionEn": "The headquarters of the Nichiren-Shu sect of Buddhism. The temple has many important cultural assets and features a five-storied pagoda.",
+    "access": "JR 下総中山駅北口徒歩10 分",
+    "categories": [
+     "歴史・文化"
+    ],
+    "categoryPrimary": "歴史・文化",
+    "url": "http://www.city.ichikawa.lg.jp/edu09/1111000052.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9465901,
+     35.71800247
+    ]
+   },
+   "properties": {
+    "name": "中山参道と商店街",
+    "address": "千葉県市川市中山4丁目地先",
+    "area": "中山4丁目",
+    "nameEn": "Stores along Nakayama Sando Appoach Way",
+    "description": "古くからの寺町として落ち着いた面影を残している。店舗や住宅の修景整備などが行われた。",
+    "descriptionEn": "The district retains the tranquil atmosphere of a temple town. The repairs to the shops and houses have been completed.",
+    "access": "JR 下総中山駅北口徒歩10 分",
+    "categories": [
+     "まち並み",
+     "生活風景"
+    ],
+    "categoryPrimary": "まち並み",
+    "url": "https://www.city.ichikawa.lg.jp/cit09/1111000034.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9518155,
+     35.71920006
+    ]
+   },
+   "properties": {
+    "name": "花の道オアシス（若宮）周辺",
+    "address": "千葉県市川市若宮1丁目12-2",
+    "area": "若宮1丁目",
+    "nameEn": "The Flower Steet Oasis and the nearby area",
+    "description": "周囲の景観に配慮したお休み処。手づくりの庭があり、行き交う人々の安らぎの場である。「花の道オアシス」は第7回市川市景観賞受賞。",
+    "descriptionEn": "A caf? which blends in with surrounding landscape. There is a handmade courtyard, which is a peaceful place for people coming and going. \"Flower Street Oasis\" won the Seventh Ichikawa Landscape Award.",
+    "categories": [
+     "自然",
+     "まち並み",
+     "生活風景"
+    ],
+    "categoryPrimary": "自然",
+    "tel": "047?335?6481"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9385651,
+     35.73699982
+    ]
+   },
+   "properties": {
+    "name": "高圓寺と藤まつり",
+    "address": "千葉県市川市宮久保4丁目5-1",
+    "area": "宮久保4丁目",
+    "nameEn": "Koenji Temple and Fuji Festival",
+    "description": "樹齢200 年の長寿藤は他には見られない。4 月29日? 5 月5 日に「藤まつり」開催。",
+    "descriptionEn": "An old fuji (Japanese wisteria) tree boasts a longevity of 200 years. Fuji Festival is held from May 3rd to 5th.",
+    "access": "Ｊ Ｒ 本八幡駅北口　バス宮久保坂下下車　徒歩7 分",
+    "categories": [
+     "歴史・文化",
+     "生活風景"
+    ],
+    "categoryPrimary": "歴史・文化",
+    "tel": "047-372-9588"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9361204,
+     35.73673793
+    ]
+   },
+   "properties": {
+    "name": "白幡神社と高台からの眺め",
+    "address": "千葉県市川市宮久保4丁目2-4",
+    "area": "宮久保4丁目",
+    "nameEn": "View from the Shirahata Jinja Shrine and the hill",
+    "description": "武内宿禰、菅原道真公が祀られている。境内には、四季折々の花々が咲き誇る。高台からは市内を見渡せる。",
+    "descriptionEn": "In the courtyard, you can enjoy flowers season to season. You can overlook the city from the hill.",
+    "access": "Ｊ Ｒ 本八幡駅北口　バス宮久保坂下下車　徒歩5 分",
+    "categories": [
+     "歴史・文化",
+     "まち並み"
+    ],
+    "categoryPrimary": "歴史・文化"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9263495,
+     35.73654826
+    ]
+   },
+   "properties": {
+    "name": "真間川と桜並木",
+    "address": "千葉県市川市",
+    "nameEn": "Mamagawa River and Row of Cherry Trees",
+    "description": "国道14 号鬼越付近から真間川沿い約2km 続く桜並木。毎月4 月上旬に「桜祭り」開催。",
+    "descriptionEn": "There are about 2 kilometers of cherry trees along Mamagawa River near National Highway 14. The Cherry Blossom Festival is held in early April every year.",
+    "access": "京成線鬼越駅　徒歩3 分",
+    "categories": [
+     "自然"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.931023,
+     35.73488639
+    ]
+   },
+   "properties": {
+    "name": "昭和学院のオープンスペース",
+    "address": "千葉県市川市東菅野2丁目17-1",
+    "area": "東菅野2丁目",
+    "nameEn": "The Open Space at Showa College",
+    "description": "建替えにあたり、桜並木を活かした公開空地を設け、市民に憩いの場を提供。第4回市川市景観賞受賞。",
+    "descriptionEn": "In the course of redevelopment, public open space was created for providing place of relaxation for citizens. Won the fourth Ichikawa City Landscape Award.",
+    "access": "JR本八幡駅北口バス　昭和学院下車",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9267414,
+     35.72877456
+    ]
+   },
+   "properties": {
+    "name": "白幡天神社と湯の花祭り",
+    "address": "千葉県市川市菅野1丁目15-2",
+    "area": "菅野1丁目",
+    "nameEn": "Shirahatatenjin Shrine and Yunohana Festival",
+    "description": "境内には梅、桜、椿などの樹木。一年の無病息災を祈願する「湯の花祭り」が開催される（毎年2 月20 日開催）",
+    "descriptionEn": "There are plum trees, cherry trees, camellia and other trees in the courtyard. Hold a \"Yunohana Festival\" that prays for a year without disease or disaster (held on February 20 every year)",
+    "access": "JR本八幡駅北口徒歩15 分",
+    "categories": [
+     "歴史・文化",
+     "生活風景"
+    ],
+    "categoryPrimary": "歴史・文化",
+    "tel": "047-322-1798"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9116301,
+     35.73357917
+    ]
+   },
+   "properties": {
+    "name": "クロマツと街並み",
+    "address": "千葉県市川市",
+    "nameEn": "Japanese Black Pine Trees and Streetscape",
+    "description": "京成線沿線の住宅地に残るクロマツのある街並みは、自然と共に暮らしてきた姿を今に伝えている。",
+    "descriptionEn": "The streetscape in which Japanese pine trees remain in the residential area along Keisei line tells that this area was once seashore.",
+    "categories": [
+     "自然",
+     "まち並み"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9185302,
+     35.72808193
+    ]
+   },
+   "properties": {
+    "name": "平田緑地",
+    "address": "千葉県市川市平田2丁目23",
+    "area": "平田2丁目",
+    "nameEn": "Hirata Ryokuci Green Space",
+    "description": "諏訪神社の裏手から菅野駅へ続くクロマツ林の緑地。かつてあった屋敷の庭の名残り。",
+    "descriptionEn": "A loose stand of black pine streches from the rear of Suwa Jinja Shrine to Sugano Station.. The remains of the courtyard of the mansion which used to be located.",
+    "access": "京成線菅野駅　徒歩2 分",
+    "categories": [
+     "自然"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.913155,
+     35.73595674
+    ]
+   },
+   "properties": {
+    "name": "文学の道",
+    "address": "千葉県市川市真間3丁目5-3-1地先",
+    "area": "真間3丁目",
+    "nameEn": "Walking Path of Literature (Sakuradote Koen Park)",
+    "description": "桜土手公園と手児奈橋公園には市川ゆかりの文化人と万葉の歌を紹介した説明板が設置され、文学の道と呼ばれています。",
+    "descriptionEn": "At Sakuradote Koen Park and Tekona Bashi Bridge Park, signboards which introduce cultural people related to Ichikawa and their Mannyo songs were set. The street is called the \"Road of Literature.\"",
+    "access": "ＪＲ市川駅北口　徒歩10分",
+    "categories": [
+     "自然",
+     "歴史・文化",
+     "まち並み"
+    ],
+    "categoryPrimary": "自然",
+    "url": "https://www.city.ichikawa.lg.jp/cul01/1551000030.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9126251,
+     35.7410139
+    ]
+   },
+   "properties": {
+    "name": "郭沫若記念館",
+    "address": "千葉県市川市真間5丁目3-19",
+    "area": "真間5丁目",
+    "nameEn": "Memorial Museum of Kakumatsujaku, Guo Moruo",
+    "description": "中国の文学者・歴史学者・政治家である故郭沫若氏の旧宅を真間5丁目公園に移築・復元し、整備したもの。園内に咲く春の芝桜は必見。※月曜休館",
+    "descriptionEn": "The old house of the late Chinese writer, historian and politician, Guo Moruo was moved and renovated. Please confirm closing day with the museum.",
+    "access": "京成線市川真間駅徒歩約16分JR市川駅　徒歩約20分",
+    "categories": [
+     "歴史・文化",
+     "まち並み"
+    ],
+    "categoryPrimary": "歴史・文化",
+    "tel": "047-372-5400",
+    "url": "https://www.tekona.net/kakumatsujaku/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9114301,
+     35.73960176
+    ]
+   },
+   "properties": {
+    "name": "芳澤ガーデンギャラリー",
+    "address": "千葉県市川市真間5丁目1-18",
+    "area": "真間5丁目",
+    "nameEn": "Yoshizawa Garden Gallery",
+    "description": "約１，０００坪の敷地に庭園を活かしたギャラリーとして開設。四季折々の木々や草花と芸術作品が楽しめる。※庭園見学は無料、施設入館料は展覧会ごとに異なる。月曜休館（祝日の場??",
+    "descriptionEn": "It was opened as a gallery to make use of the garden. You can enjoy different trees, flowers and works of art in the four seasons. The visit to the garden is free, and the admission fee for facilities varies from exhibition to exhibition. Closed on Mondays. Please confirm closing days with the museum.",
+    "access": "ＪＲ市川駅北口　徒歩16分　京成市川真間駅　徒歩12分",
+    "categories": [
+     "歴史・文化",
+     "まち並み"
+    ],
+    "categoryPrimary": "歴史・文化",
+    "tel": "047-374-7687",
+    "url": "http://www.tekona.net/yoshizawa/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.912715,
+     35.73894441
+    ]
+   },
+   "properties": {
+    "name": "須和田公園",
+    "address": "千葉県市川市須和田2丁目34",
+    "area": "須和田2丁目",
+    "nameEn": "Suwada Koen Park",
+    "description": "弥生時代後期の須和田遺跡を整備し公園としたもの。桜の名所で、バラ園あり。ボランティア（IGC）が花壇の手入れを行っている。",
+    "descriptionEn": "The Suwada Remains site in the late Yayoi era was arranged into a park. It is a famous place for cherry blossom and there is also a rose garden. Volunteers (IGC) are maintaining the flower beds.",
+    "access": "京成線市川真間駅徒歩約15分",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み",
+    "url": "http://www.city.ichikawa.lg.jp/gre04/1111000005.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9054989,
+     35.73988032
+    ]
+   },
+   "properties": {
+    "name": "木内ギャラリー",
+    "address": "千葉県市川市真間4丁目11-4",
+    "area": "真間4丁目",
+    "nameEn": "Kiuchi Gallery",
+    "description": "建物は明治後期から大正前期の近代建築様式で、洋館部分が再築され、市に寄贈されました。現在は文化活動施設として活用しています。※企画展は有料の場合あり。月曜休館",
+    "descriptionEn": "The building is the modern architectural style from the late Meiji period to the early Taisho period. A part of Kiuchi Family's house were rebuilt and donated to the city. It is now used as a facility for cultural activities. There is a charge for the enterprise exhibition. Closed on Mondays. Please confirm closing days with the museum.",
+    "access": "ＪＲ市川駅北口　バス　真間山下下車徒歩5 分",
+    "categories": [
+     "歴史・文化",
+     "まち並み"
+    ],
+    "categoryPrimary": "歴史・文化",
+    "tel": "047-371-4916",
+    "url": "http://www.tekona.net/kiuchi/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9067707,
+     35.73999526
+    ]
+   },
+   "properties": {
+    "name": "真間山",
+    "address": "千葉県市川市真間4丁目9-1",
+    "area": "真間4丁目",
+    "nameEn": "Mamasan Hills",
+    "description": "スダジイやクスノキなどの斜面林が真間から江戸川に沿って、里見公園付近まで続く。",
+    "descriptionEn": "Hillside forests of Sudajii and camphor trees, run from the middle of Edogawa to near Satomi Koen Park.",
+    "access": "ＪＲ市川駅北口　バス　真間山下下車徒歩2分",
+    "categories": [
+     "自然"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9074717,
+     35.73989225
+    ]
+   },
+   "properties": {
+    "name": "弘法寺と伏姫桜",
+    "address": "千葉県市川市真間4丁目9-1",
+    "area": "真間4丁目",
+    "nameEn": "Guhoji Temple and Fusehime-Zakura Cherry Blossoms",
+    "description": "天平9 年（737 年）創建の古刹。樹齢400年の「伏姫桜」や石階段途中には乾くことのない「涙石」が…。",
+    "descriptionEn": "An ancient temple founded in the ninth year of Tenpyo era (737). There are 400-year-old \"Fusehime Zakura\" and the stone steps which nevery dry, called \"tear stone.\"",
+    "access": "ＪＲ市川駅北口　バス　真間山下下車徒歩2 分",
+    "categories": [
+     "自然",
+     "歴史・文化"
+    ],
+    "categoryPrimary": "自然",
+    "tel": "047-371-2242",
+    "url": "http://www.city.ichikawa.lg.jp/cul01/1551000030.html#03"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9093524,
+     35.73828946
+    ]
+   },
+   "properties": {
+    "name": "手児奈霊神堂とまつり",
+    "address": "千葉県市川市真間4丁目5-21",
+    "area": "真間4丁目",
+    "nameEn": "Tekona Reijindo Shrine and Festival",
+    "description": "万葉歌人によって歌に詠まれた伝説の美女・手児奈を祀る。霊神堂の横には真間の入江の名残を留める池。４月には「史蹟まつり」、７月には「ほおずき市」、１０月には「手児奈まつり」",
+    "descriptionEn": "Dedicated to the legendary beauty, Tekona, who was recited by the Mannyo poet in the song. Next to the temple is a pond that keeps the remains of the river cove. The \"Historical site Festival\" in April, the \"Firefly City\" in July, and the \"Tekona Festival\" in October.",
+    "access": "ＪＲ市川駅北口　徒歩15分",
+    "categories": [
+     "歴史・文化",
+     "生活風景"
+    ],
+    "categoryPrimary": "歴史・文化",
+    "tel": "047-371-2953",
+    "url": "http://www.city.ichikawa.lg.jp/cul01/1551000030.html#05"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9071085,
+     35.73256246
+    ]
+   },
+   "properties": {
+    "name": "大門通り",
+    "address": "千葉県市川市市川1丁目地先",
+    "area": "市川1丁目",
+    "nameEn": "Daimon Dori Street",
+    "description": "真間山弘法寺へと続く道で、かつては参道として利用されていた。沿道の民家の壁には市川の書家による万葉の歌が飾られている。",
+    "descriptionEn": "Approach way that leads to Guhoji Temple. The walls of a private houses by the roadside are decorated with Mannyo songs written by Ichikawa calligrapher.",
+    "access": "ＪＲ市川駅北口　徒歩4 分",
+    "categories": [
+     "まち並み",
+     "生活風景"
+    ],
+    "categoryPrimary": "まち並み",
+    "url": "http://www.city.ichikawa.lg.jp/cul01/1551000030.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9009782,
+     35.73369443
+    ]
+   },
+   "properties": {
+    "name": "国道14号のバラ",
+    "address": "千葉県市川市市川3丁目地先",
+    "area": "市川3丁目",
+    "nameEn": "Roses at Route 14",
+    "description": "市川橋を渡って市内に入ると、ガーデニング・シティいちかわの花々に出迎えられる。",
+    "descriptionEn": "When you cross the Ichikawa Bridge into the city, you will be greeted by the flowers of the Gardening City, Ichikawa.",
+    "categories": [
+     "自然"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9078594,
+     35.72930299
+    ]
+   },
+   "properties": {
+    "name": "市川駅周辺",
+    "address": "千葉県市川市市川1丁目1-1",
+    "area": "市川1丁目",
+    "nameEn": "Around Icikawa Station",
+    "description": "市川駅は明治27年に開設。千葉県の玄関口になる駅で、駅周辺には多くの商業施設が集まり、賑わいを見せている。",
+    "descriptionEn": "Ichikawa Station was opened in the 27th year of Meiji period. It is a porch station of Chiba Prefecture, and there are many commercial facilities gathered around the station, showing a lively scene.",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9059546,
+     35.72915705
+    ]
+   },
+   "properties": {
+    "name": "I-linkタウンいちかわ",
+    "address": "千葉県市川市市川南1丁目10-1",
+    "area": "市川南1丁目",
+    "nameEn": "I-link Town Ichikawa",
+    "description": "市街地再開発事業により新たに誕生した街。ザタワーズウエストの45階から市内一円の眺望を楽しむことができ、「新日本三大夜景・夜景100選」のひとつ。",
+    "descriptionEn": "A new city born as a result of urban redevelopment. You can enjoy an entire view of the city from the 45th floor of  \"Towers West\", which is one of the \"top three Night Views of Japan\".",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み",
+    "url": "http://www.city.ichikawa.lg.jp/eco04/1111000055.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9001933,
+     35.73067692
+    ]
+   },
+   "properties": {
+    "name": "パークシティ市川のオープンスペース",
+    "address": "千葉県市川市市川南3丁目12",
+    "area": "市川南3丁目",
+    "nameEn": "The open space of Park City Ichikawa",
+    "description": "公開空地にはビオトープとケヤキ等の樹木。清掃活動や花植え活動を行うパークシティ市川美化クラブは第5回市川市景観賞受賞。",
+    "descriptionEn": "There are biotope and trees such zelkova trees in the open space. The Park City Beautification Club, which carries out cleaning activities and flower arrangement activities, won the 5th Ichikawa Landscape Award.",
+    "access": "JR市川駅南口　徒歩約10分",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.910542,
+     35.71818595
+    ]
+   },
+   "properties": {
+    "name": "大洲防災公園",
+    "address": "千葉県市川市大洲1丁目18",
+    "area": "大洲1丁目",
+    "nameEn": "Ohsu Disaster Prevention Park",
+    "description": "通常は市民の憩いの場としてレクリエーションやイベントなどに使用され、災害時には各種防災機能を揃えた拠点となる。（P あり）",
+    "descriptionEn": "As a rest place for citizens, it is usually used for recreation and events. It has become a location with complete disaster prevention functions in times of disasters. (Parking avaiilable)",
+    "access": "JR 市川駅南口　バス　大洲防災公園下車",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み",
+    "tel": "047-379-3577",
+    "url": "https://www.city.ichikawa.lg.jp/gre04/osubosai.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9307889,
+     35.7241182
+    ]
+   },
+   "properties": {
+    "name": "葛飾八幡宮と千本イチョウ",
+    "address": "千葉県市川市八幡4丁目2-1",
+    "area": "八幡4丁目",
+    "nameEn": "Katsushika Hachimangu Shrine and Thousands of  Ginkgo Trees",
+    "description": "平安時代、宇多天皇の命により建立。梵鐘が県指定、随神門が市指定の有形文化財。千本イチョウは国指定天然記念物。毎年9 月15 日? 20 日にボロ市（農具市）開催。",
+    "descriptionEn": "In the Heian era, it was built by order of Emperor Uda. The temple bell is a tangible cultural property designated by prefecture and the Zuishinmon Gate, the tangible cultural property designated by the city. Thousands of ginkgo trees is a natural monument designated by the state. It is held in Boro Market (Farm tools City) from September 15th to 20th every year.",
+    "access": "ＪＲ本八幡駅北口　徒歩7分",
+    "categories": [
+     "自然",
+     "歴史・文化"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9271732,
+     35.72115385
+    ]
+   },
+   "properties": {
+    "name": "本八幡駅周辺",
+    "address": "千葉県市川市八幡2丁目16-1",
+    "area": "八幡2丁目",
+    "nameEn": "Around of Motoyawata  Station",
+    "description": "本八幡駅は昭和10年に開設。多彩な商業施設が集まり、現在駅北口周辺では市街地再開発事業が進められている。",
+    "descriptionEn": "Motoyawata Station opened in 1935. Rich and colorful commercial facilities are gathered. At present, urban redevelopment projects are being promoted around the north entrance of the station.",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9300439,
+     35.72157966
+    ]
+   },
+   "properties": {
+    "name": "八幡やぶしらず",
+    "address": "千葉県市川市八幡2丁目8",
+    "area": "八幡2丁目",
+    "nameEn": "Yabushirazu",
+    "description": "水戸黄門が入ったところ出られなくなったという伝説を持つ。鳥居と祠（ほこら）に護られた小さいながらも神秘的な竹やぶ。",
+    "descriptionEn": "The legend  place where Mito Komon entered can't come out. A small and mysterious bamboo forest protected by Torii and ancestral halls (Hokora).",
+    "access": "ＪＲ本八幡駅北口　徒歩5分",
+    "categories": [
+     "自然",
+     "歴史・文化"
+    ],
+    "categoryPrimary": "自然",
+    "url": "http://www.city.ichikawa.lg.jp/edu09/1111000055.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9335885,
+     35.71581144
+    ]
+   },
+   "properties": {
+    "name": "ニッケコルトンプラザ周辺",
+    "address": "千葉県市川市鬼高1丁目1-1",
+    "area": "鬼高1丁目",
+    "nameEn": "Around Nikke Colton Square",
+    "description": "豊かな樹木に囲まれ、専門店、レストラン、映画館などが集まった大規模な商業施設。　（P あり）",
+    "descriptionEn": "Surrounded by rich trees, there are large-scale commercial facilities such as specialty stores, restaurants, cinemas and so on. (Parking Available)",
+    "access": "JR本八幡駅南口　徒歩10分　本八幡駅北口より無料バスあり",
+    "categories": [
+     "まち並み",
+     "生活風景"
+    ],
+    "categoryPrimary": "まち並み"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9325146,
+     35.71553054
+    ]
+   },
+   "properties": {
+    "name": "メディアパーク・現代産業科学館周辺",
+    "address": "千葉県市川市鬼高1丁目1-3",
+    "area": "鬼高1丁目",
+    "nameEn": "Around the Modern Industrial Science Museum and the Media Park",
+    "description": "〈メディアパーク〉図書館、こども館、文学ミュージアムなどを併設した多目的施設。（P あり）〈現代産業科学館〉産業、科学技術を遊びながら学べる施設。（入館有料）",
+    "descriptionEn": "The Media Park has multi-purpose facilities such as library, children's hall, literature museum and so on. (Parking Available) the Modern Industrial Science Museum, a facility for learning while playing science and technology. (admission fee)",
+    "access": "JR 本八幡駅南口　徒歩15分（コルトンプラザ隣）",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み",
+    "url": "http://www.city.ichikawa.lg.jp/edu13/1111000021.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9217118,
+     35.7164809
+    ]
+   },
+   "properties": {
+    "name": "文化会館前とプロムナード",
+    "address": "千葉県市川市大和田1丁目1-5",
+    "area": "大和田1丁目",
+    "nameEn": "In front of the Civic Hall and Promenade",
+    "description": "市制施行50周年を記念して、大・小のホールをはじめ、展示室、茶室、華道室、会議室などを備えた芸術文化の拠点として設立。プロムナードはケヤキ並木。",
+    "descriptionEn": "In order to commemorate the 50th anniversary of the implementation of the municipal system, headed by large and small halls, it was established as an artistic and cultural stronghold with exhibition halls, teahouses, flower rooms, conference rooms and so on. Promnard is shaded by beech trees.",
+    "access": "JR本八幡駅南口徒歩10 分",
+    "categories": [
+     "自然",
+     "まち並み"
+    ],
+    "categoryPrimary": "自然",
+    "tel": "047-379-5111",
+    "url": "http://www.tekona.net/bunkakaikan/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9474719,
+     35.70202275
+    ]
+   },
+   "properties": {
+    "name": "原木山妙行寺",
+    "address": "千葉県市川市原木1丁目24-1",
+    "area": "原木1丁目",
+    "nameEn": "Barakisanmyogyouji Temple",
+    "description": "天文7 年（1538 年）開創の日蓮宗の古刹。山門や春の枝垂桜がみどころ。",
+    "descriptionEn": "The ancient temple of the Japanese Lotus sect founded in 1538. The mountain gate and the branches of spring are interesting.",
+    "access": "東西線原木中山駅徒歩10 分",
+    "categories": [
+     "歴史・文化"
+    ],
+    "categoryPrimary": "歴史・文化",
+    "tel": "047-327-1461"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9233615,
+     35.70320613
+    ]
+   },
+   "properties": {
+    "name": "行徳橋（行徳可動堰）",
+    "address": "千葉県市川市稲荷木2丁目地先",
+    "area": "稲荷木2丁目",
+    "nameEn": "Gyotoku Bridge",
+    "description": "可動堰は昭和32年に完成した東洋一のローリングゲート。周辺はハゼ釣り、水遊びなどで楽しめる市民憩いの場。",
+    "descriptionEn": "The movable Weir is No1 in the East built in 1957. The surrounding area is a resting place for citizens who can fish, swim in the water and so on.",
+    "access": "東西線妙典駅北口徒歩20 分",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9320056,
+     35.69508369
+    ]
+   },
+   "properties": {
+    "name": "江戸川妙典堤防",
+    "address": "千葉県市川市妙典6丁目地先",
+    "area": "妙典6丁目",
+    "nameEn": "Edogawa River Myoden Embankment",
+    "description": "堤防の上には約50本の河津桜があり、春になると満開の花を咲かせる。",
+    "descriptionEn": "There are about 50 Hejin cherry trees on the dam, which bloom in spring.",
+    "access": "東西線妙典駅東口　徒歩１０分",
+    "categories": [
+     "自然"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9218967,
+     35.69490344
+    ]
+   },
+   "properties": {
+    "name": "徳願寺",
+    "address": "千葉県市川市本行徳5-22",
+    "area": "本行徳",
+    "nameEn": "Tokuganji Temple",
+    "description": "徳川家と宮本武蔵ゆかりの寺。山門、鐘楼、経蔵は市指定文化財。毎年11 月16 日のお十夜に寺宝一般公開。",
+    "descriptionEn": "The temple of Tokugawa and Miyamoto Musashi. The mountain gate, clock tower and warehouse are the cultural property designated by the city. Sibao is open to the public on the tenth night of November 16 every year.",
+    "access": "東西線妙典駅北口徒歩5 分",
+    "categories": [
+     "歴史・文化"
+    ],
+    "categoryPrimary": "歴史・文化",
+    "tel": "047-357-2372",
+    "url": "http://www.city.ichikawa.lg.jp/edu09/1551000010.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9212097,
+     35.69471452
+    ]
+   },
+   "properties": {
+    "name": "行徳寺町通り周辺の街並み",
+    "address": "千葉県市川市本行徳地先",
+    "area": "本行徳",
+    "nameEn": "Around Gyotoku Temple Street",
+    "description": "江戸時代に「戸数千軒、寺百軒」と言われたほど多くの寺社が集まり、今も昔懐かしい風情が残る。",
+    "descriptionEn": "Many temples and shrines gathered in the Edo period, known as \"1,000 houses, 100 temples\", are still nostalgic to this day.",
+    "access": "東西線妙典駅北口徒歩7 分",
+    "categories": [
+     "歴史・文化",
+     "まち並み"
+    ],
+    "categoryPrimary": "歴史・文化"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9175361,
+     35.69303603
+    ]
+   },
+   "properties": {
+    "name": "行徳の歴史・文化史ある建築物",
+    "address": "千葉県市川市本行徳地先",
+    "area": "本行徳",
+    "nameEn": "A Building with a History of Morality and Culture.",
+    "description": "歴史ある建物が多数、残っている。成田山詣や製塩業で繁栄した当時の風情を偲ばれる。",
+    "descriptionEn": "There are also many buildings with a long history. The amorous feelings during Narita Mountain's pilgrimage and the prosperity of the salt industry are remembered.",
+    "categories": [
+     "歴史・文化",
+     "まち並み"
+    ],
+    "categoryPrimary": "歴史・文化"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9204038,
+     35.69397269
+    ]
+   },
+   "properties": {
+    "name": "権現道",
+    "address": "千葉県市川市本行徳地先",
+    "area": "本行徳",
+    "nameEn": "Gongemichi Street",
+    "description": "徳川家康（権現様）が東金に鷹狩に行く際に通った道。周辺に多くのお寺や神社がある。",
+    "descriptionEn": "Tokugawa Iyeyasu (Gongensama)  Falconry passed the road when it went. There are many temples and shrines around.",
+    "access": "東西線妙典駅北口徒歩7 分",
+    "categories": [
+     "歴史・文化",
+     "まち並み"
+    ],
+    "categoryPrimary": "歴史・文化",
+    "url": "https://www.city.ichikawa.lg.jp/cul01/1111000205.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9173481,
+     35.69223714
+    ]
+   },
+   "properties": {
+    "name": "八幡神社と桜",
+    "address": "千葉県市川市本行徳25-20",
+    "area": "本行徳",
+    "nameEn": "Hachiman Shrine and Cherry Blossom",
+    "description": "天正元（1573）年、相模国鎌倉の鶴岡八幡宮を勧請して建てたと言われている。境内には力石や大イチョウもある。",
+    "descriptionEn": "In 1573, the Tsurugaoka Hachimangu Palace in Kamakura,was urged to build it. There are also Lishi and Ginkgo biloba in the precinct.",
+    "access": "東西線行徳駅　バス行徳3丁目下車すぐ",
+    "categories": [
+     "自然",
+     "歴史・文化"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9164212,
+     35.69137532
+    ]
+   },
+   "properties": {
+    "name": "行徳みこしとまつり",
+    "address": "千葉県市川市本行徳地先",
+    "area": "本行徳",
+    "nameEn": "The Mikoshi of Gyotoku and Festival",
+    "description": "江戸中期頃から行徳みこしは有名で、盛んに作られるようになった。通称「五ヵ町祭礼」は３年に一度10月に開催され、独特の「もみ方」で知られている。",
+    "descriptionEn": "Since the middle of Edo, the Shrine of Gyotoku is very famous and has been actively produced. Commonly known as the \"Goka-cho ceremony\", held every three years in October, it is famous for its unique \"kneading style\".",
+    "access": "東西線妙典駅北口徒歩10 分",
+    "categories": [
+     "歴史・文化",
+     "生活風景"
+    ],
+    "categoryPrimary": "歴史・文化"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9150594,
+     35.69107045
+    ]
+   },
+   "properties": {
+    "name": "常夜灯（公園）",
+    "address": "千葉県市川市本行徳34地先",
+    "area": "本行徳",
+    "nameEn": "Jyoyato Park",
+    "description": "江戸時代、成田山詣の出発点。航路（行徳船）の安全を祈願して成田山に奉納された。（市指定文化財）",
+    "descriptionEn": "The Edo era was the starting point of Narita Mountain's pilgrimage. In order to pray for the safety of the route (moral ship), it was dedicated to Narita Mountain. (municipal designated cultural property)",
+    "access": "東西線行徳駅　バス行徳4 丁目下車すぐ／東西線妙典駅北口　徒歩15 分",
+    "categories": [
+     "自然",
+     "歴史・文化"
+    ],
+    "categoryPrimary": "自然",
+    "url": "http://www.city.ichikawa.lg.jp/edu09/1511000007.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9136796,
+     35.68828183
+    ]
+   },
+   "properties": {
+    "name": "旧行徳街道",
+    "address": "千葉県市川市",
+    "nameEn": "Old Gyotoku Street",
+    "description": "築100 年をこえる旧家が現在も残る、かつての宿場を彷彿とさせる旧街道。",
+    "descriptionEn": "The old street is reminiscent of the former post station, which still has a house of more than 100 years.",
+    "access": "東西線妙典駅北口徒歩10 分",
+    "categories": [
+     "歴史・文化",
+     "まち並み"
+    ],
+    "categoryPrimary": "歴史・文化",
+    "url": "http://www.city.ichikawa.lg.jp/cul01/1441000003.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9107539,
+     35.6868931
+    ]
+   },
+   "properties": {
+    "name": "旧江戸川",
+    "address": "千葉県市川市",
+    "nameEn": "Old Edogawa River",
+    "description": "江戸川水閘門から下流を旧江戸川と呼ぶ。舟で東京湾に出られるため夜景を楽しむ屋形船が盛ん。",
+    "descriptionEn": "From the downstream of Edogawa sluice is called Old Edogawa. Because of taking a boat to Tokyo Bay, roof-shaped boats that enjoy the night view are very popular.",
+    "categories": [
+     "自然"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9232935,
+     35.69218869
+    ]
+   },
+   "properties": {
+    "name": "行徳小学校周辺",
+    "address": "千葉県市川市富浜1丁目1-40",
+    "area": "富浜1丁目",
+    "nameEn": "Around Gyotoku Primary School",
+    "description": "児童やボランティアの方々が大切に育てた花々が通りに彩りを添えている。",
+    "descriptionEn": "Flowers carefully cultivated by children and volunteers add color to the streets.",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9262932,
+     35.69202149
+    ]
+   },
+   "properties": {
+    "name": "妙典駅周辺",
+    "address": "千葉県市川市富浜1丁目2",
+    "area": "富浜1丁目",
+    "nameEn": "Around Myoden Station",
+    "description": "平成12 年に駅が開設され、土地区画整理事業によって生まれた美しい街並み。駅前広場は季節の花で彩られている。",
+    "descriptionEn": "Opened a station in 2000, which is a beautiful urban landscape produced by the cause of land zoning and consolidation. The square in front of the station is dotted with seasonal flowers.",
+    "access": "東西線妙典駅東口",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9305777,
+     35.69477283
+    ]
+   },
+   "properties": {
+    "name": "妙典公園",
+    "address": "千葉県市川市妙典6丁目101",
+    "area": "妙典6丁目",
+    "nameEn": "Myoden Park",
+    "description": "平成14 年土地区画整理事業によって造られた。中央の大きな広場が多くの市民の憩いの場となっている。ボランティア（IGC）が花壇の手入れを行っている。",
+    "descriptionEn": "Built by the cause of land zoning and consolidation in 2002. The central plaza has become a resting place for many citizens. Volunteers are maintaining the flower beds.",
+    "access": "東西線妙典駅東口徒歩10 分",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.927888,
+     35.69301525
+    ]
+   },
+   "properties": {
+    "name": "イオン市川妙典店周辺",
+    "address": "千葉県市川市妙典5丁目3-1",
+    "area": "妙典5丁目",
+    "nameEn": "Around Aeon shop of Ichikawa-Myoden",
+    "description": "専門店、レストラン、映画館などが集まった商業施設。　（P あり）",
+    "descriptionEn": "Commercial facilities such as specialty stores, restaurants, cinemas, etc. (Parking Available)",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.928281,
+     35.69183538
+    ]
+   },
+   "properties": {
+    "name": "妙典中央通りのけやき並木",
+    "address": "千葉県市川市妙典5丁目地先",
+    "area": "妙典5丁目",
+    "nameEn": "The Keyaki of Myoden Central Street",
+    "description": "行徳地区には多くの街路樹が植栽されている。妙典のけやき並木は初夏の新緑と、紅葉が美しい。",
+    "descriptionEn": "Many street trees have been planted in Gyotoku area. The wonderful beech trees contrast with the new green and red leaves in early summer.",
+    "access": "東西線妙典駅　徒歩３分",
+    "categories": [
+     "自然"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9435193,
+     35.68628808
+    ]
+   },
+   "properties": {
+    "name": "クリーンスパ市川からの眺め",
+    "address": "千葉県市川市上妙典1554",
+    "area": "上妙典",
+    "nameEn": "View of Clean Spa Ichikawa",
+    "description": "平成19年9月オープン。隣接するクリーンセンターからの余熱を利用した多目的スパ。露天風呂の富士見の窓からは江戸川や富士山などが眺められる。",
+    "descriptionEn": "Opened in September 19 2007. A multi-purpose spa that uses waste heat from an adjacent cleaning center. You can see Edogawa and Mount Fuji from the window of Fuji in the open-air bath.",
+    "access": "東西線原木中山駅他より無料送迎バス",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み",
+    "tel": "047-329-6711"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9407297,
+     35.68607229
+    ]
+   },
+   "properties": {
+    "name": "江戸川放水路",
+    "address": "千葉県市川市",
+    "nameEn": "Edogawa River Waterway",
+    "description": "ハゼ釣りの名所で多くの釣り人で賑わう。カニや水鳥だけでなくトビハゼの生息地でもあり、干潟や葦原の水辺環境が残る。",
+    "descriptionEn": "The fishing attractions of goby are crowded with many anglers. This is not only the crab and waterfowl, but also the habitat of Tobi Haze, and the waterside environment of beaches and reeds still exists.",
+    "categories": [
+     "自然"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.928456,
+     35.67945183
+    ]
+   },
+   "properties": {
+    "name": "中江川の桜並木（中江川緑道）",
+    "address": "千葉県市川市幸2丁目地先",
+    "area": "幸2丁目",
+    "nameEn": "Sakura and trees of Nakaegawa River",
+    "description": "新浜通りから東へ約600m にわたって中江川の両岸や上部に続く桜並木で春には花々が楽しめる。",
+    "descriptionEn": "About 600 meters east from Niihama Street, the banks of Nakaegawa river and the upper cherry blossom trees can enjoy the flowers in spring.",
+    "access": "東西線行徳駅／東西線妙典駅南口徒歩15 分",
+    "categories": [
+     "自然",
+     "まち並み"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9143886,
+     35.68293931
+    ]
+   },
+   "properties": {
+    "name": "行徳駅前と商店街の街並み",
+    "address": "千葉県市川市行徳駅前2丁目地先",
+    "area": "行徳駅前2丁目",
+    "nameEn": "The streets of Gyotoku staion and Shopping Street",
+    "description": "多種多様なお店が集まり、いつも賑わう商店街のある街並み。",
+    "descriptionEn": "All kinds of shops gather together, always the street where the busy shopping street is located.",
+    "access": "東西線行徳駅　徒歩3 分",
+    "categories": [
+     "まち並み",
+     "生活風景"
+    ],
+    "categoryPrimary": "まち並み"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9134637,
+     35.67904367
+    ]
+   },
+   "properties": {
+    "name": "行徳駅前公園",
+    "address": "千葉県市川市湊新田2丁目4",
+    "area": "湊新田2丁目",
+    "nameEn": "Gyotoku staion Park",
+    "description": "第二日曜日にはミニＳＬに乗って遊べる公園、夏季には水遊びのできるプールや噴水がある。ボランティア（IGC）が花壇の手入れを行っている。",
+    "descriptionEn": "On the second Sunday, you can take a mini SL to play in the park, with swimming pools and fountains to swim in summer. Volunteers are maintaining the flower beds.",
+    "access": "東西線行徳駅　徒歩5 分",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み",
+    "tel": "043-397-5577"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8907584,
+     35.6805103
+    ]
+   },
+   "properties": {
+    "name": "今井橋",
+    "address": "千葉県市川市広尾2丁目地先",
+    "area": "広尾2丁目",
+    "nameEn": "Imai Bridge",
+    "description": "江戸川区と市川市を結ぶ旧江戸川に架かる橋。橋からの眺めは懐かしさを感じられる。",
+    "descriptionEn": "The old Edogawa Bridge connecting Edogawa District and Ichikawa City. The view from the bridge is nostalgic.",
+    "access": "東西線南行徳駅北口徒歩20分",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.8900895,
+     35.6785464
+    ]
+   },
+   "properties": {
+    "name": "広尾防災公園",
+    "address": "千葉県市川市広尾2丁目3-2",
+    "area": "広尾2丁目",
+    "nameEn": "Hiro Disaster Prevention Park",
+    "description": "平成22年に開園し、地域住民の憩いやレクリエーションの場として親しまれる公園。防災樹木を中心に、イチョウ、ケヤキ、サクラ、コブシ、ウメ、バラなどの樹木により四季を通じて楽し",
+    "descriptionEn": "2001 opened, is a popular park as a place of rest and entertainment for local residents. Focus on disaster prevention trees, through ginkgo, beech, cherry blossoms, kobushi magnolias, plum blossoms, roses and other trees happy four seasons",
+    "access": "東西線南行徳駅北口　徒歩15分",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み",
+    "url": "http://www.city.ichikawa.lg.jp/gyo07/1112000001.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.901684,
+     35.67487627
+    ]
+   },
+   "properties": {
+    "name": "南行徳公園（えんぴつ公園）",
+    "address": "千葉県市川市相之川4丁目1",
+    "area": "相之川4丁目",
+    "nameEn": "South Gyotoku Park (Pencil Park)",
+    "description": "夏には水遊びの子供たちで賑わう。ミニアスレチック、ランニングコースもあり。",
+    "descriptionEn": "The children who play in the water are very lively in summer. There are also mini sports and running routes.",
+    "access": "東西線南行徳駅北口徒歩5 分",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み",
+    "url": "https://www.city.ichikawa.lg.jp/gre04/minamigyoutoku.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9138687,
+     35.67244312
+    ]
+   },
+   "properties": {
+    "name": "丸浜川と遊歩道",
+    "address": "千葉県市川市福栄4丁目地先",
+    "area": "福栄4丁目",
+    "nameEn": "Maruhamagawa River and Trail",
+    "description": "川沿いに桜並木／アジサイロード等約１ｋｍ続きカワセミ、メジロや河津桜と菜の花のコラボも見られる。（行徳グリン・クリンの会は都市景観大賞特別賞受賞）（Ｐあり）",
+    "descriptionEn": "The riverside cherry blossom and wood / hydrangea road lasts for about 1 km, and Megiro's cooperation with kawazu-zakura cherry trees and cauliflower can also be seen. (Gyotoku Green Clean Club won the Special Award of the Urban Landscape Award)(Parking Available)",
+    "categories": [
+     "自然",
+     "まち並み"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9099781,
+     35.66886939
+    ]
+   },
+   "properties": {
+    "name": "江戸川第二終末処理場",
+    "address": "千葉県市川市福栄4丁目32-2",
+    "area": "福栄4丁目",
+    "nameEn": "Edogawa Second Sewage Treatment",
+    "description": "広大な敷地にスポーツ施設、散策路が整備され、芝桜、バラなど四季折々の花が楽しめる。場内で活動している行徳芝桜の会は都市景観大賞特別賞受賞。（Ｐあり）",
+    "descriptionEn": "The vast land is equipped with sports facilities and walking paths, where you can enjoy the flowers of different seasons, such as cherry cherry and rose. Gyotoku Shibazakuranokai, which is active in the venue, will be awarded a special prize in the Urban Landscape Award. (Parking Available)",
+    "access": "東西線行徳駅　バス　南行徳四丁目下車徒歩３ 分",
+    "categories": [
+     "自然",
+     "まち並み"
+    ],
+    "categoryPrimary": "自然",
+    "tel": "047-398-0606",
+    "url": "http://www.pref.chiba.lg.jp/gs-edogawa/jigyou/ikoi.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9157185,
+     35.6684333
+    ]
+   },
+   "properties": {
+    "name": "行徳近郊緑地と野鳥観察舎",
+    "address": "千葉県市川市福栄4丁目22-11",
+    "area": "福栄4丁目",
+    "nameEn": "Green Space and Wild Bird Observation House in the suburbs of Gyotoku",
+    "description": "都市に残る野鳥の楽園。バードウォッチングに最適。（入館無料、P あり）",
+    "descriptionEn": "Stay in the city's wild bird park. It's very suitable for bird watching. (free admission , Parking available)",
+    "access": "東西線行徳駅　バス　福栄二丁目下車徒歩7 分",
+    "categories": [
+     "自然"
+    ],
+    "categoryPrimary": "自然",
+    "tel": "047-702-8045",
+    "url": "https://www.city.ichikawa.lg.jp/env09/1111000028.html"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9167814,
+     35.672435
+    ]
+   },
+   "properties": {
+    "name": "宮内庁新浜鴨場",
+    "address": "千葉県市川市新浜2丁目5-1",
+    "area": "新浜2丁目",
+    "nameEn": "Shinhama Duck Farm of Imperial Household Agency",
+    "description": "一般入場不可だが、事前に募集を募る見学会は年１０回程度実施している。",
+    "descriptionEn": "Generally speaking, admission is not allowed, but pre-solicited visits will be held about 10 times a year.",
+    "categories": [
+     "自然"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9100942,
+     35.66476866
+    ]
+   },
+   "properties": {
+    "name": "塩浜橋",
+    "address": "千葉県市川市南行徳4丁目地先",
+    "area": "南行徳4丁目",
+    "nameEn": "Shiohama Bridge",
+    "description": "橋の上から両岸に桜並木が、反対側は葭原と水辺の鳥、河川敷には河津桜と菜の花のコラボが心を癒してくれる。",
+    "descriptionEn": "From the bridge on both sides of the cherry blossom shade, on the other side is the Binyuan and waterside birds, the riverbank is Hejin Sakura and rape cooperation, healed the soul.",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9109441,
+     35.66162591
+    ]
+   },
+   "properties": {
+    "name": "ハイタウン塩浜",
+    "address": "千葉県市川市塩浜4丁目2",
+    "area": "塩浜4丁目",
+    "nameEn": "High Town of Shiohama",
+    "description": "花で彩られた花壇が随所にあり。住民主体により環境整備・植栽活動を行う第一住宅管理組合は第3回市川市景観賞受賞。",
+    "descriptionEn": "There are flower beds decorated with flowers everywhere. The first residential management combination of environmental preparation and planting activities carried out by residents won the third Shichuan Landscape Award.",
+    "categories": [
+     "自然",
+     "まち並み",
+     "生活風景"
+    ],
+    "categoryPrimary": "自然"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9313028,
+     35.66662185
+    ]
+   },
+   "properties": {
+    "name": "塩浜護岸からの眺め",
+    "address": "千葉県市川市塩浜1丁目6-1",
+    "area": "塩浜1丁目",
+    "nameEn": "View from the Revetment of the Shiohama",
+    "description": "護岸からは三番瀬越しのご来光が拝める。",
+    "descriptionEn": "From the revetment, you can see the light across Sanbanze",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.920943,
+     35.66043778
+    ]
+   },
+   "properties": {
+    "name": "海の見える風景",
+    "address": "千葉県市川市塩浜2丁目31",
+    "area": "塩浜2丁目",
+    "nameEn": "View of the Sea",
+    "description": "遠くの工場群さらに房総の山々、また三浦半島まで望め、朝日の昇る眺めが美しい。",
+    "descriptionEn": "The factory group in the distance is Boso's mountains, and you can also overlook the Miura Peninsula. The scenery of the rising sun is very beautiful.",
+    "categories": [
+     "まち並み"
+    ],
+    "categoryPrimary": "まち並み"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.9431884,
+     35.66051994
+    ]
+   },
+   "properties": {
+    "name": "東京湾三番瀬",
+    "address": "千葉県市川市",
+    "nameEn": "Tokyo Bay Sanbanze",
+    "description": "東京湾に残る貴重な自然。ノリの養殖が営まれ、冬季には渡り鳥がやってくる。",
+    "descriptionEn": "The precious nature left behind by Tokyo Bay. There is porphyra aquaculture, and there are migratory birds in winter.",
+    "categories": [
+     "自然"
+    ],
+    "categoryPrimary": "自然",
+    "url": "https://www.city.ichikawa.lg.jp/gyo06/1111000002.html"
+   }
+  }
+ ]
+}

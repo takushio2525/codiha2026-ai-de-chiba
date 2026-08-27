@@ -29,6 +29,16 @@ import {
   type ReportCollection,
 } from "@/lib/reports";
 import type { RouteTarget, WalkingRoute } from "@/lib/routing";
+import {
+  SCENIC_CATEGORIES,
+  SCENIC_FALLBACK_COLOR,
+  SCENIC_LABEL,
+  SCENIC_POINT_LAYER,
+  SCENIC_SOURCE,
+  scenicCategories,
+  scenicColor,
+  type ScenicProps,
+} from "@/lib/scenic";
 
 export type LayerData = Record<LayerId, FeatureCollection<Point, FacilityProps>>;
 
@@ -44,6 +54,10 @@ type Props = {
   pickMode: boolean;
   onPickOrigin: (point: LngLat) => void;
   onNavigate: (destination: RouteTarget) => void;
+  /** 景観スポット（F-5）。読み込めていないあいだ・失敗したときは null */
+  scenic: FeatureCollection<Point, ScenicProps> | null;
+  /** 景観スポットの表示 ON/OFF */
+  scenicVisible: boolean;
   /** 住民・行政の投稿（GeoJSON）。静的レイヤーと同じ形で受け取る */
   reports: ReportCollection;
   /** 投稿のカテゴリごとの表示 ON/OFF */
@@ -63,10 +77,21 @@ const EMPTY: FeatureCollection = { type: "FeatureCollection", features: [] };
 
 /** 投稿のソースとレイヤー。施設の点とは別に持つ（色と形を変えて区別するため）。 */
 const REPORT_SOURCE = "reports";
+/** 行政（公式）を表す色。バッジ・地図の輪で共通に使う */
+const OFFICIAL_COLOR = "#0072b2";
 const REPORT_HALO_LAYER = "report-halo";
 const REPORT_POINT_LAYER = "report-points";
 /** 注意案内（F-4）のとき、過去の浸水報告の地点に描く輪。点の下に敷く */
 const REPORT_ALERT_LAYER = "report-flood-alert";
+
+/** 景観スポットのカテゴリごとの色。定義は lib/scenic.ts が正本。
+ *  **配列プロパティは MapLibre が文字列に畳んでしまう**ので、主カテゴリの文字列を見る。 */
+function scenicColorExpression(): unknown[] {
+  const expression: unknown[] = ["match", ["get", "categoryPrimary"]];
+  for (const category of SCENIC_CATEGORIES) expression.push(category.raw, category.color);
+  expression.push(SCENIC_FALLBACK_COLOR);
+  return expression;
+}
 
 /** カテゴリごとの色。定義は lib/reports.ts が正本。 */
 function reportColorExpression(): unknown[] {
@@ -74,6 +99,13 @@ function reportColorExpression(): unknown[] {
   for (const category of REPORT_CATEGORIES) expression.push(category.id, category.color);
   expression.push("#7b818b"); // 知らないカテゴリ（将来の追加）は灰色で出す
   return expression;
+}
+
+/** 投稿を囲む輪の色。**行政（`role = 'gov'`）の投稿だけ公式色の輪**にして、
+ *  住民の投稿（白い輪）と地図の上で見分けられるようにする。
+ *  一覧と詳細パネルの「行政」バッジと同じ色を使う（F-7）。 */
+function reportHaloColorExpression(): unknown[] {
+  return ["case", ["==", ["get", "authorRole"], "gov"], OFFICIAL_COLOR, "#ffffff"];
 }
 
 /** 表示 ON のカテゴリだけを描く。全部 OFF なら 1 つも描かない。 */
@@ -173,6 +205,152 @@ function buildPopup(
   return root;
 }
 
+/** 景観スポットのポップアップ（F-5）。**日本語と英語の解説を切り替えられる**。
+ *
+ * 元データは 100 件すべてに日英の解説を持っている。日本語は 1〜2 文のキャプション、
+ * 英語はそれより長い文章で、内容も 1 対 1 の訳ではない。どちらも「そのまま出す」
+ * だけにして、機械翻訳や要約はしない（出典のデータを改変しないため）。
+ *
+ * 画像列は配信先が見つからないので使わない（data/ichikawa-city/SOURCE.md）。
+ */
+function buildScenicPopup(
+  props: ScenicProps,
+  coords: LngLat,
+  onNavigate: Props["onNavigate"],
+): HTMLElement {
+  const categories = scenicCategories(props.categories);
+  const color = scenicColor(props.categoryPrimary ?? categories[0]);
+
+  const root = document.createElement("div");
+  root.className = "w-[18rem] max-w-[82vw] text-ink";
+
+  const head = document.createElement("div");
+  head.className = "flex items-center gap-2 px-4 pt-3.5 pb-1";
+  const chip = document.createElement("span");
+  chip.className = "size-2.5 shrink-0 rounded-full";
+  chip.style.backgroundColor = color;
+  const kind = document.createElement("span");
+  kind.className = "text-[11px] font-medium tracking-wide text-ink-muted";
+  kind.textContent = SCENIC_LABEL;
+  head.append(chip, kind);
+
+  const name = document.createElement("h3");
+  name.className = "px-4 text-[15px] leading-snug font-semibold text-ink";
+  name.textContent = props.name ?? "名称不明の地点";
+
+  const nameEn = document.createElement("p");
+  nameEn.className = "px-4 text-[11.5px] leading-snug text-ink-muted";
+  nameEn.textContent = props.nameEn ?? "";
+
+  // カテゴリは 1 件が最大 3 つ持つ。全部を小さなラベルで並べる
+  const tags = document.createElement("ul");
+  tags.className = "mt-1.5 flex flex-wrap gap-1 px-4";
+  for (const raw of categories) {
+    const tag = document.createElement("li");
+    tag.className = "rounded-full px-2 py-0.5 text-[10.5px] font-medium text-white";
+    tag.style.backgroundColor = scenicColor(raw);
+    tag.textContent = raw;
+    tags.append(tag);
+  }
+
+  // 言語の切り替え。解説と項目名だけを差し替える（名称は日英とも常に出す）
+  const switcher = document.createElement("div");
+  switcher.className =
+    "mt-2.5 mx-4 inline-flex overflow-hidden rounded-lg border border-line text-[11px]";
+  const jaButton = document.createElement("button");
+  const enButton = document.createElement("button");
+  const body = document.createElement("div");
+  body.className = "mt-2 px-4";
+
+  const LABELS = {
+    ja: { access: "アクセス", address: "所在地", tel: "電話", link: "関連ページ", none: "解説がありません。" },
+    en: { access: "Access", address: "Location", tel: "Tel", link: "Website", none: "No description available." },
+  } as const;
+
+  function render(lang: "ja" | "en") {
+    const isJa = lang === "ja";
+    for (const [button, active] of [[jaButton, isJa], [enButton, !isJa]] as const) {
+      button.className = active
+        ? "px-2.5 py-1 font-semibold bg-ink text-white"
+        : "px-2.5 py-1 font-medium text-ink-sub transition hover:bg-[#f1f2f4]";
+      button.setAttribute("aria-pressed", String(active));
+    }
+
+    const labels = LABELS[lang];
+    body.replaceChildren();
+
+    const text = (isJa ? props.description : props.descriptionEn) ?? "";
+    const description = document.createElement("p");
+    description.className = text
+      ? "text-[12.5px] leading-relaxed text-ink-sub"
+      : "text-[12.5px] leading-relaxed text-ink-muted";
+    description.textContent = text || labels.none;
+    description.lang = lang;
+    body.append(description);
+
+    const list = document.createElement("dl");
+    list.className = "mt-2 space-y-1 text-[12px] leading-relaxed";
+    const addRow = (label: string, value: string) => {
+      const row = document.createElement("div");
+      row.className = "flex gap-2";
+      const dt = document.createElement("dt");
+      dt.className = "w-[4.5rem] shrink-0 text-ink-muted";
+      dt.textContent = label;
+      const dd = document.createElement("dd");
+      dd.className = "flex-1 text-ink-sub break-words";
+      dd.textContent = value;
+      row.append(dt, dd);
+      list.append(row);
+    };
+    // アクセス方法は 100 件中 73 件にしか無い。無い項目は行ごと出さない
+    if (props.access) addRow(labels.access, props.access);
+    if (props.address) addRow(labels.address, props.address);
+    if (props.tel) addRow(labels.tel, props.tel);
+    if (list.childElementCount > 0) body.append(list);
+
+    if (props.url) {
+      const link = document.createElement("a");
+      link.href = props.url;
+      link.target = "_blank";
+      link.rel = "noreferrer";
+      link.className =
+        "mt-2 inline-block text-[12px] font-medium text-ink underline decoration-line underline-offset-2 transition hover:decoration-ink";
+      link.textContent = labels.link;
+      body.append(link);
+    }
+  }
+
+  jaButton.type = "button";
+  jaButton.textContent = "日本語";
+  jaButton.addEventListener("click", () => render("ja"));
+  enButton.type = "button";
+  enButton.textContent = "English";
+  enButton.addEventListener("click", () => render("en"));
+  switcher.append(jaButton, enButton);
+
+  const footer = document.createElement("div");
+  footer.className = "mt-3 border-t border-line bg-[#fafafa] px-4 py-2.5";
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className =
+    "w-full rounded-lg bg-ink px-3 py-2 text-[12.5px] font-semibold text-white " +
+    "transition hover:bg-[#31353d] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink";
+  button.textContent = "ここへナビ";
+  button.addEventListener("click", () => {
+    onNavigate({
+      name: props.name ?? "名称不明の地点",
+      coords,
+      kind: SCENIC_LABEL,
+      color,
+    });
+  });
+  footer.append(button);
+
+  render("ja");
+  root.append(head, name, nameEn, tags, switcher, body, footer);
+  return root;
+}
+
 export default function MapView({
   data,
   visible,
@@ -183,6 +361,8 @@ export default function MapView({
   pickMode,
   onPickOrigin,
   onNavigate,
+  scenic,
+  scenicVisible,
   reports,
   reportVisible,
   selectedReportId,
@@ -334,6 +514,56 @@ export default function MapView({
           });
         }
 
+        // 景観スポット（F-5）。施設の点より上、投稿より下に置く。
+        // **塗りを白・縁をカテゴリ色の太線**にして、施設の点（色の塗り + 白い細縁）とは
+        // 色ではなく形で見分けられるようにする。読み込みは非同期なので空で作る。
+        map.addSource(SCENIC_SOURCE, { type: "geojson", data: EMPTY });
+        map.addLayer({
+          id: SCENIC_POINT_LAYER,
+          type: "circle",
+          source: SCENIC_SOURCE,
+          layout: { visibility: scenicVisible ? "visible" : "none" },
+          paint: {
+            "circle-radius": [
+              "interpolate", ["linear"], ["zoom"],
+              10, 4, 13, 6.5, 16, 10, 18, 13.5,
+            ],
+            "circle-color": "#ffffff",
+            "circle-opacity": 0.95,
+            "circle-stroke-width": [
+              "interpolate", ["linear"], ["zoom"],
+              10, 2, 13, 2.6, 16, 3.4, 18, 4,
+            ],
+            "circle-stroke-color": scenicColorExpression() as never,
+          },
+        });
+
+        map.on("click", SCENIC_POINT_LAYER, (event: MapLayerMouseEvent) => {
+          if (latest.current.pickMode) return; // 出発地点・投稿位置の指定が優先
+          const feature = event.features?.[0];
+          if (!feature) return;
+          const coords = (feature.geometry as Point).coordinates as LngLat;
+          popupRef.current?.remove();
+          popupRef.current = new maplibregl.Popup({
+            offset: 14,
+            maxWidth: "none",
+            closeButton: true,
+          })
+            .setLngLat(coords)
+            .setDOMContent(
+              buildScenicPopup(feature.properties as ScenicProps, coords, (destination) =>
+                latest.current.onNavigate(destination),
+              ),
+            )
+            .addTo(map);
+        });
+        map.on("mouseenter", SCENIC_POINT_LAYER, () => {
+          if (!latest.current.pickMode) map.getCanvas().style.cursor = "pointer";
+        });
+        map.on("mouseleave", SCENIC_POINT_LAYER, () => {
+          map.getCanvas().style.cursor = latest.current.pickMode ? "crosshair" : "";
+        });
+
         // 住民・行政の投稿。施設の点より上に置き、**白い縁取り + 濃い輪郭**で
         // オープンデータの点（白い細縁）と見分けられるようにする。
         map.addSource(REPORT_SOURCE, { type: "geojson", data: reports });
@@ -367,7 +597,7 @@ export default function MapView({
               "interpolate", ["linear"], ["zoom"],
               10, 6, 13, 8.5, 16, 12.5, 18, 16,
             ],
-            "circle-color": "#ffffff",
+            "circle-color": reportHaloColorExpression() as never,
             "circle-opacity": 0.95,
           },
         });
@@ -480,6 +710,21 @@ export default function MapView({
       map.setPaintProperty(hazardLayerId(hazard.id), "raster-opacity", hazardOpacity[hazard.id]);
     }
   }, [ready, hazardOpacity]);
+
+  // ---- 景観スポットの中身（読み込みが終わってから届く）----
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !ready) return;
+    const source = map.getSource(SCENIC_SOURCE) as { setData: (d: unknown) => void } | undefined;
+    source?.setData(scenic ?? EMPTY);
+  }, [ready, scenic]);
+
+  // ---- 景観スポットの表示切り替え ----
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !ready) return;
+    map.setLayoutProperty(SCENIC_POINT_LAYER, "visibility", scenicVisible ? "visible" : "none");
+  }, [ready, scenicVisible]);
 
   // ---- 投稿の中身 ----
   useEffect(() => {
