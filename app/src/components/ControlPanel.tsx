@@ -44,6 +44,7 @@ import type { WalkingRoute } from "@/lib/routing";
 import { SCENIC_CATEGORIES, SCENIC_LABEL, SCENIC_SUMMARY } from "@/lib/scenic";
 import { formatRainfall, formatStation, type FloodAlert, type WeatherObservation }
   from "@/lib/weather";
+import BrandMark from "./BrandMark";
 import FloodAlertCard from "./FloodAlertCard";
 import HazardLegend from "./HazardLegend";
 import RouteCard from "./RouteCard";
@@ -157,6 +158,8 @@ export default function ControlPanel({
       ].join(" ")}
     >
       <header className="flex items-center gap-3 px-4 py-3">
+        {/* タブのアイコンと同じマーク。ここが画面の中で一番大きいブランドの出どころ */}
+        <BrandMark className="size-8" />
         <div className="min-w-0 flex-1">
           {/* ワードマークは欧文の全大文字。字間を空けて日本語のタグラインと質感を分ける */}
           <h1 className="text-[17px] leading-none font-bold tracking-[0.16em] text-ink">

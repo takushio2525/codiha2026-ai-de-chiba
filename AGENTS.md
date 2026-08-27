@@ -70,6 +70,7 @@ Claude Code 用の `CLAUDE.md` は、このファイルへのリダイレクト 
 | `課題/2026-09-09_CODIHA2026_提出要件.md` | **提出要件の正本**。締切・0 点条件・審査基準・readme.txt の書式 |
 | `docs/design/requirements.md` | **何を作るかの正本**。機能一覧（F-1〜F-8）・ユーザーロール・投稿モデル・画面一覧・**実装順序** |
 | `app/` | **提出するサービス本体**（CHIZUBA）。ここを丸ごと zip 化して提出する。動かし方と既知の制約は `app/README.md` |
+| `app/src/app/icon.svg` | **ロゴの正本**。タブアイコン・`favicon.ico`・`apple-icon.png` はこれから起こす。画面の中のロゴは `app/src/components/BrandMark.tsx` に同じ図形を写してあるので、**変えるなら必ず両方** |
 | `app/src/lib/layers.ts` | 地図に載せるレイヤーの定義（データ・色・ポップアップ項目）。**データを足すならここから** |
 | `app/src/lib/scenic.ts` | 景観スポット（景観100選・F-5）の定義。カテゴリの色と、**MapLibre が配列プロパティを文字列に畳む**問題を吸収する読み取り |
 | `app/src/lib/mapModes.ts` | 防災モード（S-1）と観光モード（S-2）で**最初から表示する組**。切り替えても地図は作り直さない |
