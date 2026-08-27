@@ -60,7 +60,7 @@ export default function DateRangeFilter({ range, onChange, count }: Props) {
             onClick={() => onChange(rangeFromPreset(preset.id))}
             aria-pressed={active === preset.id}
             className={[
-              "rounded-full border px-3 py-1.5 text-[12px] font-medium transition",
+              "rounded-full border px-3 py-2 text-[12px] font-medium transition",
               "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink",
               active === preset.id
                 ? "border-ink bg-ink text-white"

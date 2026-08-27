@@ -61,6 +61,15 @@ function inCity([lng, lat]: LngLat): boolean {
   );
 }
 
+/** スマホ幅か。
+ *
+ *  **表示の出し分けにだけ使う。** md 以上では操作パネルが左に固定されていて
+ *  地図に重ならないので、地図を見せるために畳む必要がない。
+ *  この幅の境目は `ControlPanel` の `md:` と揃えてある。 */
+function isNarrowViewport(): boolean {
+  return typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
+}
+
 function currentPosition(): Promise<LngLat> {
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {
@@ -110,7 +119,13 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
   const [route, setRoute] = useState<WalkingRoute | null>(null);
   const [busy, setBusy] = useState<Busy>("idle");
   const [toast, setToast] = useState<ToastMessage | null>(null);
-  const [collapsed, setCollapsed] = useState(false);
+  /** 操作パネル（スマホでは下からせり上がるシート）を畳んでいるか。
+   *
+   *  **既定は畳んだ状態。** 開いたまま出すと 375px×667px で地図が高さ 119px しか
+   *  見えず（main の 2 割）、地図を見に来た人が最初に見るのがパネルになってしまう。
+   *  md 以上ではこのパネルは左の固定パネルで地図に重ならないので、
+   *  本文側の `md:block` が効いてこの値に関係なく開いたままになる。 */
+  const [collapsed, setCollapsed] = useState(true);
 
   // ---- 投稿（F-2）----
   const [reports, setReports] = useState<ReportCollection>(EMPTY_REPORT_COLLECTION);
@@ -326,6 +341,10 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
     try {
       const result = await fetchWalkingRoute(from, destination);
       setRoute(result);
+      // **結果はパネルの中に出るので、畳んだままだと出したことが伝わらない。**
+      // 地図で場所を指定してもらうあいだは畳んでいる（isNarrowViewport の側）ので、
+      // 引き終わったここで開き直す。開いた先で ControlPanel が結果まで送る
+      setCollapsed(false);
       if (result.estimated) {
         setToast({ kind: "warning", text: `${result.note} 直線距離の概算を表示しています。` });
       }
@@ -361,7 +380,8 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
         setBusy("idle");
         pendingRef.current = destination;
         setPickTarget({ kind: "origin" });
-        setCollapsed(false);
+        // 地図をクリックしてもらうので、スマホではシートを畳んで地図を見せる
+        setCollapsed(isNarrowViewport());
         setToast({
           kind: "warning",
           text: `${(error as Error).message} 地図をクリックして出発地点を指定してください。`,
@@ -401,7 +421,8 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
         setBusy("idle");
         pendingRef.current = null;   // 最寄りは出発地点が決まってから選び直す
         setPickTarget({ kind: "origin" });
-        setCollapsed(false);
+        // 地図をクリックしてもらうので、スマホではシートを畳んで地図を見せる
+        setCollapsed(isNarrowViewport());
         setToast({
           kind: "warning",
           text: `${(error as Error).message} 地図をクリックして出発地点を指定してください。`,
@@ -413,6 +434,9 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
   /** 地図のクリック。今なにを指定させているかで振り分ける。 */
   const handleMapPick = useCallback(
     (point: LngLat) => {
+      // 「地図をクリックしてください」の案内は、クリックされた時点で用が済んでいる。
+      // 消さないと 7 秒は出たままで、スマホでは開いた投稿フォームの頭に重なる
+      setToast(null);
       if (pickTarget?.kind === "report") {
         const category = pickTarget.category;
         setPickTarget(null);
@@ -487,7 +511,10 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
     setComposing(null);
     setSelectedReportId(null);
     setPickTarget({ kind: "report", category });
-    setCollapsed(false);
+    // **地図をクリックしてもらうのだから、地図が見えていないと始まらない。**
+    // 開いたままだとスマホでは地図が高さ 119px しか残らず、
+    // 「地図をクリックして場所を指定してください」と言われても押す場所が無かった
+    setCollapsed(isNarrowViewport());
     setToast({
       kind: "info",
       text: `地図をクリックして、${reportCategoryDef(category).label}を投稿する場所を指定してください。`,
@@ -586,7 +613,10 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
           pickMode={pickTarget?.kind === "origin"}
           onTogglePickMode={() => {
             pendingRef.current = null;
-            setPickTarget((prev) => (prev?.kind === "origin" ? null : { kind: "origin" }));
+            const turningOn = pickTarget?.kind !== "origin";
+            setPickTarget(turningOn ? { kind: "origin" } : null);
+            // ここも地図をクリックしてもらうので、スマホではシートを畳む
+            if (turningOn && isNarrowViewport()) setCollapsed(true);
           }}
           onNavigateNearest={handleNavigateNearest}
           busy={busy}

@@ -167,37 +167,45 @@ export default function ReportPanel({
       ].join(" ")}
       aria-label="投稿の詳細"
     >
-      <header className="flex items-center gap-2.5 border-b border-line px-4 py-3">
-        {def ? (
-          <>
-            <span
-              aria-hidden
-              className="size-2.5 shrink-0 rounded-full"
-              style={{ backgroundColor: def.color }}
-            />
-            <span className="text-[11px] font-medium tracking-wide text-ink-muted">
-              {def.label}
+      {/* **バッジは折り返す。** 「行政の公式投稿」と「デモ投稿」が同時に付くと
+          375px で 3px、320px では 45px はみ出し、閉じるボタンが画面の外に出ていた
+          （カテゴリ名と対応状況も 1 文字ずつの縦書きに潰れる）。
+          バッジ側だけを折り返す入れ物に入れて、操作ボタンは右上に固定する。 */}
+      <header className="flex items-start gap-2 border-b border-line px-4 py-3">
+        <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-2 gap-y-1">
+          {def ? (
+            <span className="inline-flex shrink-0 items-center gap-2">
+              <span
+                aria-hidden
+                className="size-2.5 shrink-0 rounded-full"
+                style={{ backgroundColor: def.color }}
+              />
+              <span className="text-[11px] font-medium tracking-wide whitespace-nowrap text-ink-muted">
+                {def.label}
+              </span>
             </span>
-          </>
-        ) : (
-          <span className="text-[11px] font-medium tracking-wide text-ink-muted">投稿</span>
-        )}
-        {report ? (
-          <span className="rounded-full bg-[#f1f2f4] px-2 py-0.5 text-[10.5px] font-medium text-ink-sub">
-            {reportStatusLabel(report.status)}
-          </span>
-        ) : null}
-        {/* 行政が出した投稿は、住民の投稿と**一目で**区別できるようにする（F-7）。
-            見出しの並びに置くので、本文まで読まなくても分かる */}
-        {report?.authorRole === "gov" ? (
-          <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-[#0072b2] px-2 py-0.5 text-[10.5px] font-medium whitespace-nowrap text-white">
-            <ShieldCheck aria-hidden className="size-3" />
-            行政の公式投稿
-          </span>
-        ) : null}
-        {/* 起動時から入っているデモ投稿。**実際の通報と取り違えられないように**印を出す */}
-        {report && isDemoReport(report.details) ? <DemoBadge /> : null}
-        <div className="ml-auto flex shrink-0 items-center gap-1">
+          ) : (
+            <span className="text-[11px] font-medium tracking-wide whitespace-nowrap text-ink-muted">
+              投稿
+            </span>
+          )}
+          {report ? (
+            <span className="shrink-0 rounded-full bg-[#f1f2f4] px-2 py-0.5 text-[10.5px] font-medium whitespace-nowrap text-ink-sub">
+              {reportStatusLabel(report.status)}
+            </span>
+          ) : null}
+          {/* 行政が出した投稿は、住民の投稿と**一目で**区別できるようにする（F-7）。
+              見出しの並びに置くので、本文まで読まなくても分かる */}
+          {report?.authorRole === "gov" ? (
+            <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-[#0072b2] px-2 py-0.5 text-[10.5px] font-medium whitespace-nowrap text-white">
+              <ShieldCheck aria-hidden className="size-3" />
+              行政の公式投稿
+            </span>
+          ) : null}
+          {/* 起動時から入っているデモ投稿。**実際の通報と取り違えられないように**印を出す */}
+          {report && isDemoReport(report.details) ? <DemoBadge /> : null}
+        </div>
+        <div className="flex shrink-0 items-center gap-1">
           {coordinates ? (
             <button
               type="button"

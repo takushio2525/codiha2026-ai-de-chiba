@@ -146,8 +146,16 @@ function buildPopup(
   coords: LngLat,
   onNavigate: Props["onNavigate"],
 ): HTMLElement {
+  // **背の高いポップアップが画面をはみ出さないようにする。**
+  // MapLibre はポップアップを点の上か下に置くだけで、入りきらなくても縮めない。
+  // 地図の高さの半分（スマホでおよそ 40dvh）に収めておけば、点がどこにあっても
+  // 地図の中に必ず入る。あふれる中身は縦にスクロールさせ、
+  // 「ここへナビ」だけは下に固定して、スクロールせずに押せるようにする。
   const root = document.createElement("div");
-  root.className = "w-[16.5rem] max-w-[80vw] text-ink";
+  root.className =
+    "flex max-h-[40dvh] w-[16.5rem] max-w-[80vw] flex-col text-ink md:max-h-[62dvh]";
+  const scroll = document.createElement("div");
+  scroll.className = "min-h-0 flex-1 overflow-y-auto overscroll-contain";
 
   const head = document.createElement("div");
   head.className = "flex items-center gap-2 px-4 pt-3.5 pb-1";
@@ -187,11 +195,11 @@ function buildPopup(
   }
 
   const footer = document.createElement("div");
-  footer.className = "mt-3 border-t border-line bg-[#fafafa] px-4 py-2.5";
+  footer.className = "shrink-0 border-t border-line bg-[#fafafa] px-4 py-2.5";
   const button = document.createElement("button");
   button.type = "button";
   button.className =
-    "w-full rounded-lg bg-ink px-3 py-2 text-[12.5px] font-semibold text-white " +
+    "w-full rounded-lg bg-ink px-3 py-2.5 text-[12.5px] font-semibold text-white " +
     "transition hover:bg-[#31353d] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink";
   button.textContent = "ここへナビ";
   button.addEventListener("click", () => {
@@ -204,7 +212,10 @@ function buildPopup(
   });
   footer.append(button);
 
-  root.append(head, name, body, footer);
+  // 本文の下端が footer にくっつかないよう、スクロールする側に余白を持たせる
+  body.classList.add("pb-3");
+  scroll.append(head, name, body);
+  root.append(scroll, footer);
   return root;
 }
 
@@ -224,8 +235,13 @@ function buildScenicPopup(
   const categories = scenicCategories(props.categories);
   const color = scenicColor(props.categoryPrimary ?? categories[0]);
 
+  // 施設のポップアップと同じ作り（中身はスクロール・ナビのボタンは下に固定）。
+  // 景観スポットは英語の解説が 365 字あるものまであり、そのままだと縦に伸び続ける。
   const root = document.createElement("div");
-  root.className = "w-[18rem] max-w-[82vw] text-ink";
+  root.className =
+    "flex max-h-[40dvh] w-[18rem] max-w-[82vw] flex-col text-ink md:max-h-[62dvh]";
+  const scroll = document.createElement("div");
+  scroll.className = "min-h-0 flex-1 overflow-y-auto overscroll-contain";
 
   const head = document.createElement("div");
   head.className = "flex items-center gap-2 px-4 pt-3.5 pb-1";
@@ -332,11 +348,11 @@ function buildScenicPopup(
   switcher.append(jaButton, enButton);
 
   const footer = document.createElement("div");
-  footer.className = "mt-3 border-t border-line bg-[#fafafa] px-4 py-2.5";
+  footer.className = "shrink-0 border-t border-line bg-[#fafafa] px-4 py-2.5";
   const button = document.createElement("button");
   button.type = "button";
   button.className =
-    "w-full rounded-lg bg-ink px-3 py-2 text-[12.5px] font-semibold text-white " +
+    "w-full rounded-lg bg-ink px-3 py-2.5 text-[12.5px] font-semibold text-white " +
     "transition hover:bg-[#31353d] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink";
   button.textContent = "ここへナビ";
   button.addEventListener("click", () => {
@@ -350,7 +366,9 @@ function buildScenicPopup(
   footer.append(button);
 
   render("ja");
-  root.append(head, name, nameEn, tags, switcher, body, footer);
+  body.classList.add("pb-3");
+  scroll.append(head, name, nameEn, tags, switcher, body);
+  root.append(scroll, footer);
   return root;
 }
 

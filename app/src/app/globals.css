@@ -18,6 +18,14 @@
   --color-layer-childcare: #009e73;
 }
 
+/* 畳んだ操作パネル（スマホのシート）が地図の下端を覆う高さ。
+   ヘッダーの高さ（約 61〜69px）＋ 下の余白（12px）で、
+   地図のコントロールをこの分だけ持ち上げる。
+   シートのヘッダーの中身を変えたらこの値も合わせる。 */
+:root {
+  --sheet-collapsed-inset: 5.25rem;
+}
+
 html,
 body {
   height: 100%;
@@ -43,6 +51,16 @@ body {
   overflow: hidden;
 }
 
+/* **ポップアップは操作パネルより上に出す。**
+   操作パネル（z-10）はスマホでは下からせり上がって地図の 8 割を覆うので、
+   これが無いとピンを押しても中身が完全にパネルの裏に隠れて何も見えない（実測）。
+   地図（.maplibregl-map）は position: relative だが z-index: auto なので
+   重ね合わせの文脈を作らず、この値がそのまま操作パネルと比べられる。
+   投稿の詳細（z-20）・投稿フォーム（z-30）・通知（z-40）よりは下に置く。 */
+.maplibregl-map .maplibregl-popup {
+  z-index: 15;
+}
+
 .maplibregl-popup .maplibregl-popup-close-button {
   width: 28px;
   height: 28px;
@@ -60,4 +78,89 @@ body {
 .maplibregl-map .maplibregl-ctrl-attrib {
   font-size: 11px;
   line-height: 1.5;
+}
+
+/* ---- 地図の下端のコントロール（縮尺・出典）----
+   スマホでは操作パネルが下からせり上がるシートになっていて、畳んだ状態でも
+   地図の下端 73px ほどを覆う。MapLibre は地図の枠を基準に置くので、
+   そのままだと**縮尺も出典もシートの裏に完全に隠れて 1px も見えない**（実測）。
+   シートのぶんだけ持ち上げて、畳んでいるあいだは必ず読めるようにする。
+   （開いているあいだはシートの裏に回るが、そのときは操作パネルの
+   フッターが同じ出典を出している） */
+@media (max-width: 767px) {
+  .maplibregl-map .maplibregl-ctrl-bottom-right {
+    bottom: var(--sheet-collapsed-inset);
+  }
+
+  /* 縮尺は出典（横幅いっぱいに 3 行まで伸びる）と同じ隅で重なって読めないので、
+     スマホでは左上へ移す。左上は何も置いていない（拡大・縮小・現在地は右上）。 */
+  .maplibregl-map .maplibregl-ctrl-bottom-left {
+    top: 0;
+    bottom: auto;
+  }
+
+  .maplibregl-map .maplibregl-ctrl-bottom-left .maplibregl-ctrl {
+    margin: 10px 0 0 10px;
+  }
+
+  /* 拡大・縮小・現在地。MapLibre の既定は 29px 角で、指で押すには小さい。
+     `.agent/conventions.md`「モバイルファースト」の 40px 角に合わせる
+     （アイコンは背景画像なので、枠を広げても中央のまま） */
+  .maplibregl-map .maplibregl-ctrl-group button {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* ---- 不透明度のスライダー ----
+   ハザードの重ねの濃さを変える input[type="range"]（操作パネル）。
+   **要素の高さがそのまま指の当たり判定になる。** 見た目のトラックに合わせて
+   h-1 を当てていたので、高さ 4px の帯を指で掴むことになっていた（実測）。
+   要素は 36px の高さを取り、細く見せるのはトラックの描画だけにする。 */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 2.25rem;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: #d5d8dc;
+}
+
+input[type="range"]::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background: #d5d8dc;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  /* 4px のトラックの中心に円の中心を合わせる（(20 - 4) / 2） */
+  margin-top: -8px;
+  border: 2px solid #ffffff;
+  border-radius: 999px;
+  background: var(--color-ink);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ffffff;
+  border-radius: 999px;
+  background: var(--color-ink);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
+}
+
+input[type="range"]:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+  border-radius: 999px;
 }
