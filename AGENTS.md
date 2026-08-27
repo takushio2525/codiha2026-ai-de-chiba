@@ -73,6 +73,7 @@ Claude Code 用の `CLAUDE.md` は、このファイルへのリダイレクト 
 | `app/src/app/icon.svg` | **ロゴの正本**。タブアイコン・`favicon.ico`・`apple-icon.png` はこれから起こす。画面の中のロゴは `app/src/components/BrandMark.tsx` に同じ図形を写してあるので、**変えるなら必ず両方** |
 | `app/src/lib/layers.ts` | 地図に載せるレイヤーの定義（データ・色・ポップアップ項目）。**データを足すならここから** |
 | `app/src/lib/scenic.ts` | 景観スポット（景観100選・F-5）の定義。カテゴリの色と、**MapLibre が配列プロパティを文字列に畳む**問題を吸収する読み取り |
+| `app/src/lib/scenicPhotos.ts` | 景観スポットの**写真と出典**（54 / 100 か所）。**自動生成物なので直接編集しない**（`data/scripts/fetch_scenic_photos.py` → `build_scenic_photos_ts.py`）。実体は `app/public/images/scenic/` |
 | `app/src/lib/mapModes.ts` | 防災モード（S-1）と観光モード（S-2）で**最初から表示する組**。切り替えても地図は作り直さない |
 | `app/src/lib/hazards.ts` | ハザードマップ（浸水想定）のタイル定義と**浸水深の凡例**。洪水と津波・高潮で段階が違う |
 | `app/src/lib/reports.ts` | **投稿の定義**（カテゴリ・色・固有項目・文字数と写真の上限）。**カテゴリを増やすならここに 1 行足す** |
@@ -204,6 +205,7 @@ for s in data/analysis/scripts/0*.py; do data/analysis/.venv/bin/python "$s"; do
 | ディレクトリの追加・削除 | そのディレクトリの `README.md`（何のフォルダか） |
 | `data/` に取得先を追加 | `data/scripts/manifest.json` と `data/<ソース>/SOURCE.md`（出典・ライセンス） |
 | 地図に載せるデータを追加・変更 | `data/scripts/build_geojson.py`・`app/src/lib/layers.ts`（景観スポットは `app/src/lib/scenic.ts`）・`app/src/lib/credits.ts`・`app/README.md`・`docs/design/requirements.md` §7-2 |
+| 景観スポットの写真を足す・差し替える | `data/scripts/fetch_scenic_photos.py` の `SPOT_PHOTOS` に 1 行足す → `--credits` 付きで実行 → `build_scenic_photos_ts.py` で `scenicPhotos.ts` を再生成 → `data/wikimedia-commons/SOURCE.md` の表と 「写真が見つからなかったスポット」を直す。**目視でその場所か確かめてから採る** |
 | 外部サービス（地図タイル・経路）を変更 | `app/src/lib/credits.ts`（出典）・`app/README.md` の「既知の制約」・このファイルの技術スタック |
 | 提出物の作り方・検証項目 | `tools/package_submission.sh`・`app/README.md` の「提出アーカイブを作る」・このファイルの「よく使うコマンド」 |
 

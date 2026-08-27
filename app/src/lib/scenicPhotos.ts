@@ -304,7 +304,7 @@ export const SCENIC_PHOTOS: Record<string, ScenicPhoto> = {
     license: "CC BY 4.0",
     licenseUrl: "https://creativecommons.org/licenses/by/4.0",
     page: "https://commons.wikimedia.org/wiki/File:%E3%81%B5%E3%81%AA%E3%81%B0%E3%81%97%E4%B8%89%E7%95%AA%E7%80%AC%E6%B5%B7%E6%B5%9C%E5%85%AC%E5%9C%92%E3%81%AE%E5%88%9D%E6%97%A5%E3%81%AE%E5%87%BA20220101-IMG_9036.jpg",
-    placeNote: "ふなばし三番瀬海浜公園（千葉県船橋市）から撮影。三番瀬の干潟は市川市から船橋市にまたがる",
+    placeNote: "船橋市側から撮影",
   },
   "里見公園": {
     file: "satomi-park",
