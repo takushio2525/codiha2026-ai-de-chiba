@@ -14,7 +14,16 @@ export default async function AuthBar() {
   const { authMode, user } = await getSessionView();
 
   return (
-    <header className="flex h-9 shrink-0 items-center gap-3 border-b border-line bg-surface px-3 text-[11.5px]">
+    <header className="flex h-9 shrink-0 items-center gap-2.5 border-b border-line bg-surface px-3 text-[11.5px]">
+      {/* どの画面にいてもブランドが見えるようにする。押すと地図（トップ）へ戻る */}
+      <Link
+        href="/"
+        aria-label="CHIZUBA のトップ（地図）へ"
+        className="shrink-0 rounded-lg px-1 py-1 text-[12px] leading-none font-bold tracking-[0.16em] text-ink transition hover:bg-[#f1f2f4] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+      >
+        CHIZUBA
+      </Link>
+
       {authMode === "demo" ? (
         <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[#f1f2f4] px-2.5 py-1 font-medium whitespace-nowrap text-ink-sub">
           <ShieldCheck aria-hidden className="size-3.5" />

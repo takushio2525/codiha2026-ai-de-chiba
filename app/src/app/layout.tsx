@@ -4,10 +4,16 @@ import AuthBar from "@/components/AuthBar";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "市川市 オープンデータマップ",
+  // 子ページは title に画面名だけを書けば、末尾のブランド名が自動で付く
+  title: {
+    default: "CHIZUBA — 千葉の地図に、住民と行政の「いま」を重ねる",
+    template: "%s｜CHIZUBA",
+  },
   description:
-    "市川市のオープンデータ（指定緊急避難場所・AED 設置箇所・子育て施設）を地図で重ね、"
-    + "現在地からの徒歩経路を調べられます。",
+    "CHIZUBA は千葉県の地図系サービスを 1 つに束ねたウェブサイトです。"
+    + "ハザードマップとオープンデータ（指定緊急避難場所・AED 設置箇所・子育て施設）を重ね、"
+    + "住民と行政が危険箇所・浸水・観光おすすめを投稿できます。"
+    + "対応は千葉県全域（デモデータは市川市）。",
 };
 
 export const viewport: Viewport = {

@@ -6,6 +6,12 @@
 千葉県や市町村などの**オープンデータ**を活用し、地域の課題解決に繋がるアイデアを
 考え、その解決方法を具体的なサービスとして実装する。
 
+作っているサービスは **CHIZUBA**（**CHI**ba + **ZU**（地図）+ **BA**（場））。
+千葉県の地図系サービスを 1 つに束ね、**住民と行政が相互に情報を投稿できる**ウェブサイト。
+柱は**防災**（ハザードマップ・危険箇所報告・浸水報告・注意案内）と**観光**（景観スポット・
+おすすめ投稿）の 2 つで、**対応は千葉県全域・デモデータは市川市**。
+何を作るかの正本は [`docs/design/requirements.md`](docs/design/requirements.md)。
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ---
@@ -84,7 +90,7 @@ PowerPoint・16:9・発表 10 分以内 + 質疑 3 分程度。**メンバーで
 
 ```
 codiha2026-ai-de-chiba/
-├── app/            ★ 提出するサービス本体（市川市オープンデータマップ）。
+├── app/            ★ 提出するサービス本体（CHIZUBA）。
 │                     ここを丸ごと zip 化して提出する。`cd app && docker compose up` で起動
 │                     （日本語ファイル名禁止・readme.txt / Dockerfile / compose.yaml を置く）
 ├── 課題/           提出要件の正本（配布資料から要点を抽出したもの）
