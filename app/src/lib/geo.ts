@@ -6,6 +6,10 @@ import { SCENIC_LABEL, scenicColor, type ScenicProps } from "./scenic";
 /** [経度, 緯度]。GeoJSON と MapLibre の並び順に合わせる。 */
 export type LngLat = [number, number];
 
+/** 名前の無い地点の表示名。**空欄にしない**（ポップアップにも徒歩ナビの結果にも出るので、
+ *  空だと「読み込めていない」のか「元データに名前が無い」のか区別できなくなる）。 */
+export const UNNAMED_PLACE = "名称不明の地点";
+
 const EARTH_RADIUS_M = 6_371_000;
 
 /** 2 点間の大円距離（メートル）。 */
@@ -64,7 +68,7 @@ export function scenicCandidates(
 ): NavCandidate[] {
   if (!data || !visible) return [];
   return data.features.map((feature) => ({
-    name: feature.properties?.name ?? "名称不明の地点",
+    name: feature.properties?.name ?? UNNAMED_PLACE,
     coords: feature.geometry.coordinates as LngLat,
     kind: SCENIC_LABEL,
     color: scenicColor(feature.properties?.categoryPrimary),
@@ -89,8 +93,9 @@ export function nearestCandidate(origin: LngLat, candidates: NavCandidate[]): Na
   return best;
 }
 
-export function featureName(feature: Feature<Point, FacilityProps>): string {
-  return feature.properties?.name ?? "名称不明の地点";
+/** 施設の点の表示名。**このファイルの中だけで使う**（外へ出すほどの意味は無い）。 */
+function featureName(feature: Feature<Point, FacilityProps>): string {
+  return feature.properties?.name ?? UNNAMED_PLACE;
 }
 
 /** 「1.2 km」「480 m」のように、桁に応じて単位を変えて読ませる。 */

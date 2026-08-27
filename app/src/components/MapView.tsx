@@ -14,7 +14,7 @@ import type {
 
 import { GSI_ATTRIBUTION, ICHIKAWA_CENTER, INITIAL_ZOOM, basemapStyle } from "@/lib/basemap";
 import { MAP_ATTRIBUTION } from "@/lib/credits";
-import type { LngLat } from "@/lib/geo";
+import { UNNAMED_PLACE, type LngLat } from "@/lib/geo";
 import {
   HAZARDS,
   HAZARD_RENDER_MINZOOM,
@@ -79,6 +79,14 @@ type Props = {
 
 const EMPTY: FeatureCollection = { type: "FeatureCollection", features: [] };
 
+/** GeoJSON ソースの中身を差し替える。
+ *  MapLibre の `getSource` は種類の違うソースもまとめて返すので、
+ *  `setData` を持つものとして受け取る（ここで扱うのはすべて geojson ソース）。 */
+function setSourceData(map: MapLibreMap, id: string, data: unknown): void {
+  const source = map.getSource(id) as { setData: (d: unknown) => void } | undefined;
+  source?.setData(data);
+}
+
 /** 投稿のソースとレイヤー。施設の点とは別に持つ（色と形を変えて区別するため）。 */
 const REPORT_SOURCE = "reports";
 /** 行政（公式）を表す色。**`components/OfficialBadge.tsx` の青と同じ値にすること。**
@@ -142,61 +150,68 @@ function overlayPadding(panel: PanelBox): PaddingOptions {
     : { top: gap, right: gap, bottom: Math.round(panel.height) + gap, left: gap };
 }
 
-/** ポップアップの中身を組み立てる。値は textContent で入れるので中身がそのまま表示される。 */
-function buildPopup(
-  layer: LayerDef,
-  props: FacilityProps,
-  coords: LngLat,
-  onNavigate: Props["onNavigate"],
-): HTMLElement {
-  // **背の高いポップアップが画面をはみ出さないようにする。**
-  // MapLibre はポップアップを点の上か下に置くだけで、入りきらなくても縮めない。
-  // 地図の高さの半分（スマホでおよそ 40dvh）に収めておけば、点がどこにあっても
-  // 地図の中に必ず入る。あふれる中身は縦にスクロールさせ、
-  // 「ここへナビ」だけは下に固定して、スクロールせずに押せるようにする。
+// ---- ポップアップの共通部品 ----------------------------------------------------
+// 施設（オープンデータ）と景観スポットで中身は違うが、**枠は同じ**でなければ
+// 「地図の点を押したら出るもの」として読めなくなる。骨組みをここに集める。
+
+/**
+ * ポップアップの外枠。返す `scroll` に中身を入れ、`root` に footer を足す。
+ *
+ * **背の高いポップアップが画面をはみ出さないようにする。**
+ * MapLibre はポップアップを点の上か下に置くだけで、入りきらなくても縮めない。
+ * 地図の高さの半分（スマホでおよそ 40dvh）に収めておけば、点がどこにあっても
+ * 地図の中に必ず入る。あふれる中身は縦にスクロールさせ、
+ * 「ここへナビ」だけは下に固定して、スクロールせずに押せるようにする。
+ *
+ * @param size 幅の指定だけを渡す（中身の量が違うので施設と景観で変える）
+ */
+function popupShell(size: string): { root: HTMLElement; scroll: HTMLElement } {
   const root = document.createElement("div");
-  root.className =
-    "flex max-h-[40dvh] w-[16.5rem] max-w-[80vw] flex-col text-ink md:max-h-[62dvh]";
+  root.className = `flex max-h-[40dvh] ${size} flex-col text-ink md:max-h-[62dvh]`;
   const scroll = document.createElement("div");
   scroll.className = "min-h-0 flex-1 overflow-y-auto overscroll-contain";
+  return { root, scroll };
+}
 
+/** 種別の見出し（色チップ ＋ 「指定緊急避難場所」などの名前）。 */
+function popupHead(color: string, label: string): HTMLElement {
   const head = document.createElement("div");
   head.className = "flex items-center gap-2 px-4 pt-3.5 pb-1";
   const chip = document.createElement("span");
   chip.className = "size-2.5 shrink-0 rounded-full";
-  chip.style.backgroundColor = layer.color;
+  chip.style.backgroundColor = color;
   const kind = document.createElement("span");
   kind.className = "text-[11px] font-medium tracking-wide text-ink-muted";
-  kind.textContent = layer.label;
+  kind.textContent = label;
   head.append(chip, kind);
+  return head;
+}
 
-  const name = document.createElement("h3");
-  name.className = "px-4 text-[15px] leading-snug font-semibold text-ink";
-  name.textContent = props.name ?? "名称不明の地点";
+/** 地点の名前。 */
+function popupTitle(name: string): HTMLElement {
+  const title = document.createElement("h3");
+  title.className = "px-4 text-[15px] leading-snug font-semibold text-ink";
+  title.textContent = name;
+  return title;
+}
 
-  const body = document.createElement("dl");
-  body.className = "mt-2 space-y-1 px-4 text-[12.5px] leading-relaxed";
+/** 「ラベル: 値」の 1 行。**値は textContent で入れる**ので中身がそのまま表示される
+ *  （オープンデータの中の記号や山かっこが markup として解釈されない）。 */
+function popupRow(label: string, value: string, labelWidth: string): HTMLElement {
+  const row = document.createElement("div");
+  row.className = "flex gap-2";
+  const dt = document.createElement("dt");
+  dt.className = `${labelWidth} shrink-0 text-ink-muted`;
+  dt.textContent = label;
+  const dd = document.createElement("dd");
+  dd.className = "flex-1 text-ink-sub break-words";
+  dd.textContent = value;
+  row.append(dt, dd);
+  return row;
+}
 
-  const addRow = (label: string, value: string) => {
-    const row = document.createElement("div");
-    row.className = "flex gap-2";
-    const dt = document.createElement("dt");
-    dt.className = "w-[5.5rem] shrink-0 text-ink-muted";
-    dt.textContent = label;
-    const dd = document.createElement("dd");
-    dd.className = "flex-1 text-ink-sub break-words";
-    dd.textContent = value;
-    row.append(dt, dd);
-    body.append(row);
-  };
-
-  if (props.address) addRow("所在地", props.address);
-  for (const field of layer.popupFields) {
-    const raw = props[field.key];
-    const value = Array.isArray(raw) ? raw.join("、") : raw;
-    if (value) addRow(field.label, String(value));
-  }
-
+/** 下に固定する「ここへナビ」。**スクロールせずに押せる**ことがこの位置の理由。 */
+function navFooter(target: RouteTarget, onNavigate: Props["onNavigate"]): HTMLElement {
   const footer = document.createElement("div");
   footer.className = "shrink-0 border-t border-line bg-[#fafafa] px-4 py-2.5";
   const button = document.createElement("button");
@@ -205,20 +220,40 @@ function buildPopup(
     "w-full rounded-lg bg-ink px-3 py-2.5 text-[12.5px] font-semibold text-white " +
     "transition hover:bg-[#31353d] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink";
   button.textContent = "ここへナビ";
-  button.addEventListener("click", () => {
-    onNavigate({
-      name: props.name ?? "名称不明の地点",
-      coords,
-      kind: layer.label,
-      color: layer.color,
-    });
-  });
+  button.addEventListener("click", () => onNavigate(target));
   footer.append(button);
+  return footer;
+}
+
+/** 施設（オープンデータ）のポップアップ。 */
+function buildPopup(
+  layer: LayerDef,
+  props: FacilityProps,
+  coords: LngLat,
+  onNavigate: Props["onNavigate"],
+): HTMLElement {
+  const { root, scroll } = popupShell("w-[16.5rem] max-w-[80vw]");
+  const name = props.name ?? UNNAMED_PLACE;
+
+  const body = document.createElement("dl");
+  body.className = "mt-2 space-y-1 px-4 text-[12.5px] leading-relaxed";
+  const addRow = (label: string, value: string) =>
+    body.append(popupRow(label, value, "w-[5.5rem]"));
+
+  if (props.address) addRow("所在地", props.address);
+  for (const field of layer.popupFields) {
+    const raw = props[field.key];
+    const value = Array.isArray(raw) ? raw.join("、") : raw;
+    if (value) addRow(field.label, String(value));
+  }
 
   // 本文の下端が footer にくっつかないよう、スクロールする側に余白を持たせる
   body.classList.add("pb-3");
-  scroll.append(head, name, body);
-  root.append(scroll, footer);
+  scroll.append(popupHead(layer.color, layer.label), popupTitle(name), body);
+  root.append(
+    scroll,
+    navFooter({ name, coords, kind: layer.label, color: layer.color }, onNavigate),
+  );
   return root;
 }
 
@@ -305,27 +340,12 @@ function buildScenicPopup(
   const categories = scenicCategories(props.categories);
   const color = scenicColor(props.categoryPrimary ?? categories[0]);
 
-  // 施設のポップアップと同じ作り（中身はスクロール・ナビのボタンは下に固定）。
+  // 施設のポップアップと同じ枠に載せる（中身はスクロール・ナビのボタンは下に固定）。
   // 景観スポットは英語の解説が 365 字あるものまであり、そのままだと縦に伸び続ける。
-  const root = document.createElement("div");
-  root.className =
-    "flex max-h-[40dvh] w-[18rem] max-w-[82vw] flex-col text-ink md:max-h-[62dvh]";
-  const scroll = document.createElement("div");
-  scroll.className = "min-h-0 flex-1 overflow-y-auto overscroll-contain";
-
-  const head = document.createElement("div");
-  head.className = "flex items-center gap-2 px-4 pt-3.5 pb-1";
-  const chip = document.createElement("span");
-  chip.className = "size-2.5 shrink-0 rounded-full";
-  chip.style.backgroundColor = color;
-  const kind = document.createElement("span");
-  kind.className = "text-[11px] font-medium tracking-wide text-ink-muted";
-  kind.textContent = SCENIC_LABEL;
-  head.append(chip, kind);
-
-  const name = document.createElement("h3");
-  name.className = "px-4 text-[15px] leading-snug font-semibold text-ink";
-  name.textContent = props.name ?? "名称不明の地点";
+  const { root, scroll } = popupShell("w-[18rem] max-w-[82vw]");
+  const spotName = props.name ?? UNNAMED_PLACE;
+  const head = popupHead(color, SCENIC_LABEL);
+  const name = popupTitle(spotName);
 
   const nameEn = document.createElement("p");
   nameEn.className = "px-4 text-[11.5px] leading-snug text-ink-muted";
@@ -379,18 +399,8 @@ function buildScenicPopup(
 
     const list = document.createElement("dl");
     list.className = "mt-2 space-y-1 text-[12px] leading-relaxed";
-    const addRow = (label: string, value: string) => {
-      const row = document.createElement("div");
-      row.className = "flex gap-2";
-      const dt = document.createElement("dt");
-      dt.className = "w-[4.5rem] shrink-0 text-ink-muted";
-      dt.textContent = label;
-      const dd = document.createElement("dd");
-      dd.className = "flex-1 text-ink-sub break-words";
-      dd.textContent = value;
-      row.append(dt, dd);
-      list.append(row);
-    };
+    const addRow = (label: string, value: string) =>
+      list.append(popupRow(label, value, "w-[4.5rem]"));
     // アクセス方法は 100 件中 73 件にしか無い。無い項目は行ごと出さない
     if (props.access) addRow(labels.access, props.access);
     if (props.address) addRow(labels.address, props.address);
@@ -417,23 +427,7 @@ function buildScenicPopup(
   enButton.addEventListener("click", () => render("en"));
   switcher.append(jaButton, enButton);
 
-  const footer = document.createElement("div");
-  footer.className = "shrink-0 border-t border-line bg-[#fafafa] px-4 py-2.5";
-  const button = document.createElement("button");
-  button.type = "button";
-  button.className =
-    "w-full rounded-lg bg-ink px-3 py-2.5 text-[12.5px] font-semibold text-white " +
-    "transition hover:bg-[#31353d] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink";
-  button.textContent = "ここへナビ";
-  button.addEventListener("click", () => {
-    onNavigate({
-      name: props.name ?? "名称不明の地点",
-      coords,
-      kind: SCENIC_LABEL,
-      color,
-    });
-  });
-  footer.append(button);
+  const footer = navFooter({ name: spotName, coords, kind: SCENIC_LABEL, color }, onNavigate);
 
   render("ja");
   body.classList.add("pb-3");
@@ -546,6 +540,30 @@ export default function MapView({
       map.on("load", () => {
         if (disposed) return;
 
+        /** 点の上に来たらカーソルを指の形にする。
+         *  **場所を指定してもらっている最中は変えない**（そちらは十字のまま）。 */
+        const bindPointerCursor = (layerId: string) => {
+          map.on("mouseenter", layerId, () => {
+            if (!latest.current.pickMode) map.getCanvas().style.cursor = "pointer";
+          });
+          map.on("mouseleave", layerId, () => {
+            map.getCanvas().style.cursor = latest.current.pickMode ? "crosshair" : "";
+          });
+        };
+
+        /** ポップアップを開く。**開いていたものは必ず閉じる**（2 つ並ばないように）。 */
+        const openPopup = (coords: LngLat, content: HTMLElement) => {
+          popupRef.current?.remove();
+          popupRef.current = new maplibregl.Popup({
+            offset: 14,
+            maxWidth: "none",
+            closeButton: true,
+          })
+            .setLngLat(coords)
+            .setDOMContent(content)
+            .addTo(map);
+        };
+
         // ハザードの重ねは背景地図のすぐ上（経路と施設の点より下）に敷く。
         // 想定区域が無い場所のタイルは 404 になるが、MapLibre は黙って描かないだけなので
         // エラー処理は要らない。「白紙 = 危険なし」ではないことは凡例の注意書きで伝える。
@@ -613,27 +631,15 @@ export default function MapView({
             const feature = event.features?.[0];
             if (!feature) return;
             const coords = (feature.geometry as Point).coordinates as LngLat;
-            popupRef.current?.remove();
-            popupRef.current = new maplibregl.Popup({
-              offset: 14,
-              maxWidth: "none",
-              closeButton: true,
-            })
-              .setLngLat(coords)
-              .setDOMContent(
-                buildPopup(layer, feature.properties as FacilityProps, coords, (destination) =>
-                  latest.current.onNavigate(destination),
-                ),
-              )
-              .addTo(map);
+            openPopup(
+              coords,
+              buildPopup(layer, feature.properties as FacilityProps, coords, (destination) =>
+                latest.current.onNavigate(destination),
+              ),
+            );
           });
 
-          map.on("mouseenter", pointLayerId(layer.id), () => {
-            if (!latest.current.pickMode) map.getCanvas().style.cursor = "pointer";
-          });
-          map.on("mouseleave", pointLayerId(layer.id), () => {
-            map.getCanvas().style.cursor = latest.current.pickMode ? "crosshair" : "";
-          });
+          bindPointerCursor(pointLayerId(layer.id));
         }
 
         // 景観スポット（F-5）。施設の点より上、投稿より下に置く。
@@ -665,26 +671,14 @@ export default function MapView({
           const feature = event.features?.[0];
           if (!feature) return;
           const coords = (feature.geometry as Point).coordinates as LngLat;
-          popupRef.current?.remove();
-          popupRef.current = new maplibregl.Popup({
-            offset: 14,
-            maxWidth: "none",
-            closeButton: true,
-          })
-            .setLngLat(coords)
-            .setDOMContent(
-              buildScenicPopup(feature.properties as ScenicProps, coords, (destination) =>
-                latest.current.onNavigate(destination),
-              ),
-            )
-            .addTo(map);
+          openPopup(
+            coords,
+            buildScenicPopup(feature.properties as ScenicProps, coords, (destination) =>
+              latest.current.onNavigate(destination),
+            ),
+          );
         });
-        map.on("mouseenter", SCENIC_POINT_LAYER, () => {
-          if (!latest.current.pickMode) map.getCanvas().style.cursor = "pointer";
-        });
-        map.on("mouseleave", SCENIC_POINT_LAYER, () => {
-          map.getCanvas().style.cursor = latest.current.pickMode ? "crosshair" : "";
-        });
+        bindPointerCursor(SCENIC_POINT_LAYER);
 
         // 住民・行政の投稿。施設の点より上に置き、**白い縁取り + 濃い輪郭**で
         // オープンデータの点（白い細縁）と見分けられるようにする。
@@ -747,12 +741,7 @@ export default function MapView({
           popupRef.current?.remove();
           latest.current.onSelectReport(Number(id));
         });
-        map.on("mouseenter", REPORT_POINT_LAYER, () => {
-          if (!latest.current.pickMode) map.getCanvas().style.cursor = "pointer";
-        });
-        map.on("mouseleave", REPORT_POINT_LAYER, () => {
-          map.getCanvas().style.cursor = latest.current.pickMode ? "crosshair" : "";
-        });
+        bindPointerCursor(REPORT_POINT_LAYER);
 
         // 出発地点と目的地。色ではなく塗りの向き（濃/白）で見分けられるようにする
         map.addSource("route-points", { type: "geojson", data: EMPTY });
@@ -837,8 +826,7 @@ export default function MapView({
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !ready) return;
-    const source = map.getSource(SCENIC_SOURCE) as { setData: (d: unknown) => void } | undefined;
-    source?.setData(scenic ?? EMPTY);
+    setSourceData(map, SCENIC_SOURCE, scenic ?? EMPTY);
   }, [ready, scenic]);
 
   // ---- 景観スポットの表示切り替え ----
@@ -852,8 +840,7 @@ export default function MapView({
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !ready) return;
-    const source = map.getSource(REPORT_SOURCE) as { setData: (d: unknown) => void } | undefined;
-    source?.setData(reports);
+    setSourceData(map, REPORT_SOURCE, reports);
   }, [ready, reports]);
 
   // ---- 投稿のカテゴリごとの表示 ----
@@ -897,8 +884,11 @@ export default function MapView({
     const map = mapRef.current;
     if (!map || !ready) return;
 
-    const line = map.getSource("route-line") as { setData: (d: unknown) => void } | undefined;
-    line?.setData(route ? ({ type: "Feature", geometry: route.geometry, properties: {} }) : EMPTY);
+    setSourceData(
+      map,
+      "route-line",
+      route ? { type: "Feature", geometry: route.geometry, properties: {} } : EMPTY,
+    );
 
     const points: FeatureCollection<Point> = {
       type: "FeatureCollection",
@@ -911,8 +901,7 @@ export default function MapView({
           : []),
       ],
     };
-    const marks = map.getSource("route-points") as { setData: (d: unknown) => void } | undefined;
-    marks?.setData(points);
+    setSourceData(map, "route-points", points);
 
     if (route) {
       const coords = (route.geometry as LineString).coordinates;
