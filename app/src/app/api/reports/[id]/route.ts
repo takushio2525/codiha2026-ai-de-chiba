@@ -10,9 +10,9 @@
  */
 import type { NextRequest } from "next/server";
 
-import { apiFail, dbUnavailable } from "@/lib/apiResponse";
+import { apiFail } from "@/lib/apiResponse";
+import { withDb } from "@/lib/apiRoute";
 import { getSessionView } from "@/lib/auth";
-import { DbUnavailableError } from "@/lib/db";
 import { removePhotos } from "@/lib/photoStore";
 import { parseId, parseReportPatch, patchTouchesContent } from "@/lib/reportInput";
 import type { ReportDetail } from "@/lib/reports";
@@ -35,7 +35,7 @@ export async function GET(_request: NextRequest, context: Context) {
   // 閲覧はログイン不要。セッションは「削除ボタンを出すか」の判断にだけ使う
   const { user } = await getSessionView();
 
-  try {
+  return withDb(async () => {
     const found = await findReport(id);
     if (!found) return apiFail("投稿が見つかりませんでした。", 404);
 
@@ -47,10 +47,7 @@ export async function GET(_request: NextRequest, context: Context) {
       comments,
       isAuthor: user !== null && user.id === found.authorId,
     } satisfies ReportDetail);
-  } catch (error) {
-    if (error instanceof DbUnavailableError) return dbUnavailable();
-    throw error;
-  }
+  });
 }
 
 export async function PATCH(request: NextRequest, context: Context) {
@@ -67,7 +64,7 @@ export async function PATCH(request: NextRequest, context: Context) {
     return apiFail("更新の内容を読み取れませんでした。", 400);
   }
 
-  try {
+  return withDb(async () => {
     // 何を変えられるかはカテゴリ（details の選択肢）と持ち主で決まるので、先に引く
     const owner = await findReportOwnership(id);
     if (!owner) return apiFail("投稿が見つかりませんでした。", 404);
@@ -98,12 +95,7 @@ export async function PATCH(request: NextRequest, context: Context) {
     const fresh = await findReport(id);
     if (!fresh) return apiFail("投稿が見つかりませんでした。", 404);
     return Response.json({ ok: true, report: fresh.properties });
-  } catch (error) {
-    if (error instanceof DbUnavailableError) {
-      return dbUnavailable("投稿を更新できませんでした。");
-    }
-    throw error;
-  }
+  }, "投稿を更新できませんでした。");
 }
 
 export async function DELETE(_request: NextRequest, context: Context) {
@@ -113,7 +105,7 @@ export async function DELETE(_request: NextRequest, context: Context) {
   const { user } = await getSessionView();
   if (!user) return apiFail("削除するにはログインしてください。", 401);
 
-  try {
+  return withDb(async () => {
     const result = await deleteReport(id, user.id);
     if (result.status === "not_found") {
       return apiFail("投稿が見つかりませんでした。", 404);
@@ -124,10 +116,5 @@ export async function DELETE(_request: NextRequest, context: Context) {
     // DB の行が消えてから実体を消す。消し損ねてもデータの整合性は壊れない
     await removePhotos(result.fileNames);
     return Response.json({ ok: true });
-  } catch (error) {
-    if (error instanceof DbUnavailableError) {
-      return dbUnavailable("投稿を削除できませんでした。");
-    }
-    throw error;
-  }
+  }, "投稿を削除できませんでした。");
 }

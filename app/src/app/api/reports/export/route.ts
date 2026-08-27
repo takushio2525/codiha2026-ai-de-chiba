@@ -14,9 +14,8 @@
  */
 import type { NextRequest } from "next/server";
 
-import { apiFail, dbUnavailable } from "@/lib/apiResponse";
-import { DbUnavailableError } from "@/lib/db";
-import { DEMO_CITY_CODE, findMunicipality } from "@/lib/municipalities";
+import { apiFail } from "@/lib/apiResponse";
+import { resolveListQuery, withDb } from "@/lib/apiRoute";
 import {
   exportFileName,
   isExportFormat,
@@ -24,7 +23,6 @@ import {
   toGeoJson,
   type ExportFormat,
 } from "@/lib/reportExport";
-import { parseCityCode, parseListQuery } from "@/lib/reportInput";
 import { describeRange, todayJst } from "@/lib/reportRange";
 import { REPORTS_MAX_LIMIT } from "@/lib/reports";
 import { listReports } from "@/lib/reportStore";
@@ -62,21 +60,13 @@ export async function GET(request: NextRequest) {
     return apiFail("format には csv か geojson を指定してください。", 400);
   }
 
-  const cityCode = parseCityCode(params.get("city"), DEMO_CITY_CODE);
-  if (cityCode === null) {
-    return apiFail("city には 5 桁の市町村コードを指定してください。", 400);
-  }
+  return withDb(async () => {
+    // 絞り込みの読み方は一覧（I-3）と共通。別々に書くと、画面で絞ったのと
+    // 違う範囲が落ちてくることになる
+    const resolved = await resolveListQuery(params);
+    if (resolved instanceof Response) return resolved;
 
-  try {
-    const municipality = await findMunicipality(cityCode);
-    if (!municipality) {
-      return apiFail("指定された市町村にはまだ対応していません。", 400);
-    }
-
-    const parsed = parseListQuery(params, municipality);
-    if (!parsed.ok) return apiFail(parsed.reason, parsed.status);
-
-    const filter = parsed.value;
+    const { municipality, filter } = resolved;
     // 書き出しは「持ち帰る」ための経路なので、既定を画面用の 500 ではなく上限にする。
     // 明示的に limit を渡したときはその値を尊重する
     if (params.get("limit") === null) filter.limit = REPORTS_MAX_LIMIT;
@@ -104,10 +94,5 @@ export async function GET(request: NextRequest) {
         "Cache-Control": "no-store",
       },
     });
-  } catch (error) {
-    if (error instanceof DbUnavailableError) {
-      return dbUnavailable("投稿を書き出せませんでした。");
-    }
-    throw error;
-  }
+  }, "投稿を書き出せませんでした。");
 }
