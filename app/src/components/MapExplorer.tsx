@@ -434,6 +434,9 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
   /** 地図のクリック。今なにを指定させているかで振り分ける。 */
   const handleMapPick = useCallback(
     (point: LngLat) => {
+      // 「地図をクリックしてください」の案内は、クリックされた時点で用が済んでいる。
+      // 消さないと 7 秒は出たままで、スマホでは開いた投稿フォームの頭に重なる
+      setToast(null);
       if (pickTarget?.kind === "report") {
         const category = pickTarget.category;
         setPickTarget(null);
