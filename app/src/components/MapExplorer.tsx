@@ -174,7 +174,7 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
     return () => { cancelled = true; };
   }, []);
 
-    /** 投稿を読み直す。**DB が落ちていても地図と静的レイヤーは出す**ので、
+  /** 投稿を読み直す。**DB が落ちていても地図と静的レイヤーは出す**ので、
    *  失敗しても投稿が空のまま続ける（interfaces.md I-3）。
    *  ただし**黙っては捨てない**。0 件なのか読めなかったのかが分からないと誤解を生む。 */
   const loadReports = useCallback(async () => {
@@ -242,7 +242,7 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
     [data, visible, scenic, scenicVisible],
   );
 
-    const runRoute = useCallback(async (from: LngLat, destination: RouteTarget) => {
+  const runRoute = useCallback(async (from: LngLat, destination: RouteTarget) => {
     setBusy("routing");
     try {
       const result = await fetchWalkingRoute(from, destination);

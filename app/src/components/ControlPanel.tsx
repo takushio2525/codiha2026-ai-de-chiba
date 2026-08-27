@@ -40,8 +40,8 @@ import {
   type ReportCategory,
   type ReportIconName,
 } from "@/lib/reports";
-import { SCENIC_CATEGORIES, SCENIC_LABEL, SCENIC_SUMMARY } from "@/lib/scenic";
 import type { WalkingRoute } from "@/lib/routing";
+import { SCENIC_CATEGORIES, SCENIC_LABEL, SCENIC_SUMMARY } from "@/lib/scenic";
 import { formatRainfall, formatStation, type FloodAlert, type WeatherObservation }
   from "@/lib/weather";
 import FloodAlertCard from "./FloodAlertCard";

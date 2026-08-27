@@ -28,6 +28,7 @@ import {
   type ReportCategory,
   type ReportCollection,
 } from "@/lib/reports";
+import type { RouteTarget, WalkingRoute } from "@/lib/routing";
 import {
   SCENIC_CATEGORIES,
   SCENIC_FALLBACK_COLOR,
@@ -38,7 +39,6 @@ import {
   scenicColor,
   type ScenicProps,
 } from "@/lib/scenic";
-import type { RouteTarget, WalkingRoute } from "@/lib/routing";
 
 export type LayerData = Record<LayerId, FeatureCollection<Point, FacilityProps>>;
 
