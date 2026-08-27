@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Camera, Droplets, Map, MessageSquare, ShieldCheck, TriangleAlert } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
+import { DemoBadge } from "@/components/DemoBadge";
 import FloodRainfall from "@/components/FloodRainfall";
 import { DbUnavailableError } from "@/lib/db";
 import { DEMO_CITY_CODE, findMunicipality } from "@/lib/municipalities";
@@ -13,6 +14,7 @@ import {
   REPORT_STATUS_IDS,
   detailRows,
   formatJst,
+  isDemoReport,
   isReportCategory,
   reportCategoryDef,
   reportStatusLabel,
@@ -223,6 +225,8 @@ function ReportRow({ feature }: { feature: ReportFeature }) {
                 行政の回答あり
               </span>
             ) : null}
+            {/* 起動時から入っているデモ投稿。本文は 2 行で切れるのでバッジでも示す */}
+            {isDemoReport(report.details) ? <DemoBadge compact /> : null}
           </p>
 
           <h2 className="mt-1 truncate text-[14px] leading-snug font-semibold text-ink">

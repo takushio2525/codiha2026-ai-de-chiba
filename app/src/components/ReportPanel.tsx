@@ -21,12 +21,14 @@ import {
   COMMENT_MAX_LENGTH,
   detailRows,
   formatJst,
+  isDemoReport,
   reportCategoryDef,
   reportStatusLabel,
   type ReportComment,
   type ReportProperties,
 } from "@/lib/reports";
 import { deleteReport, fetchReportDetail, submitComment } from "@/lib/reportsApi";
+import { DemoBadge, DemoNote } from "./DemoBadge";
 import FloodRainfall from "./FloodRainfall";
 
 type Props = {
@@ -177,6 +179,8 @@ export default function ReportPanel({
             行政の公式投稿
           </span>
         ) : null}
+        {/* 起動時から入っているデモ投稿。**実際の通報と取り違えられないように**印を出す */}
+        {report && isDemoReport(report.details) ? <DemoBadge /> : null}
         <div className="ml-auto flex shrink-0 items-center gap-1">
           {coordinates ? (
             <button
@@ -266,6 +270,9 @@ export default function ReportPanel({
 
               {/* 浸水（F-3）だけ、投稿時点の雨量を出す。取れなかった投稿もその旨を出す */}
               <FloodRainfall category={report.category} details={report.details} />
+
+              {/* デモ投稿は、何のためのデータかと写真の出どころをここで断る */}
+              {isDemoReport(report.details) ? <DemoNote /> : null}
 
               {isAuthor ? (
                 <div className="mt-3">

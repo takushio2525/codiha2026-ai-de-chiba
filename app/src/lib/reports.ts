@@ -225,6 +225,21 @@ export const EMPTY_REPORT_COLLECTION: ReportCollection = {
 
 // ---- 表示の補助 --------------------------------------------------------------
 
+/** **デモ投稿かどうか。**
+ *
+ * 初回起動時に入るデモ投稿（`app/db/init/003_seed_demo_reports.sql`）だけが
+ * `details.demo` を持つ。審査員が起動した直後から機能が動いて見えるように
+ * 入れてあるデータで、**実際の通報ではない**。画面ではバッジを出して区別し、
+ * 浸水の雨量は「デモ値」として表示する（`components/FloodRainfall.tsx`）。
+ *
+ * **利用者の投稿にこの印が付くことはない。** API は `details` のうち
+ * カテゴリ定義にあるキーしか通さないので（`reportInput.ts` の `parseDetails`）、
+ * `demo` を送り付けても捨てられる。
+ */
+export function isDemoReport(details: Record<string, unknown> | null | undefined): boolean {
+  return details?.demo === true;
+}
+
 /** `details` を「ラベル: 値」の並びに直す。定義に無いキーは出さない（I-3）。 */
 export function detailRows(
   category: ReportCategory,

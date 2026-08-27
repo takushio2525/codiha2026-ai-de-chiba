@@ -33,6 +33,10 @@ docker compose down --rmi local     # イメージごと消す
 コンテナは **`web`（サービス本体）と `db`（PostgreSQL 17）の 2 つ**。
 `web` は `db` の healthcheck が通るまで起動しない（`depends_on: service_healthy`）。
 テーブルは初回起動時に `db/init/*.sql` が自動で流れるので、投入の手順は要らない。
+**このとき、デモ投稿が 22 件（防災 12・観光 10）入る。** 空の地図では投稿機能の
+様子が分からないので、住民の投稿・行政の公式投稿・コメント・対応状況が
+最初から入った状態にしてある。**実際の通報ではない**ので、画面では
+「デモ投稿」の印を付けて区別している（消したいときは下の「デモ投稿を消す」を参照）。
 
 **ログインは何も用意しなくても使える。** Google の認証キーが無い環境では
 自動でデモログインに切り替わり、表示名を入れるだけで一般ユーザーにも
@@ -69,6 +73,24 @@ docker compose up -d db
 DATABASE_URL=postgres://chizuba:chizuba_local_only@localhost:5432/chizuba npm run dev
 ```
 
+**デモ投稿の写真は `npm run dev` では出ない。** 写真を `uploads/` に配っているのは
+`Dockerfile`（`db/seed-photos/` → `/app/uploads`）なので、手元で見たいときは自分でコピーする。
+
+```bash
+mkdir -p uploads && cp db/seed-photos/*.jpg uploads/
+```
+
+### デモ投稿を消す
+
+デモ投稿は `db/init/003_seed_demo_reports.sql` が入れている。要らなければ
+**このファイルを消してから**データベースを作り直す（`db/init/` はボリュームが
+空のときだけ流れるので、消すだけでは既に入ったぶんは消えない）。
+
+```bash
+rm db/init/003_seed_demo_reports.sql
+docker compose down -v && docker compose up
+```
+
 ### 地図に載せるデータを作り直す
 
 `public/data/*.geojson` は市川市の CSV から生成したもの。元データを更新したら作り直す。
@@ -82,6 +104,10 @@ python3 data/scripts/build_geojson.py
 
 ## 何ができるか
 
+- **起動した直後から投稿が入っている**: デモ投稿が 22 件（危険箇所 7・浸水 5・観光 10）
+  あり、写真・コメント・対応状況（未対応／受付／対応中／対応済）も付いている。
+  **実際の通報ではない**ので「デモ投稿」バッジで区別し、本文にも断りを書いている。
+  写真は再利用が許されたものだけで、作者とライセンスは `/about` に並べてある
 - **ハザードマップ**: 洪水・高潮・津波の**浸水想定区域**を地図に重ねる。
   想定ごとに表示の ON/OFF と不透明度を変えられ、浸水深の凡例と出典が出る
   （初期状態では洪水だけ重ねてある）
@@ -121,7 +147,8 @@ app/
 ├── Dockerfile            multi-stage（依存の取得 → ビルド → 実行）
 ├── compose.yaml          docker compose up 用。web と db の 2 コンテナ
 ├── .env.example          環境変数の名前と説明（値は書かない。実値は .env へ）
-├── db/init/              スキーマと市町村マスタ。db の初回起動時に流れる
+├── db/init/              スキーマ・市町村マスタ・デモ投稿。db の初回起動時に流れる
+├── db/seed-photos/       デモ投稿の写真 17 枚。ビルド時に uploads/ へ配られる
 ├── scripts/              ビルド前に走る補助スクリプト
 ├── public/data/          市川市オープンデータから作った GeoJSON 4 本
 ├── uploads/              投稿写真の実体（起動時に作られる。コンテナでは named volume）

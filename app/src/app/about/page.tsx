@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 import HazardLegend from "@/components/HazardLegend";
-import { DATA_CREDITS } from "@/lib/credits";
+import { DATA_CREDITS, DEMO_PHOTO_CREDITS } from "@/lib/credits";
 import { HAZARD_LEGENDS } from "@/lib/hazards";
 
 export const metadata: Metadata = {
@@ -105,6 +105,64 @@ export default function AboutPage() {
                 重ねていない災害の危険が無いという意味ではありません。
               </strong>
             </li>
+          </ul>
+        </section>
+
+        {/* デモ投稿に付けた写真の出典。**投稿の詳細パネルからここへ飛んでくる**ので、
+            見出しの id は変えないこと（components/DemoBadge.tsx の DemoNote） */}
+        <section id="demo-photos" className="mt-8 scroll-mt-6 rounded-2xl border border-line bg-surface p-4">
+          <h2 className="text-[13px] font-semibold text-ink">デモ投稿の写真</h2>
+          <p className="mt-1.5 text-[12.5px] leading-relaxed text-ink-sub">
+            このアプリには、起動した直後から投稿機能を試せるように
+            <strong className="font-semibold text-ink">デモ投稿</strong>
+            が入っています。実際の通報ではなく、
+            <strong className="font-semibold text-ink">
+              実際に起きた被害を特定の場所に結び付けたものでもありません。
+            </strong>
+            投稿には「デモ投稿」の印が付いています。
+          </p>
+          <p className="mt-2 text-[12.5px] leading-relaxed text-ink-sub">
+            写真はウィキメディア・コモンズから、
+            再利用が許されているもの（CC0・CC BY・CC BY-SA）だけを選んで使っています。
+            加工したのは縮小と再圧縮だけです。
+            <strong className="font-semibold text-ink">
+              撮影地が市川市外のものは、防災のデモ投稿に添えた参考写真で、
+              市川市で撮られた被害の写真ではありません。
+            </strong>
+          </p>
+          <ul className="mt-3 space-y-2.5">
+            {DEMO_PHOTO_CREDITS.map((credit) => (
+              <li key={credit.file} className="text-[12px] leading-relaxed">
+                <p>
+                  <span className="font-medium text-ink">{credit.what}</span>
+                  <span className="text-ink-muted">
+                    {credit.inIchikawa ? "（" : "（市川市外・参考写真: "}
+                    {credit.place}）
+                  </span>
+                </p>
+                <p className="text-ink-sub">
+                  {credit.artist}
+                  <span className="mx-1.5 text-ink-muted">/</span>
+                  <a
+                    href={credit.licenseUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline decoration-line underline-offset-2 transition hover:decoration-ink"
+                  >
+                    {credit.license}
+                  </a>
+                  <span className="mx-1.5 text-ink-muted">/</span>
+                  <a
+                    href={credit.page}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline decoration-line underline-offset-2 transition hover:decoration-ink"
+                  >
+                    コモンズの説明ページ
+                  </a>
+                </p>
+              </li>
+            ))}
           </ul>
         </section>
 
