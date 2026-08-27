@@ -18,6 +18,14 @@
   --color-layer-childcare: #009e73;
 }
 
+/* 畳んだ操作パネル（スマホのシート）が地図の下端を覆う高さ。
+   ヘッダーの高さ（約 61〜69px）＋ 下の余白（12px）で、
+   地図のコントロールをこの分だけ持ち上げる。
+   シートのヘッダーの中身を変えたらこの値も合わせる。 */
+:root {
+  --sheet-collapsed-inset: 5.25rem;
+}
+
 html,
 body {
   height: 100%;
@@ -70,6 +78,30 @@ body {
 .maplibregl-map .maplibregl-ctrl-attrib {
   font-size: 11px;
   line-height: 1.5;
+}
+
+/* ---- 地図の下端のコントロール（縮尺・出典）----
+   スマホでは操作パネルが下からせり上がるシートになっていて、畳んだ状態でも
+   地図の下端 73px ほどを覆う。MapLibre は地図の枠を基準に置くので、
+   そのままだと**縮尺も出典もシートの裏に完全に隠れて 1px も見えない**（実測）。
+   シートのぶんだけ持ち上げて、畳んでいるあいだは必ず読めるようにする。
+   （開いているあいだはシートの裏に回るが、そのときは操作パネルの
+   フッターが同じ出典を出している） */
+@media (max-width: 767px) {
+  .maplibregl-map .maplibregl-ctrl-bottom-right {
+    bottom: var(--sheet-collapsed-inset);
+  }
+
+  /* 縮尺は出典（横幅いっぱいに 3 行まで伸びる）と同じ隅で重なって読めないので、
+     スマホでは左上へ移す。左上は何も置いていない（拡大・縮小・現在地は右上）。 */
+  .maplibregl-map .maplibregl-ctrl-bottom-left {
+    top: 0;
+    bottom: auto;
+  }
+
+  .maplibregl-map .maplibregl-ctrl-bottom-left .maplibregl-ctrl {
+    margin: 10px 0 0 10px;
+  }
 }
 
 /* ---- 不透明度のスライダー ----
