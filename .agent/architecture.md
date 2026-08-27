@@ -91,17 +91,22 @@ DB を経由しない。**審査員の環境で「データが入っていない
 **投稿は GeoJSON で返す。** 静的レイヤーと同じ形式にすることで、
 地図側のコードを 1 本に保つ（`app/src/lib/layers.ts` の定義を共有する）。
 
-### 注意案内（F-4）
+### 注意案内（F-4・実装済み）
 
 ```
-[web] 起動後の定期処理ではなく、地図を開いたときに評価する
-  ① /api/weather の府県予報から、対象市町村に雨の予報があるか判定
-  ② あれば reports から category='flood' の過去投稿を引く
-  ③ その地点に「過去に浸水報告あり・雨の予報が出ています」と表示
+[ブラウザ] 起動後の定期処理ではなく、地図を開いたときに 1 回だけ評価する
+  ① GET /api/weather?city=… の forecast.rainExpected を見る
+       （降水確率が今後 24 時間で 30% 以上あるか。判定は I-6・サーバー側）
+  ② 地図に載せている投稿のうち category='flood' の件数を数える
+       （投稿は GET /api/reports で既に取ってあるので、専用の API を足さない）
+  ③ 両方そろったときだけ、操作パネルの先頭に注意カードを出し、
+     地図の該当地点に輪を描く（app/src/components/FloodAlertCard.tsx）
 ```
 
 **予測ではない。** 過去の投稿という事実と、気象庁の予報という事実を
 並べて出すだけ。モデルも推定も持たない（理由は `requirements.md` §3-1）。
+**予報が取れなかったときは注意を出さない**（根拠のない警告になるため）。
+出す・出さないの判定は `app/src/lib/weather.ts` の `buildFloodAlert` 1 箇所にある。
 
 ## 認証フロー
 
@@ -148,7 +153,8 @@ GOOGLE_CLIENT_ID と GOOGLE_CLIENT_SECRET が両方ある？
 | レイヤー定義（静的・投稿の両方） | `app/src/lib/layers.ts` | — |
 | ハザードの重ねと浸水深の凡例 | `app/src/lib/hazards.ts`・`app/src/components/HazardLegend.tsx` | — |
 | 経路の中継 API | `app/src/app/api/routing/route.ts` | `curl 'localhost:3000/api/routing?from=139.93,35.72&to=139.92,35.75'` |
-| 気象の中継 API | `app/src/app/api/weather/`（予定） | `curl 'localhost:3000/api/weather?city=12203'` |
+| 気象の中継 API | `app/src/app/api/weather/route.ts`・`app/src/lib/jma.ts` | `curl 'localhost:3000/api/weather?city=12203'` |
+| 注意案内の判定と文言 | `app/src/lib/weather.ts`・`app/src/components/FloodAlertCard.tsx` | — |
 | 投稿 API | `app/src/app/api/reports/` | `curl 'localhost:3000/api/reports?city=12203'` |
 | 写真の配信 | `app/src/app/api/photos/` | `curl -I 'localhost:3000/api/photos/1/1'` |
 | 投稿の定義（カテゴリ・上限・型） | `app/src/lib/reports.ts` | — |
@@ -190,7 +196,7 @@ GOOGLE_CLIENT_ID と GOOGLE_CLIENT_SECRET が両方ある？
 | 背景地図 | 国土地理院「淡色地図」タイル | XYZ タイル（キー不要） | 国土地理院コンテンツ利用規約 |
 | **ハザードマップ（洪水・高潮・津波）** | **国土交通省 ハザードマップポータルサイト「重ねるハザードマップ」** | XYZ タイル（キー不要） | 公共データ利用規約（第 1.0 版）PDL1.0 |
 | 徒歩経路 | OSRM（FOSSGIS e.V.）／道路データは OpenStreetMap | HTTP API（キー不要） | ODbL |
-| **雨量・雨予報（予定）** | **気象庁 防災情報 JSON**（アメダス実況・府県予報） | HTTP（キー不要） | 気象庁ホームページ利用規約 |
+| **雨量・雨予報** | **気象庁 防災情報 JSON**（アメダス実況・府県予報） | HTTP（キー不要） | 公共データ利用規約（第 1.0 版）PDL1.0 |
 
 ### ハザードタイルの疎通（2026-08-24 実測・市川市 z=14）
 

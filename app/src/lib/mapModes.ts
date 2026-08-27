@@ -42,9 +42,9 @@ export const MAP_MODES: MapModeDef[] = [
     layers: ["evacuation", "aed", "childcare"],
     scenic: false,
     hazards: true,
-    // 浸水（flood）は P4 で投稿できるようになる。表示はいま既に受け持っている
     reportCategories: ["hazard", "flood"],
-    postable: ["hazard"],
+    // **ここに 1 つ足すと投稿の入り口が 1 つ増える**（中身は `reports.ts` が正本）
+    postable: ["hazard", "flood"],
   },
   {
     id: "tourism",

@@ -15,7 +15,6 @@ import {
   LogIn,
   MapPin,
   Navigation,
-  Plus,
   Shield,
   ShieldAlert,
   TriangleAlert,
@@ -38,12 +37,16 @@ import { LAYERS, type IconName, type LayerId } from "@/lib/layers";
 import { MAP_MODES, type MapMode, type MapModeIconName } from "@/lib/mapModes";
 import {
   REPORT_CATEGORIES,
+  formatJst,
   reportCategoryDef,
   type ReportCategory,
   type ReportIconName,
 } from "@/lib/reports";
 import { SCENIC_CATEGORIES, SCENIC_LABEL, SCENIC_SUMMARY } from "@/lib/scenic";
 import type { WalkingRoute } from "@/lib/routing";
+import { formatRainfall, formatStation, type FloodAlert, type WeatherObservation }
+  from "@/lib/weather";
+import FloodAlertCard from "./FloodAlertCard";
 import HazardLegend from "./HazardLegend";
 import RouteCard from "./RouteCard";
 
@@ -104,9 +107,13 @@ type Props = {
   postableCategories: ReportCategory[];
   /** ログイン済みか。**表示の出し分けにしか使わない**（権限判定は API 側） */
   canPost: boolean;
-  /** 投稿する場所を地図で指定してもらっている最中のカテゴリ。指定中でなければ null */
-  pickingCategory: ReportCategory | null;
+  /** 投稿する場所を地図で指定してもらっている最中なら、そのカテゴリ */
+  picking: ReportCategory | null;
   onStartComposing: (category: ReportCategory) => void;
+  /** 注意案内（F-4）。出す条件を満たさないときは null */
+  floodAlert: FloodAlert | null;
+  /** 最寄りのアメダスの実況（I-6）。取れていなければ null */
+  observation: WeatherObservation | null;
   ref?: React.Ref<HTMLElement>;
 };
 
@@ -137,12 +144,16 @@ export default function ControlPanel({
   onToggleReportCategory,
   postableCategories,
   canPost,
-  pickingCategory,
+  picking,
   onStartComposing,
+  floodAlert,
+  observation,
   ref,
 }: Props) {
   // 徒歩ナビの候補になるものが 1 つでも表示されているか（景観スポットも候補に入る）
   const anyVisible = LAYERS.some((layer) => visible[layer.id]) || scenicVisible;
+  // いま投稿できるカテゴリ（ボタンの文言に使う）
+  const postable = postableCategories.map(reportCategoryDef);
   // 凡例は、表示中のハザードが使っているものだけを出す（洪水と津波・高潮で段階が違う）
   const legends = visibleHazardLegends(hazardVisible);
 
@@ -218,6 +229,8 @@ export default function ControlPanel({
           "max-h-[58dvh] md:max-h-none",
         ].join(" ")}
       >
+        {floodAlert ? <FloodAlertCard alert={floodAlert} /> : null}
+
         {route ? (
           <section className="border-b border-line bg-[#fbfbfa] px-4 py-3.5">
             <h2 className="mb-2 text-[11px] font-semibold tracking-wide text-ink-muted">徒歩ナビの結果</h2>
@@ -356,15 +369,15 @@ export default function ControlPanel({
           </div>
 
           {canPost ? (
-            <div className="mt-2 space-y-1.5">
-              {postableCategories.map((id) => {
-                const def = reportCategoryDef(id);
-                const active = pickingCategory === id;
+            <div className="mt-2 grid gap-1.5">
+              {postable.map((category) => {
+                const Icon = REPORT_ICONS[category.icon];
+                const active = picking === category.id;
                 return (
                   <button
-                    key={id}
+                    key={category.id}
                     type="button"
-                    onClick={() => onStartComposing(id)}
+                    onClick={() => onStartComposing(category.id)}
                     aria-pressed={active}
                     className={[
                       "flex w-full items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-[13px] font-semibold transition",
@@ -377,9 +390,9 @@ export default function ControlPanel({
                     {active ? (
                       <MapPin aria-hidden className="size-4" />
                     ) : (
-                      <Plus aria-hidden className="size-4" />
+                      <Icon aria-hidden className="size-4" />
                     )}
-                    {active ? "地図をクリックして場所を指定" : `${def.label}を投稿する`}
+                    {active ? "地図をクリックして場所を指定" : `${category.label}を投稿する`}
                   </button>
                 );
               })}
@@ -393,6 +406,21 @@ export default function ControlPanel({
               投稿するにはログイン
             </Link>
           )}
+
+          {observation ? (
+            <p className="mt-2 flex items-start gap-1.5 rounded-xl border border-line bg-[#fafafa] px-2.5 py-2 text-[11px] leading-relaxed text-ink-muted">
+              <Droplets aria-hidden className="mt-0.5 size-3.5 shrink-0 text-[#56b4e9]" />
+              <span>
+                いまの雨量{" "}
+                <strong className="font-semibold text-ink-sub tabular-nums">
+                  {formatRainfall(observation.rainfallMm)}
+                </strong>
+                {" "}／ {formatStation(observation.station, observation.distanceKm)}・
+                <span className="tabular-nums">{formatJst(observation.observedAt)}</span> 時点。
+                浸水の投稿にはこの値が記録されます（この地点の実測値ではありません）。
+              </span>
+            </p>
+          ) : null}
 
           <ul className="mt-2 space-y-1.5">
             {REPORT_CATEGORIES.map((category) => {

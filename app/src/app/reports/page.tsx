@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Camera, Droplets, Map, MessageSquare, ShieldCheck, TriangleAlert } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
+import FloodRainfall from "@/components/FloodRainfall";
 import { DbUnavailableError } from "@/lib/db";
 import { DEMO_CITY_CODE, findMunicipality } from "@/lib/municipalities";
 import { parseCityCode } from "@/lib/reportInput";
@@ -240,6 +241,9 @@ function ReportRow({ feature }: { feature: ReportFeature }) {
               </span>
             ) : null}
           </p>
+
+          {/* 浸水（F-3）は、投稿時点の雨量も一覧で読めるようにする */}
+          <FloodRainfall category={report.category} details={report.details} compact />
         </div>
       </Link>
     </li>

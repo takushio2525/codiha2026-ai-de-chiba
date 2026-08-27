@@ -39,6 +39,16 @@ export const DATA_CREDITS: Credit[] = [
     license: "公共データ利用規約（第 1.0 版）PDL1.0",
   },
   {
+    what: "雨量の実況・雨の予報（浸水報告と注意案内）",
+    // 気象庁の公共データ利用規約は「出典：気象庁ホームページ（URL）」の表記を求めており、
+    // **編集・加工して使うときは、加工した旨も別に書く**ことになっている。
+    // CHIZUBA は最寄り観測所の抽出と距離の計算をしているので、そこまで書く。
+    text: "出典: 気象庁ホームページ（アメダス実況・府県天気予報）"
+      + "。最寄りの観測所の抽出と距離の算出を行って表示している",
+    href: "https://www.jma.go.jp/bosai/",
+    license: "公共データ利用規約（第 1.0 版）PDL1.0",
+  },
+  {
     what: "徒歩経路の計算",
     text: "OSRM（FOSSGIS e.V. 提供）／道路データは OpenStreetMap contributors",
     href: "https://routing.openstreetmap.de/about.html",
@@ -50,6 +60,7 @@ export const DATA_CREDITS: Credit[] = [
 export const MAP_ATTRIBUTION: string[] = [
   '<a href="https://www.city.ichikawa.lg.jp/page/4744.html" target="_blank" rel="noreferrer">市川市オープンデータ</a>を加工して作成',
   'ハザードマップ: <a href="https://disaportal.gsi.go.jp/" target="_blank" rel="noreferrer">ハザードマップポータルサイト</a>',
+  '雨量・予報: <a href="https://www.jma.go.jp/bosai/" target="_blank" rel="noreferrer">気象庁</a>',
   '経路: <a href="https://routing.openstreetmap.de/about.html" target="_blank" rel="noreferrer">OSRM / FOSSGIS</a>',
   '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> contributors',
   // FOSSGIS の利用規約が求めている「地図を修正する」リンク
