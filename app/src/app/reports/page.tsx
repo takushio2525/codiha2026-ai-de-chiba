@@ -3,6 +3,7 @@ import { CalendarRange, Camera, Droplets, Map, MessageSquare, ShieldCheck, Trian
 import type { LucideIcon } from "lucide-react";
 
 import { DemoBadge } from "@/components/DemoBadge";
+import ExportLinks from "@/components/ExportLinks";
 import FloodRainfall from "@/components/FloodRainfall";
 import { DbUnavailableError } from "@/lib/db";
 import { DEMO_CITY_CODE, findMunicipality } from "@/lib/municipalities";
@@ -196,6 +197,11 @@ export default async function ReportsPage({
           {describeRange(range)}の投稿{" "}
           <strong className="font-semibold text-ink-sub tabular-nums">{features.length}</strong> 件
         </p>
+
+        {/* 絞り込んだそのままの条件で持ち帰れる */}
+        <div className="mt-3 border-t border-line pt-3">
+          <ExportLinks city={cityCode} range={range} category={category} />
+        </div>
       </section>
 
       {error ? (

@@ -33,6 +33,33 @@ export default function AboutPage() {
             ウェブサイトです。ハザードマップや施設のオープンデータの上に、危険箇所・浸水・
             観光おすすめといった「いまの千葉」を重ねます。
           </p>
+          {/* **オープンデータを使うだけでなく、集めたものをオープンデータとして返す。**
+              CHIZUBA が普通の投稿サイトと違うのはこの一往復なので、頭の紹介に置く */}
+          <p className="mt-2.5 text-[13.5px] leading-relaxed text-ink-sub">
+            集まった投稿は、
+            <strong className="font-semibold text-ink">
+              誰でも CSV / GeoJSON で持ち帰れるオープンデータとして公開
+            </strong>
+            しています（
+            <a
+              href="/reports"
+              className="underline decoration-line underline-offset-2 transition hover:decoration-ink"
+            >
+              投稿一覧
+            </a>
+            と地図の操作パネルから、絞り込んだそのままの条件で書き出せます）。
+            行政が出したデータを住民が使うだけの一方通行にせず、
+            住民が寄せた情報も同じように使える形にして返します。
+          </p>
+          <p className="mt-2 text-[12px] leading-relaxed text-ink-muted">
+            書き出しに含まれるのは、画面で誰でも読める項目（種類・本文・位置・対応状況・
+            投稿者の表示名・投稿日時）だけです。アカウントの情報は含みません。
+            デモ投稿は <code className="text-[11.5px]">is_demo</code> の列で見分けられ、
+            <strong className="font-medium text-ink-sub">
+              デモ投稿の雨量は観測値ではないので書き出していません
+            </strong>
+            。投稿そのものの再配布条件は運用時に定めるもので、この試作では確定していません。
+          </p>
           <p className="mt-2.5 text-[12px] text-ink-muted">対応: 千葉県全域（デモデータは市川市）</p>
         </section>
 

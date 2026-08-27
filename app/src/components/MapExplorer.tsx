@@ -525,6 +525,7 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
           onToggleReportCategory={toggleReportCategory}
           range={range}
           onChangeRange={setRange}
+          cityCode={cityCode}
           postableCategories={mapModeDef(mode).postable}
           canPost={session.user !== null}
           picking={pickTarget?.kind === "report" ? pickTarget.category : null}
