@@ -44,7 +44,7 @@ import MapView, { type LayerData, type PanelBox } from "./MapView";
 import MapModeTabs from "./MapModeTabs";
 import ReportForm from "./ReportForm";
 import ReportPanel from "./ReportPanel";
-import SearchBox, { type SearchHit } from "./SearchBox";
+import type { SearchHit } from "./SearchBox";
 import Toast, { type ToastMessage } from "./Toast";
 
 /** 市川市のだいたいの範囲。現在地がここから外れたときに一言添えるために使う。 */

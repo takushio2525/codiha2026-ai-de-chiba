@@ -1,7 +1,10 @@
 @import "tailwindcss";
 
-/* 配色は Okabe-Ito（カラーユニバーサルデザイン推奨配色）から取っている。
-   1 型・2 型色覚でも 3 レイヤーが判別できることを優先した。 */
+/* 画面の下地の配色。**地図に載せるものの色はここに置かない。**
+   レイヤーの色は `lib/layers.ts`、投稿は `lib/reports.ts`、景観は `lib/scenic.ts` が正本で、
+   MapLibre の式とインライン style から読むので CSS 変数にはできない
+   （ここに写しを置いても誰も読まず、片方だけ変わって食い違う）。
+   どちらも Okabe-Ito（カラーユニバーサルデザイン推奨配色）から取る。 */
 @theme {
   --font-sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP",
     "Yu Gothic UI", Meiryo, system-ui, sans-serif;
@@ -12,10 +15,6 @@
   --color-ink-sub: #4c5159;
   --color-ink-muted: #7b818b;
   --color-line: #e3e4e6;
-
-  --color-layer-evacuation: #0072b2;
-  --color-layer-aed: #d55e00;
-  --color-layer-childcare: #009e73;
 }
 
 /* 畳んだ操作パネル（スマホのシート）が地図の下端を覆う高さ。
