@@ -48,6 +48,14 @@ INSERT INTO users (provider, provider_uid, display_name, role, gov_city_code) VA
 -- age_hours … 何時間前の投稿として見せるか。`now()` からの相対なので、
 --             審査員がいつ起動しても「最近の投稿」に見える。
 --             **最大でも 10 日前まで**にしてある（実際の災害の日付と重ならないように）。
+--
+--             浸水（flood）の 5 件は、**3 つの「雨のあった日」に散らしてある**。
+--             全部が同じ日に固まっていると、期間で絞る操作（浸水実績アーカイブ）が
+--             「全部出る」か「1 件も出ない」かにしかならず、機能を試せないため。
+--               約 1 日前  … 26h / 28h（＋行政の土のう案内 29h）
+--               約 4 日前  … 99h
+--               約 9 日前  … 220h
+--             10 日以内という上の制約は崩していない。
 INSERT INTO reports (category, title, body, lat, lon, city_code, user_id, status, details, created_at, updated_at)
 SELECT
     v.category, v.title, v.body, v.lat, v.lon, '12203', u.id, v.status, v.details::jsonb,
@@ -94,17 +102,17 @@ FROM (VALUES
     ('flood', 'アンダーパスの手前まで水がきています',
      E'線路の下をくぐる道で、入口の手前まで水がきています。車は入らないほうがよさそうです。\n\n※ CHIZUBA の動作確認のために用意したデモ投稿です。実際の通報ではありません。',
      35.7255, 139.9195, 'ack',
-     '{"depthLevel":"knee","demo":true,"rainfallMm":32.0}', 27, 'seed:resident:03'),
+     '{"depthLevel":"knee","demo":true,"rainfallMm":32.0}', 99, 'seed:resident:03'),
 
     ('flood', '用水路から水があふれている',
      E'用水路から水があふれて、隣の道に流れ込んでいます。今のところ足首くらいの深さです。\n\n※ CHIZUBA の動作確認のために用意したデモ投稿です。実際の通報ではありません。',
      35.6885, 139.9225, 'open',
-     '{"depthLevel":"ankle","demo":true,"rainfallMm":12.0}', 28, 'seed:resident:04'),
+     '{"depthLevel":"ankle","demo":true,"rainfallMm":12.0}', 220, 'seed:resident:04'),
 
     ('flood', '堤防沿いの道が水につかっています',
      E'川の水位が上がって、堤防の内側の道が膝くらいまで水につかっています。近づかないほうがいいです。\n\n※ CHIZUBA の動作確認のために用意したデモ投稿です。実際の通報ではありません。',
      35.6875, 139.9395, 'open',
-     '{"depthLevel":"knee","demo":true,"rainfallMm":41.5}', 25, 'seed:resident:05'),
+     '{"depthLevel":"knee","demo":true,"rainfallMm":41.5}', 28, 'seed:resident:05'),
 
     ('flood', '土のうステーションを開設しました',
      E'大雨に備えて、公民館の駐車場に土のうを置いています。必要な方は自由にお持ちください。数に限りがあるため、1 世帯 5 袋まででお願いします。\n\n※ CHIZUBA の動作確認のために用意したデモ投稿です。実際のお知らせではありません。',

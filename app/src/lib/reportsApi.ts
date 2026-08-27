@@ -4,6 +4,7 @@
  * サーバーの `reason` をそのまま通し、通信そのものが失敗したときだけここで文を作る
  * （docs/design/interfaces.md の「共通の約束」）。
  */
+import type { DateRange } from "./reportRange";
 import {
   EMPTY_REPORT_COLLECTION,
   type ReportCategory,
@@ -34,11 +35,15 @@ async function failure(response: Response, fallback: string): Promise<{ ok: fals
 export async function fetchReports(params: {
   city: string;
   categories?: ReportCategory[];
+  /** 投稿日の範囲（JST の暦日）。未指定なら全期間 */
+  range?: DateRange;
 }): Promise<ApiResult<ReportCollection>> {
   const query = new URLSearchParams({ city: params.city });
   if (params.categories && params.categories.length > 0) {
     query.set("category", params.categories.join(","));
   }
+  if (params.range?.from) query.set("from", params.range.from);
+  if (params.range?.to) query.set("to", params.range.to);
   try {
     const response = await fetch(`/api/reports?${query.toString()}`, { cache: "no-store" });
     if (!response.ok) return failure(response, "投稿を読み込めませんでした。");

@@ -40,11 +40,13 @@ import {
   type ReportCategory,
   type ReportIconName,
 } from "@/lib/reports";
+import type { DateRange } from "@/lib/reportRange";
 import type { WalkingRoute } from "@/lib/routing";
 import { SCENIC_CATEGORIES, SCENIC_LABEL, SCENIC_SUMMARY } from "@/lib/scenic";
 import { formatRainfall, formatStation, type FloodAlert, type WeatherObservation }
   from "@/lib/weather";
 import BrandMark from "./BrandMark";
+import DateRangeFilter from "./DateRangeFilter";
 import FloodAlertCard from "./FloodAlertCard";
 import HazardLegend from "./HazardLegend";
 import RouteCard from "./RouteCard";
@@ -92,8 +94,13 @@ type Props = {
   onToggleCollapsed: () => void;
   /** カテゴリごとの投稿の件数 */
   reportCounts: Record<ReportCategory, number>;
+  /** いまの絞り込みで読み込めている投稿の総数（期間の説明に添える） */
+  reportTotal: number;
   reportVisible: Record<ReportCategory, boolean>;
   onToggleReportCategory: (id: ReportCategory) => void;
+  /** 投稿日の範囲（浸水実績アーカイブ）。空なら全期間 */
+  range: DateRange;
+  onChangeRange: (range: DateRange) => void;
   /** いま投稿できるカテゴリ。モードごとに違う（`lib/mapModes.ts` が正本） */
   postableCategories: ReportCategory[];
   /** ログイン済みか。**表示の出し分けにしか使わない**（権限判定は API 側） */
@@ -129,8 +136,11 @@ export default function ControlPanel({
   collapsed,
   onToggleCollapsed,
   reportCounts,
+  reportTotal,
   reportVisible,
   onToggleReportCategory,
+  range,
+  onChangeRange,
   postableCategories,
   canPost,
   picking,
@@ -450,6 +460,10 @@ export default function ControlPanel({
             青い輪のピンは行政の投稿です。
           </p>
         </section>
+
+        {/* 投稿日で遡る（浸水実績アーカイブ）。投稿の並びのすぐ下に置いて、
+            「いま出ている件数が何の期間のものか」を続けて読めるようにしている */}
+        <DateRangeFilter range={range} onChange={onChangeRange} count={reportTotal} />
 
         <section className="border-t border-line px-4 py-3.5">
           <h2 className="text-[11px] font-semibold tracking-wide text-ink-muted">徒歩ナビ</h2>

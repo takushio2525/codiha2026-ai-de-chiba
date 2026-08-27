@@ -6,6 +6,7 @@
  * **メールアドレスと provider_uid は絶対に返さない。** 返すのは表示名とロールだけ（I-3）。
  */
 import { query, withTransaction } from "./db";
+import type { DateRange } from "./reportRange";
 import {
   photoUrl,
   type ReportCategory,
@@ -102,33 +103,68 @@ export type ReportFilter = {
   statuses: ReportStatus[];
   /** [西, 南, 東, 北]（度）。地図の表示範囲 */
   bbox: [number, number, number, number];
+  /** 投稿日の範囲（JST の暦日・両端を含む）。指定なしなら全期間 */
+  range: DateRange;
   limit: number;
 };
 
-/** 条件に合う投稿を新着順に引く（interfaces.md I-3）。 */
-export async function listReports(filter: ReportFilter): Promise<ReportFeature[]> {
-  const params: unknown[] = [
-    filter.cityCode,
-    filter.bbox[0],
-    filter.bbox[2],
-    filter.bbox[1],
-    filter.bbox[3],
-  ];
-  const conditions = [
-    "r.city_code = $1",
-    "r.lon BETWEEN $2 AND $3",
-    "r.lat BETWEEN $4 AND $5",
-  ];
+/** 条件に合う投稿を引く SQL の WHERE を組み立てる。
+ *  一覧（I-3）とエクスポートで同じ条件を使うので 1 箇所にまとめてある。
+ *  `params` は呼び出し側の配列をそのまま伸ばす（$1 から順に詰まる）。 */
+function whereFor(filter: ReportFilter, params: unknown[]): string {
+  const conditions: string[] = [];
+
+  params.push(filter.cityCode);
+  conditions.push(`r.city_code = $${params.length}`);
+  params.push(filter.bbox[0]);
+  const west = params.length;
+  params.push(filter.bbox[2]);
+  conditions.push(`r.lon BETWEEN $${west} AND $${params.length}`);
+  params.push(filter.bbox[1]);
+  const south = params.length;
+  params.push(filter.bbox[3]);
+  conditions.push(`r.lat BETWEEN $${south} AND $${params.length}`);
 
   params.push(filter.categories);
   conditions.push(`r.category = ANY($${params.length}::text[])`);
   params.push(filter.statuses);
   conditions.push(`r.status = ANY($${params.length}::text[])`);
+
+  // 日付は **JST の暦日**で受け取る。「その日の 00:00（日本時間）」の timestamptz を作り、
+  // 終わりは**翌日の 00:00 未満**にして指定日の 23:59 までを含める。
+  //
+  // **`::timestamp` を省いてはいけない。** `date AT TIME ZONE …` は
+  // date → timestamptz の暗黙キャストのほうに解決され、
+  // 「timestamptz を指定のゾーンのローカル時刻に直す」逆向きの意味になる。
+  // 実測（PostgreSQL 17・TimeZone=UTC）:
+  //   '2026-08-18'::date            AT TIME ZONE 'Asia/Tokyo' → 2026-08-18 09:00（timestamp）
+  //   '2026-08-18'::date::timestamp AT TIME ZONE 'Asia/Tokyo' → 2026-08-17 15:00+00（＝ JST の 08-18 00:00）
+  // 前者だと境目が 9 時間ずれ、単日の指定が 1 件も引けなくなる。
+  if (filter.range.from !== null) {
+    params.push(filter.range.from);
+    conditions.push(
+      `r.created_at >= ($${params.length}::date::timestamp AT TIME ZONE 'Asia/Tokyo')`,
+    );
+  }
+  if (filter.range.to !== null) {
+    params.push(filter.range.to);
+    conditions.push(
+      `r.created_at < (($${params.length}::date + 1)::timestamp AT TIME ZONE 'Asia/Tokyo')`,
+    );
+  }
+
+  return conditions.join(" AND ");
+}
+
+/** 条件に合う投稿を新着順に引く（interfaces.md I-3）。 */
+export async function listReports(filter: ReportFilter): Promise<ReportFeature[]> {
+  const params: unknown[] = [];
+  const where = whereFor(filter, params);
   params.push(filter.limit);
 
   const rows = await query<ReportRow>(
     `SELECT ${REPORT_COLUMNS} ${REPORT_FROM}
-      WHERE ${conditions.join(" AND ")}
+      WHERE ${where}
       ORDER BY r.created_at DESC, r.id DESC
       LIMIT $${params.length}`,
     params,

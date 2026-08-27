@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Camera, Droplets, Map, MessageSquare, ShieldCheck, TriangleAlert } from "lucide-react";
+import { CalendarRange, Camera, Droplets, Map, MessageSquare, ShieldCheck, TriangleAlert, X } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import { DemoBadge } from "@/components/DemoBadge";
@@ -7,6 +7,15 @@ import FloodRainfall from "@/components/FloodRainfall";
 import { DbUnavailableError } from "@/lib/db";
 import { DEMO_CITY_CODE, findMunicipality } from "@/lib/municipalities";
 import { parseCityCode } from "@/lib/reportInput";
+import {
+  RANGE_PRESETS,
+  describeRange,
+  hasRange,
+  matchingPreset,
+  normalizeRange,
+  rangeFromPreset,
+  type DateRange,
+} from "@/lib/reportRange";
 import {
   REPORTS_DEFAULT_LIMIT,
   REPORT_CATEGORIES,
@@ -38,7 +47,7 @@ const ICONS: Record<ReportIconName, LucideIcon> = {
   camera: Camera,
 };
 
-type Search = { city?: string; category?: string };
+type Search = { city?: string; category?: string; from?: string; to?: string };
 
 /** 投稿一覧（画面 S-5）。
  *
@@ -53,6 +62,9 @@ export default async function ReportsPage({
   const raw = await searchParams;
   const cityCode = parseCityCode(raw.city ?? null, DEMO_CITY_CODE) ?? DEMO_CITY_CODE;
   const category = isReportCategory(raw.category) ? raw.category : null;
+  // 妥当でない日付は**黙って全期間として扱う**（画面はリンクで辿れるので、
+  // 手で URL をいじった人に 400 を返すより、絞り込みなしで表示するほうが親切）
+  const range = normalizeRange(raw.from, raw.to);
 
   let features: ReportFeature[] = [];
   let cityName = "";
@@ -69,6 +81,7 @@ export default async function ReportsPage({
         categories: category ? [category] : REPORT_CATEGORY_IDS,
         statuses: REPORT_STATUS_IDS,
         bbox: municipality.bbox,
+        range,
         limit: REPORTS_DEFAULT_LIMIT,
       });
     }
@@ -101,11 +114,15 @@ export default async function ReportsPage({
       </p>
 
       <nav aria-label="カテゴリで絞り込む" className="mt-4 flex flex-wrap gap-1.5">
-        <FilterChip href={buildHref(cityCode, null)} active={category === null} label="すべて" />
+        <FilterChip
+          href={buildHref(cityCode, null, range)}
+          active={category === null}
+          label="すべて"
+        />
         {REPORT_CATEGORIES.map((def) => (
           <FilterChip
             key={def.id}
-            href={buildHref(cityCode, def.id)}
+            href={buildHref(cityCode, def.id, range)}
             active={category === def.id}
             label={def.label}
             color={def.color}
@@ -113,13 +130,83 @@ export default async function ReportsPage({
         ))}
       </nav>
 
+      {/* 投稿日で遡る（浸水実績アーカイブ）。**リンクと GET フォームだけ**で組んであるので、
+          JavaScript が無くても動く（この画面のほかの絞り込みと同じ作り） */}
+      <section className="mt-3 rounded-2xl border border-line bg-surface px-3.5 py-3">
+        <div className="flex items-baseline justify-between gap-2">
+          <h2 className="flex items-center gap-1.5 text-[11px] font-semibold tracking-wide text-ink-muted">
+            <CalendarRange aria-hidden className="size-3.5" />
+            期間でしぼる
+          </h2>
+          {hasRange(range) ? (
+            <Link
+              href={buildHref(cityCode, category, { from: null, to: null })}
+              className="inline-flex shrink-0 items-center gap-1 text-[11px] font-medium text-ink-sub underline decoration-line underline-offset-2 transition hover:text-ink hover:decoration-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+            >
+              <X aria-hidden className="size-3" />
+              解除
+            </Link>
+          ) : null}
+        </div>
+
+        <nav aria-label="期間の近道" className="mt-2 flex flex-wrap gap-1.5">
+          {RANGE_PRESETS.map((preset) => {
+            const target = rangeFromPreset(preset.id);
+            return (
+              <FilterChip
+                key={preset.id}
+                href={buildHref(cityCode, category, target)}
+                active={matchingPreset(range) === preset.id}
+                label={preset.label}
+              />
+            );
+          })}
+        </nav>
+
+        <form method="get" className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-[1fr_1fr_auto]">
+          <input type="hidden" name="city" value={cityCode} />
+          {category ? <input type="hidden" name="category" value={category} /> : null}
+          <label className="block">
+            <span className="text-[11px] text-ink-muted">開始日</span>
+            <input
+              type="date"
+              name="from"
+              defaultValue={range.from ?? ""}
+              className="mt-0.5 w-full rounded-lg border border-line bg-surface px-2 py-1.5 text-[12px] text-ink transition focus:border-ink focus:outline-none"
+            />
+          </label>
+          <label className="block">
+            <span className="text-[11px] text-ink-muted">終了日</span>
+            <input
+              type="date"
+              name="to"
+              defaultValue={range.to ?? ""}
+              className="mt-0.5 w-full rounded-lg border border-line bg-surface px-2 py-1.5 text-[12px] text-ink transition focus:border-ink focus:outline-none"
+            />
+          </label>
+          <button
+            type="submit"
+            className="col-span-2 mt-1 rounded-lg bg-ink px-3 py-2 text-[12.5px] font-semibold text-white transition hover:bg-[#31353d] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink sm:col-span-1 sm:mt-0 sm:self-end"
+          >
+            この期間で見る
+          </button>
+        </form>
+
+        <p className="mt-2 text-[11.5px] leading-relaxed text-ink-muted">
+          {describeRange(range)}の投稿{" "}
+          <strong className="font-semibold text-ink-sub tabular-nums">{features.length}</strong> 件
+        </p>
+      </section>
+
       {error ? (
         <p className="mt-6 rounded-2xl border border-line bg-surface px-4 py-6 text-center text-[13px] leading-relaxed text-ink-sub">
           {error}
         </p>
       ) : features.length === 0 ? (
         <p className="mt-6 rounded-2xl border border-line bg-surface px-4 py-8 text-center text-[13px] leading-relaxed text-ink-muted">
-          まだ投稿がありません。地図から最初の 1 件を投稿できます。
+          {hasRange(range)
+            ? `${describeRange(range)}に投稿はありません。期間を広げるか、解除してください。`
+            : "まだ投稿がありません。地図から最初の 1 件を投稿できます。"}
         </p>
       ) : (
         <ul className="mt-4 space-y-2.5">
@@ -132,9 +219,15 @@ export default async function ReportsPage({
   );
 }
 
-function buildHref(cityCode: string, category: ReportCategory | null): string {
+function buildHref(
+  cityCode: string,
+  category: ReportCategory | null,
+  range: DateRange,
+): string {
   const params = new URLSearchParams({ city: cityCode });
   if (category) params.set("category", category);
+  if (range.from) params.set("from", range.from);
+  if (range.to) params.set("to", range.to);
   return `/reports?${params.toString()}`;
 }
 

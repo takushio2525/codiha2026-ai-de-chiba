@@ -9,6 +9,7 @@
  *   - クライアントが決めてよい項目だけを通す（city_code・rainfallMm・isOfficial は通さない）
  */
 import type { Municipality } from "./municipalities";
+import { isDateKey, normalizeRange, type DateRange } from "./reportRange";
 import { isAllowedPhotoType, sniffImageType } from "./photoStore";
 import {
   ALLOWED_PHOTO_TYPES,
@@ -63,6 +64,9 @@ export function parseListQuery(
     bbox = parsed;
   }
 
+  const range = parseRange(params.get("from"), params.get("to"));
+  if (!range) return bad("from / to には YYYY-MM-DD の日付を指定してください。");
+
   let limit = REPORTS_DEFAULT_LIMIT;
   const rawLimit = params.get("limit");
   if (rawLimit !== null) {
@@ -78,8 +82,17 @@ export function parseListQuery(
 
   return {
     ok: true,
-    value: { cityCode: municipality.code, categories, statuses, bbox, limit },
+    value: { cityCode: municipality.code, categories, statuses, bbox, range, limit },
   };
+}
+
+/** 投稿日の範囲（JST の暦日）。未指定なら null のまま（＝全期間）。
+ *  **形が違う値は黙って無視せず 400 にする**。絞ったつもりで絞れていない状態が
+ *  一番まずい（「この期間に投稿は無い」と読み違える）。 */
+function parseRange(rawFrom: string | null, rawTo: string | null): DateRange | null {
+  if (rawFrom !== null && rawFrom !== "" && !isDateKey(rawFrom)) return null;
+  if (rawTo !== null && rawTo !== "" && !isDateKey(rawTo)) return null;
+  return normalizeRange(rawFrom, rawTo);
 }
 
 /** カンマ区切りの列挙。未指定なら全部。知らない値が 1 つでもあれば null（＝ 400）。 */

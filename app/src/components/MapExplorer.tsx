@@ -28,6 +28,7 @@ import {
   type ReportCategory,
   type ReportCollection,
 } from "@/lib/reports";
+import { EMPTY_RANGE, hasRange, type DateRange } from "@/lib/reportRange";
 import { fetchReports } from "@/lib/reportsApi";
 import { fetchWalkingRoute, type RouteTarget, type WalkingRoute } from "@/lib/routing";
 import { SCENIC_FILE, type ScenicProps } from "@/lib/scenic";
@@ -114,6 +115,11 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
   const [reportVisible, setReportVisible] = useState<Record<ReportCategory, boolean>>(() =>
     reportVisibilityFor(initialMode),
   );
+  /** 投稿日の範囲（浸水実績アーカイブ）。既定は全期間 */
+  const [range, setRange] = useState<DateRange>(EMPTY_RANGE);
+  /** **注意案内（F-4）の根拠になる浸水報告の日時。全期間ぶん。**
+   *  地図の表示を期間で絞っても、ここは絞らない（下の loadReports を参照） */
+  const [floodHistory, setFloodHistory] = useState<string[]>([]);
   const [selectedReportId, setSelectedReportId] = useState<number | null>(null);
   /** 投稿フォームを開いている状態（位置が決まってから開く） */
   const [composing, setComposing] = useState<{ category: ReportCategory; coords: LngLat } | null>(
@@ -178,13 +184,29 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
    *  失敗しても投稿が空のまま続ける（interfaces.md I-3）。
    *  ただし**黙っては捨てない**。0 件なのか読めなかったのかが分からないと誤解を生む。 */
   const loadReports = useCallback(async () => {
-    const result = await fetchReports({ city: cityCode });
-    if (result.ok) {
-      setReports(result.value);
+    const result = await fetchReports({ city: cityCode, range });
+    if (!result.ok) {
+      setToast({ kind: "warning", text: result.reason });
       return;
     }
-    setToast({ kind: "warning", text: result.reason });
-  }, [cityCode]);
+    setReports(result.value);
+
+    const floodDates = (features: typeof result.value.features) =>
+      features
+        .filter((feature) => feature.properties.category === "flood")
+        .map((feature) => feature.properties.createdAt);
+
+    // **注意案内（F-4）は、いま見ている期間ではなく溜まった実績すべてを根拠にする。**
+    // 期間で絞ったせいで「過去に浸水報告はありません」になってしまうと、
+    // 防災の判断を誤らせる（requirements.md 3-1）。
+    // 絞っていないときは引き直す必要がないので、いまの結果から取る。
+    if (!hasRange(range)) {
+      setFloodHistory(floodDates(result.value.features));
+      return;
+    }
+    const all = await fetchReports({ city: cityCode, categories: ["flood"] });
+    if (all.ok) setFloodHistory(all.value.features.map((f) => f.properties.createdAt));
+  }, [cityCode, range]);
 
   useEffect(() => {
     void loadReports();
@@ -422,12 +444,7 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
 
   /** F-4 の注意案内。**過去の浸水報告と気象庁の予報という事実を 2 つ並べるだけ**で、
    *  浸水を予測しているわけではない（docs/design/requirements.md 3-1）。 */
-  const floodAlert = buildFloodAlert(
-    weather?.forecast ?? null,
-    reports.features
-      .filter((feature) => feature.properties.category === "flood")
-      .map((feature) => feature.properties.createdAt),
-  );
+  const floodAlert = buildFloodAlert(weather?.forecast ?? null, floodHistory);
 
   const reportCounts = REPORT_CATEGORIES.reduce(
     (counts, category) => {
@@ -503,8 +520,11 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
           collapsed={collapsed}
           onToggleCollapsed={() => setCollapsed((prev) => !prev)}
           reportCounts={reportCounts}
+          reportTotal={reports.features.length}
           reportVisible={reportVisible}
           onToggleReportCategory={toggleReportCategory}
+          range={range}
+          onChangeRange={setRange}
           postableCategories={mapModeDef(mode).postable}
           canPost={session.user !== null}
           picking={pickTarget?.kind === "report" ? pickTarget.category : null}
