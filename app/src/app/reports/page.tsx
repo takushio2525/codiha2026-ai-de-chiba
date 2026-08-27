@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CalendarRange, Camera, Droplets, Map, MessageSquare, ShieldCheck, TriangleAlert, X } from "lucide-react";
+import { CalendarRange, Camera, Droplets, Map, MessageSquare, Search, ShieldCheck, TriangleAlert, X } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import { DemoBadge } from "@/components/DemoBadge";
@@ -17,6 +17,7 @@ import {
   rangeFromPreset,
   type DateRange,
 } from "@/lib/reportRange";
+import { SEARCH_MAX_LENGTH, normalizeSearch } from "@/lib/searchText";
 import {
   REPORTS_DEFAULT_LIMIT,
   REPORT_CATEGORIES,
@@ -48,7 +49,7 @@ const ICONS: Record<ReportIconName, LucideIcon> = {
   camera: Camera,
 };
 
-type Search = { city?: string; category?: string; from?: string; to?: string };
+type Search = { city?: string; category?: string; from?: string; to?: string; q?: string };
 
 /** 投稿一覧（画面 S-5）。
  *
@@ -66,6 +67,9 @@ export default async function ReportsPage({
   // 妥当でない日付は**黙って全期間として扱う**（画面はリンクで辿れるので、
   // 手で URL をいじった人に 400 を返すより、絞り込みなしで表示するほうが親切）
   const range = normalizeRange(raw.from, raw.to);
+  // 長すぎる語は頭で切る（この画面はリンクで辿れるので 400 にしない）
+  const rawQuery = (raw.q ?? "").slice(0, SEARCH_MAX_LENGTH);
+  const query = normalizeSearch(rawQuery);
 
   let features: ReportFeature[] = [];
   let cityName = "";
@@ -83,6 +87,7 @@ export default async function ReportsPage({
         statuses: REPORT_STATUS_IDS,
         bbox: municipality.bbox,
         range,
+        query,
         limit: REPORTS_DEFAULT_LIMIT,
       });
     }
@@ -116,14 +121,14 @@ export default async function ReportsPage({
 
       <nav aria-label="カテゴリで絞り込む" className="mt-4 flex flex-wrap gap-1.5">
         <FilterChip
-          href={buildHref(cityCode, null, range)}
+          href={buildHref(cityCode, null, range, rawQuery)}
           active={category === null}
           label="すべて"
         />
         {REPORT_CATEGORIES.map((def) => (
           <FilterChip
             key={def.id}
-            href={buildHref(cityCode, def.id, range)}
+            href={buildHref(cityCode, def.id, range, rawQuery)}
             active={category === def.id}
             label={def.label}
             color={def.color}
@@ -137,9 +142,9 @@ export default async function ReportsPage({
         <div className="flex items-baseline justify-between gap-2">
           <h2 className="flex items-center gap-1.5 text-[11px] font-semibold tracking-wide text-ink-muted">
             <CalendarRange aria-hidden className="size-3.5" />
-            期間でしぼる
+            言葉と期間でしぼる
           </h2>
-          {hasRange(range) ? (
+          {hasRange(range) || rawQuery ? (
             <Link
               href={buildHref(cityCode, category, { from: null, to: null })}
               className="inline-flex shrink-0 items-center gap-1 text-[11px] font-medium text-ink-sub underline decoration-line underline-offset-2 transition hover:text-ink hover:decoration-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
@@ -156,7 +161,7 @@ export default async function ReportsPage({
             return (
               <FilterChip
                 key={preset.id}
-                href={buildHref(cityCode, category, target)}
+                href={buildHref(cityCode, category, target, rawQuery)}
                 active={matchingPreset(range) === preset.id}
                 label={preset.label}
               />
@@ -167,6 +172,23 @@ export default async function ReportsPage({
         <form method="get" className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-[1fr_1fr_auto]">
           <input type="hidden" name="city" value={cityCode} />
           {category ? <input type="hidden" name="category" value={category} /> : null}
+          <label className="col-span-2 block sm:col-span-3">
+            <span className="sr-only">投稿を検索</span>
+            <span className="relative block">
+              <Search
+                aria-hidden
+                className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-ink-muted"
+              />
+              <input
+                type="search"
+                name="q"
+                defaultValue={rawQuery}
+                maxLength={SEARCH_MAX_LENGTH}
+                placeholder="タイトル・本文を検索"
+                className="w-full rounded-lg border border-line bg-surface py-2 pr-3 pl-9 text-[12.5px] text-ink transition placeholder:text-ink-muted/70 focus:border-ink focus:outline-none"
+              />
+            </span>
+          </label>
           <label className="block">
             <span className="text-[11px] text-ink-muted">開始日</span>
             <input
@@ -189,18 +211,19 @@ export default async function ReportsPage({
             type="submit"
             className="col-span-2 mt-1 rounded-lg bg-ink px-3 py-2 text-[12.5px] font-semibold text-white transition hover:bg-[#31353d] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink sm:col-span-1 sm:mt-0 sm:self-end"
           >
-            この期間で見る
+            この条件で見る
           </button>
         </form>
 
         <p className="mt-2 text-[11.5px] leading-relaxed text-ink-muted">
+          {rawQuery ? `「${rawQuery}」に当たる` : ""}
           {describeRange(range)}の投稿{" "}
           <strong className="font-semibold text-ink-sub tabular-nums">{features.length}</strong> 件
         </p>
 
         {/* 絞り込んだそのままの条件で持ち帰れる */}
         <div className="mt-3 border-t border-line pt-3">
-          <ExportLinks city={cityCode} range={range} category={category} />
+          <ExportLinks city={cityCode} range={range} category={category} query={rawQuery} />
         </div>
       </section>
 
@@ -210,9 +233,13 @@ export default async function ReportsPage({
         </p>
       ) : features.length === 0 ? (
         <p className="mt-6 rounded-2xl border border-line bg-surface px-4 py-8 text-center text-[13px] leading-relaxed text-ink-muted">
-          {hasRange(range)
-            ? `${describeRange(range)}に投稿はありません。期間を広げるか、解除してください。`
-            : "まだ投稿がありません。地図から最初の 1 件を投稿できます。"}
+          {rawQuery
+            ? `「${rawQuery}」に当たる投稿はありませんでした。${
+                hasRange(range) ? "期間を広げるか、検索を空にしてください。" : "別の言葉で探してみてください。"
+              }`
+            : hasRange(range)
+              ? `${describeRange(range)}に投稿はありません。期間を広げるか、解除してください。`
+              : "まだ投稿がありません。地図から最初の 1 件を投稿できます。"}
         </p>
       ) : (
         <ul className="mt-4 space-y-2.5">
@@ -229,11 +256,13 @@ function buildHref(
   cityCode: string,
   category: ReportCategory | null,
   range: DateRange,
+  query = "",
 ): string {
   const params = new URLSearchParams({ city: cityCode });
   if (category) params.set("category", category);
   if (range.from) params.set("from", range.from);
   if (range.to) params.set("to", range.to);
+  if (query) params.set("q", query);
   return `/reports?${params.toString()}`;
 }
 

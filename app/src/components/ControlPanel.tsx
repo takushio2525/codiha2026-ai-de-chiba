@@ -48,6 +48,7 @@ import { formatRainfall, formatStation, type FloodAlert, type WeatherObservation
 import BrandMark from "./BrandMark";
 import DateRangeFilter from "./DateRangeFilter";
 import ExportLinks from "./ExportLinks";
+import SearchBox, { type SearchHit } from "./SearchBox";
 import FloodAlertCard from "./FloodAlertCard";
 import HazardLegend from "./HazardLegend";
 import RouteCard from "./RouteCard";
@@ -104,6 +105,12 @@ type Props = {
   onChangeRange: (range: DateRange) => void;
   /** 表示している市町村（書き出しの条件に渡す） */
   cityCode: string;
+  /** 検索欄の中身と、当たったもの */
+  query: string;
+  onChangeQuery: (value: string) => void;
+  searchHits: SearchHit[];
+  searchPending: boolean;
+  onPickSearchHit: (hit: SearchHit) => void;
   /** いま投稿できるカテゴリ。モードごとに違う（`lib/mapModes.ts` が正本） */
   postableCategories: ReportCategory[];
   /** ログイン済みか。**表示の出し分けにしか使わない**（権限判定は API 側） */
@@ -145,6 +152,11 @@ export default function ControlPanel({
   range,
   onChangeRange,
   cityCode,
+  query,
+  onChangeQuery,
+  searchHits,
+  searchPending,
+  onPickSearchHit,
   postableCategories,
   canPost,
   picking,
@@ -216,7 +228,17 @@ export default function ControlPanel({
           </section>
         ) : null}
 
-        <section className="px-4 py-3.5">
+        {/* 探すのが最初の一手になることが多いので、いちばん上に置く。
+            **打った語は地図そのものにも効く**（当たったピンだけが残る） */}
+        <SearchBox
+          value={query}
+          onChange={onChangeQuery}
+          hits={searchHits}
+          onPick={onPickSearchHit}
+          pending={searchPending}
+        />
+
+        <section className="border-t border-line px-4 py-3.5">
           <h2 className="text-[11px] font-semibold tracking-wide text-ink-muted">表示するデータ</h2>
           <ul className="mt-2 space-y-1.5">
             {LAYERS.map((layer) => {
@@ -471,7 +493,7 @@ export default function ControlPanel({
 
         {/* 絞り込んだそのままの条件で持ち帰れるよう、期間のすぐ下に置く */}
         <section className="border-t border-line px-4 py-3.5">
-          <ExportLinks city={cityCode} range={range} />
+          <ExportLinks city={cityCode} range={range} query={query} />
         </section>
 
         <section className="border-t border-line px-4 py-3.5">

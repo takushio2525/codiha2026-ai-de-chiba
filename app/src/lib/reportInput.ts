@@ -10,6 +10,7 @@
  */
 import type { Municipality } from "./municipalities";
 import { isDateKey, normalizeRange, type DateRange } from "./reportRange";
+import { SEARCH_MAX_LENGTH, normalizeSearch } from "./searchText";
 import { isAllowedPhotoType, sniffImageType } from "./photoStore";
 import {
   ALLOWED_PHOTO_TYPES,
@@ -67,6 +68,12 @@ export function parseListQuery(
   const range = parseRange(params.get("from"), params.get("to"));
   if (!range) return bad("from / to には YYYY-MM-DD の日付を指定してください。");
 
+  const rawQuery = params.get("q") ?? "";
+  if (rawQuery.length > SEARCH_MAX_LENGTH) {
+    return bad(`検索する言葉は ${SEARCH_MAX_LENGTH} 文字以内にしてください。`);
+  }
+  const query = normalizeSearch(rawQuery);
+
   let limit = REPORTS_DEFAULT_LIMIT;
   const rawLimit = params.get("limit");
   if (rawLimit !== null) {
@@ -82,7 +89,7 @@ export function parseListQuery(
 
   return {
     ok: true,
-    value: { cityCode: municipality.code, categories, statuses, bbox, range, limit },
+    value: { cityCode: municipality.code, categories, statuses, bbox, range, query, limit },
   };
 }
 

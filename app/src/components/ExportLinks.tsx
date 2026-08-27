@@ -10,6 +10,8 @@ type Props = {
   range: DateRange;
   /** いま画面で絞っているカテゴリ。全部なら null */
   category?: ReportCategory | null;
+  /** いま画面で絞っている検索語。空なら絞らない */
+  query?: string;
 };
 
 /**
@@ -23,8 +25,8 @@ type Props = {
  * （ファイル名の付け方を 1 箇所に集めるため）。
  * リンクなので **JavaScript が無くても動く**。
  */
-export default function ExportLinks({ city, range, category = null }: Props) {
-  const shared = { city, from: range.from, to: range.to, category };
+export default function ExportLinks({ city, range, category = null, query = "" }: Props) {
+  const shared = { city, from: range.from, to: range.to, category, q: query };
   const style =
     "inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-line bg-surface px-3 py-2 text-[12px] font-medium text-ink-sub transition hover:border-ink-muted/40 hover:bg-[#fafafa] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink";
 

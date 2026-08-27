@@ -105,6 +105,8 @@ export type ReportFilter = {
   bbox: [number, number, number, number];
   /** 投稿日の範囲（JST の暦日・両端を含む）。指定なしなら全期間 */
   range: DateRange;
+  /** キーワード（タイトル・本文の部分一致）。**正規化済み**の語。空なら絞らない */
+  query: string;
   limit: number;
 };
 
@@ -153,7 +155,25 @@ function whereFor(filter: ReportFilter, params: unknown[]): string {
     );
   }
 
+  // キーワードはタイトルと本文の部分一致。**両側を NFKC + 小文字にそろえてから**
+  // 突き合わせる（`lib/searchText.ts`。全角/半角と大小文字の違いを無視するため）。
+  // LIKE のワイルドカードは呼び出し側で打ち消してある（`escapeLike`）。
+  if (filter.query.length > 0) {
+    params.push(`%${escapeLike(filter.query)}%`);
+    const pattern = `$${params.length}`;
+    conditions.push(
+      `(lower(normalize(r.title, NFKC)) LIKE ${pattern} ESCAPE '\\'` +
+        ` OR lower(normalize(r.body, NFKC)) LIKE ${pattern} ESCAPE '\\')`,
+    );
+  }
+
   return conditions.join(" AND ");
+}
+
+/** LIKE のワイルドカードを打ち消す。`%` や `_` を打った人が、
+ *  意図せず「何にでも当たる」検索をしてしまうのを防ぐ。 */
+function escapeLike(value: string): string {
+  return value.replace(/[\\%_]/g, (c) => `\\${c}`);
 }
 
 /** 条件に合う投稿を新着順に引く（interfaces.md I-3）。 */

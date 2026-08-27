@@ -303,11 +303,14 @@ export function exportHref(params: {
   from?: string | null;
   to?: string | null;
   category?: string | null;
+  /** 検索語。**そのまま渡す**（サーバー側で正規化する） */
+  q?: string | null;
 }): string {
   const query = new URLSearchParams({ format: params.format, city: params.city });
   if (params.category) query.set("category", params.category);
   if (params.from) query.set("from", params.from);
   if (params.to) query.set("to", params.to);
+  if (params.q) query.set("q", params.q);
   return `/api/reports/export?${query.toString()}`;
 }
 

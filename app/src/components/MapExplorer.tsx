@@ -31,7 +31,8 @@ import {
 import { EMPTY_RANGE, hasRange, type DateRange } from "@/lib/reportRange";
 import { fetchReports } from "@/lib/reportsApi";
 import { fetchWalkingRoute, type RouteTarget, type WalkingRoute } from "@/lib/routing";
-import { SCENIC_FILE, type ScenicProps } from "@/lib/scenic";
+import { SCENIC_FILE, SCENIC_LABEL, scenicColor, type ScenicProps } from "@/lib/scenic";
+import { normalizeSearch, searchMatches } from "@/lib/searchText";
 import {
   buildFloodAlert,
   fetchWeather,
@@ -43,6 +44,7 @@ import MapView, { type LayerData, type PanelBox } from "./MapView";
 import MapModeTabs from "./MapModeTabs";
 import ReportForm from "./ReportForm";
 import ReportPanel from "./ReportPanel";
+import SearchBox, { type SearchHit } from "./SearchBox";
 import Toast, { type ToastMessage } from "./Toast";
 
 /** 市川市のだいたいの範囲。現在地がここから外れたときに一言添えるために使う。 */
@@ -117,6 +119,11 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
   );
   /** 投稿日の範囲（浸水実績アーカイブ）。既定は全期間 */
   const [range, setRange] = useState<DateRange>(EMPTY_RANGE);
+  /** 検索欄に入っている文字。打つたびに変わる */
+  const [query, setQuery] = useState("");
+  /** 実際に絞り込みへ使っている語。**打ち終わるのを少し待ってから**反映する
+   *  （1 文字ごとにサーバーへ投げない） */
+  const [appliedQuery, setAppliedQuery] = useState("");
   /** **注意案内（F-4）の根拠になる浸水報告の日時。全期間ぶん。**
    *  地図の表示を期間で絞っても、ここは絞らない（下の loadReports を参照） */
   const [floodHistory, setFloodHistory] = useState<string[]>([]);
@@ -184,7 +191,7 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
    *  失敗しても投稿が空のまま続ける（interfaces.md I-3）。
    *  ただし**黙っては捨てない**。0 件なのか読めなかったのかが分からないと誤解を生む。 */
   const loadReports = useCallback(async () => {
-    const result = await fetchReports({ city: cityCode, range });
+    const result = await fetchReports({ city: cityCode, range, query: appliedQuery });
     if (!result.ok) {
       setToast({ kind: "warning", text: result.reason });
       return;
@@ -206,11 +213,20 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
     }
     const all = await fetchReports({ city: cityCode, categories: ["flood"] });
     if (all.ok) setFloodHistory(all.value.features.map((f) => f.properties.createdAt));
-  }, [cityCode, range]);
+  }, [cityCode, range, appliedQuery]);
 
   useEffect(() => {
     void loadReports();
   }, [loadReports]);
+
+  // 打ち終わってから投げる。350ms は「続けて打っている」と「打ち終わった」の境目で、
+  // これより短いと 1 文字ごとに投げ、長いと反応が鈍く感じる
+  useEffect(() => {
+    const normalized = normalizeSearch(query);
+    if (normalized === appliedQuery) return;
+    const timer = setTimeout(() => setAppliedQuery(normalized), 350);
+    return () => clearTimeout(timer);
+  }, [query, appliedQuery]);
 
   /** 気象情報は地図を開いたときに 1 回だけ取る（.agent/architecture.md の F-4 の流れ）。
    *  **取れなくても黙って進む**。注意案内が出ないだけで、地図も投稿も動く。 */
@@ -254,14 +270,55 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
     return () => clearTimeout(timer);
   }, [toast]);
 
+  /** 検索に当たった景観スポットだけにする。**景観100選は 100 件しかない**ので、
+   *  サーバーへ往復せず読み込み済みの GeoJSON から手元で探す。
+   *  探すのは名前（日英）と所在地で、解説文までは見ない（当たりすぎて絞れなくなる）。 */
+  const visibleScenic = useMemo(() => {
+    if (!scenic || appliedQuery.length === 0) return scenic;
+    return {
+      ...scenic,
+      features: scenic.features.filter(
+        (feature) =>
+          searchMatches(feature.properties.name, appliedQuery) ||
+          searchMatches(feature.properties.nameEn, appliedQuery) ||
+          searchMatches(feature.properties.address, appliedQuery),
+      ),
+    };
+  }, [scenic, appliedQuery]);
+
+  /** 検索の結果。投稿（サーバーで絞ったもの）と景観スポットを同じ並びにする。 */
+  const searchHits: SearchHit[] = useMemo(() => {
+    if (appliedQuery.length === 0) return [];
+    const fromReports: SearchHit[] = reports.features.map((feature) => {
+      const def = reportCategoryDef(feature.properties.category);
+      return {
+        key: `report-${feature.properties.id}`,
+        label: feature.properties.title,
+        kind: def.label,
+        color: def.color,
+        coords: feature.geometry.coordinates,
+        reportId: feature.properties.id,
+      };
+    });
+    const fromScenic: SearchHit[] = (visibleScenic?.features ?? []).map((feature, index) => ({
+      key: `scenic-${index}-${feature.properties.name ?? ""}`,
+      label: feature.properties.name ?? "（名前のない地点）",
+      kind: SCENIC_LABEL,
+      color: scenicColor(feature.properties.categoryPrimary),
+      coords: feature.geometry.coordinates as LngLat,
+    }));
+    return [...fromReports, ...fromScenic];
+  }, [appliedQuery, reports, visibleScenic]);
+
   /** 徒歩ナビの候補。**表示中の施設レイヤーと景観スポットを同じ土俵に並べる**ので、
-   *  観光モードで施設を全部外していても「最寄りの地点へ」が使える。 */
+   *  観光モードで施設を全部外していても「最寄りの地点へ」が使える。
+   *  検索で絞っているときは、**当たったスポットだけ**が候補になる。 */
   const navCandidates: NavCandidate[] = useMemo(
     () => [
       ...(data ? facilityCandidates(data, LAYERS, visible) : []),
-      ...scenicCandidates(scenic, scenicVisible),
+      ...scenicCandidates(visibleScenic, scenicVisible),
     ],
-    [data, visible, scenic, scenicVisible],
+    [data, visible, visibleScenic, scenicVisible],
   );
 
   const runRoute = useCallback(async (from: LngLat, destination: RouteTarget) => {
@@ -437,6 +494,23 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
     });
   }, []);
 
+  /** 検索結果を押したとき。地図をそこへ寄せ、投稿なら詳細も開く。 */
+  const pickSearchHit = useCallback((hit: SearchHit) => {
+    focusNonce.current += 1;
+    setFocus({ coords: hit.coords, nonce: focusNonce.current });
+    if (hit.reportId === undefined) {
+      // 景観スポット。防災モードでは既定で消えているので、寄せる前に出しておく
+      setScenicVisible(true);
+      return;
+    }
+    // 当たった投稿のカテゴリを消していると、寄せた先にピンが無くて戸惑う
+    const category = reports.features.find(
+      (feature) => feature.properties.id === hit.reportId,
+    )?.properties.category;
+    if (category) setReportVisible((prev) => ({ ...prev, [category]: true }));
+    setSelectedReportId(hit.reportId);
+  }, [reports]);
+
   const locate = useCallback((coords: LngLat) => {
     focusNonce.current += 1;
     setFocus({ coords, nonce: focusNonce.current });
@@ -472,7 +546,7 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
           pickMode={pickTarget !== null}
           onPickOrigin={handleMapPick}
           onNavigate={handleNavigateTo}
-          scenic={scenic}
+          scenic={visibleScenic}
           scenicVisible={scenicVisible}
           reports={reports}
           reportVisible={reportVisible}
@@ -480,6 +554,7 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
           selectedReportId={selectedReportId}
           onSelectReport={setSelectedReportId}
           focus={focus}
+          onGeolocate={setOrigin}
           panel={panel}
         />
       ) : (
@@ -500,7 +575,7 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
           ) as Record<LayerId, number>}
           visible={visible}
           onToggleLayer={toggleLayer}
-          scenicCount={scenic?.features.length ?? 0}
+          scenicCount={visibleScenic?.features.length ?? 0}
           scenicVisible={scenicVisible}
           onToggleScenic={toggleScenic}
           hazardVisible={hazardVisible}
@@ -526,6 +601,11 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
           range={range}
           onChangeRange={setRange}
           cityCode={cityCode}
+          query={query}
+          onChangeQuery={setQuery}
+          searchHits={searchHits}
+          searchPending={normalizeSearch(query) !== appliedQuery}
+          onPickSearchHit={pickSearchHit}
           postableCategories={mapModeDef(mode).postable}
           canPost={session.user !== null}
           picking={pickTarget?.kind === "report" ? pickTarget.category : null}

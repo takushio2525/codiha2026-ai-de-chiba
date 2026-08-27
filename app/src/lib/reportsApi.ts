@@ -37,6 +37,8 @@ export async function fetchReports(params: {
   categories?: ReportCategory[];
   /** 投稿日の範囲（JST の暦日）。未指定なら全期間 */
   range?: DateRange;
+  /** キーワード。タイトルと本文の部分一致 */
+  query?: string;
 }): Promise<ApiResult<ReportCollection>> {
   const query = new URLSearchParams({ city: params.city });
   if (params.categories && params.categories.length > 0) {
@@ -44,6 +46,7 @@ export async function fetchReports(params: {
   }
   if (params.range?.from) query.set("from", params.range.from);
   if (params.range?.to) query.set("to", params.range.to);
+  if (params.query && params.query.length > 0) query.set("q", params.query);
   try {
     const response = await fetch(`/api/reports?${query.toString()}`, { cache: "no-store" });
     if (!response.ok) return failure(response, "投稿を読み込めませんでした。");
