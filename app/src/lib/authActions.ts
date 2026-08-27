@@ -7,6 +7,7 @@
  */
 import { AuthError, signIn, signOut } from "./auth";
 import { normalizeDisplayName, validateDisplayName } from "./displayName";
+import { verifyGovPin } from "./govPin";
 
 export type DemoLoginState = {
   /** 画面にそのまま出せる日本語のエラー。問題なければ null。 */
@@ -23,9 +24,19 @@ export async function demoLoginAction(
   if (invalid !== null) return { error: invalid };
 
   const role = formData.get("role") === "gov" ? "gov" : "user";
+  const govPin = String(formData.get("govPin") ?? "");
+
+  // 行政ロールの PIN（requirements.md 8-3）。GOV_DEMO_PIN が未設定なら常に通る。
+  // **ここで確かめるのは、理由を日本語で画面に返すため。** signIn に任せると
+  // authorize が null を返しても「ログインできませんでした」としか言えない。
+  // 数え直しにならないよう、**この経路では authorize が正しい PIN を受け取る**
+  if (role === "gov") {
+    const pin = await verifyGovPin(govPin);
+    if (!pin.ok) return { error: pin.error };
+  }
 
   try {
-    await signIn("demo", { displayName, role, redirectTo: "/" });
+    await signIn("demo", { displayName, role, govPin, redirectTo: "/" });
   } catch (error) {
     // 成功時は signIn がリダイレクト例外を投げる。それは Next.js に処理させる
     if (error instanceof AuthError) {
