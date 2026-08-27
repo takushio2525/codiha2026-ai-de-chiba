@@ -21,6 +21,7 @@ import {
   type AuthMode,
 } from "./authMode";
 import { normalizeDisplayName, validateDisplayName } from "./displayName";
+import { verifyGovPin } from "./govPin";
 import { getInstallId, sessionSecretFor } from "./installId";
 import { DEMO_CITY_CODE } from "./municipalities";
 import { upsertUser, type UserRole } from "./users";
@@ -95,6 +96,8 @@ function providers(): NextAuthConfig["providers"] {
       credentials: {
         displayName: { label: "表示名", type: "text" },
         role: { label: "ロール", type: "text" },
+        // GOV_DEMO_PIN を設定した環境だけで使う（未設定なら無視される）
+        govPin: { label: "行政ユーザーの PIN", type: "password" },
       },
       /** 表示名を入れるだけでログインできる。**デモモードだから許される**作りで、
        *  Google モードではロールを自己申告させない（requirements.md 8-3）。 */
@@ -106,6 +109,13 @@ function providers(): NextAuthConfig["providers"] {
         if (validateDisplayName(displayName) !== null) return null;
 
         const role: UserRole = raw?.role === "gov" ? "gov" : "user";
+
+        // 行政ロールの PIN（requirements.md 8-3）。**画面を通さずここへ直接
+        // POST された場合の最後の砦。** GOV_DEMO_PIN が未設定なら素通りする。
+        // 画面からの経路はサーバーアクション側で先に確かめて日本語の理由を返すので、
+        // ここまで PIN 違いで来るのは API を直接叩かれたときだけ
+        if (role === "gov" && !(await verifyGovPin(raw?.govPin)).ok) return null;
+
         const user = await upsertUser({
           provider: "demo",
           // 同じ「表示名 × ロール」で入り直したら同じユーザーとして扱う

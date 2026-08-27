@@ -82,11 +82,18 @@ PORT_OVERLAY=""
 cleanup() { [ -n "$PORT_OVERLAY" ] && rm -f "$PORT_OVERLAY"; }
 trap cleanup EXIT
 
+# compose の呼び出し方。**`docker compose`（プラグイン）とは限らない。**
+# Homebrew の docker-compose は ~/.docker/config.json に cliPluginsExtraDirs を
+# 書かないとプラグインとして見えず、`docker compose` が「そんなコマンドは無い」に
+# なる（公式 formula の caveats）。単体コマンドとしては使えるので、
+# 前提の確認（手順 1）で使えるほうを選んでここに入れる。
+COMPOSE_BIN=(docker compose)
+
 compose() {
     local args=(-f "$APP_DIR/compose.yaml" -f "$OVERLAY")
     [ -n "$PORT_OVERLAY" ] && args+=(-f "$PORT_OVERLAY")
     [ -n "$PROJECT" ] && args=(-p "$PROJECT" "${args[@]}")
-    docker compose "${args[@]}" "$@"
+    "${COMPOSE_BIN[@]}" "${args[@]}" "$@"
 }
 
 # =========================================================================
@@ -105,22 +112,54 @@ command -v git >/dev/null 2>&1 \
     || die "git が見つかりません" "Xcode Command Line Tools を入れてください: xcode-select --install"
 ok "git: $(git --version)"
 
+# **Docker Desktop でも colima でも動く。** 違うのは案内の文面だけで、
+# 以降の docker / compose の使い方は同じ。SSH だけで完結させたい人（画面の無い
+# Mac・リモートログインだけ）は colima を選ぶことになるので、そちらも通す。
 command -v docker >/dev/null 2>&1 || die \
     "docker コマンドが見つかりません" \
-    "Docker Desktop を入れてください: https://www.docker.com/products/docker-desktop/" \
-    "入れたあと、アプリを一度起動してから実行し直してください。"
+    "画面のある Mac なら Docker Desktop:" \
+    "  https://www.docker.com/products/docker-desktop/" \
+    "SSH だけで済ませたいなら colima:" \
+    "  brew install colima docker docker-compose && colima start" \
+    "詳しい手順は deploy/selfhost/README.md の「手順 1」を見てください。"
 ok "docker: $(docker --version)"
 
 if ! docker info >/dev/null 2>&1; then
-    die "Docker は入っていますが動いていません" \
-        "Docker Desktop を起動して、メニューバーのクジラが「Running」になってから実行し直してください。" \
-        "  open -a Docker"
+    DOCKER_HINTS=()
+    command -v colima >/dev/null 2>&1 \
+        && DOCKER_HINTS+=("colima を使っているなら起動する:" "  colima start")
+    [ -d /Applications/Docker.app ] \
+        && DOCKER_HINTS+=("Docker Desktop を使っているなら起動して、クジラが Running になるのを待つ:" "  open -a Docker")
+    # どちらも見当たらないとき（PATH だけ通っている等）は両方を出す
+    [ ${#DOCKER_HINTS[@]} -eq 0 ] \
+        && DOCKER_HINTS+=("Docker Desktop なら:  open -a Docker" "colima なら:          colima start")
+    die "Docker は入っていますが動いていません" "${DOCKER_HINTS[@]}"
 fi
 ok "Docker デーモンが動いている"
 
-docker compose version >/dev/null 2>&1 \
-    || die "docker compose（v2）が使えません" "Docker Desktop を新しくしてください。"
-ok "docker compose: $(docker compose version --short 2>/dev/null || docker compose version)"
+# compose は「プラグイン」と「単体コマンド」の 2 通りある。使えるほうを選ぶ。
+# **v1（Python 版）は使えない。** compose.prod.yaml が `!override` を使っており、
+# これは Compose Spec の機能なので v2 以降でないと読めない。
+if docker compose version >/dev/null 2>&1; then
+    COMPOSE_BIN=(docker compose)
+elif command -v docker-compose >/dev/null 2>&1 && docker-compose version >/dev/null 2>&1; then
+    COMPOSE_BIN=(docker-compose)
+else
+    die "docker compose（v2）が使えません" \
+        "Docker Desktop なら、新しくしてください。" \
+        "Homebrew で入れたなら、プラグインとして見えていない可能性があります:" \
+        "  brew install docker-compose" \
+        "  ~/.docker/config.json に cliPluginsExtraDirs を足す（公式 formula の案内）:" \
+        "    { \"cliPluginsExtraDirs\": [\"$(brew --prefix 2>/dev/null || echo /opt/homebrew)/lib/docker/cli-plugins\"] }"
+fi
+
+COMPOSE_VERSION="$("${COMPOSE_BIN[@]}" version --short 2>/dev/null)"
+case "$COMPOSE_VERSION" in
+    1.*) die "compose が v1 です（検出: $COMPOSE_VERSION）" \
+             "v2 以降が要ります（compose.prod.yaml の \`!override\` は v2 の機能）。" \
+             "  brew install docker-compose" ;;
+esac
+ok "compose: ${COMPOSE_BIN[*]} ${COMPOSE_VERSION:-（版番号を取得できず）}"
 
 # --- Tailscale ---
 # JSON から値を取り出すのに jq は使わない（旧 Mac に入っていない前提）。
@@ -138,13 +177,27 @@ if [ "$DO_FUNNEL" -eq 1 ]; then
             || die "環境変数 TAILSCALE_BIN が指す場所に実行できるものがありません: $TAILSCALE_BIN"
         TAILSCALE="$TAILSCALE_BIN"
     else
-        # PATH → standalone 版が置くランチャ → App Store 版の本体、の順で探す
-        for candidate in tailscale /usr/local/bin/tailscale /Applications/Tailscale.app/Contents/MacOS/Tailscale; do
+        # PATH → Homebrew（Apple シリコン / Intel）→ standalone 版のランチャ →
+        # App Store 版の本体、の順で探す。
+        #
+        # **SSH で入ると PATH に Homebrew が入っていないことがある**ので、
+        # 実在するパスを直接並べておく。Homebrew の既定の置き場は
+        # Apple シリコンが /opt/homebrew、Intel が /usr/local（公式ドキュメント）で、
+        # tailscale formula は bin/tailscale と bin/tailscaled を入れる。
+        # /usr/local/bin/tailscale は standalone 版のランチャと同じ場所でもある。
+        for candidate in \
+            tailscale \
+            /opt/homebrew/bin/tailscale \
+            /usr/local/bin/tailscale \
+            /Applications/Tailscale.app/Contents/MacOS/Tailscale
+        do
             if command -v "$candidate" >/dev/null 2>&1; then TAILSCALE="$candidate"; break; fi
         done
     fi
     [ -n "$TAILSCALE" ] || die \
         "tailscale コマンドが見つかりません" \
+        "SSH だけで済ませたいなら Homebrew 版を入れてください:" \
+        "  brew install tailscale && sudo brew services start tailscale" \
         "App Store 版を使っている場合、CLI は次の場所にあります:" \
         "  /Applications/Tailscale.app/Contents/MacOS/Tailscale" \
         "PATH に通す方法は deploy/selfhost/README.md の手順 2 を見てください。" \
@@ -153,9 +206,13 @@ if [ "$DO_FUNNEL" -eq 1 ]; then
     ok "tailscale: $("$TAILSCALE" version 2>/dev/null | head -1)"
 
     TS_JSON="$("$TAILSCALE" status --json 2>/dev/null | tr -d ' \n')"
+    # CLI があっても**デーモン（tailscaled）が動いていなければ何も返らない**。
+    # GUI 版はアプリ自体がデーモンを抱えているが、Homebrew 版は別に起こす必要がある
     [ -n "$TS_JSON" ] || die \
         "tailscale と話せません（status --json が何も返しません）" \
-        "Tailscale アプリが起動しているか確かめてください:" \
+        "Homebrew 版なら、tailscaled を起こしてください:" \
+        "  sudo brew services start tailscale" \
+        "GUI 版（App Store / standalone）なら、アプリが起動しているか確かめてください:" \
         "  open -a Tailscale"
 
     STATE="$(json_value "$TS_JSON" BackendState)"
@@ -163,7 +220,8 @@ if [ "$DO_FUNNEL" -eq 1 ]; then
         Running) ok "Tailscale にログイン済み（BackendState=Running）" ;;
         NeedsLogin|NoState|Starting|"") die \
             "Tailscale にログインしていません（BackendState=${STATE:-不明}）" \
-            "次を実行してブラウザでログインしてください:" \
+            "次を実行してください。画面が無くても構いません" \
+            "（端末に出る URL を手元のブラウザで開けば認証できます）:" \
             "  $TAILSCALE up" ;;
         Stopped) die "Tailscale が停止しています" "メニューバーの Tailscale から接続するか、$TAILSCALE up を実行してください。" ;;
         *) warn "Tailscale の状態が想定外です（BackendState=$STATE）。このまま進めます" ;;
@@ -188,6 +246,24 @@ if [ -n "$TS_JSON" ]; then
         ok "公開ホスト名: $PUBLIC_HOST"
     else
         warn "公開ホスト名を判定できませんでした。Funnel の実行後に表示される URL を使ってください"
+    fi
+fi
+
+# --- 公開するなら行政ロールに PIN を掛ける ---
+# デモログインは「一般 / 行政」を自己申告で選べる（docs/design/requirements.md 8-3）。
+# 手元で動かすぶんには正しい建付けだが、**Funnel で公開すると通りすがりの誰でも
+# 行政ユーザーになり、投稿の対応状況を書き換えられる**。
+# app/.env に GOV_DEMO_PIN を 1 行足すと、行政を選ぶときだけ PIN を求めるようになる。
+# 止めるほどではない（発表直前に弾かれると困る）ので警告に留める。
+if [ "$DO_FUNNEL" -eq 1 ]; then
+    if grep -qE '^[[:space:]]*GOV_DEMO_PIN=[^[:space:]]' "$APP_DIR/.env" 2>/dev/null; then
+        ok "行政ロールに PIN が掛かっている（GOV_DEMO_PIN）"
+    else
+        warn "行政ロールに PIN が掛かっていません。公開すると誰でも行政ユーザーになれます"
+        info "app/.env に 1 行足してください（値は自分で決める。6 桁程度の数字を推奨）:"
+        info "  echo 'GOV_DEMO_PIN=<6 桁の数字>' >> $APP_DIR/.env"
+        info "足したあとは、この設定を読み込ませるために起動し直す必要があります"
+        info "詳しくは deploy/selfhost/README.md の「行政ロールに PIN を掛ける」"
     fi
 fi
 
@@ -332,7 +408,7 @@ step "5. 起動が終わるまで待つ"
 # =========================================================================
 
 WEB_ID="$(compose ps -q web 2>/dev/null | head -1)"
-[ -n "$WEB_ID" ] || die "web コンテナが見つかりません" "compose のログを確認してください: $0 のあと docker compose logs web"
+[ -n "$WEB_ID" ] || die "web コンテナが見つかりません" "compose のログを確認してください: $0 のあと ${COMPOSE_BIN[*]} logs web"
 
 WAITED=0
 HEALTH=""
@@ -352,7 +428,7 @@ printf '\n'
 
 [ "$HEALTH" = "healthy" ] || die \
     "$TIMEOUT 秒待っても起動が終わりませんでした（状態: $HEALTH）" \
-    "ログを見てください: docker compose -f $APP_DIR/compose.yaml -f $OVERLAY logs web"
+    "ログを見てください: ${COMPOSE_BIN[*]} -f $APP_DIR/compose.yaml -f $OVERLAY logs web"
 ok "web コンテナが healthy になった"
 
 CODE="$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "http://127.0.0.1:$PORT/" 2>/dev/null)"

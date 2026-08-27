@@ -29,18 +29,20 @@
 ## 目次
 
 1. [先に知っておくこと](#0-先に知っておくこと)
-2. [手順 1: Docker Desktop を入れる](#手順-1-docker-desktop-を入れる)
+2. [手順 1: Docker を用意する](#手順-1-docker-を用意する)
 3. [手順 2: Tailscale を入れてログインする](#手順-2-tailscale-を入れてログインする)
 4. [手順 3: tailnet で Funnel を許可する](#手順-3-tailnet-で-funnel-を許可する)
 5. [手順 4: リポジトリを取ってくる](#手順-4-リポジトリを取ってくる)
-6. [手順 5: setup.sh を実行する](#手順-5-setupsh-を実行する)
-7. [手順 6: 外から見えるか確かめる](#手順-6-外から見えるか確かめる)
-8. [手順 7: Mac をスリープさせない](#手順-7-mac-をスリープさせない)
-9. [プレゼン用の QR コードを作る](#プレゼン用の-qr-コードを作る)
-10. [運用（停止・起動・更新・ログ）](#運用停止起動更新ログ)
-11. [発表前チェックリスト](#発表前チェックリスト)
-12. [困ったとき](#困ったとき)
-13. [参照した公式ドキュメント](#参照した公式ドキュメント)
+6. [行政ロールに PIN を掛ける](#行政ロールに-pin-を掛ける公開するなら必ず)
+7. [手順 5: setup.sh を実行する](#手順-5-setupsh-を実行する)
+8. [手順 6: 外から見えるか確かめる](#手順-6-外から見えるか確かめる)
+9. [手順 7: Mac をスリープさせない](#手順-7-mac-をスリープさせない)
+10. [プレゼン用の QR コードを作る](#プレゼン用の-qr-コードを作る)
+11. [運用（停止・起動・更新・ログ）](#運用停止起動更新ログ)
+12. [発表前チェックリスト](#発表前チェックリスト)
+13. [SSH だけで完結させる（画面を使わない）](#ssh-だけで完結させる画面を使わない)
+14. [困ったとき](#困ったとき)
+15. [参照した公式ドキュメント](#参照した公式ドキュメント)
 
 ---
 
@@ -49,23 +51,29 @@
 ### 公開すると誰でも投稿できる
 
 CHIZUBA は**鍵を設定しない環境ではデモログイン**で動く（`docs/design/requirements.md` §8）。
-デモログインは表示名を入れて「一般 / 行政」を選ぶだけなので、**インターネットに出すと、
-誰でも行政ロールでログインし、投稿の対応状況を書き換えられる**。写真の投稿にも回数制限が無い。
+デモログインは表示名を入れて「一般 / 行政」を選ぶだけなので、**そのままインターネットに
+出すと、誰でも行政ロールでログインし、投稿の対応状況を書き換えられる**。
+写真の投稿にも回数制限が無い。
 
-デモや発表のために短期間だけ公開するなら問題ないが、次を守る。
+**行政ロールのほうは塞げる。** `app/.env` に `GOV_DEMO_PIN` を 1 行足すと、
+行政ユーザーを選ぶときだけ PIN を求めるようになる
+（[行政ロールに PIN を掛ける](#行政ロールに-pin-を掛ける公開するなら必ず)）。
+**公開するなら必ず設定する。** `setup.sh` は未設定のまま公開しようとすると警告する。
+
+一般ユーザーとしての投稿は誰でもできるままなので、次も守る。
 
 - **発表が終わったら Funnel を止める**（[運用](#運用停止起動更新ログ)の「公開を止める」）
 - 消えて困るデータを入れない。中身はデモ投稿 22 件 + 当日入れたもの、という前提で扱う
 - 荒らされたら作り直す（`docker compose down -v` で全部消えて初期状態に戻る）
 
 なお、**投稿を削除できるのは投稿した本人だけ**なので、初期のデモ投稿 22 件が
-他人に消される心配はない。書き換えられるのは対応状況（4 段階）とコメントに限られる。
+他人に消される心配はない。
 
 ### 必要なもの
 
 | もの | 補足 |
 |---|---|
-| 常時つけておく Mac | 古い Mac で構わない。Docker Desktop が動く macOS であること |
+| 常時つけておく Mac | 古い Mac で構わない。**画面が無くても、SSH だけで用意できる**（[SSH だけで完結させる](#ssh-だけで完結させる画面を使わない)） |
 | インターネット接続 | 地図タイル・徒歩経路・気象庁の取得に必要（アプリ側が外部を見る） |
 | Tailscale アカウント | 無料プランで Funnel が使える |
 | ディスクの空き 5 GB 程度 | Docker のイメージとビルドキャッシュ |
@@ -79,7 +87,12 @@ CHIZUBA は**鍵を設定しない環境ではデモログイン**で動く（`d
 
 ---
 
-## 手順 1: Docker Desktop を入れる
+## 手順 1: Docker を用意する
+
+**A と B のどちらでもよい。** `setup.sh` はどちらでも動く。
+画面のある Mac を触れるなら A、SSH しか使わないなら B。
+
+### A: Docker Desktop（画面がある Mac）
 
 1. <https://www.docker.com/products/docker-desktop/> から macOS 版をダウンロードして入れる
    （Apple シリコンか Intel かを間違えないこと）
@@ -87,12 +100,44 @@ CHIZUBA は**鍵を設定しない環境ではデモログイン**で動く（`d
 3. **Settings → General → 「Start Docker Desktop when you sign in」を ON にする**
    （Mac を再起動したときに自動で戻ってこないと、公開が止まったままになる）
 
-確認:
+### B: colima（SSH だけで完結させたいとき）
+
+Docker Desktop は**アプリを 1 回起動する**手順が要るので、画面のない Mac には向かない。
+colima なら Docker のエンジンをコマンドだけで起こせる。
+
+```bash
+brew install colima docker docker-compose
+colima start                      # 初回は VM を作るので数分かかる
+colima start --cpu 2 --memory 4   # 足りないときは割り当てを増やす
+
+# ログインし直したときに自動で戻ってくるようにする（公式 formula の案内）
+brew services start colima
+```
+
+> **`brew services` が起こすのは「ログインしたとき」。**
+> Mac を再起動しただけでは、誰かがログインするまで colima は上がってこない。
+> 常時公開する Mac は**自動ログインを ON**にしておく
+> （システム設定 → ユーザとグループ → 自動ログイン）。
+
+> **`docker compose` が「そんなコマンドは無い」と言われたら。**
+> Homebrew の `docker-compose` は**単体コマンド**として入るので、
+> そのままでは `docker` のプラグインとして見えない（公式 formula の案内）。
+> `setup.sh` は単体の `docker-compose` へ自動で落ちるので**そのままでも動く**が、
+> 手で `docker compose ...` を打ちたいなら `~/.docker/config.json` に足す。
+>
+> ```json
+> { "cliPluginsExtraDirs": ["/opt/homebrew/lib/docker/cli-plugins"] }
+> ```
+>
+> Intel Mac は `/usr/local/lib/docker/cli-plugins`
+> （Homebrew の既定の置き場は Apple シリコンが `/opt/homebrew`、Intel が `/usr/local`）。
+
+### どちらでも確認することは同じ
 
 ```bash
 docker --version
-docker compose version
 docker info > /dev/null && echo "Docker は動いています"
+docker compose version || docker-compose version   # どちらかが通ればよい
 ```
 
 ---
@@ -102,6 +147,8 @@ docker info > /dev/null && echo "Docker は動いています"
 ### 入れる
 
 <https://tailscale.com/download/macos> から入れる。App Store 版と Standalone 版のどちらでもよい。
+**画面を使わずに済ませたいなら Homebrew 版**（`brew install tailscale`）でもよい
+（[SSH だけで完結させる](#ssh-だけで完結させる画面を使わない)）。
 
 > **どちらでも Funnel でポートを公開できる。**
 > 公式ドキュメントに *「You can only use Funnel to share ports if you installed Tailscale for
@@ -131,6 +178,11 @@ export TAILSCALE_BIN="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 Standalone 版なら、アプリの **Settings → CLI integration → Show me how → Install Now**
 で `/usr/local/bin/tailscale` にランチャが入る（macOS Ventura 13.0 以降）。
 `setup.sh` はこの場所も自動で探すので、入れておけば何もしなくてよい。
+
+Homebrew 版なら `/opt/homebrew/bin/tailscale`（Intel Mac は `/usr/local/bin/tailscale`）
+に入る。**`setup.sh` はこの 2 つも自動で探す。**
+SSH で入ると PATH に Homebrew が入っていないことがあるので、
+場所を直接見に行くようにしてある。
 
 確認:
 
@@ -193,6 +245,39 @@ cd codiha2026-ai-de-chiba
 
 ---
 
+## 行政ロールに PIN を掛ける（公開するなら必ず）
+
+デモログインは「一般 / 行政」を自己申告で選べる。審査員が `docker compose up` だけで
+行政側の機能まで試せるようにするための建付けで、手元で動かすぶんには正しい。
+**公開すると前提が崩れる**ので、行政ロールにだけ合言葉を掛ける。
+
+```bash
+# 6 桁の数字を決めて app/.env に 1 行足す（値は自分たちで決める）
+echo "GOV_DEMO_PIN=$(printf '%06d' $((RANDOM % 1000000)))" >> app/.env
+
+# 何になったか確認する（この値をチームで共有する）
+grep GOV_DEMO_PIN app/.env
+```
+
+- **`app/.env` は `.gitignore` 済み。** PIN をリポジトリにコミットしない
+- 未設定なら**今までどおり**。審査員が手元で `docker compose up` するときは
+  PIN を求められない（提出物の体験は変わらない）
+- 効くのは**デモモードの行政ロールだけ**。一般ユーザーのログインは変わらない
+- 足したあとは**起動し直す**と反映される（`setup.sh` をもう一度実行すればよい）
+- 総当たり対策として、失敗のたびに待たされ（最大 8 秒）、
+  連続 10 回で 60 秒締め出される。**攻撃者は行政ログインを妨害できる**が、
+  閲覧・投稿・一般ログインは止まらない
+
+`setup.sh` は Funnel で公開しようとするとき、未設定なら警告を出す。
+
+```
+  [警告] 行政ロールに PIN が掛かっていません。公開すると誰でも行政ユーザーになれます
+```
+
+仕様の正本は `docs/design/requirements.md` §8-3。
+
+---
+
 ## 手順 5: setup.sh を実行する
 
 ```bash
@@ -201,7 +286,8 @@ bash deploy/selfhost/setup.sh
 
 これ 1 本で次をやる。**途中で落ちても、直してもう一度実行すればよい**（何度実行しても同じ状態になる）。
 
-1. 前提の確認（git・Docker・Docker デーモン・Tailscale・ログイン状態・ポートの空き・スリープ設定）
+1. 前提の確認（git・Docker・Docker デーモン・compose・Tailscale・ログイン状態・
+   **行政ロールの PIN**・ポートの空き・スリープ設定）
 2. `git pull`（手元に変更があるときは飛ばす）
 3. 公開 URL を `app/.env` の `AUTH_URL` に書く（Google ログインを使うときだけ効く）
 4. `docker compose -f app/compose.yaml -f deploy/selfhost/compose.prod.yaml up -d` でコンテナを起動
@@ -398,14 +484,103 @@ docker compose up             # → http://localhost:3000
 
 ---
 
+## SSH だけで完結させる（画面を使わない）
+
+常時つけておく Mac に画面やキーボードを繋げないことがある（押し入れの旧 Mac など）。
+**Docker Desktop も Tailscale の GUI アプリも使わずに、SSH だけで最後まで行ける。**
+
+### 1. リモートログインを ON にする（この 1 回だけは画面が要る）
+
+公開する側の Mac で、**システム設定 → 一般 → 共有 → リモートログイン**を ON。
+ターミナルが使えるなら次でもよい。
+
+```bash
+sudo systemsetup -setremotelogin on
+```
+
+以降は手元のマシンから入る。
+
+```bash
+ssh <ユーザー名>@<公開する Mac の名前>.local
+```
+
+### 2. Homebrew と Docker（colima）を入れる
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# 表示される「Next steps」に従って PATH を通す（Apple シリコンは /opt/homebrew）
+
+brew install colima docker docker-compose
+colima start
+brew services start colima      # ログイン時に自動で戻ってくるようにする
+```
+
+> 再起動後に人手を介さず戻したいなら、**自動ログインも ON** にしておく
+> （[手順 1 の B](#b-colimassh-だけで完結させたいとき)）。
+
+### 3. Tailscale を入れてログインする
+
+**GUI が無くてもログインできる。** `tailscale up` が端末に認証 URL を出すので、
+それを**手元のブラウザ**で開けばよい。
+
+```bash
+brew install tailscale
+sudo brew services start tailscale        # tailscaled を起こす（公式 formula の案内）
+
+# --operator を付けておくと、以降 sudo なしで tailscale を打てる
+sudo tailscale up --operator="$USER"
+# → 端末に https://login.tailscale.com/a/xxxxxxxx が出る。手元のブラウザで開いて承認する
+#   （--qr を付けると QR で出る。スマホから承認したいときに便利）
+
+tailscale status                          # Running になっていればよい
+```
+
+> **バージョンのずれ。** GUI アプリと Homebrew 版の CLI を混ぜると
+> `client version ... != tailscaled server version ...` が出る。
+> ヘッドレスで通すなら **GUI アプリは入れず、Homebrew 版だけ**にするのが安全。
+
+### 4. あとは同じ
+
+```bash
+git clone https://github.com/takushio2525/codiha2026-ai-de-chiba.git
+cd codiha2026-ai-de-chiba
+
+# 行政ロールに PIN を掛ける（公開するなら必ず）
+echo "GOV_DEMO_PIN=$(printf '%06d' $((RANDOM % 1000000)))" >> app/.env
+
+bash deploy/selfhost/setup.sh
+```
+
+### 5. 蓋を閉じても寝ないようにする
+
+画面を繋いでいない Mac は、放っておくとスリープして外から見えなくなる。
+
+```bash
+sudo pmset -a sleep 0 disablesleep 1   # 詳しくは 手順 7 の「方法 B」
+pmset -g | grep -E 'sleep|disablesleep'
+```
+
+> **`setup.sh` は Docker Desktop でも colima でも同じように動く。**
+> 前提の確認で `docker compose`（プラグイン）が使えなければ、
+> 単体の `docker-compose` へ自動で落ちる。
+> `tailscale` も Homebrew の置き場（`/opt/homebrew/bin` と `/usr/local/bin`）を
+> 直接見に行くので、SSH で PATH が細くても見つかる。
+
+---
+
 ## 困ったとき
 
 | 症状 | 見るところ |
 |---|---|
-| `setup.sh` が「docker が見つかりません」 | Docker Desktop を入れて 1 回起動する |
-| `setup.sh` が「Docker は入っていますが動いていません」 | `open -a Docker` してクジラが Running になるまで待つ |
-| `setup.sh` が「tailscale コマンドが見つかりません」 | [手順 2](#手順-2-tailscale-を入れてログインする)の CLI 設定。`TAILSCALE_BIN` を使うのが確実 |
-| `setup.sh` が「ログインしていません」 | `tailscale up` してブラウザでログイン |
+| `setup.sh` が「docker コマンドが見つかりません」 | [手順 1](#手順-1-docker-を用意する)。Docker Desktop を入れて 1 回起動するか、`brew install colima docker docker-compose && colima start` |
+| `setup.sh` が「Docker は入っていますが動いていません」 | Docker Desktop なら `open -a Docker`、colima なら `colima start` |
+| `setup.sh` が「docker compose（v2）が使えません」 | `brew install docker-compose`。単体コマンドとして入っていれば `setup.sh` は自動でそちらを使う（[手順 1 の B](#b-colimassh-だけで完結させたいとき)） |
+| `setup.sh` が「compose が v1 です」 | v1（Python 版）では `!override` が読めない。`brew install docker-compose` で v2 にする |
+| `setup.sh` が「tailscale コマンドが見つかりません」 | [手順 2](#手順-2-tailscale-を入れてログインする)の CLI 設定。`brew install tailscale` でも可。`TAILSCALE_BIN` を使うのが確実 |
+| `setup.sh` が「tailscale と話せません」 | デーモンが動いていない。Homebrew 版なら `sudo brew services start tailscale`、GUI 版なら `open -a Tailscale` |
+| `setup.sh` が「ログインしていません」 | `tailscale up`。**端末に出る URL を手元のブラウザで開けばよい**（画面は要らない） |
+| `setup.sh` が「行政ロールに PIN が掛かっていません」 | [行政ロールに PIN を掛ける](#行政ロールに-pin-を掛ける公開するなら必ず) |
+| 行政ユーザーで入れない（PIN が違うと言われる） | `grep GOV_DEMO_PIN app/.env` で値を確認。連続で間違えると 60 秒締め出される |
 | Funnel の設定で失敗する | [手順 3](#手順-3-tailnet-で-funnel-を許可する)の 2 つ（HTTPS 証明書・`funnel` 属性）。エラーに管理コンソールのリンクが出ていればそれを開く |
 | 公開 URL が「接続できません」 | `tailscale funnel status` を見る。Mac が寝ていないか。Docker が動いているか |
 | 公開 URL が 502 / 503 | コンテナが起動途中。`... ps` で `healthy` になるまで待つ |
@@ -424,12 +599,16 @@ docker compose up             # → http://localhost:3000
 | `compose.prod.yaml` を重ねて起動 → `restart=unless-stopped` になる | **実測済み**（`docker inspect` で確認） |
 | `web` の healthcheck が `healthy` になる・`/` が 200 | **実測済み** |
 | ポートが `127.0.0.1` にだけ開く | **実測済み**（`lsof` で確認） |
-| `setup.sh` が前提の欠如を検知する（docker 無し・デーモン停止・`TAILSCALE_BIN` 誤り） | **実測済み** |
+| `setup.sh` が前提の欠如を検知する（docker 無し・デーモン停止・compose 無し・compose v1・`TAILSCALE_BIN` 誤り・tailscale 無し） | **実測済み** |
 | `setup.sh` を 2 回流しても作り直さない（冪等） | **実測済み** |
 | `make_qr.py` の出力が実際に読める QR になっている | **実測済み**（`verify_qr.sh`） |
+| **`docker compose` プラグインが無い環境で単体の `docker-compose` へ落ちる** | **実測済み**（モックで再現。`compose: docker-compose 2.29.7` を選ぶことを確認） |
+| **PATH に Homebrew が入っていなくても `/opt/homebrew/bin/tailscale` を見つける** | **実測済み**（PATH から Homebrew を外して確認） |
+| **`GOV_DEMO_PIN` の有無で警告と OK が切り替わる** | **実測済み** |
+| **colima の実機で最後まで通す** | **未検証**。開発機に colima を入れていない。前提の確認までは `docker` / `docker-compose` / `colima` のモックで再現して通した |
 | **Tailscale Funnel で実際に公開する** | **未検証**。開発機からは公開していない。手順は公式ドキュメント（下記）に従って書いた |
 
-**Funnel の部分だけは実機で通っていない。** 旧 Mac で最初に流すときは、
+**Funnel と colima は実機で通っていない。** 旧 Mac で最初に流すときは、
 `--check-only` → `--no-funnel` → 本番、の順に進めて、どこで止まったか分かるようにすること。
 
 ---
@@ -444,6 +623,15 @@ docker compose up             # → http://localhost:3000
 - [ポリシーファイルの構文](https://tailscale.com/docs/reference/syntax/policy-file) — `nodeAttrs`
 - [Tailscale CLI](https://tailscale.com/docs/reference/tailscale-cli) — macOS でのコマンドの場所
 - [MagicDNS](https://tailscale.com/docs/features/magicdns)
+- [Homebrew のインストール](https://docs.brew.sh/Installation) — 既定の置き場（Apple シリコンは `/opt/homebrew`、Intel は `/usr/local`）
+- [colima](https://github.com/abiosoft/colima) — Docker Desktop を使わずにコンテナを動かす
+
+`brew install` したときに出る案内（caveats）も手元で確かめてある。
+
+- `tailscale` … `sudo brew services start tailscale` で tailscaled を起こす。
+  入るのは `bin/tailscale` と `bin/tailscaled`
+- `docker-compose` … Compose は Docker のプラグイン。`~/.docker/config.json` に
+  `cliPluginsExtraDirs` を足さないと `docker compose` からは見えない
 
 コマンドの書式は、**手元の `tailscale` 1.98.8 の `tailscale funnel --help` の出力とも突き合わせてある**
 （`tailscale funnel <target>` / `funnel status [--json]` / `funnel reset`、フラグ `--bg` `--yes` `--https` ほか）。
