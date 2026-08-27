@@ -53,6 +53,7 @@ import SearchBox, { type SearchHit } from "./SearchBox";
 import FloodAlertCard from "./FloodAlertCard";
 import HazardLegend from "./HazardLegend";
 import RouteCard from "./RouteCard";
+import { SwitchTrack, ToggleRow } from "./ToggleRow";
 
 const ICONS: Record<IconName, LucideIcon> = {
   shield: Shield,
@@ -272,94 +273,32 @@ export default function ControlPanel({
         <section className="border-t border-line px-4 py-3.5">
           <h2 className="text-[11px] font-semibold tracking-wide text-ink-muted">表示するデータ</h2>
           <ul className="mt-2 space-y-1.5">
-            {LAYERS.map((layer) => {
-              const Icon = ICONS[layer.icon];
-              const on = visible[layer.id];
-              return (
-                <li key={layer.id}>
-                  <button
-                    type="button"
-                    role="switch"
-                    aria-checked={on}
-                    onClick={() => onToggleLayer(layer.id)}
-                    className="flex w-full items-center gap-3 rounded-xl border border-line px-3 py-2.5 text-left transition hover:border-ink-muted/40 hover:bg-[#fafafa] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
-                  >
-                    <span
-                      aria-hidden
-                      className="grid size-8 shrink-0 place-items-center rounded-lg transition"
-                      style={{
-                        backgroundColor: on ? layer.color : "#f1f2f4",
-                        color: on ? "#ffffff" : "#9aa0a8",
-                      }}
-                    >
-                      <Icon className="size-4" />
-                    </span>
-                    <span className="min-w-0 flex-1">
-                      <span className="flex items-baseline gap-1.5">
-                        <span className="truncate text-[13.5px] font-semibold text-ink">
-                          {layer.label}
-                        </span>
-                        <span className="shrink-0 text-[11px] text-ink-muted tabular-nums">
-                          {counts[layer.id]} 件
-                        </span>
-                      </span>
-                      <span className="mt-0.5 block truncate text-[11px] leading-relaxed text-ink-muted">
-                        {layer.summary}
-                      </span>
-                    </span>
-                    <span
-                      aria-hidden
-                      className={`relative h-5 w-9 shrink-0 rounded-full transition ${on ? "bg-ink" : "bg-[#d5d8dc]"}`}
-                    >
-                      <span
-                        className={`absolute top-0.5 size-4 rounded-full bg-white shadow transition-all ${on ? "left-[1.125rem]" : "left-0.5"}`}
-                      />
-                    </span>
-                  </button>
-                </li>
-              );
-            })}
+            {LAYERS.map((layer) => (
+              <li key={layer.id}>
+                <ToggleRow
+                  icon={ICONS[layer.icon]}
+                  label={layer.label}
+                  count={counts[layer.id]}
+                  summary={layer.summary}
+                  color={layer.color}
+                  on={visible[layer.id]}
+                  onToggle={() => onToggleLayer(layer.id)}
+                />
+              </li>
+            ))}
 
             <li>
-              <button
-                type="button"
-                role="switch"
-                aria-checked={scenicVisible}
-                onClick={onToggleScenic}
-                className="flex w-full items-center gap-3 rounded-xl border border-line px-3 py-2.5 text-left transition hover:border-ink-muted/40 hover:bg-[#fafafa] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
-              >
-                <span
-                  aria-hidden
-                  className="grid size-8 shrink-0 place-items-center rounded-lg transition"
-                  style={{
-                    backgroundColor: scenicVisible ? "#5b6470" : "#f1f2f4",
-                    color: scenicVisible ? "#ffffff" : "#9aa0a8",
-                  }}
-                >
-                  <Landmark className="size-4" />
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="flex items-baseline gap-1.5">
-                    <span className="truncate text-[13.5px] font-semibold text-ink">
-                      {SCENIC_LABEL}
-                    </span>
-                    <span className="shrink-0 text-[11px] text-ink-muted tabular-nums">
-                      {scenicCount} 件
-                    </span>
-                  </span>
-                  <span className="mt-0.5 block truncate text-[11px] leading-relaxed text-ink-muted">
-                    {SCENIC_SUMMARY}
-                  </span>
-                </span>
-                <span
-                  aria-hidden
-                  className={`relative h-5 w-9 shrink-0 rounded-full transition ${scenicVisible ? "bg-ink" : "bg-[#d5d8dc]"}`}
-                >
-                  <span
-                    className={`absolute top-0.5 size-4 rounded-full bg-white shadow transition-all ${scenicVisible ? "left-[1.125rem]" : "left-0.5"}`}
-                  />
-                </span>
-              </button>
+              {/* 景観スポットだけは色が 1 つに決まらない（カテゴリごとに違う）ので、
+                  行のアイコンは中立の灰色にして、色分けは下の凡例に任せる */}
+              <ToggleRow
+                icon={Landmark}
+                label={SCENIC_LABEL}
+                count={scenicCount}
+                summary={SCENIC_SUMMARY}
+                color="#5b6470"
+                on={scenicVisible}
+                onToggle={onToggleScenic}
+              />
             </li>
           </ul>
 
@@ -456,53 +395,19 @@ export default function ControlPanel({
           ) : null}
 
           <ul className="mt-2 space-y-1.5">
-            {REPORT_CATEGORIES.map((category) => {
-              const Icon = REPORT_ICONS[category.icon];
-              const on = reportVisible[category.id];
-              return (
-                <li key={category.id}>
-                  <button
-                    type="button"
-                    role="switch"
-                    aria-checked={on}
-                    onClick={() => onToggleReportCategory(category.id)}
-                    className="flex w-full items-center gap-3 rounded-xl border border-line px-3 py-2.5 text-left transition hover:border-ink-muted/40 hover:bg-[#fafafa] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
-                  >
-                    <span
-                      aria-hidden
-                      className="grid size-8 shrink-0 place-items-center rounded-lg transition"
-                      style={{
-                        backgroundColor: on ? category.color : "#f1f2f4",
-                        color: on ? "#ffffff" : "#9aa0a8",
-                      }}
-                    >
-                      <Icon className="size-4" />
-                    </span>
-                    <span className="min-w-0 flex-1">
-                      <span className="flex items-baseline gap-1.5">
-                        <span className="truncate text-[13.5px] font-semibold text-ink">
-                          {category.label}
-                        </span>
-                        <span className="shrink-0 text-[11px] text-ink-muted tabular-nums">
-                          {reportCounts[category.id]} 件
-                        </span>
-                      </span>
-                      <span className="mt-0.5 block truncate text-[11px] leading-relaxed text-ink-muted">
-                        {category.summary}
-                      </span>
-                    </span>
-                    <span
-                      aria-hidden
-                      className={`relative h-5 w-9 shrink-0 rounded-full transition ${on ? "bg-ink" : "bg-[#d5d8dc]"}`}
-                    >
-                      <span
-                        className={`absolute top-0.5 size-4 rounded-full bg-white shadow transition-all ${on ? "left-[1.125rem]" : "left-0.5"}`}
-                      />
-                    </span>
-                  </button>
-                </li>
-              );
-            })}
+            {REPORT_CATEGORIES.map((category) => (
+              <li key={category.id}>
+                <ToggleRow
+                  icon={REPORT_ICONS[category.icon]}
+                  label={category.label}
+                  count={reportCounts[category.id]}
+                  summary={category.summary}
+                  color={category.color}
+                  on={reportVisible[category.id]}
+                  onToggle={() => onToggleReportCategory(category.id)}
+                />
+              </li>
+            ))}
           </ul>
 
           <p className="mt-2 text-[11.5px] leading-relaxed text-ink-muted">
@@ -623,14 +528,7 @@ export default function ControlPanel({
                         {hazard.summary}
                       </span>
                     </span>
-                    <span
-                      aria-hidden
-                      className={`relative h-5 w-9 shrink-0 rounded-full transition ${on ? "bg-ink" : "bg-[#d5d8dc]"}`}
-                    >
-                      <span
-                        className={`absolute top-0.5 size-4 rounded-full bg-white shadow transition-all ${on ? "left-[1.125rem]" : "left-0.5"}`}
-                      />
-                    </span>
+                    <SwitchTrack on={on} />
                   </button>
 
                   {on ? (
