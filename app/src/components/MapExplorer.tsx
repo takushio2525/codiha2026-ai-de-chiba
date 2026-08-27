@@ -61,6 +61,15 @@ function inCity([lng, lat]: LngLat): boolean {
   );
 }
 
+/** スマホ幅か。
+ *
+ *  **表示の出し分けにだけ使う。** md 以上では操作パネルが左に固定されていて
+ *  地図に重ならないので、地図を見せるために畳む必要がない。
+ *  この幅の境目は `ControlPanel` の `md:` と揃えてある。 */
+function isNarrowViewport(): boolean {
+  return typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
+}
+
 function currentPosition(): Promise<LngLat> {
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {
@@ -367,7 +376,8 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
         setBusy("idle");
         pendingRef.current = destination;
         setPickTarget({ kind: "origin" });
-        setCollapsed(false);
+        // 地図をクリックしてもらうので、スマホではシートを畳んで地図を見せる
+        setCollapsed(isNarrowViewport());
         setToast({
           kind: "warning",
           text: `${(error as Error).message} 地図をクリックして出発地点を指定してください。`,
@@ -407,7 +417,8 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
         setBusy("idle");
         pendingRef.current = null;   // 最寄りは出発地点が決まってから選び直す
         setPickTarget({ kind: "origin" });
-        setCollapsed(false);
+        // 地図をクリックしてもらうので、スマホではシートを畳んで地図を見せる
+        setCollapsed(isNarrowViewport());
         setToast({
           kind: "warning",
           text: `${(error as Error).message} 地図をクリックして出発地点を指定してください。`,
@@ -493,7 +504,10 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
     setComposing(null);
     setSelectedReportId(null);
     setPickTarget({ kind: "report", category });
-    setCollapsed(false);
+    // **地図をクリックしてもらうのだから、地図が見えていないと始まらない。**
+    // 開いたままだとスマホでは地図が高さ 119px しか残らず、
+    // 「地図をクリックして場所を指定してください」と言われても押す場所が無かった
+    setCollapsed(isNarrowViewport());
     setToast({
       kind: "info",
       text: `地図をクリックして、${reportCategoryDef(category).label}を投稿する場所を指定してください。`,
@@ -592,7 +606,10 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
           pickMode={pickTarget?.kind === "origin"}
           onTogglePickMode={() => {
             pendingRef.current = null;
-            setPickTarget((prev) => (prev?.kind === "origin" ? null : { kind: "origin" }));
+            const turningOn = pickTarget?.kind !== "origin";
+            setPickTarget(turningOn ? { kind: "origin" } : null);
+            // ここも地図をクリックしてもらうので、スマホではシートを畳む
+            if (turningOn && isNarrowViewport()) setCollapsed(true);
           }}
           onNavigateNearest={handleNavigateNearest}
           busy={busy}
