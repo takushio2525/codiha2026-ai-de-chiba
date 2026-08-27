@@ -43,6 +43,12 @@ COPY --from=builder --chown=node:node /app/.next/static ./.next/static
 # USER node で書けなくなる（.agent/architecture.md「投稿写真の保存」）。
 RUN mkdir -p /app/uploads && chown node:node /app/uploads
 
+# デモ投稿の写真。db/init/003_seed_demo_reports.sql が report_photos に
+# ファイル名だけを登録してあり、その実体がこれになる。**上の mkdir より後に置くこと**
+# （空のボリュームは、この時点のディレクトリの中身をそのまま引き継ぐ）。
+# 手元で npm run dev するときは app/uploads/ に自分でコピーする（app/README.md）。
+COPY --chown=node:node db/seed-photos/ ./uploads/
+
 USER node
 EXPOSE 3000
 CMD ["node", "server.js"]

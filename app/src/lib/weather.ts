@@ -113,6 +113,18 @@ export function readFloodObservation(details: Record<string, unknown>): FloodObs
   };
 }
 
+/** **デモ投稿に入れてあるダミーの雨量**を読む。無ければ null。
+ *
+ * デモ投稿には観測所も観測時刻も持たせていない（`readFloodObservation` は null を返す）。
+ * **過去の実測値は気象庁 JSON からは取れない**（アメダス実況は直近のぶんしか配信されない）
+ * ので、値をでっち上げて「観測値」として出すことはせず、
+ * デモ値だと分かる形でだけ表示する（`components/FloodRainfall.tsx`）。
+ */
+export function readDemoRainfall(details: Record<string, unknown>): number | null {
+  const value = details?.rainfallMm;
+  return typeof value === "number" && Number.isFinite(value) ? value : null;
+}
+
 /** 「12.5 mm/h」。0.0 も「0.0 mm/h」と出す（欠測と区別が付くように）。 */
 export function formatRainfall(mm: number): string {
   return `${mm.toFixed(1)} mm/h`;
