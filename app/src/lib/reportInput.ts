@@ -9,9 +9,8 @@
  *   - クライアントが決めてよい項目だけを通す（city_code・rainfallMm・isOfficial は通さない）
  */
 import type { Municipality } from "./municipalities";
-import { isDateKey, normalizeRange, type DateRange } from "./reportRange";
-import { SEARCH_MAX_LENGTH, normalizeSearch } from "./searchText";
 import { isAllowedPhotoType, sniffImageType } from "./photoStore";
+import { isDateKey, normalizeRange, type DateRange } from "./reportRange";
 import {
   ALLOWED_PHOTO_TYPES,
   BODY_MAX_LENGTH,
@@ -31,6 +30,7 @@ import {
   type ReportStatus,
 } from "./reports";
 import type { ReportFilter } from "./reportStore";
+import { SEARCH_MAX_LENGTH, normalizeSearch } from "./searchText";
 
 /** 検証の結果。失敗したときは HTTP ステータスも一緒に決める。 */
 export type Parsed<T> = { ok: true; value: T } | { ok: false; reason: string; status: number };
