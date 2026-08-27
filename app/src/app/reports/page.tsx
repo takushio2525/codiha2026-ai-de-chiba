@@ -282,7 +282,7 @@ function FilterChip({
       href={href}
       aria-current={active ? "page" : undefined}
       className={[
-        "inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[12px] font-medium transition",
+        "inline-flex items-center gap-1.5 rounded-full border px-3 py-2 text-[12px] font-medium transition",
         "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink",
         active
           ? "border-ink bg-ink text-white"

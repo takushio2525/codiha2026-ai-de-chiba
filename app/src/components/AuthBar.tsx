@@ -16,6 +16,10 @@ import { signOutAction } from "@/lib/authActions";
  * 「ロゴ＋デモモード表示＋投稿一覧＋ログイン状態」が窮屈にならないことを先に決め、
  * 幅が増えたぶんだけ文字を出す 3 段構えにしてある。
  *
+ * 帯の高さは 40px。**押せるものは帯いっぱいの高さと 40px 以上の幅を取る**
+ * （`.agent/conventions.md`「モバイルファースト」）。文字を出していない
+ * アイコンだけのボタンほど的が小さくなるので、min-w で下限を作っている。
+ *
  * | 幅 | 出るもの |
  * |---|---|
  * | 〜639px（スマホ） | ロゴマーク＋アイコンだけ（＋デモモードの文言） |
@@ -28,14 +32,14 @@ export default async function AuthBar() {
   const { authMode, user } = await getSessionView();
 
   return (
-    <header className="flex h-9 shrink-0 items-center gap-2 border-b border-line bg-surface px-2 text-[11.5px] sm:gap-2.5 sm:px-3">
+    <header className="flex h-10 shrink-0 items-center gap-1 border-b border-line bg-surface px-1.5 text-[11.5px] sm:gap-2.5 sm:px-3">
       {/* どの画面にいてもブランドが見える。押すと地図（トップ）へ戻る。
           **スマホではマークだけ**にして、ワードマークは幅が出てから足す。
           タブに出ているアイコンと同じ図形なので、マークだけでも CHIZUBA と分かる。 */}
       <Link
         href="/"
         aria-label="CHIZUBA のトップ（地図）へ"
-        className="inline-flex shrink-0 items-center gap-1.5 rounded-lg px-1 py-1 transition hover:bg-[#f1f2f4] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+        className="inline-flex min-w-10 shrink-0 self-stretch items-center justify-center gap-1.5 rounded-lg px-1.5 transition hover:bg-[#f1f2f4] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ink"
       >
         <BrandMark className="size-[17px]" />
         <span className="hidden text-[12px] leading-none font-bold tracking-[0.16em] text-ink sm:inline">
@@ -55,14 +59,14 @@ export default async function AuthBar() {
       <Link
         href="/reports"
         aria-label="投稿一覧"
-        className="inline-flex shrink-0 items-center gap-1.5 rounded-lg px-2 py-1 font-medium whitespace-nowrap text-ink-sub transition hover:bg-[#f1f2f4] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+        className="inline-flex min-w-10 shrink-0 self-stretch items-center justify-center gap-1.5 rounded-lg px-2 font-medium whitespace-nowrap text-ink-sub transition hover:bg-[#f1f2f4] hover:text-ink focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ink"
       >
         <List aria-hidden className="size-3.5" />
         {/* 幅が足りないうちはアイコンだけにする。読み上げ名は aria-label が持つ */}
         <span className="hidden md:inline">投稿一覧</span>
       </Link>
 
-      <div className="ml-auto flex min-w-0 items-center gap-2.5">
+      <div className="ml-auto flex min-w-0 items-center gap-1.5 self-stretch sm:gap-2.5">
         {user ? (
           <>
             <span className="inline-flex min-w-0 items-center gap-1.5 text-ink-sub">
@@ -80,11 +84,11 @@ export default async function AuthBar() {
                 行政
               </span>
             ) : null}
-            <form action={signOutAction}>
+            <form action={signOutAction} className="flex self-stretch">
               <button
                 type="submit"
                 aria-label="ログアウト"
-                className="inline-flex shrink-0 items-center gap-1.5 rounded-lg px-2 py-1 font-medium whitespace-nowrap text-ink-sub transition hover:bg-[#f1f2f4] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+                className="inline-flex min-w-10 shrink-0 self-stretch items-center justify-center gap-1.5 rounded-lg px-2 font-medium whitespace-nowrap text-ink-sub transition hover:bg-[#f1f2f4] hover:text-ink focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ink"
               >
                 <LogOut aria-hidden className="size-3.5" />
                 {/* 幅が足りないうちはアイコンだけ。読み上げ名は aria-label が持つ */}
@@ -95,7 +99,7 @@ export default async function AuthBar() {
         ) : (
           <Link
             href="/login"
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-lg px-2 py-1 font-medium whitespace-nowrap text-ink-sub transition hover:bg-[#f1f2f4] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+            className="inline-flex min-w-10 shrink-0 self-stretch items-center justify-center gap-1.5 rounded-lg px-2 font-medium whitespace-nowrap text-ink-sub transition hover:bg-[#f1f2f4] hover:text-ink focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ink"
           >
             <LogIn aria-hidden className="size-3.5" />
             ログイン

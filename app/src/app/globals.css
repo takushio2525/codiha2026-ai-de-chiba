@@ -102,6 +102,14 @@ body {
   .maplibregl-map .maplibregl-ctrl-bottom-left .maplibregl-ctrl {
     margin: 10px 0 0 10px;
   }
+
+  /* 拡大・縮小・現在地。MapLibre の既定は 29px 角で、指で押すには小さい。
+     `.agent/conventions.md`「モバイルファースト」の 40px 角に合わせる
+     （アイコンは背景画像なので、枠を広げても中央のまま） */
+  .maplibregl-map .maplibregl-ctrl-group button {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 /* ---- 不透明度のスライダー ----
