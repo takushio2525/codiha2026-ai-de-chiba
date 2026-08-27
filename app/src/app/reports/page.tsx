@@ -26,7 +26,7 @@ import { listReports } from "@/lib/reportStore";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "投稿一覧｜市川市 オープンデータマップ",
+  title: "投稿一覧",
   description: "住民と行政が投稿した危険箇所・浸水・観光おすすめの一覧。",
 };
 

@@ -8,7 +8,7 @@ import { googleSignInAction, signOutAction } from "@/lib/authActions";
 import { DEMO_CITY_CODE, findMunicipality } from "@/lib/municipalities";
 
 export const metadata: Metadata = {
-  title: "ログイン｜市川市 オープンデータマップ",
+  title: "ログイン",
   description:
     "危険箇所や浸水の報告、観光おすすめの投稿にはログインが必要です。閲覧はログインなしでできます。",
 };

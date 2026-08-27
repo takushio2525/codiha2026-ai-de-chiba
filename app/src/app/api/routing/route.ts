@@ -18,7 +18,7 @@ import type { NextRequest } from "next/server";
 export const dynamic = "force-dynamic";
 
 const OSRM_ENDPOINT = "https://routing.openstreetmap.de/routed-foot/route/v1/foot";
-const USER_AGENT = "codiha2026-ichikawa-opendata-map/0.1 (CODIHA 2026 hackathon prototype)";
+const USER_AGENT = "codiha2026-chizuba/0.1 (CODIHA 2026 hackathon prototype)";
 const UPSTREAM_TIMEOUT_MS = 8_000;
 /** 利用規約の「1 秒あたり 1 リクエスト」。少し余裕を持たせる。 */
 const MIN_INTERVAL_MS = 1_100;
