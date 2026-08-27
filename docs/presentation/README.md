@@ -38,5 +38,26 @@ python3 docs/presentation/verify_explainer.py docs/presentation/chizuba-tech-exp
 - **F-4 の説明に予報表現を混ぜない。** 気象業務法の線は `docs/design/requirements.md` §3-1 が正本
 - コードを動かしたら 2 つの検査スクリプトを流す。図や原稿が実装から離れたら落ちる
 
+## PDF をコミットする前に
+
+**秘匿情報スキャン（`.github/scripts/secret_scan.sh`）はバイナリを検査しない。**
+パターンが拡張正規表現なので，走査すると圧縮されたバイトの並びが必ず誤検知するため
+（実際に，この PDF のしおりが学籍番号のパターンに偶然一致して CI が落ちた）。
+**PDF の中身は目視で確かめる。**
+
+```bash
+P=docs/presentation/chizuba-tech-explainer.pdf
+
+# ① 氏名・ホームパス・メールアドレス（何も出なければよい）
+strings -n 6 "$P" | grep -inE '/Users/|/home/|[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}'
+
+# ② 作成者情報（`/Creator(Typst 0.15.1)` の 1 行だけ出る。人名が出たら消す）
+strings -n 6 "$P" | grep -oE '/(Creator|Producer|Author)\([^)]*\)'
+```
+
+PDF は**作成者情報にユーザー名が入りやすい**ので，Typst 以外で作り直したときは特に確認する。
+なお**文言そのものは PDF ではなく原稿（`.typ`）で担保される**。
+原稿はテキストなので秘匿情報スキャンが普通に検査している。
+
 > **この資料は提出物ではない。** CODIHA に提出するのは `app/` 配下だけで，
 > `tools/package_submission.sh` は `docs/` を固めない。
