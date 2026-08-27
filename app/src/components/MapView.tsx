@@ -77,6 +77,8 @@ const EMPTY: FeatureCollection = { type: "FeatureCollection", features: [] };
 
 /** 投稿のソースとレイヤー。施設の点とは別に持つ（色と形を変えて区別するため）。 */
 const REPORT_SOURCE = "reports";
+/** 行政（公式）を表す色。バッジ・地図の輪で共通に使う */
+const OFFICIAL_COLOR = "#0072b2";
 const REPORT_HALO_LAYER = "report-halo";
 const REPORT_POINT_LAYER = "report-points";
 /** 注意案内（F-4）のとき、過去の浸水報告の地点に描く輪。点の下に敷く */
@@ -97,6 +99,13 @@ function reportColorExpression(): unknown[] {
   for (const category of REPORT_CATEGORIES) expression.push(category.id, category.color);
   expression.push("#7b818b"); // 知らないカテゴリ（将来の追加）は灰色で出す
   return expression;
+}
+
+/** 投稿を囲む輪の色。**行政（`role = 'gov'`）の投稿だけ公式色の輪**にして、
+ *  住民の投稿（白い輪）と地図の上で見分けられるようにする。
+ *  一覧と詳細パネルの「行政」バッジと同じ色を使う（F-7）。 */
+function reportHaloColorExpression(): unknown[] {
+  return ["case", ["==", ["get", "authorRole"], "gov"], OFFICIAL_COLOR, "#ffffff"];
 }
 
 /** 表示 ON のカテゴリだけを描く。全部 OFF なら 1 つも描かない。 */
@@ -588,7 +597,7 @@ export default function MapView({
               "interpolate", ["linear"], ["zoom"],
               10, 6, 13, 8.5, 16, 12.5, 18, 16,
             ],
-            "circle-color": "#ffffff",
+            "circle-color": reportHaloColorExpression() as never,
             "circle-opacity": 0.95,
           },
         });

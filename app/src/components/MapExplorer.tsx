@@ -39,6 +39,7 @@ import {
 } from "@/lib/weather";
 import ControlPanel, { type Busy } from "./ControlPanel";
 import MapView, { type LayerData, type PanelBox } from "./MapView";
+import MapModeTabs from "./MapModeTabs";
 import ReportForm from "./ReportForm";
 import ReportPanel from "./ReportPanel";
 import Toast, { type ToastMessage } from "./Toast";
@@ -439,7 +440,10 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
   );
 
   return (
-    <main className="relative h-full w-full overflow-hidden bg-canvas">
+    // ヘッダーのすぐ下にタブ、残り全部が地図。地図の中の要素は main を基準に置く
+    <div className="flex h-full w-full flex-col">
+      <MapModeTabs mode={mode} onChange={changeMode} />
+      <main className="relative min-h-0 w-full flex-1 overflow-hidden bg-canvas">
       {data ? (
         <MapView
           data={data}
@@ -474,8 +478,6 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
       {data ? (
         <ControlPanel
           ref={panelRef}
-          mode={mode}
-          onChangeMode={changeMode}
           counts={Object.fromEntries(
             LAYERS.map((layer) => [layer.id, data[layer.id].features.length]),
           ) as Record<LayerId, number>}
@@ -551,6 +553,7 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
           <Toast toast={toast} onDismiss={() => setToast(null)} />
         </div>
       ) : null}
-    </main>
+      </main>
+    </div>
   );
 }

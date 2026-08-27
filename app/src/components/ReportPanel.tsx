@@ -169,6 +169,14 @@ export default function ReportPanel({
             {reportStatusLabel(report.status)}
           </span>
         ) : null}
+        {/* 行政が出した投稿は、住民の投稿と**一目で**区別できるようにする（F-7）。
+            見出しの並びに置くので、本文まで読まなくても分かる */}
+        {report?.authorRole === "gov" ? (
+          <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-[#0072b2] px-2 py-0.5 text-[10.5px] font-medium whitespace-nowrap text-white">
+            <ShieldCheck aria-hidden className="size-3" />
+            行政の公式投稿
+          </span>
+        ) : null}
         <div className="ml-auto flex shrink-0 items-center gap-1">
           {coordinates ? (
             <button

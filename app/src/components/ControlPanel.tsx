@@ -16,7 +16,6 @@ import {
   MapPin,
   Navigation,
   Shield,
-  ShieldAlert,
   TriangleAlert,
   Waves,
   Wind,
@@ -34,7 +33,6 @@ import {
   type HazardId,
 } from "@/lib/hazards";
 import { LAYERS, type IconName, type LayerId } from "@/lib/layers";
-import { MAP_MODES, type MapMode, type MapModeIconName } from "@/lib/mapModes";
 import {
   REPORT_CATEGORIES,
   formatJst,
@@ -62,11 +60,6 @@ const HAZARD_ICONS: Record<HazardIconName, LucideIcon> = {
   waves: Waves,
 };
 
-const MODE_ICONS: Record<MapModeIconName, LucideIcon> = {
-  shieldAlert: ShieldAlert,
-  camera: Camera,
-};
-
 const REPORT_ICONS: Record<ReportIconName, LucideIcon> = {
   triangleAlert: TriangleAlert,
   droplets: Droplets,
@@ -76,9 +69,6 @@ const REPORT_ICONS: Record<ReportIconName, LucideIcon> = {
 export type Busy = "idle" | "locating" | "routing";
 
 type Props = {
-  /** 地図のモード（S-1 防災 / S-2 観光）。表示するレイヤーの組が変わる */
-  mode: MapMode;
-  onChangeMode: (mode: MapMode) => void;
   counts: Record<LayerId, number>;
   visible: Record<LayerId, boolean>;
   onToggleLayer: (id: LayerId) => void;
@@ -118,8 +108,6 @@ type Props = {
 };
 
 export default function ControlPanel({
-  mode,
-  onChangeMode,
   counts,
   visible,
   onToggleLayer,
@@ -192,44 +180,16 @@ export default function ControlPanel({
       </header>
 
       <div
-        role="group"
-        aria-label="地図のモード"
-        className="flex gap-1 border-t border-line bg-[#fafafa] px-2 py-2"
-      >
-        {MAP_MODES.map((item) => {
-          const Icon = MODE_ICONS[item.icon];
-          const active = mode === item.id;
-          return (
-            <button
-              key={item.id}
-              type="button"
-              aria-pressed={active}
-              onClick={() => onChangeMode(item.id)}
-              title={item.summary}
-              className={[
-                "flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-1.5",
-                "text-[12.5px] font-semibold transition",
-                "focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ink",
-                active
-                  ? "bg-ink text-white"
-                  : "text-ink-sub hover:bg-[#f1f2f4] hover:text-ink",
-              ].join(" ")}
-            >
-              <Icon aria-hidden className="size-3.5 shrink-0" />
-              <span className="truncate">{item.label}</span>
-            </button>
-          );
-        })}
-      </div>
-
-      <div
         className={[
           "overflow-y-auto border-t border-line md:block md:flex-1",
           collapsed ? "hidden" : "block",
           "max-h-[58dvh] md:max-h-none",
         ].join(" ")}
       >
-        {floodAlert ? <FloodAlertCard alert={floodAlert} /> : null}
+        {/* 注意案内（F-4）は、浸水のピンを表示しているときだけ出す。
+            MapView も同じ条件で地図の輪を出しているので（`floodAlert && reportVisible.flood`）、
+            パネルと地図で言っていることが食い違わない */}
+        {floodAlert && reportVisible.flood ? <FloodAlertCard alert={floodAlert} /> : null}
 
         {route ? (
           <section className="border-b border-line bg-[#fbfbfa] px-4 py-3.5">
@@ -407,7 +367,9 @@ export default function ControlPanel({
             </Link>
           )}
 
-          {observation ? (
+          {/* 文面が「浸水の投稿に記録される値」の話なので、浸水を投稿できないモード
+              （観光マップ）では出さない。出すと、投稿できない話を読ませることになる */}
+          {observation && postableCategories.includes("flood") ? (
             <p className="mt-2 flex items-start gap-1.5 rounded-xl border border-line bg-[#fafafa] px-2.5 py-2 text-[11px] leading-relaxed text-ink-muted">
               <Droplets aria-hidden className="mt-0.5 size-3.5 shrink-0 text-[#56b4e9]" />
               <span>
@@ -474,6 +436,14 @@ export default function ControlPanel({
 
           <p className="mt-2 text-[11.5px] leading-relaxed text-ink-muted">
             ピンをクリックすると、写真・説明・コメントが読めます。閲覧にログインは要りません。
+          </p>
+          {/* 地図の輪の意味。行政の投稿を住民の投稿と取り違えないための説明 */}
+          <p className="mt-1.5 flex items-center gap-1.5 text-[11.5px] leading-relaxed text-ink-muted">
+            <span
+              aria-hidden
+              className="size-3 shrink-0 rounded-full border-[3px] border-[#0072b2] bg-[#cc79a7]"
+            />
+            青い輪のピンは行政の投稿です。
           </p>
         </section>
 
