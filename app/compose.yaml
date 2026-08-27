@@ -3,6 +3,8 @@
 #   docker compose up
 #   → http://localhost:3000
 #
+# 3000 が塞がっているときだけ `CHIZUBA_PORT=3100 docker compose up`。
+#
 # コンテナは 2 つ。
 #
 #   web … サービス本体（Next.js。node:22-slim の multi-stage ビルド）
@@ -24,19 +26,27 @@ services:
   web:
     build: .
     ports:
-      # ホスト:コンテナ。readme.txt に書くポート番号とここを必ず一致させる
-      - "3000:3000"
+      # ホスト:コンテナ。**既定は 3000**（readme.txt に書くポート番号と同じ）。
+      # 3000 が塞がっている環境だけ、起動するときに変数で逃がす:
+      #
+      #   CHIZUBA_PORT=3100 docker compose up
+      #   （または app/.env に CHIZUBA_PORT=3100 と 1 行書く）
+      #
+      # ポートを変えても**リダイレクト先はリクエストのホストから毎回導く**ので、
+      # 他に直す設定は無い（src/lib/publicOrigin.ts）。
+      # コンテナ側の 3000 は Dockerfile の PORT と対。ここは変えない。
+      - "${CHIZUBA_PORT:-3000}:3000"
     environment:
       NODE_ENV: production
       # db へはコンテナ間ネットワークで繋ぐ（ホストには公開していない）。
       # ここに書いた値は下の env_file より優先されるので、.env を置いた人の
       # 環境でも接続先は必ずこのコンテナになる。
       DATABASE_URL: postgres://chizuba:chizuba_local_only@db:5432/chizuba
-      # Google ログインのコールバック URL の土台。コンテナの中では自分の
-      # ホスト名が 0.0.0.0 になり、そのままだと Google に登録できない
-      # リダイレクト URI ができてしまうので、ここで固定する。
-      # 上の ports を変えたら app/.env に AUTH_URL を書いて上書きする。
-      AUTH_URL: ${AUTH_URL:-http://localhost:3000}
+      # **AUTH_URL はここでは渡さない。** 以前は http://localhost:3000 を
+      # 固定で渡していたが、それだと上の公開ポートを変えた瞬間に
+      # ログインのリダイレクトが 3000 番へ飛んで壊れた。いまは
+      # リクエストのホストから毎回導く（src/lib/publicOrigin.ts）。
+      # どうしても固定したい運用だけ app/.env に書く（.env.example）。
     # Google ログイン用の鍵を書くファイル。**無くても起動する**（required: false）。
     # 置かなければ自動でデモログインに切り替わる（app/.env.example を参照）。
     env_file:

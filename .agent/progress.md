@@ -200,3 +200,20 @@
 - 2026-08-27: 実測でわかったこと — コモンズの `imageinfo.thumburl` は**元が指定幅より小さいと
   原寸 URL を返す**。そのまま落とすと 1 枚 10 MB・12 秒かかった。
   `Special:FilePath/<名前>?width=N` なら必ず縮小版が返る。
+
+- 2026-08-27: **ログインのリダイレクトが常に `localhost:3000` へ飛ぶ不具合を修正**（`fix/auth-redirect-host`）。
+  `compose.yaml` の `AUTH_URL` 固定をやめ、`X-Forwarded-Host` →（無ければ）`Host` から毎回導くようにした。
+  設計判断は `.agent/architecture.md`「公開 URL の決め方」、実測は `requirements.md` §8-7。
+- 2026-08-27: 実測でわかったこと — **`AUTH_URL` を外すだけでは直らない**。`output: "standalone"` の
+  Next.js は待ち受けアドレス（`HOSTNAME=0.0.0.0`）からリクエスト URL を組むので、`/api/auth/*` の
+  ルートハンドラに `http://0.0.0.0:3000/...` が渡り、リダイレクトが `0.0.0.0` になる。
+  ルートハンドラ側で URL を組み直す必要がある（`src/lib/publicOrigin.ts`）。
+- 2026-08-27: 実測でわかったこと — Auth.js は経路によって URL の決め方が違う。**サーバーアクション**
+  （`signIn`/`signOut`）は `createActionURL()` がヘッダーを見るので `trustHost: true` だけで足り、
+  **ルートハンドラ**は `Auth()` が `req.url` を見るので自分で直す。片方だけ直すと気づきにくい。
+- 2026-08-27: 公開ポートを `${CHIZUBA_PORT:-3000}` に変数化（既定 3000 は据え置き）。
+  `setup.sh --port N` は一時オーバーレイをやめて `CHIZUBA_PORT=N` を渡すだけになり、
+  `AUTH_URL` の書き込みもやめた（古い値が残ると自動判定より優先されて壊れるので警告に変更）。
+- 2026-08-27: 実測でわかったこと — 壊れた `X-Forwarded-Host`（`evil.test/path` など）を弾いたあと
+  `Host` に落とさないと `0.0.0.0` に戻る。候補を順に試して**最初に形が通ったもの**を採る作りにした。
+

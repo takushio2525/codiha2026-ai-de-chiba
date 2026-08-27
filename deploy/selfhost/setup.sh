@@ -11,7 +11,7 @@
 #     --no-pull        git pull を飛ばす（手元の変更を試したいとき）
 #     --build          コードが変わっていなくてもイメージを作り直す
 #     --project NAME   docker compose のプロジェクト名を変える（既定は compose.yaml の name）
-#     --port N         公開するホスト側のポート（既定 3000）
+#     --port N         公開するホスト側のポート（既定 3000。CHIZUBA_PORT として渡す）
 #     --timeout SEC    起動を待つ秒数（既定 300）
 #
 # 何度実行しても同じ状態になる（冪等）。すでに動いていれば作り直さず、
@@ -76,11 +76,11 @@ done
 case "$PORT" in ''|*[!0-9]*) die "--port には数値を指定してください（指定: '$PORT'）" ;; esac
 case "$TIMEOUT" in ''|*[!0-9]*) die "--timeout には数値を指定してください（指定: '$TIMEOUT'）" ;; esac
 
-# ポートを変えるときは compose の公開ポートも合わせる必要がある。
-# 一時的なオーバーレイを足して両方を同じ値にそろえる。
-PORT_OVERLAY=""
-cleanup() { [ -n "$PORT_OVERLAY" ] && rm -f "$PORT_OVERLAY"; }
-trap cleanup EXIT
+# 公開ポートは compose.yaml / compose.prod.yaml の `${CHIZUBA_PORT:-3000}` が読む。
+# **一時ファイルのオーバーレイは作らない。** compose はコンテナに設定ファイルの
+# 一覧をラベルとして焼き込むので、余分な -f を足すと「設定が変わった」と
+# 見なされて実行のたびに web を作り直していた（実測で確認）。
+export CHIZUBA_PORT="$PORT"
 
 # compose の呼び出し方。**`docker compose`（プラグイン）とは限らない。**
 # Homebrew の docker-compose は ~/.docker/config.json に cliPluginsExtraDirs を
@@ -91,7 +91,6 @@ COMPOSE_BIN=(docker compose)
 
 compose() {
     local args=(-f "$APP_DIR/compose.yaml" -f "$OVERLAY")
-    [ -n "$PORT_OVERLAY" ] && args+=(-f "$PORT_OVERLAY")
     [ -n "$PROJECT" ] && args=(-p "$PROJECT" "${args[@]}")
     "${COMPOSE_BIN[@]}" "${args[@]}" "$@"
 }
@@ -308,21 +307,8 @@ if [ "$CHECK_ONLY" -eq 1 ]; then
     exit 0
 fi
 
-# ポートが既定と違うなら、compose の公開ポートもそろえる
 if [ "$PORT" != "3000" ]; then
-    # **パスを毎回同じにする。** compose はコンテナに設定ファイルの一覧を
-    # ラベルとして焼き込むので、mktemp のようにパスが毎回変わると
-    # 中身が同じでも「設定が変わった」と見なされ、実行のたびに web を作り直す
-    # （実測で確認）。冪等にするために場所を固定する。
-    PORT_OVERLAY="${TMPDIR:-/tmp}"
-    PORT_OVERLAY="${PORT_OVERLAY%/}/chizuba-selfhost-port-$PORT.yaml"
-    cat > "$PORT_OVERLAY" <<YAML
-services:
-  web:
-    ports: !override
-      - "127.0.0.1:$PORT:3000"
-YAML
-    ok "公開ポートを $PORT に変更する"
+    ok "公開ポートを $PORT にする（CHIZUBA_PORT=$PORT を compose に渡す）"
 fi
 
 # =========================================================================
@@ -347,25 +333,29 @@ else
 fi
 
 # =========================================================================
-step "3. 公開 URL を app/.env に書く"
+step "3. 公開 URL の設定を確かめる"
 # =========================================================================
 
-# Google ログインを使うときだけ意味がある設定（コールバック URL の土台）。
-# デモログインのままなら無くても動くが、書いておいても害はない。
-# **すでに値が入っていれば触らない**（利用者が意図して設定した値を壊さないため）。
-if [ -z "$PUBLIC_HOST" ]; then
-    info "公開ホスト名が分からないので飛ばします"
-elif grep -qE '^[[:space:]]*AUTH_URL=[^[:space:]]' "$APP_DIR/.env" 2>/dev/null; then
-    CURRENT="$(grep -E '^[[:space:]]*AUTH_URL=' "$APP_DIR/.env" | head -1 | sed 's/^[^=]*=//')"
-    if [ "$CURRENT" = "https://$PUBLIC_HOST" ]; then
-        ok "AUTH_URL はすでに正しい値です"
-    else
-        warn "app/.env の AUTH_URL がすでに別の値です（$CURRENT）。上書きしません"
-        info "Funnel 経由で Google ログインを使うなら https://$PUBLIC_HOST に書き換えてください"
-    fi
+# **ここでは何も書き込まない。** ログインのリダイレクト先は、リクエストの
+# `X-Forwarded-Host` →（無ければ）`Host` から毎回導く（app/src/lib/publicOrigin.ts）。
+# Tailscale Funnel は公開ホスト名を `X-Forwarded-Host` に、TLS 終端を
+# `X-Forwarded-Proto: https` に入れてくれるので、設定は要らない。
+#
+# 見るのは 1 点だけ。**`AUTH_URL` が書いてあると Auth.js はそちらを優先する**ので、
+# 古い値が残っていると Funnel の URL で開いてもそこへ飛ばされてしまう。
+if ! grep -qE '^[[:space:]]*AUTH_URL=[^[:space:]]' "$APP_DIR/.env" 2>/dev/null; then
+    ok "AUTH_URL は未設定（公開 URL はリクエストから自動で決まる）"
 else
-    printf 'AUTH_URL=https://%s\n' "$PUBLIC_HOST" >> "$APP_DIR/.env"
-    ok "app/.env に AUTH_URL=https://$PUBLIC_HOST を追記した"
+    CURRENT="$(grep -E '^[[:space:]]*AUTH_URL=' "$APP_DIR/.env" | head -1 | sed 's/^[^=]*=//')"
+    if [ -n "$PUBLIC_HOST" ] && [ "$CURRENT" = "https://$PUBLIC_HOST" ]; then
+        ok "AUTH_URL は公開 URL と一致しています"
+    else
+        warn "app/.env に AUTH_URL=$CURRENT が書かれています（自動判定より優先されます）"
+        if [ -n "$PUBLIC_HOST" ]; then
+            info "Funnel の URL は https://$PUBLIC_HOST です。食い違うとログインが壊れます"
+        fi
+        info "特に理由が無ければ app/.env の AUTH_URL の行を消してください"
+    fi
 fi
 
 # =========================================================================
