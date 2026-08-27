@@ -8,6 +8,7 @@ import {
   LoaderCircle,
   LogIn,
   MessageSquare,
+  Pencil,
   Send,
   ShieldCheck,
   Trash2,
@@ -19,6 +20,7 @@ import type { SessionView } from "@/lib/auth";
 import type { LngLat } from "@/lib/geo";
 import {
   COMMENT_MAX_LENGTH,
+  canUpdateStatus,
   detailRows,
   formatJst,
   isDemoReport,
@@ -30,6 +32,8 @@ import {
 import { deleteReport, fetchReportDetail, submitComment } from "@/lib/reportsApi";
 import { DemoBadge, DemoNote } from "./DemoBadge";
 import FloodRainfall from "./FloodRainfall";
+import ReportEditForm from "./ReportEditForm";
+import ReportStatusControl from "./ReportStatusControl";
 
 type Props = {
   reportId: number;
@@ -64,6 +68,8 @@ export default function ReportPanel({
   const [sending, setSending] = useState(false);
   const [confirmingDelete, setConfirmingDelete] = useState(false);
   const [isAuthor, setIsAuthor] = useState(false);
+  /** 投稿者本人が本文を編集している最中か（F-7 と同じ PATCH を使う） */
+  const [editing, setEditing] = useState(false);
 
   // 親から渡る関数の同一性に読み込みを引きずられないよう、ref 経由で最新を読む
   const locateRef = useRef(onLocate);
@@ -96,8 +102,18 @@ export default function ReportPanel({
     setCommentBody("");
     setConfirmingDelete(false);
     setIsAuthor(false);
+    setEditing(false);
     void load(true);
   }, [load]);
+
+  /** 対応状況の更新・本文の編集のあと、サーバーが返した最新の姿に差し替える。
+   *  一覧（地図のピンと /reports）にも反映されるよう親に知らせる。 */
+  function handleUpdated(next: ReportProperties) {
+    setReport(next);
+    setEditing(false);
+    setError(null);
+    onChanged();
+  }
 
   async function handleComment(event: React.FormEvent) {
     event.preventDefault();
@@ -243,6 +259,14 @@ export default function ReportPanel({
             ) : null}
 
             <section className="px-4 py-3.5">
+              {editing ? (
+                <ReportEditForm
+                  report={report}
+                  onSaved={handleUpdated}
+                  onCancel={() => setEditing(false)}
+                />
+              ) : (
+                <>
               <h2 className="text-[15px] leading-snug font-semibold text-ink">{report.title}</h2>
               <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-ink-muted">
                 <span className="font-medium text-ink-sub">{report.authorName}</span>
@@ -273,11 +297,19 @@ export default function ReportPanel({
 
               {/* デモ投稿は、何のためのデータかと写真の出どころをここで断る */}
               {isDemoReport(report.details) ? <DemoNote /> : null}
+                </>
+              )}
 
-              {isAuthor ? (
-                <div className="mt-3">
+              {/* 行政からの応答（F-7）。**担当市町村の行政ユーザーにだけ**出す。
+                  ここは表示の出し分けで、権限判定は PATCH 側で改めて行う（I-5） */}
+              {canUpdateStatus(user, report) ? (
+                <ReportStatusControl report={report} onUpdated={handleUpdated} />
+              ) : null}
+
+              {isAuthor && !editing ? (
+                <div className="mt-3 flex flex-wrap items-center gap-2">
                   {confirmingDelete ? (
-                    <div className="flex items-center gap-2">
+                    <div className="flex w-full items-center gap-2">
                       <button
                         type="button"
                         onClick={handleDelete}
@@ -295,14 +327,24 @@ export default function ReportPanel({
                       </button>
                     </div>
                   ) : (
-                    <button
-                      type="button"
-                      onClick={() => setConfirmingDelete(true)}
-                      className="flex items-center gap-1.5 rounded-xl border border-line px-3 py-2 text-[12.5px] font-medium text-ink-sub transition hover:border-ink-muted/40 hover:bg-[#fafafa] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
-                    >
-                      <Trash2 aria-hidden className="size-3.5" />
-                      この投稿を削除する
-                    </button>
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => setEditing(true)}
+                        className="flex items-center gap-1.5 rounded-xl border border-line px-3 py-2 text-[12.5px] font-medium text-ink-sub transition hover:border-ink-muted/40 hover:bg-[#fafafa] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+                      >
+                        <Pencil aria-hidden className="size-3.5" />
+                        編集する
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setConfirmingDelete(true)}
+                        className="flex items-center gap-1.5 rounded-xl border border-line px-3 py-2 text-[12.5px] font-medium text-ink-sub transition hover:border-ink-muted/40 hover:bg-[#fafafa] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+                      >
+                        <Trash2 aria-hidden className="size-3.5" />
+                        削除する
+                      </button>
+                    </>
                   )}
                 </div>
               ) : null}

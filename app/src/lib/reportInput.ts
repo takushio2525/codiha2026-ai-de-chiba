@@ -10,6 +10,7 @@
  */
 import type { Municipality } from "./municipalities";
 import { isAllowedPhotoType, sniffImageType } from "./photoStore";
+import { isDateKey, normalizeRange, type DateRange } from "./reportRange";
 import {
   ALLOWED_PHOTO_TYPES,
   BODY_MAX_LENGTH,
@@ -29,6 +30,7 @@ import {
   type ReportStatus,
 } from "./reports";
 import type { ReportFilter } from "./reportStore";
+import { SEARCH_MAX_LENGTH, normalizeSearch } from "./searchText";
 
 /** 検証の結果。失敗したときは HTTP ステータスも一緒に決める。 */
 export type Parsed<T> = { ok: true; value: T } | { ok: false; reason: string; status: number };
@@ -63,6 +65,15 @@ export function parseListQuery(
     bbox = parsed;
   }
 
+  const range = parseRange(params.get("from"), params.get("to"));
+  if (!range) return bad("from / to には YYYY-MM-DD の日付を指定してください。");
+
+  const rawQuery = params.get("q") ?? "";
+  if (rawQuery.length > SEARCH_MAX_LENGTH) {
+    return bad(`検索する言葉は ${SEARCH_MAX_LENGTH} 文字以内にしてください。`);
+  }
+  const query = normalizeSearch(rawQuery);
+
   let limit = REPORTS_DEFAULT_LIMIT;
   const rawLimit = params.get("limit");
   if (rawLimit !== null) {
@@ -78,8 +89,17 @@ export function parseListQuery(
 
   return {
     ok: true,
-    value: { cityCode: municipality.code, categories, statuses, bbox, limit },
+    value: { cityCode: municipality.code, categories, statuses, bbox, range, query, limit },
   };
+}
+
+/** 投稿日の範囲（JST の暦日）。未指定なら null のまま（＝全期間）。
+ *  **形が違う値は黙って無視せず 400 にする**。絞ったつもりで絞れていない状態が
+ *  一番まずい（「この期間に投稿は無い」と読み違える）。 */
+function parseRange(rawFrom: string | null, rawTo: string | null): DateRange | null {
+  if (rawFrom !== null && rawFrom !== "" && !isDateKey(rawFrom)) return null;
+  if (rawTo !== null && rawTo !== "" && !isDateKey(rawTo)) return null;
+  return normalizeRange(rawFrom, rawTo);
 }
 
 /** カンマ区切りの列挙。未指定なら全部。知らない値が 1 つでもあれば null（＝ 400）。 */
@@ -182,6 +202,12 @@ function parseDetails(
   } catch {
     return null;
   }
+  return pickDetails(category, parsed);
+}
+
+/** 既に JSON として読めている `details` を検証する（PATCH の本体は JSON なので
+ *  文字列を通らない）。通す条件は `parseDetails` と同じ。 */
+function pickDetails(category: ReportCategory, parsed: unknown): Record<string, string> | null {
   if (typeof parsed !== "object" || parsed === null || Array.isArray(parsed)) return null;
 
   const source = parsed as Record<string, unknown>;
@@ -225,6 +251,70 @@ async function parsePhotos(entries: FormDataEntryValue[]): Promise<Parsed<NewPho
     photos.push({ bytes, mimeType: sniffed });
   }
   return { ok: true, value: photos };
+}
+
+// ---- I-5: 投稿の更新（PATCH）----------------------------------------------------
+
+/** `PATCH /api/reports/:id` の本体。**送られてきた項目だけ**が入る。
+ *  `status` は行政ユーザー、それ以外は投稿者本人しか変えられない（権限判定は API 側）。 */
+export type ReportPatch = {
+  status?: ReportStatus;
+  title?: string;
+  body?: string;
+  details?: Record<string, string>;
+};
+
+/** PATCH の本体を検証する。**「行政が触れる項目」と「投稿者が触れる項目」を
+ *  ここで混ぜない**（どちらを含むかを見て、API 側が権限を判定する）。 */
+export function parseReportPatch(category: ReportCategory, raw: unknown): Parsed<ReportPatch> {
+  if (typeof raw !== "object" || raw === null || Array.isArray(raw)) {
+    return bad("更新の内容を読み取れませんでした。");
+  }
+  const source = raw as Record<string, unknown>;
+  const patch: ReportPatch = {};
+
+  if (source.status !== undefined) {
+    if (!isReportStatus(source.status)) {
+      return bad(`対応状況には ${REPORT_STATUS_IDS.join(" / ")} のいずれかを指定してください。`);
+    }
+    patch.status = source.status;
+  }
+
+  if (source.title !== undefined) {
+    if (typeof source.title !== "string") return bad("タイトルを入力してください。");
+    const title = source.title.trim();
+    if (title.length === 0) return bad("タイトルを入力してください。");
+    if (title.length > TITLE_MAX_LENGTH) {
+      return bad(`タイトルは ${TITLE_MAX_LENGTH} 文字以内にしてください。`);
+    }
+    patch.title = title;
+  }
+
+  if (source.body !== undefined) {
+    if (typeof source.body !== "string") return bad("説明を入力してください。");
+    const body = source.body.trim();
+    if (body.length === 0) return bad("説明を入力してください。");
+    if (body.length > BODY_MAX_LENGTH) {
+      return bad(`説明は ${BODY_MAX_LENGTH} 文字以内にしてください。`);
+    }
+    patch.body = body;
+  }
+
+  if (source.details !== undefined) {
+    const details = pickDetails(category, source.details);
+    if (details === null) return bad("カテゴリ固有の項目が正しくありません。");
+    patch.details = details;
+  }
+
+  if (Object.keys(patch).length === 0) {
+    return bad("変更する項目がありません。");
+  }
+  return { ok: true, value: patch };
+}
+
+/** `status` だけを含む更新か（＝行政の操作か）。権限判定の分岐に使う。 */
+export function patchTouchesContent(patch: ReportPatch): boolean {
+  return patch.title !== undefined || patch.body !== undefined || patch.details !== undefined;
 }
 
 // ---- I-5: コメント -------------------------------------------------------------

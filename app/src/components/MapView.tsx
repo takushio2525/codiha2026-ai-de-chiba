@@ -69,6 +69,9 @@ type Props = {
   onSelectReport: (id: number) => void;
   /** 指定した地点へ地図を寄せる。同じ地点でも押し直せるよう毎回新しい値を渡す */
   focus: { coords: LngLat; nonce: number } | null;
+  /** 現在地ボタンで位置が取れたとき。徒歩ナビの出発地点に使う。
+   *  **拒否されたときは呼ばれない**（MapLibre のコントロールが自分でボタンを無効にする） */
+  onGeolocate: (coords: LngLat) => void;
   /** 操作パネルの実寸。地図の余白に反映する */
   panel: PanelBox;
 };
@@ -369,6 +372,7 @@ export default function MapView({
   floodAlert,
   onSelectReport,
   focus,
+  onGeolocate,
   panel,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -378,9 +382,9 @@ export default function MapView({
 
   // イベントハンドラは地図の生成時に 1 度だけ登録するので、
   // そこから見える props は ref 経由にして常に最新を読む。
-  const latest = useRef({ pickMode, onPickOrigin, onNavigate, onSelectReport, panel });
+  const latest = useRef({ pickMode, onPickOrigin, onNavigate, onSelectReport, onGeolocate, panel });
   useEffect(() => {
-    latest.current = { pickMode, onPickOrigin, onNavigate, onSelectReport, panel };
+    latest.current = { pickMode, onPickOrigin, onNavigate, onSelectReport, onGeolocate, panel };
   });
 
   // ---- 地図の生成（マウント時に 1 度だけ）----
@@ -401,6 +405,14 @@ export default function MapView({
       const map = new maplibregl.Map({
         container: containerRef.current,
         style: basemapStyle,
+        // 地図のコントロールも日本語にする。既定は英語で、画面のほかの部分と
+        // 言葉が混ざる（読み上げにもそのまま出る）
+        locale: {
+          "NavigationControl.ZoomIn": "拡大",
+          "NavigationControl.ZoomOut": "縮小",
+          "GeolocateControl.FindMyLocation": "現在地を表示",
+          "GeolocateControl.LocationNotAvailable": "現在地を取得できません",
+        },
         center: ICHIKAWA_CENTER,
         zoom: INITIAL_ZOOM,
         // 回転すると北がどちらか分からなくなるので、傾け・回転は無効にする
@@ -412,6 +424,25 @@ export default function MapView({
       map.touchZoomRotate.disableRotation();
 
       map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
+
+      // 現在地ボタン。**MapLibre の GeolocateControl をそのまま使う**ので、
+      // 位置情報を拒否されたときはコントロール自身がボタンを無効にする（＝静かに使えなくなる）。
+      // 取れた位置は徒歩ナビの出発地点として使い回す。
+      const geolocate = new maplibregl.GeolocateControl({
+        positionOptions: { enableHighAccuracy: true, timeout: 10_000 },
+        // 追従は切る。歩きながら使う想定ではなく、1 回寄せられれば足りる
+        trackUserLocation: false,
+        showAccuracyCircle: true,
+      });
+      map.addControl(geolocate, "top-right");
+      geolocate.on("geolocate", (event) => {
+        const coords = (event as unknown as GeolocationPosition).coords;
+        latest.current.onGeolocate([coords.longitude, coords.latitude]);
+      });
+      // Evented は error に聞き手がいないとコンソールへ吐くので、明示的に受けて黙らせる。
+      // 画面に出すことは何もない（ボタンが無効になるので、押せないこと自体が答え）
+      geolocate.on("error", () => {});
+
       map.addControl(new maplibregl.ScaleControl({ maxWidth: 110, unit: "metric" }), "bottom-left");
       map.addControl(
         new maplibregl.AttributionControl({

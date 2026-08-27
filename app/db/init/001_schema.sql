@@ -14,6 +14,26 @@
 --   - 削除は物理削除。論理削除フラグを持たない
 --   - 時刻は timestamptz。表示側で JST に直す
 
+-- ===== このインストールの識別子 =============================================
+-- **セッション（JWT）をこのデータベースに縛り付けるための値。**
+--
+-- JWT は自分の中に uid（users.id）を持っているだけなので、これが無いと
+-- 「別の場所で動いている CHIZUBA が発行したトークン」を見分けられない。
+-- users.id は単なる連番なので、DB を作り直すと同じ番号が別人に割り当たる。
+-- Cookie はポートを区別しないため、同じ localhost の別インスタンス同士でも起きる
+-- （実測で再現した。詳細は docs/design/interfaces.md I-8）。
+--
+-- 行はいつでも 1 行だけ（id = 1 に固定）。install_id はここで 1 度だけ作られ、
+-- **ボリュームを消して作り直すと別の値になる**＝それ以前のセッションは無効になる。
+CREATE TABLE app_instance (
+    id         smallint    PRIMARY KEY DEFAULT 1 CHECK (id = 1),
+    -- gen_random_uuid() は PostgreSQL 13 以降の組み込み関数（拡張は要らない）
+    install_id uuid        NOT NULL DEFAULT gen_random_uuid(),
+    created_at timestamptz NOT NULL DEFAULT now()
+);
+
+INSERT INTO app_instance (id) VALUES (1);
+
 -- ===== 市町村マスタ =========================================================
 -- 千葉県全域対応の要。市町村を 1 つ増やす作業 = このテーブルに 1 行足す、
 -- で済むようにコードへ座標を書かない（.agent/architecture.md）。

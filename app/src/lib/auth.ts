@@ -21,6 +21,7 @@ import {
   type AuthMode,
 } from "./authMode";
 import { normalizeDisplayName, validateDisplayName } from "./displayName";
+import { getInstallId, sessionSecretFor } from "./installId";
 import { DEMO_CITY_CODE } from "./municipalities";
 import { upsertUser, type UserRole } from "./users";
 
@@ -32,25 +33,48 @@ type AppToken = JWT & {
   displayName?: string;
   role?: UserRole;
   govCityCode?: string | null;
+  /** **このトークンを発行したインストールの ID**（`installId.ts`）。
+   *  users.id はただの連番なので、これが無いと別の DB で発行された
+   *  トークンを見分けられない。毎回のリクエストで突き合わせる。 */
+  inst?: string;
 };
 
-/** AUTH_SECRET が未設定のときに使う署名鍵。
- *  デモ用の固定値で、秘密ではない（interfaces.md I-8「止めない」）。 */
-const DEMO_SIGNING_KEY = "chizuba-demo-mode-not-a-secret";
+/** インストール ID すら読めないときの最後の逃げ道。
+ *
+ * **この値で発行されたセッションは通らない。** jwt コールバックが
+ * `installId === null` のときに必ず null を返すので、ここが推測できても実害は無い。
+ * それでも例外を投げないのは、認証がアプリの入り口で毎回通るため
+ * （投げると DB が落ちた瞬間に画面ごと 500 になる）。 */
+const FALLBACK_SIGNING_KEY = "chizuba-no-install-id-session-disabled";
 
-function resolveSecret(): string {
+/** 同じ警告をリクエストごとに出さないための印。 */
+let warnedNoInstallId = false;
+
+/**
+ * JWT の署名鍵を決める。
+ *
+ *   1. `AUTH_SECRET` が設定されていればそれ（運用者が決めた鍵が最優先）
+ *   2. 未設定なら**このインストールの ID から導く**（`installId.ts`）
+ *
+ * 2 があるので、**鍵を 1 つも設定していない環境でも署名鍵は環境ごとに違う**。
+ * 以前はここに公開の固定値を書いていたが、それだとリポジトリを読めば誰でも
+ * トークンを偽造でき、別インストールのトークンもそのまま通っていた（実測済み）。
+ */
+function resolveSecret(installId: string | null): string {
   const configured = (process.env.AUTH_SECRET ?? "").trim();
   if (configured) return configured;
+  if (installId !== null) return sessionSecretFor(installId);
+
   // ビルド中は黙っておく。next build はワーカーを並列に立てるので、
   // ここで出すと同じ警告がビルドログに何行も並んで異常に見える。
-  // 起動時（コンテナのログ）には 1 回出る。
-  if (process.env.NEXT_PHASE !== "phase-production-build") {
+  if (process.env.NEXT_PHASE !== "phase-production-build" && !warnedNoInstallId) {
+    warnedNoInstallId = true;
     console.warn(
-      "[auth] AUTH_SECRET が未設定です。デモ用の固定値で起動します。" +
-        "公開環境で使うときは必ず設定してください（app/.env.example 参照）。",
+      "[auth] データベースからインストール ID を読めませんでした。" +
+        "ログイン状態は通しません（データベースが起動していれば自動で回復します）。",
     );
   }
-  return DEMO_SIGNING_KEY;
+  return FALLBACK_SIGNING_KEY;
 }
 
 /** 認証プロバイダ。モードによってどちらか一方だけを登録する。 */
@@ -102,64 +126,85 @@ function providers(): NextAuthConfig["providers"] {
   ];
 }
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
-  // コンテナの中で自分のホスト名を判定できないため、ホストを信頼して動かす。
-  // 審査員のマシンの localhost:3000 で動かす前提の構成（外部公開はしない）。
-  trustHost: true,
-  secret: resolveSecret(),
-  session: { strategy: "jwt" },
-  pages: { signIn: "/login" },
-  providers: providers(),
-  callbacks: {
-    async jwt({ token, user, account }) {
-      const app = token as AppToken;
-      // user が入っているのはログインした瞬間だけ。以降のリクエストでは何もしない
-      // （毎回 DB を引かないため。ロールを変えたらログインし直す）。
-      if (!user) return app;
+/**
+ * 設定を**関数で渡す**（next-auth v5 の遅延設定）。
+ *
+ * 署名鍵とトークンの検証に、DB から読むインストール ID が要るため。
+ * ID は `installId.ts` がプロセス内で使い回すので、DB を引くのは実質 1 回だけ。
+ */
+export const { handlers, auth, signIn, signOut } = NextAuth(async () => {
+  const installId = await getInstallId();
 
-      if (account?.provider === "google") {
-        // Google のプロフィールから来たメールアドレス。行政ロールの判定にだけ使い、
-        // 画面にもレスポンスにも出さない（interfaces.md I-8）
-        const email = user.email ?? (typeof token.email === "string" ? token.email : "");
-        const govCityCode = govCityCodeFor(email);
-        const displayName = normalizeDisplayName(user.name ?? "") || "利用者";
-        const saved = await upsertUser({
-          provider: "google",
-          providerUid: account.providerAccountId,
-          displayName: displayName.slice(0, 30),
-          role: govCityCode ? "gov" : "user",
-          govCityCode,
-        });
-        app.uid = saved.id;
-        app.displayName = saved.displayName;
-        app.role = saved.role;
-        app.govCityCode = saved.govCityCode;
+  return {
+    // コンテナの中で自分のホスト名を判定できないため、ホストを信頼して動かす。
+    // 審査員のマシンの localhost:3000 で動かす前提の構成（外部公開はしない）。
+    trustHost: true,
+    secret: resolveSecret(installId),
+    session: { strategy: "jwt" },
+    pages: { signIn: "/login" },
+    providers: providers(),
+    callbacks: {
+      async jwt({ token, user, account }) {
+        const app = token as AppToken;
+
+        // user が入っているのはログインした瞬間だけ。以降のリクエストでは
+        // **このインストールで発行されたトークンかどうかだけ**を確かめる
+        // （毎回 DB を引かないため。ロールを変えたらログインし直す）。
+        if (!user) {
+          // null を返すとセッションが無効になる（未ログイン扱いになる）
+          if (installId === null || app.inst !== installId) return null;
+          return app;
+        }
+
+        // ID が読めない状態でセッションを配ると、あとで縛れないトークンが残る。
+        // ログイン自体が DB を要る操作なので、ここまで来ることはまず無い
+        if (installId === null) return null;
+        app.inst = installId;
+
+        if (account?.provider === "google") {
+          // Google のプロフィールから来たメールアドレス。行政ロールの判定にだけ使い、
+          // 画面にもレスポンスにも出さない（interfaces.md I-8）
+          const email = user.email ?? (typeof token.email === "string" ? token.email : "");
+          const govCityCode = govCityCodeFor(email);
+          const displayName = normalizeDisplayName(user.name ?? "") || "利用者";
+          const saved = await upsertUser({
+            provider: "google",
+            providerUid: account.providerAccountId,
+            displayName: displayName.slice(0, 30),
+            role: govCityCode ? "gov" : "user",
+            govCityCode,
+          });
+          app.uid = saved.id;
+          app.displayName = saved.displayName;
+          app.role = saved.role;
+          app.govCityCode = saved.govCityCode;
+          return app;
+        }
+
+        // デモログイン。authorize が返した値をそのまま載せる
+        app.uid = Number(user.id);
+        app.displayName = user.name ?? "";
+        app.role = user.role ?? "user";
+        app.govCityCode = user.govCityCode ?? null;
         return app;
-      }
+      },
 
-      // デモログイン。authorize が返した値をそのまま載せる
-      app.uid = Number(user.id);
-      app.displayName = user.name ?? "";
-      app.role = user.role ?? "user";
-      app.govCityCode = user.govCityCode ?? null;
-      return app;
+      async session({ session, token }) {
+        const app = token as AppToken;
+        session.user = {
+          ...session.user,
+          id: String(app.uid ?? ""),
+          name: app.displayName ?? "",
+          // メールアドレスと画像は画面に渡さない（interfaces.md I-8）
+          email: "",
+          image: null,
+          role: app.role ?? "user",
+          govCityCode: app.govCityCode ?? null,
+        };
+        return session;
+      },
     },
-
-    async session({ session, token }) {
-      const app = token as AppToken;
-      session.user = {
-        ...session.user,
-        id: String(app.uid ?? ""),
-        name: app.displayName ?? "",
-        // メールアドレスと画像は画面に渡さない（interfaces.md I-8）
-        email: "",
-        image: null,
-        role: app.role ?? "user",
-        govCityCode: app.govCityCode ?? null,
-      };
-      return session;
-    },
-  },
+  };
 });
 
 /** 画面と API が受け取るログイン状態。形の正本は interfaces.md I-8。 */

@@ -6,6 +6,7 @@
  * **メールアドレスと provider_uid は絶対に返さない。** 返すのは表示名とロールだけ（I-3）。
  */
 import { query, withTransaction } from "./db";
+import type { DateRange } from "./reportRange";
 import {
   photoUrl,
   type ReportCategory,
@@ -102,33 +103,88 @@ export type ReportFilter = {
   statuses: ReportStatus[];
   /** [西, 南, 東, 北]（度）。地図の表示範囲 */
   bbox: [number, number, number, number];
+  /** 投稿日の範囲（JST の暦日・両端を含む）。指定なしなら全期間 */
+  range: DateRange;
+  /** キーワード（タイトル・本文の部分一致）。**正規化済み**の語。空なら絞らない */
+  query: string;
   limit: number;
 };
 
-/** 条件に合う投稿を新着順に引く（interfaces.md I-3）。 */
-export async function listReports(filter: ReportFilter): Promise<ReportFeature[]> {
-  const params: unknown[] = [
-    filter.cityCode,
-    filter.bbox[0],
-    filter.bbox[2],
-    filter.bbox[1],
-    filter.bbox[3],
-  ];
-  const conditions = [
-    "r.city_code = $1",
-    "r.lon BETWEEN $2 AND $3",
-    "r.lat BETWEEN $4 AND $5",
-  ];
+/** 条件に合う投稿を引く SQL の WHERE を組み立てる。
+ *  一覧（I-3）とエクスポートで同じ条件を使うので 1 箇所にまとめてある。
+ *  `params` は呼び出し側の配列をそのまま伸ばす（$1 から順に詰まる）。 */
+function whereFor(filter: ReportFilter, params: unknown[]): string {
+  const conditions: string[] = [];
+
+  params.push(filter.cityCode);
+  conditions.push(`r.city_code = $${params.length}`);
+  params.push(filter.bbox[0]);
+  const west = params.length;
+  params.push(filter.bbox[2]);
+  conditions.push(`r.lon BETWEEN $${west} AND $${params.length}`);
+  params.push(filter.bbox[1]);
+  const south = params.length;
+  params.push(filter.bbox[3]);
+  conditions.push(`r.lat BETWEEN $${south} AND $${params.length}`);
 
   params.push(filter.categories);
   conditions.push(`r.category = ANY($${params.length}::text[])`);
   params.push(filter.statuses);
   conditions.push(`r.status = ANY($${params.length}::text[])`);
+
+  // 日付は **JST の暦日**で受け取る。「その日の 00:00（日本時間）」の timestamptz を作り、
+  // 終わりは**翌日の 00:00 未満**にして指定日の 23:59 までを含める。
+  //
+  // **`::timestamp` を省いてはいけない。** `date AT TIME ZONE …` は
+  // date → timestamptz の暗黙キャストのほうに解決され、
+  // 「timestamptz を指定のゾーンのローカル時刻に直す」逆向きの意味になる。
+  // 実測（PostgreSQL 17・TimeZone=UTC）:
+  //   '2026-08-18'::date            AT TIME ZONE 'Asia/Tokyo' → 2026-08-18 09:00（timestamp）
+  //   '2026-08-18'::date::timestamp AT TIME ZONE 'Asia/Tokyo' → 2026-08-17 15:00+00（＝ JST の 08-18 00:00）
+  // 前者だと境目が 9 時間ずれ、単日の指定が 1 件も引けなくなる。
+  if (filter.range.from !== null) {
+    params.push(filter.range.from);
+    conditions.push(
+      `r.created_at >= ($${params.length}::date::timestamp AT TIME ZONE 'Asia/Tokyo')`,
+    );
+  }
+  if (filter.range.to !== null) {
+    params.push(filter.range.to);
+    conditions.push(
+      `r.created_at < (($${params.length}::date + 1)::timestamp AT TIME ZONE 'Asia/Tokyo')`,
+    );
+  }
+
+  // キーワードはタイトルと本文の部分一致。**両側を NFKC + 小文字にそろえてから**
+  // 突き合わせる（`lib/searchText.ts`。全角/半角と大小文字の違いを無視するため）。
+  // LIKE のワイルドカードは呼び出し側で打ち消してある（`escapeLike`）。
+  if (filter.query.length > 0) {
+    params.push(`%${escapeLike(filter.query)}%`);
+    const pattern = `$${params.length}`;
+    conditions.push(
+      `(lower(normalize(r.title, NFKC)) LIKE ${pattern} ESCAPE '\\'` +
+        ` OR lower(normalize(r.body, NFKC)) LIKE ${pattern} ESCAPE '\\')`,
+    );
+  }
+
+  return conditions.join(" AND ");
+}
+
+/** LIKE のワイルドカードを打ち消す。`%` や `_` を打った人が、
+ *  意図せず「何にでも当たる」検索をしてしまうのを防ぐ。 */
+function escapeLike(value: string): string {
+  return value.replace(/[\\%_]/g, (c) => `\\${c}`);
+}
+
+/** 条件に合う投稿を新着順に引く（interfaces.md I-3）。 */
+export async function listReports(filter: ReportFilter): Promise<ReportFeature[]> {
+  const params: unknown[] = [];
+  const where = whereFor(filter, params);
   params.push(filter.limit);
 
   const rows = await query<ReportRow>(
     `SELECT ${REPORT_COLUMNS} ${REPORT_FROM}
-      WHERE ${conditions.join(" AND ")}
+      WHERE ${where}
       ORDER BY r.created_at DESC, r.id DESC
       LIMIT $${params.length}`,
     params,
@@ -215,6 +271,73 @@ export async function createReport(input: {
 
     return reportId;
   });
+}
+
+/** 投稿の持ち主と担当市町村。**権限の判定にだけ使う**ので、レスポンスには載せない。
+ *  `category` を一緒に返すのは、PATCH で `details` を検証するのに要るため。 */
+export type ReportOwnership = {
+  authorId: number;
+  cityCode: string;
+  category: ReportCategory;
+};
+
+/** 投稿の持ち主を引く。無ければ null（＝ 404）。 */
+export async function findReportOwnership(id: number): Promise<ReportOwnership | null> {
+  const rows = await query<{ user_id: string; city_code: string; category: ReportCategory }>(
+    "SELECT user_id, city_code, category FROM reports WHERE id = $1",
+    [id],
+  );
+  if (rows.length === 0) return null;
+  return {
+    authorId: Number(rows[0].user_id),
+    cityCode: rows[0].city_code,
+    category: rows[0].category,
+  };
+}
+
+/** 投稿を更新する（interfaces.md I-5 の PATCH）。**権限の判定は呼び出し側**で済ませておく。
+ *
+ * `details` は**丸ごと置き換えず `||` で重ねる**。浸水投稿の `rainfallMm` など
+ * **サーバーが焼き込んだ項目**（I-4）とデモ投稿の印は投稿者が触れないので、
+ * 置き換えにすると編集のたびに雨量が消えてしまう。
+ *
+ * 戻り値は「更新できたか」。行が消えていれば false（＝ 404）。 */
+export async function updateReport(
+  id: number,
+  patch: {
+    status?: ReportStatus;
+    title?: string;
+    body?: string;
+    details?: Record<string, string>;
+  },
+): Promise<boolean> {
+  const sets: string[] = [];
+  const params: unknown[] = [id];
+
+  if (patch.status !== undefined) {
+    params.push(patch.status);
+    sets.push(`status = $${params.length}`);
+  }
+  if (patch.title !== undefined) {
+    params.push(patch.title);
+    sets.push(`title = $${params.length}`);
+  }
+  if (patch.body !== undefined) {
+    params.push(patch.body);
+    sets.push(`body = $${params.length}`);
+  }
+  if (patch.details !== undefined) {
+    params.push(JSON.stringify(patch.details));
+    sets.push(`details = details || $${params.length}::jsonb`);
+  }
+  // 変える項目が 1 つも無いなら SQL を投げない（呼び出し側が 400 で弾いている）
+  if (sets.length === 0) return false;
+
+  const rows = await query<{ id: string }>(
+    `UPDATE reports SET ${sets.join(", ")}, updated_at = now() WHERE id = $1 RETURNING id`,
+    params,
+  );
+  return rows.length > 0;
 }
 
 export type DeleteResult =

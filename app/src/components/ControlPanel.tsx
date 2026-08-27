@@ -40,11 +40,15 @@ import {
   type ReportCategory,
   type ReportIconName,
 } from "@/lib/reports";
+import type { DateRange } from "@/lib/reportRange";
 import type { WalkingRoute } from "@/lib/routing";
 import { SCENIC_CATEGORIES, SCENIC_LABEL, SCENIC_SUMMARY } from "@/lib/scenic";
 import { formatRainfall, formatStation, type FloodAlert, type WeatherObservation }
   from "@/lib/weather";
 import BrandMark from "./BrandMark";
+import DateRangeFilter from "./DateRangeFilter";
+import ExportLinks from "./ExportLinks";
+import SearchBox, { type SearchHit } from "./SearchBox";
 import FloodAlertCard from "./FloodAlertCard";
 import HazardLegend from "./HazardLegend";
 import RouteCard from "./RouteCard";
@@ -92,8 +96,21 @@ type Props = {
   onToggleCollapsed: () => void;
   /** カテゴリごとの投稿の件数 */
   reportCounts: Record<ReportCategory, number>;
+  /** いまの絞り込みで読み込めている投稿の総数（期間の説明に添える） */
+  reportTotal: number;
   reportVisible: Record<ReportCategory, boolean>;
   onToggleReportCategory: (id: ReportCategory) => void;
+  /** 投稿日の範囲（浸水実績アーカイブ）。空なら全期間 */
+  range: DateRange;
+  onChangeRange: (range: DateRange) => void;
+  /** 表示している市町村（書き出しの条件に渡す） */
+  cityCode: string;
+  /** 検索欄の中身と、当たったもの */
+  query: string;
+  onChangeQuery: (value: string) => void;
+  searchHits: SearchHit[];
+  searchPending: boolean;
+  onPickSearchHit: (hit: SearchHit) => void;
   /** いま投稿できるカテゴリ。モードごとに違う（`lib/mapModes.ts` が正本） */
   postableCategories: ReportCategory[];
   /** ログイン済みか。**表示の出し分けにしか使わない**（権限判定は API 側） */
@@ -129,8 +146,17 @@ export default function ControlPanel({
   collapsed,
   onToggleCollapsed,
   reportCounts,
+  reportTotal,
   reportVisible,
   onToggleReportCategory,
+  range,
+  onChangeRange,
+  cityCode,
+  query,
+  onChangeQuery,
+  searchHits,
+  searchPending,
+  onPickSearchHit,
   postableCategories,
   canPost,
   picking,
@@ -202,7 +228,17 @@ export default function ControlPanel({
           </section>
         ) : null}
 
-        <section className="px-4 py-3.5">
+        {/* 探すのが最初の一手になることが多いので、いちばん上に置く。
+            **打った語は地図そのものにも効く**（当たったピンだけが残る） */}
+        <SearchBox
+          value={query}
+          onChange={onChangeQuery}
+          hits={searchHits}
+          onPick={onPickSearchHit}
+          pending={searchPending}
+        />
+
+        <section className="border-t border-line px-4 py-3.5">
           <h2 className="text-[11px] font-semibold tracking-wide text-ink-muted">表示するデータ</h2>
           <ul className="mt-2 space-y-1.5">
             {LAYERS.map((layer) => {
@@ -449,6 +485,15 @@ export default function ControlPanel({
             />
             青い輪のピンは行政の投稿です。
           </p>
+        </section>
+
+        {/* 投稿日で遡る（浸水実績アーカイブ）。投稿の並びのすぐ下に置いて、
+            「いま出ている件数が何の期間のものか」を続けて読めるようにしている */}
+        <DateRangeFilter range={range} onChange={onChangeRange} count={reportTotal} />
+
+        {/* 絞り込んだそのままの条件で持ち帰れるよう、期間のすぐ下に置く */}
+        <section className="border-t border-line px-4 py-3.5">
+          <ExportLinks city={cityCode} range={range} query={query} />
         </section>
 
         <section className="border-t border-line px-4 py-3.5">

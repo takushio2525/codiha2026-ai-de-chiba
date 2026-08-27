@@ -4,6 +4,7 @@
  * サーバーの `reason` をそのまま通し、通信そのものが失敗したときだけここで文を作る
  * （docs/design/interfaces.md の「共通の約束」）。
  */
+import type { DateRange } from "./reportRange";
 import {
   EMPTY_REPORT_COLLECTION,
   type ReportCategory,
@@ -34,11 +35,18 @@ async function failure(response: Response, fallback: string): Promise<{ ok: fals
 export async function fetchReports(params: {
   city: string;
   categories?: ReportCategory[];
+  /** 投稿日の範囲（JST の暦日）。未指定なら全期間 */
+  range?: DateRange;
+  /** キーワード。タイトルと本文の部分一致 */
+  query?: string;
 }): Promise<ApiResult<ReportCollection>> {
   const query = new URLSearchParams({ city: params.city });
   if (params.categories && params.categories.length > 0) {
     query.set("category", params.categories.join(","));
   }
+  if (params.range?.from) query.set("from", params.range.from);
+  if (params.range?.to) query.set("to", params.range.to);
+  if (params.query && params.query.length > 0) query.set("q", params.query);
   try {
     const response = await fetch(`/api/reports?${query.toString()}`, { cache: "no-store" });
     if (!response.ok) return failure(response, "投稿を読み込めませんでした。");
@@ -86,6 +94,36 @@ export async function submitComment(
     if (!response.ok) return failure(response, "コメントを保存できませんでした。");
     const payload = (await response.json()) as { comment: ReportComment };
     return { ok: true, value: payload.comment };
+  } catch {
+    return { ok: false, reason: NETWORK_ERROR };
+  }
+}
+
+/** 投稿の更新（interfaces.md I-5 の PATCH）。
+ *
+ *   - `status` … 担当市町村の行政ユーザーだけ（F-7）
+ *   - `title` / `body` / `details` … 投稿者本人だけ
+ *
+ * どちらも同じ経路なので、**権限が無ければサーバーが 403 を返す**。
+ * その reason をそのまま画面に出す。 */
+export async function patchReport(
+  reportId: number,
+  patch: {
+    status?: string;
+    title?: string;
+    body?: string;
+    details?: Record<string, string>;
+  },
+): Promise<ApiResult<ReportProperties>> {
+  try {
+    const response = await fetch(`/api/reports/${reportId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(patch),
+    });
+    if (!response.ok) return failure(response, "投稿を更新できませんでした。");
+    const payload = (await response.json()) as { report: ReportProperties };
+    return { ok: true, value: payload.report };
   } catch {
     return { ok: false, reason: NETWORK_ERROR };
   }

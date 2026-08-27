@@ -78,7 +78,11 @@ Claude Code 用の `CLAUDE.md` は、このファイルへのリダイレクト 
 | `app/src/lib/reports.ts` | **投稿の定義**（カテゴリ・色・固有項目・文字数と写真の上限）。**カテゴリを増やすならここに 1 行足す** |
 | `app/src/lib/weather.ts` | 気象データの**共通の型と表示**（ブラウザからも読む）。**注意案内 F-4 を出す条件（`buildFloodAlert`）と降水確率のしきい値**もここ |
 | `app/src/lib/jma.ts` | 気象庁 JSON の**取得とキャッシュ**（サーバー専用）。上流 URL・観測所の選び方・落とし穴 |
-| `app/src/app/api/reports/` | 投稿 API（一覧・作成・詳細・削除・コメント）。読み書きの SQL は `app/src/lib/reportStore.ts` |
+| `app/src/app/api/reports/` | 投稿 API（一覧・作成・詳細・**更新**・削除・コメント・**書き出し**）。読み書きの SQL は `app/src/lib/reportStore.ts` |
+| `app/src/lib/reportRange.ts` | 投稿日の範囲（浸水実績アーカイブ）。**JST の暦日で扱う**約束と期間の近道 |
+| `app/src/lib/reportExport.ts` | CSV / GeoJSON の書き出し。**出す項目と出さない項目の線**・デモ投稿の雨量を出さない理由 |
+| `app/src/lib/searchText.ts` | キーワードの文字そろえ（NFKC + 小文字）。DB 側も同じ変換を SQL で行う |
+| `app/src/lib/installId.ts` | **このインストールを識別する値。** セッションをこの DB に縛る（別環境の JWT を通さない） |
 | `app/src/lib/credits.ts` | 出典（クレジット）の正本。地図の隅と `/about` の両方がここを見る |
 | `app/db/init/*.sql` | **DB スキーマの正本**。`db` の初回起動時だけ流れる（変えたら `docker compose down -v`） |
 | `app/src/lib/auth.ts` | 認証。**Google モードとデモモードの分岐はここ 1 箇所**。`.env.example` に環境変数の一覧 |
@@ -191,7 +195,9 @@ for s in data/analysis/scripts/0*.py; do data/analysis/.venv/bin/python "$s"; do
 | DB スキーマ | `app/db/init/*.sql`・`docs/design/requirements.md` §5・`docs/design/interfaces.md` I-7 |
 | 認証まわり | `docs/design/requirements.md` §8・`app/.env.example`・`app/README.md`・提出用 `readme.txt` の「ログイン情報」 |
 | 気象データの使い方・注意案内の文言 | `docs/design/interfaces.md` I-6・`docs/design/requirements.md` §3-1（**気象業務法の線**）・`app/src/lib/credits.ts` |
-| 投稿の API・カテゴリ・上限 | `docs/design/interfaces.md` I-3〜I-5・`app/src/lib/reports.ts`・`app/db/init/001_schema.sql` |
+| 投稿の API・カテゴリ・上限 | `docs/design/interfaces.md` I-3〜I-5・**I-10**・`app/src/lib/reports.ts`・`app/db/init/001_schema.sql` |
+| 認証・セッションの作り | `docs/design/requirements.md` §8-6・`app/src/lib/installId.ts`・`app/.env.example`・`app/README.md`・`.agent/architecture.md` |
+| UI を足す・変える | **375px 幅で先に決めてから広げる**（`.agent/conventions.md` の「モバイルファースト」）。実際に 375px で動かして確かめる |
 | 担当の変更 | `docs/design/assignments.md` |
 | 起動手順（`compose.yaml` など） | このファイルの「よく使うコマンド」と `app/README.md` |
 | ディレクトリの追加・削除 | そのディレクトリの `README.md`（何のフォルダか） |
