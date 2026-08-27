@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import {
   Baby,
@@ -174,6 +175,17 @@ export default function ControlPanel({
   // 注意案内（F-4）を出している状態か。畳んだヘッダーにも 1 行だけ出すのに使う
   const alerting = floodAlert !== null && reportVisible.flood;
 
+  // **経路が出たら、その結果まで送る。**
+  // 結果カードはパネルのいちばん上（注意案内の次）に入るのに対し、
+  // 「現在地から最寄りの地点へ」のボタンはずっと下にある。スマホでは
+  // パネルの見えている高さが 386px しかないので、押した人の目の前には
+  // 何も現れないまま終わっていた。
+  const routeRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (!route) return;
+    routeRef.current?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  }, [route]);
+
   return (
     <aside
       ref={ref}
@@ -241,7 +253,7 @@ export default function ControlPanel({
         {floodAlert && reportVisible.flood ? <FloodAlertCard alert={floodAlert} /> : null}
 
         {route ? (
-          <section className="border-b border-line bg-[#fbfbfa] px-4 py-3.5">
+          <section ref={routeRef} className="border-b border-line bg-[#fbfbfa] px-4 py-3.5">
             <h2 className="mb-2 text-[11px] font-semibold tracking-wide text-ink-muted">徒歩ナビの結果</h2>
             <RouteCard route={route} onClear={onClearRoute} />
           </section>

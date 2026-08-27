@@ -341,6 +341,10 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
     try {
       const result = await fetchWalkingRoute(from, destination);
       setRoute(result);
+      // **結果はパネルの中に出るので、畳んだままだと出したことが伝わらない。**
+      // 地図で場所を指定してもらうあいだは畳んでいる（isNarrowViewport の側）ので、
+      // 引き終わったここで開き直す。開いた先で ControlPanel が結果まで送る
+      setCollapsed(false);
       if (result.estimated) {
         setToast({ kind: "warning", text: `${result.note} 直線距離の概算を表示しています。` });
       }
