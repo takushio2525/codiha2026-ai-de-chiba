@@ -2,6 +2,7 @@ import Link from "next/link";
 import { List, LogIn, LogOut, ShieldCheck, UserRound } from "lucide-react";
 
 import BrandMark from "@/components/BrandMark";
+import { OfficialRoleBadge } from "@/components/OfficialBadge";
 import { getSessionView } from "@/lib/auth";
 import { signOutAction } from "@/lib/authActions";
 
@@ -79,11 +80,7 @@ export default async function AuthBar() {
                 {user.displayName}
               </span>
             </span>
-            {user.role === "gov" ? (
-              <span className="shrink-0 rounded-full bg-[#0072b2] px-2 py-0.5 text-[10.5px] font-medium whitespace-nowrap text-white">
-                行政
-              </span>
-            ) : null}
+            {user.role === "gov" ? <OfficialRoleBadge /> : null}
             <form action={signOutAction} className="flex self-stretch">
               <button
                 type="submit"

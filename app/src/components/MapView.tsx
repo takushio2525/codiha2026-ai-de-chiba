@@ -81,7 +81,9 @@ const EMPTY: FeatureCollection = { type: "FeatureCollection", features: [] };
 
 /** 投稿のソースとレイヤー。施設の点とは別に持つ（色と形を変えて区別するため）。 */
 const REPORT_SOURCE = "reports";
-/** 行政（公式）を表す色。バッジ・地図の輪で共通に使う */
+/** 行政（公式）を表す色。**`components/OfficialBadge.tsx` の青と同じ値にすること。**
+ *  向こうは Tailwind の任意値（`bg-[#0072b2]`）で class に直書きしないと拾われないので、
+ *  この定数を共有できない。片方を変えたらもう片方も変える */
 const OFFICIAL_COLOR = "#0072b2";
 const REPORT_HALO_LAYER = "report-halo";
 const REPORT_POINT_LAYER = "report-points";
