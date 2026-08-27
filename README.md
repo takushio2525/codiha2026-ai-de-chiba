@@ -101,6 +101,7 @@ codiha2026-ai-de-chiba/
 ├── data/           ★ 取得したオープンデータと探索的分析（所見は data/analysis/findings.md）
 ├── assets/         オープンデータの検討用サンプル・データ形式のメモ
 ├── tools/          補助スクリプト（データ解析・評価/検証）
+├── deploy/         自宅の Mac で公開するための手順とスクリプト（**提出物には含まない**）
 ├── meetings/       議事録・WBS・ガントチャート
 ├── .agent/         AI 向けの詳細仕様と作業文脈
 ├── AGENTS.md       AI が最初に読むファイル

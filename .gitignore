@@ -150,6 +150,11 @@ app/readme.txt
 # 動かしたときは app/uploads/ に溜まる。投稿されたものなのでコミットしない。
 app/uploads/
 
+# deploy/selfhost/make_qr.py が出す QR コード。公開 URL（tailnet 名を含む）が
+# 画像として読み取れてしまうので、public リポジトリには置かない。
+chizuba-qr.png
+*-qr.png
+
 # MapLibre の worker は node_modules から複製したもの（app/scripts/copy-maplibre-worker.mjs）。
 # 依存のコピーなのでコミットしない。npm run build / dev が毎回作り直す。
 app/public/maplibre/

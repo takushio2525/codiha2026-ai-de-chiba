@@ -96,6 +96,7 @@ Claude Code 用の `CLAUDE.md` は、このファイルへのリダイレクト 
 | `assets/` | オープンデータの検討用サンプル・データ形式のメモ |
 | `tools/package_submission.sh` | **提出アーカイブの生成と検証**。`dist/` に 7z を作り、展開し直して提出要件（必須ファイル・日本語名・キャッシュ混入）を確認する |
 | `tools/verification/` | 評価指標の計測・判定 |
+| `deploy/selfhost/` | **自宅の Mac で公開する一式**（Tailscale Funnel）。手順書・`setup.sh`・QR 生成。**提出アーカイブには入らない** |
 | `.agent/` | AI 向けの詳細仕様と作業文脈（下記） |
 | `CONTRIBUTING.md` | Git の使い方・開発ルール（人間向けの正本） |
 
