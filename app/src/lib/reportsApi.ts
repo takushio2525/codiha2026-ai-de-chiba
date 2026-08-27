@@ -91,6 +91,36 @@ export async function submitComment(
   }
 }
 
+/** 投稿の更新（interfaces.md I-5 の PATCH）。
+ *
+ *   - `status` … 担当市町村の行政ユーザーだけ（F-7）
+ *   - `title` / `body` / `details` … 投稿者本人だけ
+ *
+ * どちらも同じ経路なので、**権限が無ければサーバーが 403 を返す**。
+ * その reason をそのまま画面に出す。 */
+export async function patchReport(
+  reportId: number,
+  patch: {
+    status?: string;
+    title?: string;
+    body?: string;
+    details?: Record<string, string>;
+  },
+): Promise<ApiResult<ReportProperties>> {
+  try {
+    const response = await fetch(`/api/reports/${reportId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(patch),
+    });
+    if (!response.ok) return failure(response, "投稿を更新できませんでした。");
+    const payload = (await response.json()) as { report: ReportProperties };
+    return { ok: true, value: payload.report };
+  } catch {
+    return { ok: false, reason: NETWORK_ERROR };
+  }
+}
+
 /** 投稿の削除（投稿者本人のみ）。 */
 export async function deleteReport(reportId: number): Promise<ApiResult<null>> {
   try {

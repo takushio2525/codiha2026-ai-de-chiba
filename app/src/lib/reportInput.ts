@@ -182,6 +182,12 @@ function parseDetails(
   } catch {
     return null;
   }
+  return pickDetails(category, parsed);
+}
+
+/** 既に JSON として読めている `details` を検証する（PATCH の本体は JSON なので
+ *  文字列を通らない）。通す条件は `parseDetails` と同じ。 */
+function pickDetails(category: ReportCategory, parsed: unknown): Record<string, string> | null {
   if (typeof parsed !== "object" || parsed === null || Array.isArray(parsed)) return null;
 
   const source = parsed as Record<string, unknown>;
@@ -225,6 +231,70 @@ async function parsePhotos(entries: FormDataEntryValue[]): Promise<Parsed<NewPho
     photos.push({ bytes, mimeType: sniffed });
   }
   return { ok: true, value: photos };
+}
+
+// ---- I-5: 投稿の更新（PATCH）----------------------------------------------------
+
+/** `PATCH /api/reports/:id` の本体。**送られてきた項目だけ**が入る。
+ *  `status` は行政ユーザー、それ以外は投稿者本人しか変えられない（権限判定は API 側）。 */
+export type ReportPatch = {
+  status?: ReportStatus;
+  title?: string;
+  body?: string;
+  details?: Record<string, string>;
+};
+
+/** PATCH の本体を検証する。**「行政が触れる項目」と「投稿者が触れる項目」を
+ *  ここで混ぜない**（どちらを含むかを見て、API 側が権限を判定する）。 */
+export function parseReportPatch(category: ReportCategory, raw: unknown): Parsed<ReportPatch> {
+  if (typeof raw !== "object" || raw === null || Array.isArray(raw)) {
+    return bad("更新の内容を読み取れませんでした。");
+  }
+  const source = raw as Record<string, unknown>;
+  const patch: ReportPatch = {};
+
+  if (source.status !== undefined) {
+    if (!isReportStatus(source.status)) {
+      return bad(`対応状況には ${REPORT_STATUS_IDS.join(" / ")} のいずれかを指定してください。`);
+    }
+    patch.status = source.status;
+  }
+
+  if (source.title !== undefined) {
+    if (typeof source.title !== "string") return bad("タイトルを入力してください。");
+    const title = source.title.trim();
+    if (title.length === 0) return bad("タイトルを入力してください。");
+    if (title.length > TITLE_MAX_LENGTH) {
+      return bad(`タイトルは ${TITLE_MAX_LENGTH} 文字以内にしてください。`);
+    }
+    patch.title = title;
+  }
+
+  if (source.body !== undefined) {
+    if (typeof source.body !== "string") return bad("説明を入力してください。");
+    const body = source.body.trim();
+    if (body.length === 0) return bad("説明を入力してください。");
+    if (body.length > BODY_MAX_LENGTH) {
+      return bad(`説明は ${BODY_MAX_LENGTH} 文字以内にしてください。`);
+    }
+    patch.body = body;
+  }
+
+  if (source.details !== undefined) {
+    const details = pickDetails(category, source.details);
+    if (details === null) return bad("カテゴリ固有の項目が正しくありません。");
+    patch.details = details;
+  }
+
+  if (Object.keys(patch).length === 0) {
+    return bad("変更する項目がありません。");
+  }
+  return { ok: true, value: patch };
+}
+
+/** `status` だけを含む更新か（＝行政の操作か）。権限判定の分岐に使う。 */
+export function patchTouchesContent(patch: ReportPatch): boolean {
+  return patch.title !== undefined || patch.body !== undefined || patch.details !== undefined;
 }
 
 // ---- I-5: コメント -------------------------------------------------------------

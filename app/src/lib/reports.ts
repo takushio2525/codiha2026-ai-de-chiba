@@ -117,12 +117,13 @@ export function isReportCategory(value: unknown): value is ReportCategory {
   return typeof value === "string" && REPORT_CATEGORY_IDS.includes(value as ReportCategory);
 }
 
-/** 対応状況の表示。P3 の時点では読み取り専用で、更新は F-7（P6）で入れる。 */
-export const REPORT_STATUSES: { id: ReportStatus; label: string }[] = [
-  { id: "open", label: "未対応" },
-  { id: "ack", label: "受付" },
-  { id: "in_progress", label: "対応中" },
-  { id: "done", label: "対応済" },
+/** 対応状況の表示。**更新できるのは担当市町村の行政ユーザーだけ**（F-7 / P6）。
+ *  `summary` は行政が選ぶときに出す 1 行の説明で、4 段階の使い分けを迷わせないためのもの。 */
+export const REPORT_STATUSES: { id: ReportStatus; label: string; summary: string }[] = [
+  { id: "open", label: "未対応", summary: "まだ確認していない" },
+  { id: "ack", label: "受付", summary: "受け付けた。確認はこれから" },
+  { id: "in_progress", label: "対応中", summary: "現地の確認・工事などを進めている" },
+  { id: "done", label: "対応済", summary: "対応が終わった" },
 ];
 
 export const REPORT_STATUS_IDS: ReportStatus[] = REPORT_STATUSES.map((s) => s.id);
@@ -133,6 +134,17 @@ export function isReportStatus(value: unknown): value is ReportStatus {
 
 export function reportStatusLabel(id: ReportStatus): string {
   return REPORT_STATUSES.find((s) => s.id === id)?.label ?? id;
+}
+
+/** **対応状況を変えられるか**（担当市町村の行政ユーザーだけ・F-7）。
+ *
+ * **画面の出し分けにしか使わない。** ここを信じて権限を決めてはいけない
+ * （権限判定は必ず API 側でセッションを見て行う・interfaces.md I-5 / I-8）。 */
+export function canUpdateStatus(
+  user: { role: "user" | "gov"; govCityCode: string | null } | null | undefined,
+  report: { cityCode: string },
+): boolean {
+  return user != null && user.role === "gov" && user.govCityCode === report.cityCode;
 }
 
 // ---- 入力の上限（interfaces.md I-4・I-5 が正本）------------------------------

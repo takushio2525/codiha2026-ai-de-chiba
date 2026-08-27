@@ -217,6 +217,73 @@ export async function createReport(input: {
   });
 }
 
+/** 投稿の持ち主と担当市町村。**権限の判定にだけ使う**ので、レスポンスには載せない。
+ *  `category` を一緒に返すのは、PATCH で `details` を検証するのに要るため。 */
+export type ReportOwnership = {
+  authorId: number;
+  cityCode: string;
+  category: ReportCategory;
+};
+
+/** 投稿の持ち主を引く。無ければ null（＝ 404）。 */
+export async function findReportOwnership(id: number): Promise<ReportOwnership | null> {
+  const rows = await query<{ user_id: string; city_code: string; category: ReportCategory }>(
+    "SELECT user_id, city_code, category FROM reports WHERE id = $1",
+    [id],
+  );
+  if (rows.length === 0) return null;
+  return {
+    authorId: Number(rows[0].user_id),
+    cityCode: rows[0].city_code,
+    category: rows[0].category,
+  };
+}
+
+/** 投稿を更新する（interfaces.md I-5 の PATCH）。**権限の判定は呼び出し側**で済ませておく。
+ *
+ * `details` は**丸ごと置き換えず `||` で重ねる**。浸水投稿の `rainfallMm` など
+ * **サーバーが焼き込んだ項目**（I-4）とデモ投稿の印は投稿者が触れないので、
+ * 置き換えにすると編集のたびに雨量が消えてしまう。
+ *
+ * 戻り値は「更新できたか」。行が消えていれば false（＝ 404）。 */
+export async function updateReport(
+  id: number,
+  patch: {
+    status?: ReportStatus;
+    title?: string;
+    body?: string;
+    details?: Record<string, string>;
+  },
+): Promise<boolean> {
+  const sets: string[] = [];
+  const params: unknown[] = [id];
+
+  if (patch.status !== undefined) {
+    params.push(patch.status);
+    sets.push(`status = $${params.length}`);
+  }
+  if (patch.title !== undefined) {
+    params.push(patch.title);
+    sets.push(`title = $${params.length}`);
+  }
+  if (patch.body !== undefined) {
+    params.push(patch.body);
+    sets.push(`body = $${params.length}`);
+  }
+  if (patch.details !== undefined) {
+    params.push(JSON.stringify(patch.details));
+    sets.push(`details = details || $${params.length}::jsonb`);
+  }
+  // 変える項目が 1 つも無いなら SQL を投げない（呼び出し側が 400 で弾いている）
+  if (sets.length === 0) return false;
+
+  const rows = await query<{ id: string }>(
+    `UPDATE reports SET ${sets.join(", ")}, updated_at = now() WHERE id = $1 RETURNING id`,
+    params,
+  );
+  return rows.length > 0;
+}
+
 export type DeleteResult =
   | { status: "deleted"; fileNames: string[] }
   | { status: "not_found" }
