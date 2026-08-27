@@ -48,7 +48,7 @@ GeoJSON として `app/public/data/` に同梱してあり、起動時に取り�
 
 | サービス | イメージ | ポート | 永続化 |
 |---|---|---|---|
-| `web` | `node:22-slim`（DOI）の multi-stage ビルド | `3000:3000` | — |
+| `web` | `node:22-slim`（DOI）の multi-stage ビルド | `${CHIZUBA_PORT:-3000}:3000` | — |
 | `db` | `postgres:17-alpine`（DOI） | 公開しない（コンテナ間のみ） | named volume `db-data` |
 | （`web` の写真置き場） | — | — | named volume `uploads` → `/app/uploads` |
 
@@ -129,6 +129,41 @@ GOOGLE_CLIENT_ID と GOOGLE_CLIENT_SECRET が両方ある？
 - `authMode` の判定結果はサーバーから画面に渡す。**クライアント側でキーの有無を見ない**
 - 詳細と環境変数の一覧は `docs/design/requirements.md` §8
 
+## 公開 URL の決め方（設定値ではなくリクエストから導く）
+
+**ログイン系のリダイレクト先と Google のコールバック URL は、環境変数で持たず、
+リクエストが名乗ったホストから毎回導く。** ホストは `X-Forwarded-Host` →
+（無ければ）`Host`、プロトコルは `X-Forwarded-Proto` →（無ければ）`http`。
+`X-Forwarded-Port` は見ない（Next.js がコンテナ内の 3000 を無条件に入れるため）。
+
+**なぜ固定値をやめたか。** 以前は `compose.yaml` が
+`AUTH_URL=http://localhost:3000` を渡していた。この方式は
+**「公開する住所を変えたら設定も直す」を人間が覚えている前提**で、
+実際に破れた（`ports` を 3100 に変えたらログイン後に 3000 番へ飛んだ）。
+Tailscale Funnel で外に出す運用では、設定し忘れが即「ログインできない公開サイト」
+になる。**設定し忘れで壊れる方式を採らない**、が判断。
+
+**どこで直しているか。** 2 経路あり、直す場所が違う。
+
+| 経路 | 何が URL を決めるか | 対応 |
+|---|---|---|
+| サーバーアクション（`signIn` / `signOut` / `auth()`） | Auth.js の `createActionURL()` がヘッダーを見る | `trustHost: true` だけでよい（`src/lib/auth.ts`） |
+| ルートハンドラ `/api/auth/*`（OAuth コールバック・csrf・session） | `Auth()` が **`req.url`** を見る | `req.url` を組み直してから渡す（`src/app/api/auth/[...nextauth]/route.ts`） |
+
+後者が要るのは、`output: "standalone"` の Next.js が**待ち受けアドレスから
+リクエスト URL を組む**ため。`HOSTNAME=0.0.0.0` なので、素のままだと
+`http://0.0.0.0:3000/api/auth/...` が渡り、リダイレクト先も `0.0.0.0` になる
+（実測。`docs/design/requirements.md` §8-7 に測定結果）。
+
+**逃げ道は残してある。** ホスト名を書き換えてしまうプロキシの後ろに置くなど
+自動判定が効かない環境では、`AUTH_URL` を設定すれば Auth.js がそちらを優先する
+（こちらのコードは何もしない）。既定では**誰も設定しない**。
+
+**公開ポートも同じ考え方。** `compose.yaml` の `ports` は
+`${CHIZUBA_PORT:-3000}:3000`。既定の 3000 は審査員の体験のために動かさず、
+塞がっている環境だけ `CHIZUBA_PORT=3100 docker compose up` で逃がす。
+**ポートを変えても他に直す設定は無い**（上のとおり URL は自動で追従する）。
+
 ## 千葉県全域対応の建付け
 
 **対応は千葉県全域、初期データとデモシナリオは市川市。**
@@ -164,6 +199,7 @@ GOOGLE_CLIENT_ID と GOOGLE_CLIENT_SECRET が両方ある？
 | 投稿の読み書き（SQL） | `app/src/lib/reportStore.ts`・`app/src/lib/photoStore.ts` | — |
 | 投稿の画面 | `app/src/components/ReportForm.tsx`（S-4）・`ReportPanel.tsx`（S-3）・`app/src/app/reports/`（S-5） | `npm run dev` |
 | 認証 | `app/src/lib/auth.ts` | `/login` を開く |
+| 公開 URL の導出 | `app/src/lib/publicOrigin.ts`・`app/src/app/api/auth/[...nextauth]/route.ts` | `curl -H 'X-Forwarded-Host: example.test' -H 'X-Forwarded-Proto: https' ...` で Location を見る |
 | DB スキーマ | `app/db/init/*.sql` | `docker compose exec db psql -U chizuba -d chizuba` |
 | CSV → GeoJSON 変換 | `data/scripts/build_geojson.py` | `python3 data/scripts/build_geojson.py` |
 
@@ -253,3 +289,5 @@ GOOGLE_CLIENT_ID と GOOGLE_CLIENT_SECRET が両方ある？
 | **認証** | Auth.js（NextAuth）+ Google OAuth、**キー未設定時はデモログイン** | 審査員が `docker compose up` だけで投稿機能まで試せるようにするため |
 | **セッション** | JWT（DB セッションを持たない）＋ インストール ID による縛り | テーブルとコードが 1 つ減る。ID を混ぜるのは、`users.id` がただの連番で、別の DB で発行されたトークンを見分けられないため（実測で行政権限が通った） |
 | **投稿モデル** | **危険箇所・浸水・観光おすすめを 1 テーブルに統一**（`category` + `details` JSON） | API・フォーム・地図レイヤーが 3 倍にならない。詳細は `requirements.md` §4 |
+| **公開 URL** | **リクエストのヘッダーから毎回導く**（`AUTH_URL` を既定で渡さない） | 固定値は「住所を変えたら設定も直す」を人間が覚えている前提で、実際に破れた（3100 番で開くとログイン後に 3000 番へ飛んだ）。Funnel 公開では設定し忘れが即「ログインできない公開サイト」になる |
+| **公開ポート** | **`${CHIZUBA_PORT:-3000}`**（既定 3000 は動かさない） | 審査員の `docker compose up` の体験を変えずに、塞がっている環境だけ逃がせる。ポートを変えても URL は自動で追従するので直す設定が他に無い |

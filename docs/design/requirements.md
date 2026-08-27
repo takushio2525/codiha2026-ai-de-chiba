@@ -479,7 +479,8 @@ Next.js は `.env` だけでなく **`.env.local` / `.env.production.local` も�
 |---|:---:|---|---|
 | `DATABASE_URL` | ○ | PostgreSQL 接続先 | `compose.yaml` が既定値を渡す |
 | `AUTH_SECRET` | — | JWT の署名鍵 | **データベースのインストール ID から導く**（環境ごとに違う鍵になる。[§8-6](#8-6-セッションをこのインストールに縛る)） |
-| `AUTH_URL` | △ | Google のコールバック URL の土台 | `compose.yaml` が `http://localhost:3000` を渡す。コンテナの中では自分のホスト名が `0.0.0.0` になり、そのままでは Google に登録できないリダイレクト URI ができてしまうため固定している。**ホスト側のポートを変えたときだけ書き換える** |
+| `CHIZUBA_PORT` | — | ホスト側の公開ポート | **3000**。`compose.yaml` の `ports` だけがこれを読む（コンテナ側は常に 3000）。3000 が塞がっている環境で `CHIZUBA_PORT=3100 docker compose up` と指定する |
+| `AUTH_URL` | — | 公開 URL を**固定したいとき**だけ書く | **リクエストの `X-Forwarded-Host` →（無ければ）`Host` から毎回導く**（[§8-7](#8-7-公開-url-はリクエストから決める)）。設定するとそちらが優先されるので、**公開 URL が変わったら書き換えが要る** |
 | `GOOGLE_CLIENT_ID` | — | Google OAuth | **デモモードに切り替わる** |
 | `GOOGLE_CLIENT_SECRET` | — | Google OAuth | 同上 |
 | `GOV_ACCOUNTS` | — | 行政ロールの付与（Google モード） | 行政ユーザーは Google モードでは 0 人 |
@@ -513,6 +514,45 @@ Next.js は `.env` だけでなく **`.env.local` / `.env.production.local` も�
   例外は投げない（認証はアプリの入り口で毎回通るので、投げると画面ごと 500 になる）
 - `docker compose down -v` で作り直すと ID も変わり、それ以前のログイン状態は
   無効になる。作り直したのだから投稿もユーザーも消えており、実害は無い
+
+### 8-7. 公開 URL はリクエストから決める
+
+Google のコールバック URL も、ログイン・ログアウト後のリダイレクト先も、
+**設定値ではなくリクエストが名乗ったホストから毎回導く**。
+
+| 見るもの | 値 |
+|---|---|
+| ホスト | `X-Forwarded-Host` →（無ければ）`Host` |
+| プロトコル | `X-Forwarded-Proto` →（無ければ）`http` |
+
+`X-Forwarded-Port` は**見ない**。Next.js がコンテナの中のポート（3000）を
+無条件に入れてしまうため、当てにすると 3100 番で開いた人を 3000 番へ飛ばす。
+ポート番号は `X-Forwarded-Host` 側に付いてくる。
+
+**実測（2026-08-27）**: 以前は `compose.yaml` が `AUTH_URL=http://localhost:3000` を
+固定で渡していた。`ports` を `3100:3000` にしてホスト側 3100 で開くと、
+デモログインの応答が `Location: http://localhost:3000/` になり、
+ログインした先が開いていない住所になった。Auth.js は `AUTH_URL` があると
+リクエストのホストを一切見ないため（`@auth/core` の `createActionURL()`）。
+
+一方、`AUTH_URL` を外しただけでは `Location: http://0.0.0.0:3000` になる。
+`output: "standalone"` の Next.js は待ち受けアドレス（`HOSTNAME=0.0.0.0`）から
+リクエスト URL を組むので、`/api/auth/*` のルートハンドラが受け取る URL 自体が
+`http://0.0.0.0:3000/...` だったため。**そこで両方を直した**:
+
+1. `compose.yaml` は `AUTH_URL` を渡さない
+2. `/api/auth/*` のルートハンドラが、Auth.js に渡す前にリクエスト URL の
+   オリジンを上の表のヘッダーで組み直す（`app/src/lib/publicOrigin.ts`）
+
+これで **`CHIZUBA_PORT=3100` でも Tailscale Funnel の HTTPS でも、
+設定を 1 つも足さずに正しいリダイレクト先になる**。Tailscale Funnel は
+公開ホスト名を `X-Forwarded-Host` に、TLS 終端を `X-Forwarded-Proto: https` に
+入れる（`ipn/ipnlocal/serve.go` の `addProxyForwardedHeaders`）。
+
+`X-Forwarded-Host` はリバースプロキシが居なければ利用者が偽装できるが、
+偽装で起きるのは「偽装した本人が別の住所へ飛ぶ」ことだけで、
+他人のセッションは取れない（署名鍵は [§8-6](#8-6-セッションをこのインストールに縛る) の
+インストール ID に縛られている）。固定したい運用は `AUTH_URL` を設定する。
 
 ---
 

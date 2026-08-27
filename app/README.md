@@ -29,6 +29,15 @@ docker compose up          # 初回はイメージのビルドで数分かかる
 起動したらブラウザで <http://localhost:3000> を開く。止めるときは `Ctrl-C`。
 コードを変えたあとは `docker compose up --build` でビルドし直す。
 
+3000 番が別のアプリで塞がっているときは、公開ポートだけ変えられる。
+
+```bash
+CHIZUBA_PORT=3100 docker compose up   # → http://localhost:3100
+```
+
+**他に直す設定は無い。** ログインのリダイレクト先も Google のコールバック URL も、
+**ブラウザが実際に開いた住所から毎回決まる**（`src/lib/publicOrigin.ts`）。
+
 ```bash
 docker compose down                 # 片付け
 docker compose down -v              # ＋ データベースの中身も消す
@@ -251,6 +260,13 @@ app/
   試せるようにするための建付け。**インターネットに公開するときだけ** `.env` に
   `GOV_DEMO_PIN` を書くと、行政ユーザーを選ぶときに PIN を要求するようになる
   （未設定なら何も変わらない。`.env.example` と `docs/design/requirements.md` §8-3 参照）
+- **公開 URL の設定は要らない。** ログイン後のリダイレクト先も Google の
+  コールバック URL も、リクエストの `X-Forwarded-Host` →（無ければ）`Host` から
+  毎回導く（`src/lib/publicOrigin.ts`）。だから `CHIZUBA_PORT` で公開ポートを
+  変えても、リバースプロキシや Tailscale Funnel の HTTPS 越しに出しても、
+  そのまま動く。**`AUTH_URL` を設定するとそちらが優先される**ので、
+  ホスト名を書き換えてしまうプロキシの後ろに置くときだけ書く
+  （書いたら、公開 URL を変えるたびに直す必要がある）
 - **`AUTH_SECRET` は未設定でよい。** 未設定のときは、データベースに 1 つだけ入っている
   **インストール ID から署名鍵を導く**ので、環境ごとに違う鍵になる（`src/lib/installId.ts`）。
   トークンにも同じ ID が入っていて毎回突き合わせるため、

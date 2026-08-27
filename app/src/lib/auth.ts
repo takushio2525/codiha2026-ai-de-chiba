@@ -146,8 +146,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth(async () => {
   const installId = await getInstallId();
 
   return {
-    // コンテナの中で自分のホスト名を判定できないため、ホストを信頼して動かす。
-    // 審査員のマシンの localhost:3000 で動かす前提の構成（外部公開はしない）。
+    // **公開 URL を固定値で持たず、リクエストが名乗ったホストから毎回導く。**
+    // これが true だと Auth.js は `x-forwarded-host` →（無ければ）`Host` を
+    // 見てリダイレクト先を決めるので、3000 番以外で公開しても
+    // （例: `CHIZUBA_PORT=3100` / Tailscale Funnel の https）そのまま動く。
+    // ルートハンドラ側の補正は src/app/api/auth/[...nextauth]/route.ts。
+    // 固定したい運用は `AUTH_URL` を設定すればそちらが勝つ（.env.example）。
     trustHost: true,
     secret: resolveSecret(installId),
     session: { strategy: "jwt" },

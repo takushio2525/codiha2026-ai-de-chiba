@@ -289,7 +289,7 @@ bash deploy/selfhost/setup.sh
 1. 前提の確認（git・Docker・Docker デーモン・compose・Tailscale・ログイン状態・
    **行政ロールの PIN**・ポートの空き・スリープ設定）
 2. `git pull`（手元に変更があるときは飛ばす）
-3. 公開 URL を `app/.env` の `AUTH_URL` に書く（Google ログインを使うときだけ効く）
+3. 公開 URL の設定を確かめる（**書き込みはしない**。古い `AUTH_URL` が残っていれば警告する）
 4. `docker compose -f app/compose.yaml -f deploy/selfhost/compose.prod.yaml up -d` でコンテナを起動
 5. `web` が healthy になり、`http://127.0.0.1:3000/` が 200 を返すまで待つ
 6. `tailscale funnel --bg --yes 3000` で公開し、URL を表示する
@@ -302,7 +302,7 @@ bash deploy/selfhost/setup.sh
 bash deploy/selfhost/setup.sh --check-only   # 前提の確認だけ。何も起動しない
 bash deploy/selfhost/setup.sh --no-funnel    # コンテナの起動まで。まだ公開しない
 bash deploy/selfhost/setup.sh --build        # コードが同じでもイメージを作り直す
-bash deploy/selfhost/setup.sh --port 8080    # 3000 が塞がっているとき
+bash deploy/selfhost/setup.sh --port 8080    # 3000 が塞がっているとき（CHIZUBA_PORT=8080 で起動する）
 bash deploy/selfhost/setup.sh --help
 ```
 
@@ -585,6 +585,7 @@ pmset -g | grep -E 'sleep|disablesleep'
 | 公開 URL が「接続できません」 | `tailscale funnel status` を見る。Mac が寝ていないか。Docker が動いているか |
 | 公開 URL が 502 / 503 | コンテナが起動途中。`... ps` で `healthy` になるまで待つ |
 | ポート 3000 が塞がっている | `lsof -nP -iTCP:3000 -sTCP:LISTEN` で犯人を探す。`--port 8080` でも逃げられる |
+| ログインすると別の住所（`localhost:3000` など）へ飛ぶ | `app/.env` に `AUTH_URL` が書かれていないか見る。書いてあると自動判定より優先される。**特に理由が無ければその行を消す** |
 | ビルドが「no space left」 | `docker system prune -a` で古いイメージを消す |
 | 地図は出るがピンが出ない | ネットに繋がっているか。`docker compose ... logs web` を見る |
 

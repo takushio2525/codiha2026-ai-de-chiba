@@ -87,6 +87,7 @@ Claude Code 用の `CLAUDE.md` は、このファイルへのリダイレクト 
 | `app/src/lib/credits.ts` | 出典（クレジット）の正本。地図の隅と `/about` の両方がここを見る |
 | `app/db/init/*.sql` | **DB スキーマの正本**。`db` の初回起動時だけ流れる（変えたら `docker compose down -v`） |
 | `app/src/lib/auth.ts` | 認証。**Google モードとデモモードの分岐はここ 1 箇所**。`.env.example` に環境変数の一覧 |
+| `app/src/lib/publicOrigin.ts` | **公開 URL をリクエストのヘッダーから導く**（`AUTH_URL` の固定値をやめた理由と実測もここ）。`/api/auth/*` のルートハンドラが使う |
 | `app/src/lib/photoStore.ts` | 投稿写真の実体（`uploads` ボリューム）。**置き場は作業ディレクトリ直下に固定**している |
 | `data/scripts/build_geojson.py` | 市川市 CSV → `app/public/data/*.geojson` の変換（cp932・市域外座標の除外） |
 | `docs/before_coding.md` | **開始前に決めること**（担当の切り方・つなぎ目・public/private の線引き） |
@@ -106,6 +107,9 @@ Claude Code 用の `CLAUDE.md` は、このファイルへのリダイレクト 
 ```bash
 # サービスの起動（審査員もこれだけ。http://localhost:3000）
 cd app && docker compose up
+
+# 3000 番が塞がっているときだけ公開ポートを変える（他に直す設定は無い）
+cd app && CHIZUBA_PORT=3100 docker compose up
 
 # UI をいじるとき（ホットリロード。Node.js 22 以上が必要）
 cd app && npm install && npm run dev
@@ -199,6 +203,7 @@ for s in data/analysis/scripts/0*.py; do data/analysis/.venv/bin/python "$s"; do
 | 気象データの使い方・注意案内の文言 | `docs/design/interfaces.md` I-6・`docs/design/requirements.md` §3-1（**気象業務法の線**）・`app/src/lib/credits.ts` |
 | 投稿の API・カテゴリ・上限 | `docs/design/interfaces.md` I-3〜I-5・**I-10**・`app/src/lib/reports.ts`・`app/db/init/001_schema.sql` |
 | 認証・セッションの作り | `docs/design/requirements.md` §8-6・`app/src/lib/installId.ts`・`app/.env.example`・`app/README.md`・`.agent/architecture.md` |
+| 公開 URL・公開ポートの決め方 | `app/src/lib/publicOrigin.ts`・`app/compose.yaml`・`app/.env.example`・`docs/design/requirements.md` §8-7・`docs/design/interfaces.md` I-8・`.agent/architecture.md`「公開 URL の決め方」・`deploy/selfhost/`（`compose.prod.yaml`・`setup.sh`・`README.md`） |
 | UI を足す・変える | **375px 幅で先に決めてから広げる**（`.agent/conventions.md` の「モバイルファースト」）。実際に 375px で動かして確かめる |
 | 担当の変更 | `docs/design/assignments.md` |
 | 起動手順（`compose.yaml` など） | このファイルの「よく使うコマンド」と `app/README.md` |

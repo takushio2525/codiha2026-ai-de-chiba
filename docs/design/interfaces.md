@@ -460,6 +460,13 @@
 - **`role` を信じてよいのはサーバーだけ。** 画面の `role` は表示の出し分けにしか使わない。
   **権限判定は必ず API 側でセッションを見て行う**（I-5 の `403`）
 - メールアドレス・`provider_uid` は画面に渡さない
+- **リダイレクト先（ログイン後・ログアウト後・Google のコールバック）は
+  リクエストのヘッダーから決める。** ホストは `X-Forwarded-Host` →（無ければ）
+  `Host`、プロトコルは `X-Forwarded-Proto` →（無ければ）`http`。
+  `X-Forwarded-Port` は**見ない**（Next.js がコンテナ内の 3000 を無条件に入れるため）。
+  だから公開ポートを変えても HTTPS のリバースプロキシ越しでも設定は要らない
+  （`app/src/lib/publicOrigin.ts`・`requirements.md` §8-7）。
+  `AUTH_URL` を設定した環境ではその固定値が優先される
 
 ### デモログインの入力（`POST /api/auth/callback/demo`）
 
@@ -583,6 +590,7 @@
 | v1 | 2026-08-24 | I-6 を実装。上流 JSON の諸元・`rainExpected` のしきい値（降水確率 30%）・失敗をキャッシュしない約束を明記。**I-4 の `flood` に `amedasDistanceKm` を追加**（最寄り観測所が約 10 km 離れているため、距離なしでは値を誤読させる） | `feat/p4-flood-weather` |
 | v1 | 2026-08-27 | **I-10（投稿の書き出し）を追加。** I-3 に `from` / `to`（投稿日の範囲）と `q`（キーワード）を追加し、I-5 の `PATCH` を実装して本体・権限・レスポンスを明記 | `feat/p6-extensions` |
 | v1 | 2026-08-27 | **I-8 にデモログインの入力（`displayName` / `role` / `govPin`）を追記。** 公開運用で行政ロールに PIN を求められるようにした（`GOV_DEMO_PIN`）。あわせて `AUTH_SECRET` 未設定時の記述を §8-6 の実装に合わせて訂正 | `feat/gov-pin-headless` |
+| v1 | 2026-08-27 | **I-8 のリダイレクト先の決め方を明記。** `AUTH_URL` の固定値をやめ、`X-Forwarded-Host` →（無ければ）`Host` から毎回導くようにした（公開ポートを変えるとログインが 3000 番へ飛んでいたため） | `fix/auth-redirect-host` |
 | v1 | 2026-08-24 | **I-1 に景観スポット（`ScenicProps`）を追記**（`properties` の定義がデータの種類ごとに 2 つになった）。配列プロパティが MapLibre 経由で文字列に畳まれる件と、その回避（`categoryPrimary`）を明記 | `feat/p5-tourism` |
 
 ---
