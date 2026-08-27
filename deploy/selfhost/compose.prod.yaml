@@ -1,0 +1,74 @@
+# CHIZUBA を自宅の Mac で常時稼働させるための上書き設定（オーバーレイ）
+#
+# **ベースの app/compose.yaml は変更しない。** 審査員が `docker compose up` の
+# 1 行で起動できることが提出要件の前提なので、そこへ常時稼働向けの設定を
+# 混ぜ込むと、審査員の環境で意図しない挙動（勝手に再起動する等）になる。
+# 常時稼働に要る差分だけをこのファイルに置き、2 枚重ねて起動する。
+#
+#   cd app
+#   docker compose -f compose.yaml -f ../deploy/selfhost/compose.prod.yaml up -d --build
+#
+# 手順の全体は deploy/selfhost/README.md。setup.sh がこの起動を代行する。
+#
+# ---- 公開 URL について ---------------------------------------------------
+# 外向きの入口は Tailscale Funnel が持ち、Funnel は**同じ Mac の
+# 127.0.0.1:3000 へ中継する**。だからコンテナ側は loopback にだけ公開すればよい。
+#
+# Google ログインを使うときはコールバック URL の土台（AUTH_URL）を
+# Funnel の URL にする必要がある。ベースの compose.yaml が
+# `AUTH_URL: ${AUTH_URL:-http://localhost:3000}` と書いてあるので、
+# **app/.env に `AUTH_URL=https://<マシン名>.<tailnet 名>.ts.net` を 1 行足す**
+# だけで反映される（setup.sh が書き込む）。ここでは二重定義しない
+# （既定値が 2 箇所に散ると、片方だけ直したときに食い違うため）。
+
+services:
+  web:
+    # Mac の再起動・Docker Desktop の再起動後も自動で立ち上げ直す。
+    # `no`（既定）だと、停電やスリープ復帰のあとに公開が止まったままになる。
+    # `always` ではなく `unless-stopped` にするのは、こちらが明示的に
+    # `docker compose stop` したときは止まったままでいてほしいため。
+    restart: unless-stopped
+
+    # **loopback にだけ公開する。** ベースは "3000:3000"（＝ 0.0.0.0）なので、
+    # そのままだと同じ Wi-Fi にいる誰でも素の HTTP で入れてしまう。
+    # 外から見せるのは Funnel（HTTPS）1 本に絞る。
+    #
+    # `!override` を付けないと compose はリストを**足し算**してしまい、
+    # 0.0.0.0:3000 と 127.0.0.1:3000 の 2 つを開こうとして衝突する。
+    # 家庭内 LAN の別端末からも見たいときは、この 3 行を消せばベースに戻る。
+    ports: !override
+      - "127.0.0.1:3000:3000"
+
+    # 起動が終わったかを機械的に判定できるようにする。setup.sh の待ち合わせと
+    # `docker compose ps` の healthy 表示に使う。
+    # /about は DB も外部サービスも見ない静的ページなので、ここを叩いても
+    # 気象庁や OSRM へ余計なリクエストが飛ばない。
+    # 実行イメージ（node:22-slim）には curl も wget も入っていないので、
+    # node 自身の fetch を使う（Node 22 は fetch が組み込み）。
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:3000/about').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      # 初回はビルド済みイメージでも Next.js の起動に数秒かかる
+      start_period: 40s
+
+    # ログを放置すると、何週間も動かしているうちにディスクを食い潰す。
+    # 旧 Mac は空き容量が少ないことが多いので上限を決めておく（合計 30 MB）。
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  db:
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
