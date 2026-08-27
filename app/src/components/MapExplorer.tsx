@@ -44,11 +44,19 @@ import MapView, { type LayerData, type PanelBox } from "./MapView";
 import MapModeTabs from "./MapModeTabs";
 import ReportForm from "./ReportForm";
 import ReportPanel from "./ReportPanel";
-import SearchBox, { type SearchHit } from "./SearchBox";
+import type { SearchHit } from "./SearchBox";
 import Toast, { type ToastMessage } from "./Toast";
 
 /** 市川市のだいたいの範囲。現在地がここから外れたときに一言添えるために使う。 */
 const CITY_BOUNDS = { lat: [35.58, 35.84], lng: [139.82, 140.04] } as const;
+
+/** 現在地が市外だったときの案内。デモデータが市川市のぶんしか無いので、
+ *  「経路は引けたが最寄りが遠すぎる」状態になることを先に伝える。 */
+const OUT_OF_CITY_NOTE =
+  "現在地が市川市の外にあります。市内から試すときは「出発地点を地図で指定する」を使ってください。";
+
+/** 目的地の候補が 1 つも表示されていないときの案内。 */
+const NO_CANDIDATE_NOTE = "表示中のデータに地点がありません。";
 
 /** 地図の上で何を指定させているか。出発地点と投稿位置で同じクリックを使い分ける。
  *  投稿のときは、どのカテゴリで投稿しようとしているかも一緒に覚えておく。 */
@@ -353,32 +361,36 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
     }
   }, []);
 
-  /** 出発地点を用意してから経路を引く。取れなければ地図クリックでの指定に切り替える。 */
-  const routeFrom = useCallback(
-    async (destination: RouteTarget | null) => {
-      if (!destination) {
-        setToast({ kind: "info", text: "表示中のデータに地点がありません。" });
-        return;
-      }
-      if (origin) {
-        await runRoute(origin, destination);
-        return;
-      }
+  /**
+   * 現在地を取ってから経路を引く。**取れなければ地図クリックでの指定に切り替える。**
+   *
+   * 目的地の決まり方が 2 通りある（「ここへナビ」は押した時点で決まっていて、
+   * 「最寄りの地点へ」は現在地が分かるまで決まらない）ので、**決め方を関数で受け取る**。
+   * `pendingOnFailure` は、地図クリックで出発地点が決まったあとに使う目的地。
+   * 最寄りは出発地点が変わると選び直しになるので `null` を渡す。
+   */
+  const locateThenRoute = useCallback(
+    async (
+      resolveDestination: (here: LngLat) => RouteTarget | null,
+      pendingOnFailure: RouteTarget | null,
+    ) => {
       setBusy("locating");
       try {
         const here = await currentPosition();
         setOrigin(here);
         setBusy("idle");
         if (!inCity(here)) {
-          setToast({
-            kind: "info",
-            text: "現在地が市川市の外にあります。市内から試すときは「出発地点を地図で指定する」を使ってください。",
-          });
+          setToast({ kind: "info", text: OUT_OF_CITY_NOTE });
+        }
+        const destination = resolveDestination(here);
+        if (!destination) {
+          setToast({ kind: "info", text: NO_CANDIDATE_NOTE });
+          return;
         }
         await runRoute(here, destination);
       } catch (error) {
         setBusy("idle");
-        pendingRef.current = destination;
+        pendingRef.current = pendingOnFailure;
         setPickTarget({ kind: "origin" });
         // 地図をクリックしてもらうので、スマホではシートを畳んで地図を見せる
         setCollapsed(isNarrowViewport());
@@ -388,48 +400,33 @@ export default function MapExplorer({ session, cityCode, initialMode }: Props) {
         });
       }
     },
-    [origin, runRoute],
+    [runRoute],
   );
 
+  /** 目的地が決まっている経路（ポップアップの「ここへナビ」）。 */
+  const routeFrom = useCallback(
+    async (destination: RouteTarget | null) => {
+      if (!destination) {
+        setToast({ kind: "info", text: NO_CANDIDATE_NOTE });
+        return;
+      }
+      if (origin) {
+        await runRoute(origin, destination);
+        return;
+      }
+      await locateThenRoute(() => destination, destination);
+    },
+    [origin, runRoute, locateThenRoute],
+  );
+
+  /** 最寄りの地点への経路。**目的地は出発地点が決まってからでないと選べない。** */
   const handleNavigateNearest = useCallback(() => {
-    const from = origin;
-    if (from) {
-      void routeFrom(nearestCandidate(from, navCandidates));
+    if (origin) {
+      void routeFrom(nearestCandidate(origin, navCandidates));
       return;
     }
-    // 出発地点が無い場合は、位置情報を取ってから最寄りを決め直す必要がある。
-    // 目的地は routeFrom の中では決められないので、ここで位置情報を先に取る。
-    (async () => {
-      setBusy("locating");
-      try {
-        const here = await currentPosition();
-        setOrigin(here);
-        setBusy("idle");
-        if (!inCity(here)) {
-          setToast({
-            kind: "info",
-            text: "現在地が市川市の外にあります。市内から試すときは「出発地点を地図で指定する」を使ってください。",
-          });
-        }
-        const target = nearestCandidate(here, navCandidates);
-        if (!target) {
-          setToast({ kind: "info", text: "表示中のデータに地点がありません。" });
-          return;
-        }
-        await runRoute(here, target);
-      } catch (error) {
-        setBusy("idle");
-        pendingRef.current = null;   // 最寄りは出発地点が決まってから選び直す
-        setPickTarget({ kind: "origin" });
-        // 地図をクリックしてもらうので、スマホではシートを畳んで地図を見せる
-        setCollapsed(isNarrowViewport());
-        setToast({
-          kind: "warning",
-          text: `${(error as Error).message} 地図をクリックして出発地点を指定してください。`,
-        });
-      }
-    })();
-  }, [origin, navCandidates, routeFrom, runRoute]);
+    void locateThenRoute((here) => nearestCandidate(here, navCandidates), null);
+  }, [origin, navCandidates, routeFrom, locateThenRoute]);
 
   /** 地図のクリック。今なにを指定させているかで振り分ける。 */
   const handleMapPick = useCallback(

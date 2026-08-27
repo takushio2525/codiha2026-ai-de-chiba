@@ -7,9 +7,9 @@
  */
 import type { NextRequest } from "next/server";
 
-import { apiFail, dbUnavailable } from "@/lib/apiResponse";
+import { apiFail } from "@/lib/apiResponse";
+import { withDb } from "@/lib/apiRoute";
 import { getSessionView } from "@/lib/auth";
-import { DbUnavailableError } from "@/lib/db";
 import { parseId } from "@/lib/reportInput";
 import { COMMENT_MAX_LENGTH } from "@/lib/reports";
 import { addComment, findReport } from "@/lib/reportStore";
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest, context: Context) {
     return apiFail(`コメントは ${COMMENT_MAX_LENGTH} 文字以内にしてください。`, 400);
   }
 
-  try {
+  return withDb(async () => {
     const found = await findReport(id);
     if (!found) return apiFail("投稿が見つかりませんでした。", 404);
 
@@ -48,10 +48,5 @@ export async function POST(request: NextRequest, context: Context) {
 
     const comment = await addComment({ reportId: id, userId: user.id, body, isOfficial });
     return Response.json({ ok: true, comment }, { status: 201 });
-  } catch (error) {
-    if (error instanceof DbUnavailableError) {
-      return dbUnavailable("コメントを保存できませんでした。");
-    }
-    throw error;
-  }
+  }, "コメントを保存できませんでした。");
 }

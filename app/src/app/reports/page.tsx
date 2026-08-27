@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { CalendarRange, Camera, Droplets, Map, MessageSquare, Search, ShieldCheck, TriangleAlert, X } from "lucide-react";
+import { CalendarRange, Camera, Droplets, Map, MessageSquare, Search, TriangleAlert, X } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import { DemoBadge } from "@/components/DemoBadge";
 import ExportLinks from "@/components/ExportLinks";
 import FloodRainfall from "@/components/FloodRainfall";
+import { OfficialBadge, OfficialRoleBadge } from "@/components/OfficialBadge";
 import { DbUnavailableError } from "@/lib/db";
 import { DEMO_CITY_CODE, findMunicipality } from "@/lib/municipalities";
 import { parseCityCode } from "@/lib/reportInput";
@@ -342,16 +343,10 @@ function ReportRow({ feature }: { feature: ReportFeature }) {
             </span>
             {/* 行政が出した投稿（F-7 の公式おすすめなど）。住民の投稿と一目で区別する */}
             {report.authorRole === "gov" ? (
-              <span className="inline-flex items-center gap-1 rounded-full bg-[#0072b2] px-1.5 py-0.5 text-[10px] font-medium text-white">
-                <ShieldCheck aria-hidden className="size-3" />
-                行政の公式投稿
-              </span>
+              <OfficialBadge label="行政の公式投稿" compact />
             ) : null}
             {report.hasOfficialComment ? (
-              <span className="inline-flex items-center gap-1 rounded-full bg-[#0072b2] px-1.5 py-0.5 text-[10px] font-medium text-white">
-                <ShieldCheck aria-hidden className="size-3" />
-                行政の回答あり
-              </span>
+              <OfficialBadge label="行政の回答あり" compact />
             ) : null}
             {/* 起動時から入っているデモ投稿。本文は 2 行で切れるのでバッジでも示す */}
             {isDemoReport(report.details) ? <DemoBadge compact /> : null}
@@ -366,11 +361,7 @@ function ReportRow({ feature }: { feature: ReportFeature }) {
 
           <p className="mt-1.5 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[11px] text-ink-muted">
             <span>{report.authorName}</span>
-            {report.authorRole === "gov" ? (
-              <span className="rounded-full bg-[#0072b2] px-1.5 py-0.5 text-[10px] font-medium text-white">
-                行政
-              </span>
-            ) : null}
+            {report.authorRole === "gov" ? <OfficialRoleBadge compact /> : null}
             <span className="tabular-nums">{formatJst(report.createdAt)}</span>
             {rows.length > 0 ? <span>{rows.map((r) => r.value).join("・")}</span> : null}
             {report.commentCount > 0 ? (

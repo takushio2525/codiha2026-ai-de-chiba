@@ -6,18 +6,18 @@
  */
 import type { LineString } from "geojson";
 import type { RouteResponse } from "@/app/api/routing/route";
-import { haversineMeters, WALKING_SPEED_MPS, type LngLat } from "./geo";
+import { haversineMeters, WALKING_SPEED_MPS, type LngLat, type NavCandidate } from "./geo";
 
-/** 経路の目的地。どのレイヤーの地点なのかまで持たせる。
- *  避難場所へ行くのか AED へ行くのかは、利用者が最初に知りたいことなので省略しない。 */
-export type RouteTarget = {
-  name: string;
-  coords: LngLat;
-  /** レイヤーの表示名（「指定緊急避難場所」など） */
-  kind: string;
-  /** レイヤーの色。結果カードの色チップに使う */
-  color: string;
-};
+/**
+ * 経路の目的地。**徒歩ナビの候補（`geo.ts` の `NavCandidate`）と同じもの。**
+ *
+ * どのレイヤーの地点なのかまで持たせている。避難場所へ行くのか AED へ行くのかは、
+ * 利用者が最初に知りたいことなので省略しない。
+ *
+ * 同じ形を 2 か所で書いていたが、**候補から選んだものがそのまま目的地になる**以上
+ * 食い違いようがないので、別名にして定義を 1 つにした。
+ */
+export type RouteTarget = NavCandidate;
 
 export type WalkingRoute = {
   from: LngLat;

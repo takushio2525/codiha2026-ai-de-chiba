@@ -10,7 +10,6 @@ import {
   MessageSquare,
   Pencil,
   Send,
-  ShieldCheck,
   Trash2,
   X,
 } from "lucide-react";
@@ -31,6 +30,7 @@ import {
 } from "@/lib/reports";
 import { deleteReport, fetchReportDetail, submitComment } from "@/lib/reportsApi";
 import { DemoBadge, DemoNote } from "./DemoBadge";
+import { OfficialBadge, OfficialRoleBadge } from "./OfficialBadge";
 import FloodRainfall from "./FloodRainfall";
 import ReportEditForm from "./ReportEditForm";
 import ReportStatusControl from "./ReportStatusControl";
@@ -196,12 +196,7 @@ export default function ReportPanel({
           ) : null}
           {/* 行政が出した投稿は、住民の投稿と**一目で**区別できるようにする（F-7）。
               見出しの並びに置くので、本文まで読まなくても分かる */}
-          {report?.authorRole === "gov" ? (
-            <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-[#0072b2] px-2 py-0.5 text-[10.5px] font-medium whitespace-nowrap text-white">
-              <ShieldCheck aria-hidden className="size-3" />
-              行政の公式投稿
-            </span>
-          ) : null}
+          {report?.authorRole === "gov" ? <OfficialBadge label="行政の公式投稿" /> : null}
           {/* 起動時から入っているデモ投稿。**実際の通報と取り違えられないように**印を出す */}
           {report && isDemoReport(report.details) ? <DemoBadge /> : null}
         </div>
@@ -278,11 +273,7 @@ export default function ReportPanel({
               <h2 className="text-[15px] leading-snug font-semibold text-ink">{report.title}</h2>
               <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-ink-muted">
                 <span className="font-medium text-ink-sub">{report.authorName}</span>
-                {report.authorRole === "gov" ? (
-                  <span className="rounded-full bg-[#0072b2] px-1.5 py-0.5 text-[10px] font-medium text-white">
-                    行政
-                  </span>
-                ) : null}
+                {report.authorRole === "gov" ? <OfficialRoleBadge compact /> : null}
                 <span className="tabular-nums">{formatJst(report.createdAt)}</span>
               </p>
               <p className="mt-2.5 text-[13px] leading-relaxed break-words whitespace-pre-wrap text-ink-sub">
@@ -379,10 +370,7 @@ export default function ReportPanel({
                       <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-ink-muted">
                         <span className="font-medium text-ink-sub">{comment.authorName}</span>
                         {comment.isOfficial ? (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-[#0072b2] px-1.5 py-0.5 text-[10px] font-medium text-white">
-                            <ShieldCheck aria-hidden className="size-3" />
-                            行政の公式回答
-                          </span>
+                          <OfficialBadge label="行政の公式回答" compact />
                         ) : null}
                         <span className="tabular-nums">{formatJst(comment.createdAt)}</span>
                       </p>

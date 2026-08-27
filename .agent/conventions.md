@@ -36,8 +36,11 @@
   **`useEffect` の中で `await import()` して読む**。トップレベルで import すると
   サーバー側レンダリングで評価されて落ちる
 - **UI に絵文字を使わない。** アイコンが要るなら `lucide-react` の SVG
-- 色は `app/src/lib/layers.ts` と `globals.css` の `@theme` に集める。
-  レイヤーの色は Okabe-Ito（色覚多様性に配慮した配色）から取る
+- 色は 2 か所に分けて集める。**同じ色を両方に置かない**（片方だけ変わって食い違う）
+  - **地図に載せるものの色** … `lib/layers.ts`（施設）・`lib/reports.ts`（投稿）・
+    `lib/scenic.ts`（景観）。MapLibre の式とインライン `style` から読むので CSS 変数にできない
+  - **画面の下地の色** … `globals.css` の `@theme`（`--color-ink` などの汎用トークンだけ）
+  - どちらも Okabe-Ito（色覚多様性に配慮した配色）から取る
 - 外部サービスを呼ぶときは**必ずタイムアウトを付ける**。
   失敗したときに画面が固まらず、代わりに何が起きたか出せる形にする
 

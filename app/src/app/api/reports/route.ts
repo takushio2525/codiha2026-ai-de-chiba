@@ -13,12 +13,12 @@
 import type { NextRequest } from "next/server";
 
 import { apiFail, dbUnavailable } from "@/lib/apiResponse";
+import { resolveListQuery, withDb } from "@/lib/apiRoute";
 import { getSessionView } from "@/lib/auth";
 import { DbUnavailableError } from "@/lib/db";
 import { observeRainfall } from "@/lib/jma";
-import { DEMO_CITY_CODE, findMunicipality } from "@/lib/municipalities";
 import { removePhotos, savePhoto } from "@/lib/photoStore";
-import { parseCityCode, parseListQuery, parseReportForm } from "@/lib/reportInput";
+import { parseReportForm } from "@/lib/reportInput";
 import { REQUEST_MAX_BYTES, type ReportCollection } from "@/lib/reports";
 import { createReport, findReport, listReports, resolveCityCode } from "@/lib/reportStore";
 import { toFloodDetails } from "@/lib/weather";
@@ -27,28 +27,13 @@ import { toFloodDetails } from "@/lib/weather";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
-  const params = request.nextUrl.searchParams;
+  return withDb(async () => {
+    const resolved = await resolveListQuery(request.nextUrl.searchParams);
+    if (resolved instanceof Response) return resolved;
 
-  const cityCode = parseCityCode(params.get("city"), DEMO_CITY_CODE);
-  if (cityCode === null) {
-    return apiFail("city には 5 桁の市町村コードを指定してください。", 400);
-  }
-
-  try {
-    const municipality = await findMunicipality(cityCode);
-    if (!municipality) {
-      return apiFail("指定された市町村にはまだ対応していません。", 400);
-    }
-
-    const parsed = parseListQuery(params, municipality);
-    if (!parsed.ok) return apiFail(parsed.reason, parsed.status);
-
-    const features = await listReports(parsed.value);
+    const features = await listReports(resolved.filter);
     return Response.json({ type: "FeatureCollection", features } satisfies ReportCollection);
-  } catch (error) {
-    if (error instanceof DbUnavailableError) return dbUnavailable();
-    throw error;
-  }
+  });
 }
 
 export async function POST(request: NextRequest) {
@@ -130,6 +115,9 @@ export async function POST(request: NextRequest) {
       return apiFail("投稿を保存しましたが、読み直せませんでした。", 503);
     }
     return Response.json({ ok: true, report: created.properties }, { status: 201 });
+    // **ここだけ `withDb` を使わない。** あちらは DB 以外の例外を投げ直すが、
+    // 投稿は写真の保存を伴うので、何で落ちても「保存できなかった」と伝えたうえで
+    // 原因をログに残したい（投稿しようとした人の画面を素の 500 にしない）
   } catch (error) {
     if (error instanceof DbUnavailableError) {
       return dbUnavailable("投稿を保存できませんでした。しばらくしてからもう一度お試しください。");

@@ -39,6 +39,19 @@ function bad(reason: string, status = 400): { ok: false; reason: string; status:
   return { ok: false, reason, status };
 }
 
+/** タイトル・説明のような自由入力を整えて検証する。
+ *
+ * **作成（I-4）と更新（I-5）で約束はまったく同じ**なので、ここ 1 か所で決める。
+ * 別々に書いていたころは同じ文言が 4 つ散っていて、上限を変えても片方しか直らなかった。
+ * `label` はそのまま文言に入る（「タイトルを入力してください。」）。 */
+function parseText(raw: unknown, label: string, max: number): Parsed<string> {
+  if (typeof raw !== "string") return bad(`${label}を入力してください。`);
+  const value = raw.trim();
+  if (value.length === 0) return bad(`${label}を入力してください。`);
+  if (value.length > max) return bad(`${label}は ${max} 文字以内にしてください。`);
+  return { ok: true, value };
+}
+
 // ---- I-3: 一覧のクエリ --------------------------------------------------------
 
 /** `GET /api/reports` のクエリを検証する。既定値は I-3 の表のとおり。 */
@@ -154,17 +167,12 @@ export async function parseReportForm(form: FormData): Promise<Parsed<NewReportI
     return bad("投稿の種類が正しくありません。");
   }
 
-  const title = String(form.get("title") ?? "").trim();
-  if (title.length === 0) return bad("タイトルを入力してください。");
-  if (title.length > TITLE_MAX_LENGTH) {
-    return bad(`タイトルは ${TITLE_MAX_LENGTH} 文字以内にしてください。`);
-  }
+  // multipart の値は文字列とは限らないので、これまでどおり先に文字列へ寄せてから見る
+  const title = parseText(String(form.get("title") ?? ""), "タイトル", TITLE_MAX_LENGTH);
+  if (!title.ok) return title;
 
-  const body = String(form.get("body") ?? "").trim();
-  if (body.length === 0) return bad("説明を入力してください。");
-  if (body.length > BODY_MAX_LENGTH) {
-    return bad(`説明は ${BODY_MAX_LENGTH} 文字以内にしてください。`);
-  }
+  const body = parseText(String(form.get("body") ?? ""), "説明", BODY_MAX_LENGTH);
+  if (!body.ok) return body;
 
   const lat = Number(form.get("lat"));
   const lon = Number(form.get("lon"));
@@ -184,7 +192,18 @@ export async function parseReportForm(form: FormData): Promise<Parsed<NewReportI
   const photos = await parsePhotos(form.getAll("photos"));
   if (!photos.ok) return photos;
 
-  return { ok: true, value: { category, title, body, lat, lon, details, photos: photos.value } };
+  return {
+    ok: true,
+    value: {
+      category,
+      title: title.value,
+      body: body.value,
+      lat,
+      lon,
+      details,
+      photos: photos.value,
+    },
+  };
 }
 
 /** `details` はカテゴリ定義にあるキーと選択肢だけを通す。
@@ -281,23 +300,15 @@ export function parseReportPatch(category: ReportCategory, raw: unknown): Parsed
   }
 
   if (source.title !== undefined) {
-    if (typeof source.title !== "string") return bad("タイトルを入力してください。");
-    const title = source.title.trim();
-    if (title.length === 0) return bad("タイトルを入力してください。");
-    if (title.length > TITLE_MAX_LENGTH) {
-      return bad(`タイトルは ${TITLE_MAX_LENGTH} 文字以内にしてください。`);
-    }
-    patch.title = title;
+    const title = parseText(source.title, "タイトル", TITLE_MAX_LENGTH);
+    if (!title.ok) return title;
+    patch.title = title.value;
   }
 
   if (source.body !== undefined) {
-    if (typeof source.body !== "string") return bad("説明を入力してください。");
-    const body = source.body.trim();
-    if (body.length === 0) return bad("説明を入力してください。");
-    if (body.length > BODY_MAX_LENGTH) {
-      return bad(`説明は ${BODY_MAX_LENGTH} 文字以内にしてください。`);
-    }
-    patch.body = body;
+    const body = parseText(source.body, "説明", BODY_MAX_LENGTH);
+    if (!body.ok) return body;
+    patch.body = body.value;
   }
 
   if (source.details !== undefined) {
@@ -312,7 +323,8 @@ export function parseReportPatch(category: ReportCategory, raw: unknown): Parsed
   return { ok: true, value: patch };
 }
 
-/** `status` だけを含む更新か（＝行政の操作か）。権限判定の分岐に使う。 */
+/** **投稿の中身（タイトル・説明・カテゴリ固有の項目）に触る更新か。**
+ *  true なら投稿者本人でなければ通さない（`status` だけの更新＝行政の操作とは分ける・I-5）。 */
 export function patchTouchesContent(patch: ReportPatch): boolean {
   return patch.title !== undefined || patch.body !== undefined || patch.details !== undefined;
 }

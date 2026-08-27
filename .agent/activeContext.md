@@ -16,6 +16,10 @@
 
 何を作るかの正本は **`docs/design/requirements.md`**（機能 F-1〜F-8・§3-4 の追加分・画面 S-1〜S-7・実装順序）。
 
+**繰り返しの置き場**（同じものを書く前にここを見る）: `lib/apiRoute.ts`（ルートの DB 落ち・
+一覧の絞り込み）／`reportsApi.ts` の `request()`／`ToggleRow.tsx`／`OfficialBadge.tsx`／
+`MapView` の `popupShell` 一式。
+
 ## 直近の観点
 
 - **このアプリはスマホから使う（モバイルファースト）。** 新しい UI は **375px 幅で先に決めてから**
@@ -23,21 +27,18 @@
 - **F-4 の注意案内は期間の絞り込みに引きずらせない。** 絞ったせいで「過去に浸水報告はありません」に
   なると防災の判断を誤らせるので、根拠になる浸水報告だけ全期間で引き直す（`MapExplorer` の `loadReports`）
 - **公開 URL は設定値で持たない。** ログインのリダイレクト先も Google の `redirect_uri` も
-  `X-Forwarded-Host` →（無ければ）`Host` から毎回導く（`app/src/lib/publicOrigin.ts`）。
-  **`AUTH_URL` を既定で渡さない**のが要点で、渡すとポートを変えた瞬間に壊れる。
-  公開ポートは `CHIZUBA_PORT`（既定 3000）で、変えても他に直す設定は無い
+  `X-Forwarded-Host` →（無ければ）`Host` から毎回導く（`lib/publicOrigin.ts`）。**`AUTH_URL` を
+  既定で渡さない**のが要点で、渡すとポートを変えた瞬間に壊れる（ポートは `CHIZUBA_PORT`）
 - **セッションはこの DB に縛られている。** 署名鍵は `app_instance.install_id` から導き、
   トークンにも同じ ID が入っていて毎回突き合わせる（`app/src/lib/installId.ts`）。
-  **`docker compose down -v` をすると全員ログアウトになる**（ID が変わるため）
+  **`docker compose down -v` は全員ログアウト＋投稿写真（`uploads`）の消去**になる
 - **デモ投稿の雨量は書き出しに含めない。** 観測値ではないので、観測値の顔をした列に入れない
 - **F-4 の文言は気象業務法の線に触れる。** 「浸水するでしょう」に類する予報表現を足さない
 
 雨量は**最寄りのアメダスの値**で、その地点の実測値ではない。**観測所名と距離を必ず併記する**。
-投稿写真は `uploads` ボリューム（`/app/uploads`）。**`docker compose down -v` は写真も消す**。
 
-審査のコード評価は **実装割合 × 動作割合の掛け算**。`requirements.md` §9-1 の「全フェーズ共通の
-完了条件」5 項目（`docker compose up` だけで起動・前フェーズ無傷・typecheck・
-`package_submission.sh --smoke`・`secret_scan.sh`）を**毎フェーズ通す**。
+審査のコード評価は **実装割合 × 動作割合の掛け算**。`requirements.md` §9-1 の「全フェーズ共通の完了条件」
+5 項目（起動・前フェーズ無傷・typecheck・`package_submission.sh --smoke`・`secret_scan.sh`）を毎回通す。
 
 ## 次の一手
 
@@ -49,15 +50,11 @@
 
 ## 現フェーズで読むべきドキュメント
 
-- **UI を足す段**: `.agent/conventions.md` の「モバイルファースト」（375px 先行・実機確認）
-- **投稿 API を触る段**: `docs/design/interfaces.md` I-3〜I-5・**I-10**（書き出し）・
-  `app/src/lib/reports.ts`（カテゴリ定義の正本）・`app/db/init/001_schema.sql`
-- **認証を触る段**: `docs/design/requirements.md` §8（**§8-6** のインストール ID・**§8-7** の公開 URL）・
-  `app/src/lib/installId.ts`・`app/src/lib/publicOrigin.ts`・`app/.env.example`
-- **気象まわりを触る段**: `interfaces.md` **I-6**・`app/src/lib/jma.ts` の頭（実測の落とし穴）・
-  文言を変えるなら `requirements.md` §3-1（**気象業務法の線**）
+- **投稿 API を触る段**: `interfaces.md` I-3〜I-5・**I-10**・`lib/reports.ts`（カテゴリの正本）・`db/init/001_schema.sql`
+- **認証を触る段**: `requirements.md` §8（**§8-6** インストール ID・**§8-7** 公開 URL）・`lib/installId.ts`・`lib/publicOrigin.ts`・`.env.example`
+- **気象まわりを触る段**: `interfaces.md` **I-6**・`lib/jma.ts` の頭・文言は `requirements.md` §3-1（**気象業務法の線**）
 - **地図に何か足す段**: `mapModes.ts`（モードの組）・`scenic.ts`（景観）・`layers.ts`（施設）
-- **アプリに手を入れる段**: `.agent/architecture.md`・`app/README.md`（**既知の制約**）
+- **アプリに手を入れる段**: `.agent/architecture.md`・`.agent/conventions.md`・`app/README.md`（**既知の制約**）
 - **提出物の判断**: `課題/2026-09-09_CODIHA2026_提出要件.md`（**正本**）
 - **データを増やす段**: `data/analysis/findings.md`・`data/*/SOURCE.md`（出典・ライセンス・落とし穴）
 
@@ -69,14 +66,13 @@
 | 表示名 | 画面・ブラウザタイトル・README すべて **CHIZUBA**。子ページは画面名だけ書く（`title.template` が付ける）。`compose.yaml` の `name: ichikawa-opendata-map` だけは据え置き（意図的） |
 | UI の前提 | **モバイルファースト**（375px 先行・320px でも溢れない）。`AuthBar` の 3 段構えは崩さない |
 | 対応範囲 | **千葉県全域**（市町村コードでパラメータ化）。**デモデータは市川市**（`12203`） |
-| イベント | CODIHA 2026 ハッカソン部門・千葉工業大学会場 |
-| チーム | 愛で千葉は救えるのか |
+| イベント / チーム | CODIHA 2026 ハッカソン部門・千葉工業大学会場 / 愛で千葉は救えるのか |
 | **コード提出** | **2026-09-09（水）17:00** — `app/` を丸ごと zip / 7z ＋ 説明資料 PDF 2 種 |
 | **プレゼン資料提出** | **2026-09-16（水）11:50** — PowerPoint・16:9・発表 10 分 + 質疑 3 分 |
 | 公開ポート | **`CHIZUBA_PORT`（既定 3000）**。コンテナ側は常に 3000。変えても公開 URL は自動で追従する |
 | 実行環境 | Docker（`docker compose up`）。**コンテナ 2 つ**（`node:22-slim` / `postgres:17-alpine`。DOI）＋ ボリューム 2 つ |
 | 実装 | Next.js（App Router）+ TypeScript / MapLibre GL JS / Tailwind CSS v4 / lucide-react / `pg` / Auth.js |
-| DB | **PostgreSQL 17**。**PostGIS は使わない**。ORM もマイグレーションツールも入れない |
+| DB | **PostgreSQL 17**。**PostGIS も ORM もマイグレーションツールも入れない** |
 | 投稿 | **3 種類を 1 テーブル・1 API・1 フォームに統一**。違いは `category` と `details`(jsonb) |
 | 認証 | Google OAuth が本線。**キー未設定なら自動でデモログイン**。**署名鍵はインストール ID から導く** |
 | 外部サービス | 国土地理院タイル・重ねるハザードマップ・OSRM・気象庁 JSON。**すべて認証キー不要** |

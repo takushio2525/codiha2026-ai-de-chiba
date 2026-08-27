@@ -6,6 +6,10 @@ import { SCENIC_LABEL, scenicColor, type ScenicProps } from "./scenic";
 /** [経度, 緯度]。GeoJSON と MapLibre の並び順に合わせる。 */
 export type LngLat = [number, number];
 
+/** 名前の無い地点の表示名。**空欄にしない**（ポップアップにも徒歩ナビの結果にも出るので、
+ *  空だと「読み込めていない」のか「元データに名前が無い」のか区別できなくなる）。 */
+export const UNNAMED_PLACE = "名称不明の地点";
+
 const EARTH_RADIUS_M = 6_371_000;
 
 /** 2 点間の大円距離（メートル）。 */
@@ -24,8 +28,10 @@ export function haversineMeters(a: LngLat, b: LngLat): number {
 /**
  * 徒歩ナビの目的地の候補。オープンデータの施設と景観スポットを同じ形にそろえる。
  *
- * `routing.ts` の `RouteTarget` と同じ形（構造的にそのまま渡せる）。
- * **`routing.ts` はこのファイルを読む側**なので、型を輸入せず自前で持つ（循環参照を避ける）。
+ * **`routing.ts` の `RouteTarget` はこの型の別名**。候補から選んだものが
+ * そのまま目的地になるので、形が食い違うことはあり得ない。
+ * 定義をこちら側に置いているのは、`routing.ts` がこのファイルを読む側だから
+ * （逆向きに import すると循環参照になる）。
  */
 export type NavCandidate = {
   name: string;
@@ -64,7 +70,7 @@ export function scenicCandidates(
 ): NavCandidate[] {
   if (!data || !visible) return [];
   return data.features.map((feature) => ({
-    name: feature.properties?.name ?? "名称不明の地点",
+    name: feature.properties?.name ?? UNNAMED_PLACE,
     coords: feature.geometry.coordinates as LngLat,
     kind: SCENIC_LABEL,
     color: scenicColor(feature.properties?.categoryPrimary),
@@ -89,8 +95,9 @@ export function nearestCandidate(origin: LngLat, candidates: NavCandidate[]): Na
   return best;
 }
 
-export function featureName(feature: Feature<Point, FacilityProps>): string {
-  return feature.properties?.name ?? "名称不明の地点";
+/** 施設の点の表示名。**このファイルの中だけで使う**（外へ出すほどの意味は無い）。 */
+function featureName(feature: Feature<Point, FacilityProps>): string {
+  return feature.properties?.name ?? UNNAMED_PLACE;
 }
 
 /** 「1.2 km」「480 m」のように、桁に応じて単位を変えて読ませる。 */
