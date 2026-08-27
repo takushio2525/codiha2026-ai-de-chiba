@@ -59,13 +59,21 @@
 | 頻度 | 元データを更新したときだけ手元で再生成 |
 
 - 形式は GeoJSON の `FeatureCollection`。`geometry` は `Point`、座標は `[経度, 緯度]`
-- **`properties` のキーは英字**（日本語キーにしない）。定義は `app/src/lib/layers.ts` の `FacilityProps`
+- **`properties` のキーは英字**（日本語キーにしない）。定義は**データの種類ごとに 2 つ**ある。
+  施設（避難場所・AED・子育て施設）は `app/src/lib/layers.ts` の `FacilityProps`、
+  景観スポット（景観100選・F-5）は `app/src/lib/scenic.ts` の `ScenicProps`
+- **配列の `properties` は、MapLibre 経由では JSON 文字列に畳まれる。**
+  ソースに渡した生データ（配列）とクリックイベントから受け取る値（文字列）で形が違うので、
+  受け取る側で必ず均す（景観スポットは `scenicCategories()`）。
+  **地図の式（`match` やフィルタ）から読む値は、はじめから文字列の別キーで持つ**
+  （景観スポットの `categoryPrimary`）
 - **値が空のキーは出力しない**（スクリプト側で落とす）。受け取る側は全キーを省略可能として扱う
 - 市域外の座標はスクリプトが除外する
 
 ### 異常時の約束
 
 - ファイルが取れなかったら → そのレイヤーだけ表示しない。**他のレイヤーと地図は出す**
+  （景観スポットは施設レイヤーとは別に読み込むので、片方が落ちてももう片方は出る）
 - `properties` に知らないキーがあったら → 無視する（ポップアップに出さない）
 
 ---
@@ -431,6 +439,7 @@
 | v1 | 2026-08-24 | I-7・I-8 を実装（仕様の変更なし）。`AUTH_URL` を追加 | `feat/p2-db-auth` |
 | v1 | 2026-08-24 | I-3・I-4・I-5 を実装。**I-5 に `GET /api/reports/:id` を追加**（詳細パネル S-3 が投稿とコメントを 1 回で取るため）。`photoUrls` の形と `isAuthor` を明記 | `feat/p3-posts` |
 | v1 | 2026-08-24 | I-6 を実装。上流 JSON の諸元・`rainExpected` のしきい値（降水確率 30%）・失敗をキャッシュしない約束を明記。**I-4 の `flood` に `amedasDistanceKm` を追加**（最寄り観測所が約 10 km 離れているため、距離なしでは値を誤読させる） | `feat/p4-flood-weather` |
+| v1 | 2026-08-24 | **I-1 に景観スポット（`ScenicProps`）を追記**（`properties` の定義がデータの種類ごとに 2 つになった）。配列プロパティが MapLibre 経由で文字列に畳まれる件と、その回避（`categoryPrimary`）を明記 | `feat/p5-tourism` |
 
 ---
 

@@ -8,6 +8,7 @@ import {
   CloudRain,
   Droplets,
   HeartPulse,
+  Landmark,
   List,
   LoaderCircle,
   LocateFixed,
@@ -40,6 +41,7 @@ import {
   type ReportIconName,
 } from "@/lib/reports";
 import type { WalkingRoute } from "@/lib/routing";
+import { SCENIC_CATEGORIES, SCENIC_LABEL, SCENIC_SUMMARY } from "@/lib/scenic";
 import { formatRainfall, formatStation, type FloodAlert, type WeatherObservation }
   from "@/lib/weather";
 import FloodAlertCard from "./FloodAlertCard";
@@ -70,6 +72,10 @@ type Props = {
   counts: Record<LayerId, number>;
   visible: Record<LayerId, boolean>;
   onToggleLayer: (id: LayerId) => void;
+  /** 景観スポット（F-5）の件数と表示 ON/OFF */
+  scenicCount: number;
+  scenicVisible: boolean;
+  onToggleScenic: () => void;
   hazardVisible: Record<HazardId, boolean>;
   hazardOpacity: Record<HazardId, number>;
   onToggleHazard: (id: HazardId) => void;
@@ -87,7 +93,7 @@ type Props = {
   reportCounts: Record<ReportCategory, number>;
   reportVisible: Record<ReportCategory, boolean>;
   onToggleReportCategory: (id: ReportCategory) => void;
-  /** いま投稿できるカテゴリ（P3 は危険箇所・P4 で浸水。観光は P5 で足す） */
+  /** いま投稿できるカテゴリ。モードごとに違う（`lib/mapModes.ts` が正本） */
   postableCategories: ReportCategory[];
   /** ログイン済みか。**表示の出し分けにしか使わない**（権限判定は API 側） */
   canPost: boolean;
@@ -105,6 +111,9 @@ export default function ControlPanel({
   counts,
   visible,
   onToggleLayer,
+  scenicCount,
+  scenicVisible,
+  onToggleScenic,
   hazardVisible,
   hazardOpacity,
   onToggleHazard,
@@ -129,7 +138,8 @@ export default function ControlPanel({
   observation,
   ref,
 }: Props) {
-  const anyVisible = LAYERS.some((layer) => visible[layer.id]);
+  // 徒歩ナビの候補になるものが 1 つでも表示されているか（景観スポットも候補に入る）
+  const anyVisible = LAYERS.some((layer) => visible[layer.id]) || scenicVisible;
   // いま投稿できるカテゴリ（ボタンの文言に使う）
   const postable = postableCategories.map(reportCategoryDef);
   // 凡例は、表示中のハザードが使っているものだけを出す（洪水と津波・高潮で段階が違う）
@@ -176,7 +186,10 @@ export default function ControlPanel({
           "max-h-[58dvh] md:max-h-none",
         ].join(" ")}
       >
-        {floodAlert ? <FloodAlertCard alert={floodAlert} /> : null}
+        {/* 注意案内（F-4）は、浸水のピンを表示しているときだけ出す。
+            MapView も同じ条件で地図の輪を出しているので（`floodAlert && reportVisible.flood`）、
+            パネルと地図で言っていることが食い違わない */}
+        {floodAlert && reportVisible.flood ? <FloodAlertCard alert={floodAlert} /> : null}
 
         {route ? (
           <section className="border-b border-line bg-[#fbfbfa] px-4 py-3.5">
@@ -235,7 +248,72 @@ export default function ControlPanel({
                 </li>
               );
             })}
+
+            <li>
+              <button
+                type="button"
+                role="switch"
+                aria-checked={scenicVisible}
+                onClick={onToggleScenic}
+                className="flex w-full items-center gap-3 rounded-xl border border-line px-3 py-2.5 text-left transition hover:border-ink-muted/40 hover:bg-[#fafafa] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+              >
+                <span
+                  aria-hidden
+                  className="grid size-8 shrink-0 place-items-center rounded-lg transition"
+                  style={{
+                    backgroundColor: scenicVisible ? "#5b6470" : "#f1f2f4",
+                    color: scenicVisible ? "#ffffff" : "#9aa0a8",
+                  }}
+                >
+                  <Landmark className="size-4" />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="flex items-baseline gap-1.5">
+                    <span className="truncate text-[13.5px] font-semibold text-ink">
+                      {SCENIC_LABEL}
+                    </span>
+                    <span className="shrink-0 text-[11px] text-ink-muted tabular-nums">
+                      {scenicCount} 件
+                    </span>
+                  </span>
+                  <span className="mt-0.5 block truncate text-[11px] leading-relaxed text-ink-muted">
+                    {SCENIC_SUMMARY}
+                  </span>
+                </span>
+                <span
+                  aria-hidden
+                  className={`relative h-5 w-9 shrink-0 rounded-full transition ${scenicVisible ? "bg-ink" : "bg-[#d5d8dc]"}`}
+                >
+                  <span
+                    className={`absolute top-0.5 size-4 rounded-full bg-white shadow transition-all ${scenicVisible ? "left-[1.125rem]" : "left-0.5"}`}
+                  />
+                </span>
+              </button>
+            </li>
           </ul>
+
+          {scenicVisible ? (
+            <div className="mt-2 rounded-xl border border-line bg-[#fafafa] px-3 py-2.5">
+              <p className="text-[11px] font-semibold tracking-wide text-ink-muted">
+                景観のカテゴリ
+              </p>
+              <ul className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1">
+                {SCENIC_CATEGORIES.map((category) => (
+                  <li key={category.id} className="flex items-center gap-1.5">
+                    <span
+                      aria-hidden
+                      className="size-2.5 shrink-0 rounded-full border-[2px] bg-white"
+                      style={{ borderColor: category.color }}
+                    />
+                    <span className="text-[11.5px] text-ink-sub">{category.label}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-1.5 text-[11px] leading-relaxed text-ink-muted">
+                1 か所が複数のカテゴリを持つことがあります。点の色は先頭のカテゴリです。
+              </p>
+            </div>
+          ) : null}
         </section>
 
         <section className="border-t border-line px-4 py-3.5">
@@ -289,7 +367,9 @@ export default function ControlPanel({
             </Link>
           )}
 
-          {observation ? (
+          {/* 文面が「浸水の投稿に記録される値」の話なので、浸水を投稿できないモード
+              （観光マップ）では出さない。出すと、投稿できない話を読ませることになる */}
+          {observation && postableCategories.includes("flood") ? (
             <p className="mt-2 flex items-start gap-1.5 rounded-xl border border-line bg-[#fafafa] px-2.5 py-2 text-[11px] leading-relaxed text-ink-muted">
               <Droplets aria-hidden className="mt-0.5 size-3.5 shrink-0 text-[#56b4e9]" />
               <span>
@@ -356,6 +436,14 @@ export default function ControlPanel({
 
           <p className="mt-2 text-[11.5px] leading-relaxed text-ink-muted">
             ピンをクリックすると、写真・説明・コメントが読めます。閲覧にログインは要りません。
+          </p>
+          {/* 地図の輪の意味。行政の投稿を住民の投稿と取り違えないための説明 */}
+          <p className="mt-1.5 flex items-center gap-1.5 text-[11.5px] leading-relaxed text-ink-muted">
+            <span
+              aria-hidden
+              className="size-3 shrink-0 rounded-full border-[3px] border-[#0072b2] bg-[#cc79a7]"
+            />
+            青い輪のピンは行政の投稿です。
           </p>
         </section>
 

@@ -1,6 +1,7 @@
 /** 距離まわりの小道具。外部ライブラリは使わない。 */
 import type { Feature, FeatureCollection, Point } from "geojson";
 import type { FacilityProps, LayerDef, LayerId } from "./layers";
+import { SCENIC_LABEL, scenicColor, type ScenicProps } from "./scenic";
 
 /** [経度, 緯度]。GeoJSON と MapLibre の並び順に合わせる。 */
 export type LngLat = [number, number];
@@ -20,34 +21,69 @@ export function haversineMeters(a: LngLat, b: LngLat): number {
   return 2 * EARTH_RADIUS_M * Math.asin(Math.sqrt(h));
 }
 
-export type Destination = {
-  layer: LayerDef;
+/**
+ * 徒歩ナビの目的地の候補。オープンデータの施設と景観スポットを同じ形にそろえる。
+ *
+ * `routing.ts` の `RouteTarget` と同じ形（構造的にそのまま渡せる）。
+ * **`routing.ts` はこのファイルを読む側**なので、型を輸入せず自前で持つ（循環参照を避ける）。
+ */
+export type NavCandidate = {
   name: string;
   coords: LngLat;
-  /** 出発地点からの直線距離（メートル） */
-  straightMeters: number;
+  /** 種別の表示名（「指定緊急避難場所」「景観100選」など） */
+  kind: string;
+  /** 結果カードの色チップに使う色 */
+  color: string;
 };
 
-/**
- * 表示中のレイヤーに含まれる地点のうち、出発地点から直線距離が最も近いものを返す。
- * 徒歩経路の長さでは並べ替えない（OSRM への問い合わせが地点数だけ必要になり、
- * 1 秒 1 リクエストの利用制限に触れるため）。
- */
-export function nearestDestination(
-  origin: LngLat,
+/** 表示中の施設レイヤーの点を、徒歩ナビの候補にそろえる。 */
+export function facilityCandidates(
   data: Record<LayerId, FeatureCollection<Point, FacilityProps>>,
   layers: LayerDef[],
   visible: Record<LayerId, boolean>,
-): Destination | null {
-  let best: Destination | null = null;
+): NavCandidate[] {
+  const candidates: NavCandidate[] = [];
   for (const layer of layers) {
     if (!visible[layer.id]) continue;
     for (const feature of data[layer.id].features) {
-      const coords = feature.geometry.coordinates as LngLat;
-      const straightMeters = haversineMeters(origin, coords);
-      if (!best || straightMeters < best.straightMeters) {
-        best = { layer, name: featureName(feature), coords, straightMeters };
-      }
+      candidates.push({
+        name: featureName(feature),
+        coords: feature.geometry.coordinates as LngLat,
+        kind: layer.label,
+        color: layer.color,
+      });
+    }
+  }
+  return candidates;
+}
+
+/** 景観スポットを徒歩ナビの候補にそろえる。色はカテゴリごとに変える。 */
+export function scenicCandidates(
+  data: FeatureCollection<Point, ScenicProps> | null,
+  visible: boolean,
+): NavCandidate[] {
+  if (!data || !visible) return [];
+  return data.features.map((feature) => ({
+    name: feature.properties?.name ?? "名称不明の地点",
+    coords: feature.geometry.coordinates as LngLat,
+    kind: SCENIC_LABEL,
+    color: scenicColor(feature.properties?.categoryPrimary),
+  }));
+}
+
+/**
+ * 候補のうち、出発地点から直線距離が最も近いものを返す。
+ * 徒歩経路の長さでは並べ替えない（OSRM への問い合わせが候補数だけ必要になり、
+ * 1 秒 1 リクエストの利用制限に触れるため）。
+ */
+export function nearestCandidate(origin: LngLat, candidates: NavCandidate[]): NavCandidate | null {
+  let best: NavCandidate | null = null;
+  let bestMeters = Number.POSITIVE_INFINITY;
+  for (const candidate of candidates) {
+    const meters = haversineMeters(origin, candidate.coords);
+    if (meters < bestMeters) {
+      best = candidate;
+      bestMeters = meters;
     }
   }
   return best;

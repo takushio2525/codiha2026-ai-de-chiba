@@ -5,7 +5,7 @@
 > **このディレクトリは提出物ではない。**
 > 提出する zip は `app/` 配下だけ（`AGENTS.md` の「提出 zip の中身に日本語ファイル名を使わない」参照）。
 > ここのデータをサービスで使うなら、必要な分だけ `app/` 側にコピーする。
-> 地図アプリが使う 3 本は `data/scripts/build_geojson.py` が
+> 地図アプリが使う 4 本は `data/scripts/build_geojson.py` が
 > `app/public/data/*.geojson` に書き出している。
 
 ## 構成
@@ -18,7 +18,7 @@ data/
 │   └── raw/            千葉県オープンデータサイトから取得した Excel 8 本
 ├── ichikawa-city/
 │   ├── SOURCE.md       同上
-│   └── raw/            市川市オープンデータから取得した CSV 8 本
+│   └── raw/            市川市オープンデータから取得した CSV 9 本
 └── analysis/
     ├── README.md       再現手順
     ├── requirements.txt
@@ -41,7 +41,7 @@ python3 data/scripts/fetch_datasets.py --force  # 取り直す
 ## 地図アプリ用の GeoJSON を作り直す
 
 ```bash
-python3 data/scripts/build_geojson.py           # app/public/data/ に 3 本出力
+python3 data/scripts/build_geojson.py           # app/public/data/ に 4 本出力
 ```
 
 市川市の CSV（cp932）を読み、空行・緯度経度なし・市域外の座標を落として GeoJSON にする。

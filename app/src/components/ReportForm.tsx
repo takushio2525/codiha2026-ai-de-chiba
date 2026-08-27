@@ -39,6 +39,10 @@ const PLACEHOLDERS: Partial<Record<ReportCategory, { title: string; body: string
     title: "例: ○○のアンダーパスが冠水している",
     body: "どのあたりが、どのくらい冠水しているかを書いてください。通れるかどうかも分かると助かります。",
   },
+  spot: {
+    title: "例: ○○の直売所で買える市川の梨",
+    body: "どこが良いか、いつ行くのがおすすめかを書いてください。",
+  },
 };
 
 const DEFAULT_PLACEHOLDER = {
