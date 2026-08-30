@@ -137,7 +137,19 @@ export default async function LoginPage() {
           )}
         </section>
 
-        <p className="mt-4 text-[11.5px] leading-relaxed text-ink-muted">
+        {/* ログインで何を受け取るかは、押す直前に読めるところへ置く（S-8） */}
+        <p className="mt-4 text-[12px] leading-relaxed text-ink-sub">
+          ログインで受け取る情報とその使い道は
+          <Link
+            href="/privacy"
+            className="ml-1 font-medium text-ink underline decoration-line underline-offset-2 transition hover:decoration-ink"
+          >
+            プライバシーポリシー
+          </Link>
+          をご覧ください。
+        </p>
+
+        <p className="mt-3 text-[11.5px] leading-relaxed text-ink-muted">
           {googleEnabled
             ? "認証キーを外すと、デモログインだけになります（app/.env.example 参照）。"
             : "GOOGLE_CLIENT_ID と GOOGLE_CLIENT_SECRET を設定すると、Google ログインも選べるようになります（app/.env.example 参照）。"}

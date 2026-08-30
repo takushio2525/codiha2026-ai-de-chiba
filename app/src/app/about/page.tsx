@@ -275,7 +275,18 @@ export default function AboutPage() {
           </ul>
         </section>
 
-        <p className="mt-8 text-[11.5px] leading-relaxed text-ink-muted">
+        <p className="mt-8 text-[12.5px] leading-relaxed text-ink-sub">
+          受け取った情報の扱い（ログイン・投稿・現在地・Cookie）は
+          <Link
+            href="/privacy"
+            className="ml-1 font-medium text-ink underline decoration-line underline-offset-2 transition hover:decoration-ink"
+          >
+            プライバシーポリシー
+          </Link>
+          にまとめています。
+        </p>
+
+        <p className="mt-4 text-[11.5px] leading-relaxed text-ink-muted">
           ちばオープンデータアイデアソン・ハッカソン（CODIHA）2026 の作品として制作。
         </p>
       </main>
