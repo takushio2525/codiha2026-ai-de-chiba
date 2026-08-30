@@ -155,6 +155,14 @@ app/uploads/
 chizuba-qr.png
 *-qr.png
 
+# リポジトリ直下に置いた検証用のスクリーンショット。
+# **画像はユーザー名・ホームパス・トークンの最頻出の混入経路**なので、
+# 手元での確認用に撮ったものが `git add -A` で紛れ込まないように塞ぐ。
+# 資料として残したい図は data/analysis/figures/ や docs/ の下に置く。
+/*.png
+/*.jpg
+/*.jpeg
+
 # MapLibre の worker は node_modules から複製したもの（app/scripts/copy-maplibre-worker.mjs）。
 # 依存のコピーなのでコミットしない。npm run build / dev が毎回作り直す。
 app/public/maplibre/
