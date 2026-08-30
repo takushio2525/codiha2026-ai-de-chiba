@@ -421,6 +421,13 @@ bash deploy/selfhost/verify_qr.sh
 
 `deploy/selfhost/` からの相対で書いてあるので、**リポジトリの一番上で**実行する。
 
+> **`-f` の 2 枚重ねを省かない。** `app/` の中で素の
+> `docker compose up -d` を打つと、compose は**オーバーレイ無しの設定でコンテナを作り直す**。
+> 見た目は普通に起動するが、`restart` が `unless-stopped` から `no` に戻り
+> （＝再起動で公開が止まる）、公開ポートが `127.0.0.1` から `0.0.0.0` に開く
+> （＝同じ Wi-Fi の誰でも素の HTTP で入れる）。**実測で踏んだ。**
+> 直すには下のどれかを、`-f` を 2 つ付けて打ち直せばよい（データは消えない）。
+
 ```bash
 # 状態を見る
 docker compose -f app/compose.yaml -f deploy/selfhost/compose.prod.yaml ps
