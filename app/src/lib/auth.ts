@@ -17,6 +17,7 @@ import {
   AUTH_MODE,
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
+  GOOGLE_LOGIN_ENABLED,
   govCityCodeFor,
   type AuthMode,
 } from "./authMode";
@@ -78,18 +79,28 @@ function resolveSecret(installId: string | null): string {
   return FALLBACK_SIGNING_KEY;
 }
 
-/** 認証プロバイダ。モードによってどちらか一方だけを登録する。 */
+/** 認証プロバイダ。**デモログインは常に登録し、鍵があれば Google を足す。**
+ *
+ * 以前はどちらか一方だけを登録していた。それだと鍵を入れた瞬間にデモログインが
+ * 消え、Google アカウントを持たない人が公開先で何も投稿できなくなる。
+ * 鍵の有無は「Google を足すかどうか」だけに効かせる（requirements.md 8-2）。
+ *
+ * **鍵が無い環境（審査員の環境）では、返る配列は以前とまったく同じ。**
+ */
 function providers(): NextAuthConfig["providers"] {
-  if (AUTH_MODE === "google") {
-    return [
+  const list: NextAuthConfig["providers"] = [];
+
+  // Google を先に積む。/login でもこちらを本線として上に出す
+  if (GOOGLE_LOGIN_ENABLED) {
+    list.push(
       Google({
         clientId: GOOGLE_CLIENT_ID,
         clientSecret: GOOGLE_CLIENT_SECRET,
       }),
-    ];
+    );
   }
 
-  return [
+  list.push(
     Credentials({
       id: "demo",
       name: "デモログイン",
@@ -99,8 +110,9 @@ function providers(): NextAuthConfig["providers"] {
         // GOV_DEMO_PIN を設定した環境だけで使う（未設定なら無視される）
         govPin: { label: "行政ユーザーの PIN", type: "password" },
       },
-      /** 表示名を入れるだけでログインできる。**デモモードだから許される**作りで、
-       *  Google モードではロールを自己申告させない（requirements.md 8-3）。 */
+      /** 表示名を入れるだけでログインできる。**デモログインだから許される**作りで、
+       *  Google で入った人にはロールを自己申告させない（requirements.md 8-3）。
+       *  Google を併設した環境でも、行政ロールは PIN（`GOV_DEMO_PIN`）で守る。 */
       async authorize(raw) {
         const displayName = normalizeDisplayName(
           typeof raw?.displayName === "string" ? raw.displayName : "",
@@ -133,7 +145,9 @@ function providers(): NextAuthConfig["providers"] {
         };
       },
     }),
-  ];
+  );
+
+  return list;
 }
 
 /**

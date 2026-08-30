@@ -42,8 +42,8 @@
 
 ## 次の一手
 
-1. **P8: Google ログイン（F-8 の本線）** — キーを設定した環境だけ Google に切り替わり、
-   未設定ならデモログインのまま動くことを確かめる。**9/9 直前には触らない**
+1. **P8: Google ログイン（F-8 の本線）** — 実装は済み（**デモと併存**する。鍵があれば
+   ログイン画面に両方並ぶ）。残るは**実キーでの認可フロー実測**だけ。**9/9 直前には触らない**
 2. 提出物のうち **`readme.txt`・説明資料 PDF 2 種はまだ無い**。9/9 に向けて作る。
    固めるのは `bash tools/package_submission.sh`（検証込み）。**手で zip しない**
 3. `docs/design/assignments.md` の担当表がまだ空欄。誰がどのフェーズを持つか埋める
@@ -74,7 +74,7 @@
 | 実装 | Next.js（App Router）+ TypeScript / MapLibre GL JS / Tailwind CSS v4 / lucide-react / `pg` / Auth.js |
 | DB | **PostgreSQL 17**。**PostGIS も ORM もマイグレーションツールも入れない** |
 | 投稿 | **3 種類を 1 テーブル・1 API・1 フォームに統一**。違いは `category` と `details`(jsonb) |
-| 認証 | Google OAuth が本線。**キー未設定なら自動でデモログイン**。**署名鍵はインストール ID から導く** |
+| 認証 | Google OAuth が本線だが**デモログインは常に併設**（鍵が無ければデモだけ）。**署名鍵はインストール ID から導く** |
 | 外部サービス | 国土地理院タイル・重ねるハザードマップ・OSRM・気象庁 JSON。**すべて認証キー不要** |
 | 提出単位 | `app/` 配下のみ。**日本語ファイル名禁止**。`readme.txt` / `Dockerfile` / `compose.yaml` 必須 |
 | リポジトリ | **public**。氏名・学籍番号・配布資料・API キー・`.env` を置かない |
