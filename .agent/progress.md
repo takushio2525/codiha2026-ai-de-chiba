@@ -94,3 +94,20 @@
 - 2026-08-27: リファクタの回帰確認は**レンダリング後の DOM を before/after で丸ごと突き合わせる**のが
   速くて確実だった（class 文字列まで一致を見られる）。API は 18 経路のスナップショットを取り、
   時刻（`generatedAt`）だけ除いて差分ゼロを確認した。
+- 2026-08-30: **自宅の Mac（`oldmac`）へセルフホストして Tailscale Funnel で公開した**。
+  外部 ingress 経由で HTTP 200・Let's Encrypt 証明書・デモログイン成立まで実測。
+  **リポ変更ゼロ**（`setup.sh` をそのまま使用）。残件は再起動復帰の 2 点（下記）。
+- 2026-08-30: 実測でわかったこと — **`pmset` の `sleep 0` はアイドルスリープしか止めない**。
+  画面スリープ→`darkwakelinger` でダークウェイクに入ると Tailscale ごと 8 分間 offline になった。
+  `setup.sh` のスリープ判定は `sleep` しか見ないので、この状態を「OK」と誤判定する。
+  恒久対策は `sudo pmset -a sleep 0 disablesleep 1 displaysleep 0`（sudo が要る）。
+- 2026-08-30: 実測でわかったこと — **非対話 SSH の macOS の PATH に `/usr/local/bin` は無い**。
+  Docker Desktop を入れてあっても `setup.sh` が「docker が見つかりません」で止まる。
+  tailscale と同じくパス候補を直接並べる必要がある。
+- 2026-08-30: 実測でわかったこと — **Funnel の URL は MagicDNS 配下では外部検証にならない**。
+  tailnet 内から引くと 100.x が返るので、公開 DNS が返す ingress（103.84.155.x）を
+  `curl --resolve` で強制しないと「Tailscale 無しで開けるか」を確かめたことにならない。
+- 2026-08-30: **Google ログインとデモログインを併存**させた（`feat/google-demo-coexist`）。
+  `AUTH_MODE` の排他をやめ、鍵の有無は「Google を足すか」だけに効かせる。
+  **鍵が無い環境の見える DOM は 1 文（事実と食い違う案内文）以外そのまま**なのを
+  main とのレンダリング差分で確認した。

@@ -451,12 +451,17 @@
 // 画面が受け取るもの
 {
   "authMode": "demo",              // "google" | "demo" ← サーバーが起動時に 1 回決める
+                                   //   "demo"   … デモログインだけが使える
+                                   //   "google" … Google **と** デモの両方が使える（排他ではない）
   "user": { "id": 7, "displayName": "たろう",
             "role": "gov", "govCityCode": "12203" }   // 未ログインなら null
 }
 ```
 
 - **`authMode` はサーバーが決めて画面に渡す。** クライアント側でキーの有無を判定しない
+- **`authMode` は「どちらか一方」ではない。** `"google"` は Google *も* 使えるという意味で、
+  **デモログインはどちらの値でも必ず使える**（requirements.md §8-2）。
+  サーバー側の分岐は誤読を避けるため `GOOGLE_LOGIN_ENABLED` を読む
 - **`role` を信じてよいのはサーバーだけ。** 画面の `role` は表示の出し分けにしか使わない。
   **権限判定は必ず API 側でセッションを見て行う**（I-5 の `403`）
 - メールアドレス・`provider_uid` は画面に渡さない
@@ -591,6 +596,7 @@
 | v1 | 2026-08-27 | **I-10（投稿の書き出し）を追加。** I-3 に `from` / `to`（投稿日の範囲）と `q`（キーワード）を追加し、I-5 の `PATCH` を実装して本体・権限・レスポンスを明記 | `feat/p6-extensions` |
 | v1 | 2026-08-27 | **I-8 にデモログインの入力（`displayName` / `role` / `govPin`）を追記。** 公開運用で行政ロールに PIN を求められるようにした（`GOV_DEMO_PIN`）。あわせて `AUTH_SECRET` 未設定時の記述を §8-6 の実装に合わせて訂正 | `feat/gov-pin-headless` |
 | v1 | 2026-08-27 | **I-8 のリダイレクト先の決め方を明記。** `AUTH_URL` の固定値をやめ、`X-Forwarded-Host` →（無ければ）`Host` から毎回導くようにした（公開ポートを変えるとログインが 3000 番へ飛んでいたため） | `fix/auth-redirect-host` |
+| v1 | 2026-08-30 | **I-8 の `authMode` を排他から併存に変更。** `"google"` は「Google **も** 使える」の意味になり、デモログインはどちらの値でも使える（キーを入れると Google アカウントを持たない人が投稿できなくなっていたため） | `feat/google-demo-coexist` |
 | v1 | 2026-08-24 | **I-1 に景観スポット（`ScenicProps`）を追記**（`properties` の定義がデータの種類ごとに 2 つになった）。配列プロパティが MapLibre 経由で文字列に畳まれる件と、その回避（`categoryPrimary`）を明記 | `feat/p5-tourism` |
 
 ---

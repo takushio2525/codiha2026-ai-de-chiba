@@ -17,10 +17,14 @@ export const metadata: Metadata = {
 /** ログイン画面（S-6）。
  *
  * 認証モードはサーバーが決める（docs/design/requirements.md 8-2）。
- * Google の鍵が設定されていない環境ではデモログインのフォームを出す。
+ * **デモログインのフォームは常に出す。** Google の鍵が設定されている環境では
+ * その上に「Google でログイン」を足すだけで、デモログインは消さない
+ * （Google アカウントを持たない人が公開先で投稿できなくなるため）。
  */
 export default async function LoginPage() {
   const { authMode, user } = await getSessionView();
+  // authMode === "google" は「Google **も** 使える」の意味（interfaces.md I-8）
+  const googleEnabled = authMode === "google";
 
   // 行政ユーザーの担当市町村名をマスタから引く。DB が落ちていても画面は出す
   let govCityName: string | null = null;
@@ -81,30 +85,51 @@ export default async function LoginPage() {
                 </button>
               </form>
             </>
-          ) : authMode === "google" ? (
-            <>
-              <h2 className="text-[13px] font-semibold text-ink">Google アカウントでログイン</h2>
-              <p className="mt-1.5 text-[12.5px] leading-relaxed text-ink-sub">
-                Google のログイン画面へ移動します。取得するのは表示名だけで、
-                メールアドレスは画面に出しません。
-              </p>
-              <form action={googleSignInAction} className="mt-4">
-                <button
-                  type="submit"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-ink px-4 py-2.5 text-[13.5px] font-medium text-white transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
-                >
-                  <LogIn aria-hidden className="size-4" />
-                  Google でログイン
-                </button>
-              </form>
-            </>
           ) : (
             <>
-              <h2 className="text-[13px] font-semibold text-ink">デモログイン</h2>
+              {/* 鍵がある環境だけ Google を足す。**下のデモログインは消さない** */}
+              {googleEnabled ? (
+                <>
+                  <h2 className="text-[13px] font-semibold text-ink">Google アカウントでログイン</h2>
+                  <p className="mt-1.5 text-[12.5px] leading-relaxed text-ink-sub">
+                    Google のログイン画面へ移動します。取得するのは表示名だけで、
+                    メールアドレスは画面に出しません。
+                  </p>
+                  <form action={googleSignInAction} className="mt-4">
+                    <button
+                      type="submit"
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-ink px-4 py-2.5 text-[13.5px] font-medium text-white transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+                    >
+                      <LogIn aria-hidden className="size-4" />
+                      Google でログイン
+                    </button>
+                  </form>
+
+                  {/* 区切り。**線の上に文字を重ねない**（375px で文字が線に触れる） */}
+                  <div className="mt-6 flex items-center gap-3" role="separator">
+                    <span aria-hidden className="h-px flex-1 bg-line" />
+                    <span className="text-[11.5px] font-medium text-ink-muted">または</span>
+                    <span aria-hidden className="h-px flex-1 bg-line" />
+                  </div>
+                </>
+              ) : null}
+
+              <h2 className={`text-[13px] font-semibold text-ink${googleEnabled ? " mt-6" : ""}`}>
+                デモログイン
+              </h2>
               <p className="mt-1.5 text-[12.5px] leading-relaxed text-ink-sub">
-                Google の認証キーが設定されていないため、デモモードで動いています。
-                表示名を入れるだけでログインでき、
-                <strong className="font-medium text-ink">投稿・コメント・行政操作まで全機能を試せます</strong>。
+                {googleEnabled ? (
+                  <>
+                    Google アカウントが無くても、表示名を入れるだけでログインできます。
+                    投稿とコメントは Google で入ったときとまったく同じように使えます。
+                  </>
+                ) : (
+                  <>
+                    Google の認証キーが設定されていないため、デモモードで動いています。
+                    表示名を入れるだけでログインでき、
+                    <strong className="font-medium text-ink">投稿・コメント・行政操作まで全機能を試せます</strong>。
+                  </>
+                )}
                 {GOV_PIN_REQUIRED ? "なお、この環境では行政ユーザーだけ PIN で守っています。" : ""}
               </p>
               <DemoLoginForm govCityName={govCityName} govPinRequired={GOV_PIN_REQUIRED} />
@@ -113,9 +138,9 @@ export default async function LoginPage() {
         </section>
 
         <p className="mt-4 text-[11.5px] leading-relaxed text-ink-muted">
-          {authMode === "demo"
-            ? "GOOGLE_CLIENT_ID と GOOGLE_CLIENT_SECRET を設定すると、Google ログインに切り替わります（app/.env.example 参照）。"
-            : "認証キーを外すと、デモログインに切り替わります（app/.env.example 参照）。"}
+          {googleEnabled
+            ? "認証キーを外すと、デモログインだけになります（app/.env.example 参照）。"
+            : "GOOGLE_CLIENT_ID と GOOGLE_CLIENT_SECRET を設定すると、Google ログインも選べるようになります（app/.env.example 参照）。"}
         </p>
       </main>
     </div>
