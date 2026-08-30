@@ -577,6 +577,18 @@ export default function ControlPanel({
           >
             詳しい出典
           </a>
+          {/* プライバシーポリシー（S-8）。**常設フッターはここだけ**なので、
+              サイト全体からの入口としてこの 1 行に置く。Google OAuth の審査でも
+              「アプリから辿れること」を見られる */}
+          <span aria-hidden className="mx-1.5">
+            /
+          </span>
+          <a
+            href="/privacy"
+            className="font-medium text-ink underline decoration-line underline-offset-2 transition hover:decoration-ink"
+          >
+            プライバシー
+          </a>
         </footer>
       </div>
     </aside>
