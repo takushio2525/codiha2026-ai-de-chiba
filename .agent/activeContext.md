@@ -6,7 +6,7 @@
 
 ## 現在の対象
 
-**プロダクトは CHIZUBA。P6（行政応答・F-7）まで実装済み。残るは P8（Google ログイン本線）と提出物。**
+**プロダクトは CHIZUBA。P8（Google ログイン）まで実装済み。残るは提出物（`readme.txt`・PDF 2 種）。**
 
 `cd app && docker compose up` → <http://localhost:3000>。ハザードマップ（洪水・高潮・津波）・
 避難場所 123・AED 304・子育て施設 388・徒歩ナビが動き、**ログインして危険箇所・浸水・観光おすすめを
@@ -27,11 +27,9 @@
 - **F-4 の注意案内は期間の絞り込みに引きずらせない。** 絞ったせいで「過去に浸水報告はありません」に
   なると防災の判断を誤らせるので、根拠になる浸水報告だけ全期間で引き直す（`MapExplorer` の `loadReports`）
 - **公開 URL は設定値で持たない。** ログインのリダイレクト先も Google の `redirect_uri` も
-  `X-Forwarded-Host` →（無ければ）`Host` から毎回導く（`lib/publicOrigin.ts`）。**`AUTH_URL` を
-  既定で渡さない**のが要点で、渡すとポートを変えた瞬間に壊れる（ポートは `CHIZUBA_PORT`）
-- **セッションはこの DB に縛られている。** 署名鍵は `app_instance.install_id` から導き、
-  トークンにも同じ ID が入っていて毎回突き合わせる（`app/src/lib/installId.ts`）。
-  **`docker compose down -v` は全員ログアウト＋投稿写真（`uploads`）の消去**になる
+  `X-Forwarded-Host` →（無ければ）`Host` から毎回導く（`lib/publicOrigin.ts`）。**`AUTH_URL` を渡さない**
+- **セッションはこの DB に縛られている**（`installId.ts`）。
+  **`docker compose down -v` は全員ログアウト＋投稿写真の消去**になる
 - **デモ投稿の雨量は書き出しに含めない。** 観測値ではないので、観測値の顔をした列に入れない
 - **F-4 の文言は気象業務法の線に触れる。** 「浸水するでしょう」に類する予報表現を足さない
 
@@ -42,10 +40,13 @@
 
 ## 次の一手
 
-1. **P8: Google ログイン（F-8 の本線）** — 実装は済み（**デモと併存**する。鍵があれば
-   ログイン画面に両方並ぶ）。残るは**実キーでの認可フロー実測**だけ。**9/9 直前には触らない**
-2. 提出物のうち **`readme.txt`・説明資料 PDF 2 種はまだ無い**。9/9 に向けて作る。
-   固めるのは `bash tools/package_submission.sh`（検証込み）。**手で zip しない**
+1. 提出物のうち **`readme.txt`・説明資料 PDF 2 種はまだ無い**。9/9 に向けて作る。
+   固めるのは `bash tools/package_submission.sh`（検証込み）。**手で zip しない**。
+   `readme.txt` は `package_submission.sh` が唯一 NG を出している項目でもある
+2. **P8: Google ログインは実キーまで通っている**（実測: `/api/auth/providers` が
+   `google, demo`・認可の 302 が `accounts.google.com` へ・`redirect_uri` が公開ホスト）。
+   OAuth アプリは **testing のまま**。本番公開するなら `/privacy` の URL を Console に入れる。
+   **9/9 直前には触らない**
 3. `docs/design/assignments.md` の担当表がまだ空欄。誰がどのフェーズを持つか埋める
 
 ## 現フェーズで読むべきドキュメント
@@ -53,10 +54,9 @@
 - **投稿 API を触る段**: `interfaces.md` I-3〜I-5・**I-10**・`lib/reports.ts`（カテゴリの正本）・`db/init/001_schema.sql`
 - **認証を触る段**: `requirements.md` §8（**§8-6** インストール ID・**§8-7** 公開 URL）・`lib/installId.ts`・`lib/publicOrigin.ts`・`.env.example`
 - **気象まわりを触る段**: `interfaces.md` **I-6**・`lib/jma.ts` の頭・文言は `requirements.md` §3-1（**気象業務法の線**）
-- **地図に何か足す段**: `mapModes.ts`（モードの組）・`scenic.ts`（景観）・`layers.ts`（施設）
+- **地図やデータを足す段**: `mapModes.ts`・`scenic.ts`・`layers.ts` ＋ `data/analysis/findings.md`・`data/*/SOURCE.md`
 - **アプリに手を入れる段**: `.agent/architecture.md`・`.agent/conventions.md`・`app/README.md`（**既知の制約**）
 - **提出物の判断**: `課題/2026-09-09_CODIHA2026_提出要件.md`（**正本**）
-- **データを増やす段**: `data/analysis/findings.md`・`data/*/SOURCE.md`（出典・ライセンス・落とし穴）
 
 ## 決まっていること（変わりにくい前提）
 
@@ -75,6 +75,7 @@
 | DB | **PostgreSQL 17**。**PostGIS も ORM もマイグレーションツールも入れない** |
 | 投稿 | **3 種類を 1 テーブル・1 API・1 フォームに統一**。違いは `category` と `details`(jsonb) |
 | 認証 | Google OAuth が本線だが**デモログインは常に併設**（鍵が無ければデモだけ）。**署名鍵はインストール ID から導く** |
+| プライバシー | `/privacy`（S-8）は**実装の挙動をそのまま書いた正本**。受け取る情報・保存先・外部送信を変えたら**同じコミットで直す** |
 | 外部サービス | 国土地理院タイル・重ねるハザードマップ・OSRM・気象庁 JSON。**すべて認証キー不要** |
 | 提出単位 | `app/` 配下のみ。**日本語ファイル名禁止**。`readme.txt` / `Dockerfile` / `compose.yaml` 必須 |
 | リポジトリ | **public**。氏名・学籍番号・配布資料・API キー・`.env` を置かない |
