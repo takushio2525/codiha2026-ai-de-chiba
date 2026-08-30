@@ -337,38 +337,53 @@ tailscale funnel status
 ターミナルを 1 枚開いて置いておく。閉じるかCtrl-C で元に戻る。
 
 ```bash
-caffeinate -dims
+caffeinate -dimsu
 ```
+
+> `-d`（画面）と `-i`（アイドル）と `-s`（システム）をまとめて押さえる。
+> **`-d` を落とすと画面が消え、そこからダークウェイクに入って公開が止まる**
+> ことがある（方法 B の実測を参照）。
 
 ### 方法 B: 恒久的（常時公開する Mac 向け・sudo が要る）
 
 ```bash
 sudo pmset -a sleep 0        # システムスリープしない
+sudo pmset -a disablesleep 1 # ★ダークウェイクにも落とさない（下記。これが要）
+sudo pmset -a displaysleep 0 # ★画面も消さない（消えるとダークウェイクの引き金になる）
 sudo pmset -a disksleep 0    # ディスクを止めない
 sudo pmset -a womp 1         # ネットワークから起こせるようにする（対応機のみ）
 sudo pmset -a autorestart 1  # 停電から復帰したら自動で起動する（デスクトップ機のみ）
 ```
+
+> **`sleep 0` だけでは足りない（実測）。** `sleep 0` が止めるのは
+> **アイドルスリープだけ**で、画面スリープをきっかけに**ダークウェイク**へ入ると
+> tailscaled ごと外から見えなくなる。
+>
+> 2026-08-30 に実測した例: `pmset -g` が `sleep 0` の Mac で、21:24:47 に
+> 画面がスリープした直後から **8 分間** Tailscale が offline になり、
+> 公開 URL も SSH も届かなくなった。`pmset -g log` には同じ時刻に
+> powerd の `darkwakelinger` と、`PreventUserIdleSystemSleep
+> "Powerd - Prevent sleep while display is on"` の解放が並んでいた。
+>
+> **常時公開するなら `disablesleep 1` と `displaysleep 0` まで入れる。**
 
 > 最後の 2 つは機種によって存在しない（`autorestart` はデスクトップ機だけ、
 > `womp` は有線 LAN か対応する Wi-Fi を持つ機種だけ）。
 > 無い設定を指定するとエラーになるが、**無視して構わない**。
 > いま何が設定できるかは `pmset -g custom` で見られる。
 
-ノート型を**閉じたまま**使うなら、電源に繋いだうえで次も要る。
-
-```bash
-sudo pmset -b disablesleep 1
-```
+ノート型を**閉じたまま**使うなら、電源に繋いだうえで `disablesleep 1` が要る
+（上の方法 B に入れてある。`-b` はバッテリー駆動時だけに効くので、
+電源に繋いだまま置く Mac には `-a` を使う）。
 
 現在の設定を見る:
 
 ```bash
-pmset -g | grep -E ' sleep| disksleep|autorestart'
+pmset -g | grep -E ' sleep| disksleep|disablesleep|displaysleep|autorestart'
 ```
 
-`setup.sh` は `sleep` が 0 以外だと警告を出す。
-
-> ディスプレイのスリープ（`displaysleep`）は切らなくてよい。画面が消えても公開は続く。
+`setup.sh` は `sleep` が 0 以外のときに加えて、**`sleep 0` でも
+`disablesleep` が 1 でなければ警告を出す**（ダークウェイクで公開が止まるため）。
 
 ---
 
@@ -565,6 +580,18 @@ pmset -g | grep -E 'sleep|disablesleep'
 > 単体の `docker-compose` へ自動で落ちる。
 > `tailscale` も Homebrew の置き場（`/opt/homebrew/bin` と `/usr/local/bin`）を
 > 直接見に行くので、SSH で PATH が細くても見つかる。
+>
+> **`docker` も同じように探す。** macOS の非対話 SSH の PATH は
+> `/usr/bin:/bin:/usr/sbin:/sbin` だけのことがあり、**Docker Desktop
+> （`/usr/local/bin`）も Homebrew（`/opt/homebrew/bin`）も入っていない**。
+> `ssh <ホスト> 'docker --version'` が「見つかりません」と言っても、`setup.sh` は
+> 実在するパスを直接見て、見つけた置き場をその実行の間だけ PATH に足す。
+>
+> **CLI が 2 つ入っていると版が食い違う。** GUI アプリと Homebrew 版の
+> `tailscale` が同居していると、古い CLI で新しい tailscaled を叩くことになる
+> （実測: CLI 1.98.8 / tailscaled 1.102.3）。`setup.sh` は
+> `tailscale status --json` の `Version`（＝デーモン側の版）と突き合わせ、
+> **版が合う CLI へ自動で乗り換える**。合うものが無ければ警告を出す。
 
 ---
 

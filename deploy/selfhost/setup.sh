@@ -100,11 +100,11 @@ step "1. 前提を確認する"
 # =========================================================================
 
 [ -f "$APP_DIR/compose.yaml" ] || die \
-    "app/compose.yaml が見つかりません（探した場所: $APP_DIR）" \
+    "app/compose.yaml が見つかりません（探した場所: ${APP_DIR}）" \
     "このスクリプトは clone したリポジトリの中から実行してください。" \
     "  git clone <リポジトリの URL> && cd <リポジトリ名>" \
     "  bash deploy/selfhost/setup.sh"
-[ -f "$OVERLAY" ] || die "deploy/selfhost/compose.prod.yaml が見つかりません（$OVERLAY）"
+[ -f "$OVERLAY" ] || die "deploy/selfhost/compose.prod.yaml が見つかりません（${OVERLAY}）"
 ok "リポジトリの場所: $REPO_ROOT"
 
 command -v git >/dev/null 2>&1 \
@@ -114,12 +114,33 @@ ok "git: $(git --version)"
 # **Docker Desktop でも colima でも動く。** 違うのは案内の文面だけで、
 # 以降の docker / compose の使い方は同じ。SSH だけで完結させたい人（画面の無い
 # Mac・リモートログインだけ）は colima を選ぶことになるので、そちらも通す。
+# **SSH で入ると PATH が細い。** macOS の非対話 SSH の PATH は
+# /usr/bin:/bin:/usr/sbin:/sbin だけのことがあり、**Docker Desktop（/usr/local/bin）も
+# Homebrew（/opt/homebrew/bin）も入っていない**。tailscale と同じく実在するパスを
+# 直接見に行き、見つけたら**その置き場を PATH の先頭に足す**
+# （以降の docker / docker compose の呼び出しがそのまま通るようにするため）。
+if ! command -v docker >/dev/null 2>&1; then
+    for candidate in \
+        /usr/local/bin/docker \
+        /opt/homebrew/bin/docker \
+        "$HOME/.docker/bin/docker"
+    do
+        if [ -x "$candidate" ]; then
+            PATH="$(dirname "$candidate"):$PATH"
+            export PATH
+            info "docker を PATH の外で見つけました（${candidate}）。この実行の間だけ PATH に足します"
+            break
+        fi
+    done
+fi
+
 command -v docker >/dev/null 2>&1 || die \
     "docker コマンドが見つかりません" \
     "画面のある Mac なら Docker Desktop:" \
     "  https://www.docker.com/products/docker-desktop/" \
     "SSH だけで済ませたいなら colima:" \
     "  brew install colima docker docker-compose && colima start" \
+    "変わった場所に入れているなら PATH を通してから実行してください。" \
     "詳しい手順は deploy/selfhost/README.md の「手順 1」を見てください。"
 ok "docker: $(docker --version)"
 
@@ -154,7 +175,7 @@ fi
 
 COMPOSE_VERSION="$("${COMPOSE_BIN[@]}" version --short 2>/dev/null)"
 case "$COMPOSE_VERSION" in
-    1.*) die "compose が v1 です（検出: $COMPOSE_VERSION）" \
+    1.*) die "compose が v1 です（検出: ${COMPOSE_VERSION}）" \
              "v2 以降が要ります（compose.prod.yaml の \`!override\` は v2 の機能）。" \
              "  brew install docker-compose" ;;
 esac
@@ -169,6 +190,7 @@ json_value() { printf '%s' "$1" | grep -o "\"$2\":\"[^\"]*\"" | head -1 | sed 's
 
 TAILSCALE=""
 TS_JSON=""
+TAILSCALE_CANDIDATES=()
 if [ "$DO_FUNNEL" -eq 1 ]; then
     if [ -n "${TAILSCALE_BIN:-}" ]; then
         # 変わった場所に入れている人向けの逃げ道
@@ -184,13 +206,20 @@ if [ "$DO_FUNNEL" -eq 1 ]; then
         # Apple シリコンが /opt/homebrew、Intel が /usr/local（公式ドキュメント）で、
         # tailscale formula は bin/tailscale と bin/tailscaled を入れる。
         # /usr/local/bin/tailscale は standalone 版のランチャと同じ場所でもある。
+        # **見つかった候補を全部集める。** 1 つ目で打ち切らないのは、GUI アプリと
+        # Homebrew 版の CLI が同居していると**版が食い違う**ことがあるため
+        # （実測: brew 1.98.8 の CLI に対しアプリ本体の tailscaled が 1.102.3）。
+        # どれがデーモンと一致するかは、このあと status --json を読んでから決める。
         for candidate in \
             tailscale \
             /opt/homebrew/bin/tailscale \
             /usr/local/bin/tailscale \
             /Applications/Tailscale.app/Contents/MacOS/Tailscale
         do
-            if command -v "$candidate" >/dev/null 2>&1; then TAILSCALE="$candidate"; break; fi
+            if command -v "$candidate" >/dev/null 2>&1; then
+                TAILSCALE_CANDIDATES+=("$candidate")
+                [ -n "$TAILSCALE" ] || TAILSCALE="$candidate"
+            fi
         done
     fi
     [ -n "$TAILSCALE" ] || die \
@@ -214,6 +243,40 @@ if [ "$DO_FUNNEL" -eq 1 ]; then
         "GUI 版（App Store / standalone）なら、アプリが起動しているか確かめてください:" \
         "  open -a Tailscale"
 
+    # **デーモンと版が一致する CLI に乗り換える。**
+    # `status --json` の top-level `Version` は**デーモン側**の版で、どの CLI から
+    # 読んでも同じ値が返る（実測）。食い違ったまま使うと Funnel の挙動が変わることが
+    # あるので、候補のうち版が前方一致するものを採る。
+    TS_DAEMON_VERSION="$(json_value "$TS_JSON" Version)"
+    if [ -n "$TS_DAEMON_VERSION" ]; then
+        # **空配列を素で展開しない。** macOS 標準の bash 3.2 は `set -u` のもとで
+        # `"${ARR[@]}"` が空だと unbound variable で落ちる（実測）。
+        # TAILSCALE_BIN を明示された経路では候補を集めていないのでここは空になる。
+        for candidate in ${TAILSCALE_CANDIDATES[@]+"${TAILSCALE_CANDIDATES[@]}"}; do
+            candidate_version="$("$candidate" version 2>/dev/null | head -1)"
+            [ -n "$candidate_version" ] || continue
+            case "$TS_DAEMON_VERSION" in
+                "$candidate_version"*)
+                    if [ "$candidate" != "$TAILSCALE" ]; then
+                        info "tailscaled（${TS_DAEMON_VERSION}）と版が合う CLI に切り替えます: $candidate"
+                        TAILSCALE="$candidate"
+                    fi
+                    break
+                    ;;
+            esac
+        done
+
+        # 乗り換えても合わなかったとき（候補が 1 つしか無い / TAILSCALE_BIN 指定）も
+        # 黙って進めない。**止めるほどではない**ので警告に留める
+        TS_CLI_VERSION="$("$TAILSCALE" version 2>/dev/null | head -1)"
+        case "$TS_DAEMON_VERSION" in
+            "$TS_CLI_VERSION"*) ;;
+            *) warn "tailscale の CLI（${TS_CLI_VERSION}）と tailscaled（${TS_DAEMON_VERSION}）で版が違います"
+               info "動きますが、食い違いが大きいと Funnel の挙動が変わることがあります"
+               info "アプリ同梱の CLI を使うのが確実です（deploy/selfhost/README.md の手順 2）" ;;
+        esac
+    fi
+
     STATE="$(json_value "$TS_JSON" BackendState)"
     case "$STATE" in
         Running) ok "Tailscale にログイン済み（BackendState=Running）" ;;
@@ -223,7 +286,7 @@ if [ "$DO_FUNNEL" -eq 1 ]; then
             "（端末に出る URL を手元のブラウザで開けば認証できます）:" \
             "  $TAILSCALE up" ;;
         Stopped) die "Tailscale が停止しています" "メニューバーの Tailscale から接続するか、$TAILSCALE up を実行してください。" ;;
-        *) warn "Tailscale の状態が想定外です（BackendState=$STATE）。このまま進めます" ;;
+        *) warn "Tailscale の状態が想定外です（BackendState=${STATE}）。このまま進めます" ;;
     esac
 else
     info "--no-funnel が指定されたので Tailscale の確認は飛ばします"
@@ -292,13 +355,30 @@ if command -v lsof >/dev/null 2>&1; then
 fi
 
 # --- スリープ設定（公開したまま Mac が寝ると外から見えなくなる）---
+# **`sleep 0` だけでは足りない。** これはアイドルスリープを止めるだけで、
+# 画面スリープをきっかけに**ダークウェイク**へ入ると tailscaled ごと外から
+# 見えなくなる（実測: `sleep 0` の Mac が画面スリープの直後に 8 分間 offline に
+# なった。`pmset -g log` に powerd の darkwakelinger が出ていた）。
+# 常時公開するなら `disablesleep 1` まで要る。
 if command -v pmset >/dev/null 2>&1; then
-    SLEEP_MIN="$(pmset -g 2>/dev/null | awk '$1=="sleep" {print $2; exit}')"
+    PM="$(pmset -g 2>/dev/null)"
+    SLEEP_MIN="$(printf '%s\n' "$PM" | awk '$1=="sleep" {print $2; exit}')"
+    DISABLE_SLEEP="$(printf '%s\n' "$PM" | awk '$1=="disablesleep" {print $2; exit}')"
+
     if [ -n "$SLEEP_MIN" ] && [ "$SLEEP_MIN" != "0" ]; then
         warn "この Mac は $SLEEP_MIN 分でスリープします。寝ると外から見えなくなります"
-        info "対処は deploy/selfhost/README.md の「スリープさせない」を見てください"
+        info "常時公開するなら次を実行してください（sudo のパスワードが要ります）:"
+        info "  sudo pmset -a sleep 0 disablesleep 1 displaysleep 0"
+        info "詳しくは deploy/selfhost/README.md の「スリープさせない」"
+    elif [ "${DISABLE_SLEEP:-0}" != "1" ]; then
+        # ここが以前は「スリープしない設定になっている」と出ていた。実際には
+        # ダークウェイクへ落ちて公開が止まるので、OK ではなく警告にする
+        warn "アイドルスリープは止まっていますが、ダークウェイクで外から見えなくなることがあります"
+        info "画面スリープをきっかけに落ちると tailscaled ごと圏外になります（実測）"
+        info "常時公開するなら次を実行してください（sudo のパスワードが要ります）:"
+        info "  sudo pmset -a sleep 0 disablesleep 1 displaysleep 0"
     else
-        ok "スリープしない設定になっている"
+        ok "スリープしない設定になっている（sleep=0・disablesleep=1）"
     fi
 fi
 
@@ -417,7 +497,7 @@ done
 printf '\n'
 
 [ "$HEALTH" = "healthy" ] || die \
-    "$TIMEOUT 秒待っても起動が終わりませんでした（状態: $HEALTH）" \
+    "$TIMEOUT 秒待っても起動が終わりませんでした（状態: ${HEALTH}）" \
     "ログを見てください: ${COMPOSE_BIN[*]} -f $APP_DIR/compose.yaml -f $OVERLAY logs web"
 ok "web コンテナが healthy になった"
 
