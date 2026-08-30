@@ -321,8 +321,7 @@ export default function PrivacyPage() {
         <Section title="7. 問い合わせ">
           <p>
             このサイトは、
-            ちばオープンデータアイデアソン・ハッカソン（CODIHA）2026 に向けて
-            チーム「愛で千葉は救えるのか」が作った
+            ちばオープンデータアイデアソン・ハッカソン（CODIHA）2026 に向けてチーム「愛で千葉は救えるのか」が作った
             <strong className="font-semibold text-ink">試作</strong>
             で、商用サービスではありません。
           </p>
