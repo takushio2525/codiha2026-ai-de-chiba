@@ -270,9 +270,11 @@ export default function ReportPanel({
                 />
               ) : (
                 <>
-              <h2 className="text-[15px] leading-snug font-semibold text-ink">{report.title}</h2>
+              <h2 className="text-[15px] leading-snug font-semibold break-words text-ink">
+                {report.title}
+              </h2>
               <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-ink-muted">
-                <span className="font-medium text-ink-sub">{report.authorName}</span>
+                <span className="font-medium wrap-anywhere text-ink-sub">{report.authorName}</span>
                 {report.authorRole === "gov" ? <OfficialRoleBadge compact /> : null}
                 <span className="tabular-nums">{formatJst(report.createdAt)}</span>
               </p>
@@ -368,7 +370,7 @@ export default function ReportPanel({
                       ].join(" ")}
                     >
                       <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-ink-muted">
-                        <span className="font-medium text-ink-sub">{comment.authorName}</span>
+                        <span className="font-medium wrap-anywhere text-ink-sub">{comment.authorName}</span>
                         {comment.isOfficial ? (
                           <OfficialBadge label="行政の公式回答" compact />
                         ) : null}

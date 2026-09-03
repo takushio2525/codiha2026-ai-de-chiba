@@ -190,7 +190,7 @@ function popupHead(color: string, label: string): HTMLElement {
 /** 地点の名前。 */
 function popupTitle(name: string): HTMLElement {
   const title = document.createElement("h3");
-  title.className = "px-4 text-[15px] leading-snug font-semibold text-ink";
+  title.className = "px-4 text-[15px] leading-snug font-semibold break-words text-ink";
   title.textContent = name;
   return title;
 }
