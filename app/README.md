@@ -321,7 +321,7 @@ docker compose down -v && docker compose up
 | 指定緊急避難場所 | 123 | [市川市オープンデータ](https://www.city.ichikawa.lg.jp/page/4744.html) | CC BY 4.0 | [リーガル・コード](https://creativecommons.org/licenses/by/4.0/legalcode.ja) |
 | AED 設置箇所 | 304 | [同上](https://www.city.ichikawa.lg.jp/page/4744.html) | CC BY 4.0 | [同上](https://creativecommons.org/licenses/by/4.0/legalcode.ja) |
 | 子育て施設 | 388 | [同上](https://www.city.ichikawa.lg.jp/page/4744.html) | CC BY 4.0 | [同上](https://creativecommons.org/licenses/by/4.0/legalcode.ja) |
-| いちかわ景観100選 | 100 | [千葉県オープンデータサイト「【市川市】景観100選」](https://opendata.pref.chiba.lg.jp/datasets/3291)（提供組織: 市川市） | CC BY 4.0 | [同上](https://creativecommons.org/licenses/by/4.0/legalcode.ja) |
+| いちかわ景観100選 | 100 | [千葉県オープンデータサイト「【市川市】景観100選」](https://opendata.pref.chiba.lg.jp/datasets/3291)（提供組織: 市川市） | CC BY 4.0（[リソースページに明記](https://opendata.pref.chiba.lg.jp/resources/53977)） | [リーガル・コード](https://creativecommons.org/licenses/by/4.0/legalcode.ja) |
 
 いずれも**市川市オープンデータを加工して作成**しています（CSV → GeoJSON への変換。
 景観100選の名称・解説（日本語・英語）・カテゴリ・アクセス方法は元データのまま表示）。
