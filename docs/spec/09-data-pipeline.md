@@ -124,9 +124,9 @@ flowchart LR
 
 | ファイル | データセット |
 |---|---|
-| `population_by_municipality_2024.xlsx` | [240 市区町村別推計人口（令和6年）](https://opendata.pref.chiba.lg.jp/datasets/240) |
-| `natural_change_by_municipality_2024.xlsx` | 240 市区町村別自然動態 |
-| `social_change_by_municipality_2024.xlsx` | 240 市区町村別社会動態 |
+| `population_by_municipality_2024.xlsx` | [240 令和6年千葉県毎月常住人口調査報告書(年報)](https://opendata.pref.chiba.lg.jp/datasets/240) の「第1表 市区町村別推計人口」 |
+| `natural_change_by_municipality_2024.xlsx` | 同 240 の「第2表 市区町村別自然動態（男女別）」 |
+| `social_change_by_municipality_2024.xlsx` | 同 240 の「第3表 市区町村別社会動態（男女別）」 |
 | `elderly_by_municipality_1995.xls` / `2015.xls` / `2021.xlsx` | [813 県内市町村別の高齢者人口](https://opendata.pref.chiba.lg.jp/datasets/813) |
 | `licensed_nursery_schools_2023.xlsx` | [421 子育て施設一覧（認可保育所）](https://opendata.pref.chiba.lg.jp/datasets/421) |
 | `tourism_visitors_2019.xls` | [793 令和元年千葉県観光入込調査報告書](https://opendata.pref.chiba.lg.jp/datasets/793) |
