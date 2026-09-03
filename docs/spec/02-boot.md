@@ -206,11 +206,11 @@ cd app && npm install && npm run dev
    DATABASE_URL=postgres://chizuba:chizuba_local_only@localhost:5432/chizuba npm run dev
    ```
 
-   手順の正本は `app/README.md:80-89`
+   手順の正本は `app/README.md` の「9. 手元で開発する」（`:563-571`）
 2. **投稿写真の置き場が `app/uploads/`（`.gitignore` 済み）になる。**
    `photoStore.ts` が `path.join(process.cwd(), "uploads", ...)` で決めているため。
    デモ投稿の写真は `Dockerfile` が配っているので `npm run dev` では出ない。
-   出したければ手でコピーする（`app/README.md:95`）:
+   出したければ手でコピーする（`app/README.md:577`）:
 
    ```bash
    mkdir -p uploads && cp db/seed-photos/*.jpg uploads/
