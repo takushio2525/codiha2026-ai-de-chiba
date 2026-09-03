@@ -170,6 +170,9 @@ export default async function ReportsPage({
           })}
         </nav>
 
+        {/* 日付の 2 つに `appearance-none` が要る理由は
+            `components/DateRangeFilter.tsx` の同じ場所のコメント（iOS の
+            `input[type="date"]` はネイティブの見た目のままだと縮まない） */}
         <form method="get" className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-[1fr_1fr_auto]">
           <input type="hidden" name="city" value={cityCode} />
           {category ? <input type="hidden" name="category" value={category} /> : null}
@@ -196,7 +199,7 @@ export default async function ReportsPage({
               type="date"
               name="from"
               defaultValue={range.from ?? ""}
-              className="mt-0.5 w-full rounded-lg border border-line bg-surface px-2 py-1.5 text-[12px] text-ink transition focus:border-ink focus:outline-none"
+              className="mt-0.5 w-full appearance-none rounded-lg border border-line bg-surface px-2 py-1.5 text-[12px] text-ink transition focus:border-ink focus:outline-none"
             />
           </label>
           <label className="block">
@@ -205,7 +208,7 @@ export default async function ReportsPage({
               type="date"
               name="to"
               defaultValue={range.to ?? ""}
-              className="mt-0.5 w-full rounded-lg border border-line bg-surface px-2 py-1.5 text-[12px] text-ink transition focus:border-ink focus:outline-none"
+              className="mt-0.5 w-full appearance-none rounded-lg border border-line bg-surface px-2 py-1.5 text-[12px] text-ink transition focus:border-ink focus:outline-none"
             />
           </label>
           <button
