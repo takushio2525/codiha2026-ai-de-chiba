@@ -105,6 +105,16 @@
   項目そのものが縮まず、はみ出しが残ることがある
 - 検査は**全要素**を回して、`overflow-x` が `auto` / `scroll` の要素に
   `scrollLeft` を振り切り、戻ってくる値が 0 かを見る。`document` だけを見ない
+- **`input[type="date"]` は iOS だけ縮まない。** ネイティブの見た目のままだと
+  固有幅（実測 180px）から縮まず、`w-full` を当てても列（162px）をはみ出す。
+  **`appearance-none` を足すと `width` に従う**（日付ピッカーは従来どおり開く）。
+  実測: iPhone 16e / iOS 26.3 の Safari で操作パネルが 2px 横に動いた
+  （`max-width: 100%` も `min-w-0` も効かない。効くのは `appearance-none` だけ）
+- **PC のブラウザでは絶対に出ない類のバグがある。** macOS の Safari も Chrome も
+  date 入力を縮めるので、PC で何度測っても再現しない。**Playwright の WebKit も
+  macOS 版なので同じく再現しない。** 実機か **iOS シミュレータ**で測る
+  （`xcrun simctl boot <機種>` → `xcrun simctl openurl booted <URL>` →
+  計測結果をページ内に描かせて `xcrun simctl io booted screenshot` で読む）
 
 ## Docker
 
