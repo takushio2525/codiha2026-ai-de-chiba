@@ -72,6 +72,12 @@ export default function DateRangeFilter({ range, onChange, count }: Props) {
         ))}
       </div>
 
+      {/* **`appearance-none` を外さない。** iOS Safari の `input[type="date"]` は
+          ネイティブの見た目のままだと固有幅（実測 180px）から縮まず、`w-full` を
+          当てても列（162px）をはみ出す。すると**操作パネルが iPhone でだけ
+          横に 2px スライドできてしまう**（`overflow-y-auto` は `overflow-x` を
+          `auto` に昇格させるため）。macOS の Safari と Chrome は縮めるので PC では出ない。
+          日付ピッカーはこの指定を足しても従来どおり開く。 */}
       <div className="mt-2 grid grid-cols-2 gap-2">
         <label className="block">
           <span className="text-[11px] text-ink-muted">開始日</span>
@@ -80,7 +86,7 @@ export default function DateRangeFilter({ range, onChange, count }: Props) {
             value={range.from ?? ""}
             max={range.to ?? undefined}
             onChange={(event) => onChange(normalizeRange(event.target.value, range.to))}
-            className="mt-0.5 w-full rounded-lg border border-line bg-surface px-2 py-1.5 text-[12px] text-ink transition focus:border-ink focus:outline-none"
+            className="mt-0.5 w-full appearance-none rounded-lg border border-line bg-surface px-2 py-1.5 text-[12px] text-ink transition focus:border-ink focus:outline-none"
           />
         </label>
         <label className="block">
@@ -90,7 +96,7 @@ export default function DateRangeFilter({ range, onChange, count }: Props) {
             value={range.to ?? ""}
             min={range.from ?? undefined}
             onChange={(event) => onChange(normalizeRange(range.from, event.target.value))}
-            className="mt-0.5 w-full rounded-lg border border-line bg-surface px-2 py-1.5 text-[12px] text-ink transition focus:border-ink focus:outline-none"
+            className="mt-0.5 w-full appearance-none rounded-lg border border-line bg-surface px-2 py-1.5 text-[12px] text-ink transition focus:border-ink focus:outline-none"
           />
         </label>
       </div>

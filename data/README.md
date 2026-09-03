@@ -47,6 +47,21 @@ python3 data/scripts/build_geojson.py           # app/public/data/ に 4 本出�
 市川市の CSV（cp932）を読み、空行・緯度経度なし・市域外の座標を落として GeoJSON にする。
 除外した行は実行時に標準出力へ出る。諸元は `data/ichikawa-city/SOURCE.md`。
 
+## プレゼン資料に載せる数字を確かめ直す
+
+```bash
+python3 data/scripts/verify_presentation_numbers.py            # 市川市ぶんだけ
+python3 data/scripts/verify_presentation_numbers.py --kashiwa  # 柏市の水害履歴も取得して集計
+```
+
+`docs/presentation/審査基準_主張と根拠.md` に書いた数字を、**元の CSV から数え直す**。
+`analysis/findings.md` の数字を写すのではなく毎回計算するので、資料の数字が元データとずれたら気づける。
+**pandas を使わない**ので `analysis/` の依存を入れずに動く。
+
+`--kashiwa` は柏市の水害履歴（オープンデータ）を取得して「浸水は同じ場所で繰り返す」を数える。
+**地点の定義で割合が大きく変わる**（78.24% / 96.02% / 98.84%）ので 3 通りとも出す。
+資料に載せるときは、どの定義で数えたかを必ず添える。
+
 ## 守ること
 
 - **このリポジトリは public。** 個票・氏名入りのデータは置かない。統計と公開施設情報だけ

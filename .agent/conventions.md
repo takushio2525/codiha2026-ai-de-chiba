@@ -84,6 +84,38 @@
 - **バッジが増える見出しは `flex-wrap` にする。** 折り返せないと、右端に置いた
   閉じるボタンが画面の外へ押し出される（320px の投稿詳細で実際に起きた）
 
+### 横に動いてしまう UI（**ページ全体の横スクロール検査では見つからない**）
+
+2026-09-03 に実測して分かったこと。**「320px で横スクロール 0」を確かめただけでは
+足りない。** 内側のスクロール容器が横に動くと、`document` の横スクロールは 0 のままで、
+指では横にスライドできてしまう。
+
+- **`overflow-y-auto` と書くと `overflow-x` が `auto` に昇格する。**
+  CSS の仕様で、片方の軸が `visible` 以外なら `visible` は `auto` になる。
+  つまり `overflow-y-auto` を当てた容器は**すべて横スクロール容器**で、
+  中身が 1px でもはみ出した瞬間に指で横へ引けるようになる。該当は 5 か所
+  （`ControlPanel` の本体・`ReportPanel` の本体・`ReportForm` のフォーム・
+  `layout.tsx` のページ本体・`MapView` のポップアップ）
+- **利用者が入力した文字列とオープンデータの名前には、必ず折り返しを付ける。**
+  日本語は任意の位置で折り返すので普段は出ないが、URL や英数字の連続は折り返せない。
+  実測: 投稿タイトルに 54 文字の URL を入れると、投稿詳細が
+  375px で 48px・320px で 103px 横に動いた（`break-words` を足すと 0 になる）
+- **`flex` / `grid` の項目には `wrap-anywhere` を使う。**
+  `break-words`（`overflow-wrap: break-word`）は min-content 幅を縮めないので、
+  項目そのものが縮まず、はみ出しが残ることがある
+- 検査は**全要素**を回して、`overflow-x` が `auto` / `scroll` の要素に
+  `scrollLeft` を振り切り、戻ってくる値が 0 かを見る。`document` だけを見ない
+- **`input[type="date"]` は iOS だけ縮まない。** ネイティブの見た目のままだと
+  固有幅（実測 180px）から縮まず、`w-full` を当てても列（162px）をはみ出す。
+  **`appearance-none` を足すと `width` に従う**（日付ピッカーは従来どおり開く）。
+  実測: iPhone 16e / iOS 26.3 の Safari で操作パネルが 2px 横に動いた
+  （`max-width: 100%` も `min-w-0` も効かない。効くのは `appearance-none` だけ）
+- **PC のブラウザでは絶対に出ない類のバグがある。** macOS の Safari も Chrome も
+  date 入力を縮めるので、PC で何度測っても再現しない。**Playwright の WebKit も
+  macOS 版なので同じく再現しない。** 実機か **iOS シミュレータ**で測る
+  （`xcrun simctl boot <機種>` → `xcrun simctl openurl booted <URL>` →
+  計測結果をページ内に描かせて `xcrun simctl io booted screenshot` で読む）
+
 ## Docker
 
 - `Dockerfile` と `compose.yaml` は `app/` 直下に置く
