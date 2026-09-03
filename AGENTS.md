@@ -93,6 +93,8 @@ Claude Code 用の `CLAUDE.md` は、このファイルへのリダイレクト 
 | `docs/before_coding.md` | **開始前に決めること**（担当の切り方・つなぎ目・public/private の線引き） |
 | `docs/design/assignments.md` | 担当表。誰が何を持っているか |
 | `docs/design/interfaces.md` | **コンポーネント間のデータ形式**。ここを変える変更は影響が広い |
+| `docs/spec/README.md` | **仕組みと構成の仕様書の索引**（全 16 章）。どこに何のファイルがあり、どう繋がっていて、なぜその設計かを、コードを読まずに説明できる粒度で書いてある。**質問に答える前にここを見る**。末尾の 99 章は出典の検証台帳 |
+| `docs/manual/README.md` | **利用説明書の索引**（全 7 章）。画面ごとの全ボタン・やりたいことの手順・困ったとき・用語集。スクリーンショットは実操作で撮ったもの（375px と PC） |
 | `docs/presentation/審査基準_主張と根拠.md` | **審査 5 項目ごとの主張と根拠**（ターゲット・スライド構成案・弱点と返し方）。出典はすべて一次資料まで遡って確認済みで、末尾に**リンク検証台帳**がある。プレゼン資料を作るときはここから読む |
 | `data/analysis/findings.md` | **取得したオープンデータの所見**。アイデア出しはここから読む |
 | `data/` | 取得したオープンデータ（`<ソース>/raw/`）・取得スクリプト・分析（`data/README.md` に規約） |
@@ -206,6 +208,8 @@ for s in data/analysis/scripts/0*.py; do data/analysis/.venv/bin/python "$s"; do
 | 認証・セッションの作り | `docs/design/requirements.md` §8-6・`app/src/lib/installId.ts`・`app/.env.example`・`app/README.md`・`.agent/architecture.md` |
 | 公開 URL・公開ポートの決め方 | `app/src/lib/publicOrigin.ts`・`app/compose.yaml`・`app/.env.example`・`docs/design/requirements.md` §8-7・`docs/design/interfaces.md` I-8・`.agent/architecture.md`「公開 URL の決め方」・`deploy/selfhost/`（`compose.prod.yaml`・`setup.sh`・`README.md`） |
 | UI を足す・変える | **375px 幅で先に決めてから広げる**（`.agent/conventions.md` の「モバイルファースト」）。実際に 375px で動かして確かめる |
+| 構成・仕組み・設計判断を変えた | `docs/spec/` の該当章（**コードから起こした文書なので、コードを変えたら追随させる**） |
+| 画面・操作・文言を変えた | `docs/manual/` の該当章とスクリーンショット |
 | 担当の変更 | `docs/design/assignments.md` |
 | 起動手順（`compose.yaml` など） | このファイルの「よく使うコマンド」と `app/README.md` |
 | ディレクトリの追加・削除 | そのディレクトリの `README.md`（何のフォルダか） |
