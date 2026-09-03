@@ -360,7 +360,7 @@ function ReportRow({ feature }: { feature: ReportFeature }) {
           </p>
 
           <p className="mt-1.5 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[11px] text-ink-muted">
-            <span>{report.authorName}</span>
+            <span className="wrap-anywhere">{report.authorName}</span>
             {report.authorRole === "gov" ? <OfficialRoleBadge compact /> : null}
             <span className="tabular-nums">{formatJst(report.createdAt)}</span>
             {rows.length > 0 ? <span>{rows.map((r) => r.value).join("・")}</span> : null}
