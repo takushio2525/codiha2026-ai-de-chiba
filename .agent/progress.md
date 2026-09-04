@@ -204,3 +204,11 @@
   （`preserveDrawingBuffer` が false）。描画の確認は**タイルの取得結果（HTTP 200/404）と
   凡例 DOM**で行うのが確実。ページの SSR HTML を main と突き合わせる方法も有効で、
   今回は `/` が完全一致・`/about` は追加ぶんとクラス順の入れ替えだけだった。
+- 2026-09-04: 説明書のハザードのスクショを撮り直した（`docs/hazard-screenshot`）。
+  トグルが 3 つのままだった `18-hazard-legend-pc.jpg` を 4 つの状態に差し替え、
+  凡例の出し分けが分かる `21-hazard-landslide-pc.jpg` を足した。
+  撮影は `-p shot-kyukeisha` で隔離した compose（デモ投稿 22 件のみ）＋ 手元に入れた
+  playwright（MCP 経由ではない）。**MCP のスクショは出力先がセッションから辿れないので使えない。**
+- 2026-09-04: 実測でわかったこと — **Playwright が書く JPEG には Exif が付かない**
+  （PR #37 の 20 枚は Exif 付きだったので、撮り方が違うと分かる）。混入検査は
+  `strings | grep` でパス・メール・ホスト名を見ればよい。
