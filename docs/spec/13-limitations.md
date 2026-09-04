@@ -143,7 +143,7 @@
 | 残件 | 状況 |
 |---|---|
 | **`readme.txt`** | **未作成。** `package_submission.sh` が唯一 NG を出している項目。氏名と所属を書くのでリポジトリにはコミットしない |
-| **説明資料 PDF 2 種** | 未作成 |
+| **説明資料 PDF 2 種** | **2026-09-04 に作成した。** `docs/presentation/submission/`（①サービスの概要 16:9・5 ページ／②必要機能と実装の対応表 A4・全 48 行）。作り直しは `bash docs/presentation/submission/build.sh` |
 | `docs/design/assignments.md` の担当表 | 空欄 |
 
 ---

@@ -92,7 +92,7 @@ PostgreSQL の公式イメージは、**データディレクトリが空のと�
 
 | 順 | ファイル | 行数 | 何が入るか |
 |---|---|---|---|
-| 1 | `db/init/001_schema.sql` | 138 | 5 テーブル・6 索引・`app_instance` に 1 行 |
+| 1 | `db/init/001_schema.sql` | 138 | 6 テーブル・6 索引（`app_instance` を含む。そこに 1 行だけ入る） |
 | 2 | `db/init/002_seed_municipalities.sql` | 18 | 市川市（`12203`）1 行 |
 | 3 | `db/init/003_seed_demo_reports.sql` | 215 | デモユーザー 7・投稿 22・写真 17・コメント 6 |
 
