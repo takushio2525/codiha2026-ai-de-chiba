@@ -34,7 +34,7 @@ flowchart TB
             STATIC["静的ファイル<br/>app/public/"]
         end
         subgraph db["コンテナ db ｜ postgres:17-alpine"]
-            PG[("chizuba データベース<br/>5 テーブル")]
+            PG[("chizuba データベース<br/>6 テーブル")]
         end
         VOL1[("named volume<br/>db-data")]
         VOL2[("named volume<br/>uploads<br/>投稿写真の実体")]

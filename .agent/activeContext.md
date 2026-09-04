@@ -40,8 +40,9 @@
 
 ## 次の一手
 
-1. 提出物のうち **`readme.txt`・説明資料 PDF 2 種はまだ無い**。9/9 に向けて作る。
-   固めるのは `bash tools/package_submission.sh`（検証込み）。**手で zip しない**。
+1. 提出物のうち **説明資料 PDF 2 種は作った**（`docs/presentation/submission/`。作り直しは
+   `bash docs/presentation/submission/build.sh`）。残るは **`readme.txt`**（git 管理外・氏名を書くので
+   コミットしない）。固めるのは `bash tools/package_submission.sh`（検証込み）。**手で zip しない**。
    `readme.txt` は `package_submission.sh` が唯一 NG を出している項目でもある
 2. **P8: Google ログインは実キーまで通っている**（実測: `/api/auth/providers` が
    `google, demo`・認可の 302 が `accounts.google.com` へ・`redirect_uri` が公開ホスト）。

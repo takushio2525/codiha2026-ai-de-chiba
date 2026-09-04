@@ -1,6 +1,6 @@
 # 03. ファイル全一覧
 
-`git ls-files` が返す **271 ファイル**をすべて扱う（この仕様書と利用説明書を除いた数）。1 件も省かない。
+`git ls-files` が返す **278 ファイル**をすべて扱う（この仕様書と利用説明書を除いた数）。1 件も省かない。
 バイナリ（画像・xls）はまとまりごとに件数で示し、除外したものは末尾に理由を書く。
 
 各ファイルの見方:
@@ -21,16 +21,16 @@
 |---|---|---|
 | `app/`（サービス本体） | 162 | **入る**（これが提出物） |
 | `data/`（オープンデータと加工スクリプト） | 46 | 入らない |
-| `docs/`（設計・発表資料。この仕様書と利用説明書を除く） | 15 | 入らない |
+| `docs/`（設計・発表資料。この仕様書と利用説明書を除く） | 22 | **提出する説明資料 PDF 2 種（`docs/presentation/submission/`）だけは zip とは別に提出する** |
 | `deploy/`（自宅公開） | 6 | 入らない |
 | `tools/`（提出物の生成・検証） | 8 | 入らない |
 | `.github/`（CI・テンプレート） | 8 | 入らない |
 | `.agent/`（AI 向け作業文脈） | 6 | 入らない |
 | `meetings/` 5・`assets/` 3・ルート直下 8・`.vscode/` 2・`課題/` 2 | 20 | 入らない |
-| **合計** | **271** | |
+| **合計** | **278** | |
 
-数え方: `git ls-files | grep -v '^docs/spec/\|^docs/manual/' | wc -l` = **271**（2026-09-03 時点）。
-内訳の合計 162+46+15+8+8+6+6+20 = 271 で一致する。
+数え方: `git ls-files | grep -v '^docs/spec/\|^docs/manual/' | wc -l` = **278**（2026-09-04 時点）。
+内訳の合計 162+46+22+8+8+6+6+20 = 278 で一致する。
 
 ---
 
@@ -57,7 +57,7 @@
 
 | ファイル | 役割 |
 |---|---|
-| `app/db/init/001_schema.sql`（138 行） | **スキーマの正本**。5 テーブル・6 索引・`app_instance` に 1 行 |
+| `app/db/init/001_schema.sql`（138 行） | **スキーマの正本**。6 テーブル・6 索引（`app_instance` を含む。`app_instance` には 1 行だけ入る） |
 | `app/db/init/002_seed_municipalities.sql`（18 行） | 市町村マスタ。市川市 `12203` の 1 行だけ |
 | `app/db/init/003_seed_demo_reports.sql`（215 行） | デモユーザー 7・投稿 22・写真 17・コメント 6 |
 | `app/db/seed-photos/*.jpg`（17 枚・4.2 MB） | デモ投稿の写真の実体。`Dockerfile:50` が `/app/uploads` へ配る |
@@ -262,7 +262,12 @@
 | `docs/presentation/verify_explainer.py` / `verify_progfocus.py` | 発表資料の自動検査 |
 | `docs/presentation/README.md` | 発表資料の作り方 |
 | `docs/presentation/審査基準_主張と根拠.md` | **審査 5 項目ごとの主張と根拠**（出典は一次資料まで検証済み・末尾にリンク検証台帳）。プレゼン資料を作るときはここから読む |
-| `docs/spec/`（16 件）・`docs/manual/`（7 件＋画像 20 枚） | **この仕様書と利用説明書**（上の 15 件には含めていない） |
+| `docs/presentation/submission/01-service-overview.typ` / `.pdf` | **提出する説明資料①** サービスの概要（16:9 スライド・5 ページ） |
+| `docs/presentation/submission/02-feature-implementation-table.typ` / `.pdf` | **提出する説明資料②** 必要機能と実装の対応表（A4・全 48 行・未実装も全件） |
+| `docs/presentation/submission/common.typ` | 説明資料 2 種で共有する体裁と部品 |
+| `docs/presentation/submission/verify_table.py` | 対応表に書いたパス・シンボル・件数の実在検査 |
+| `docs/presentation/submission/build.sh` | 検査 → コンパイル → ページ数の上限 → PDF の個人情報スキャン |
+| `docs/spec/`（16 件）・`docs/manual/`（7 件＋画像 21 枚） | **この仕様書と利用説明書**（上の 22 件には含めていない） |
 
 ---
 
