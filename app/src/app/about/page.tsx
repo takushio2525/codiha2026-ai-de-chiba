@@ -144,11 +144,24 @@ export default function AboutPage() {
               区域や浸水深は変更していません。
             </li>
             <li>
-              重ねているのは洪水・高潮・津波の 3 種類です。
+              重ねているのは洪水・高潮・津波の浸水想定と、
+              土砂災害警戒区域（急傾斜地の崩壊）の 4 種類です。
+              土砂災害は市川市に 142 区域が指定されていて、そのすべてが急傾斜地の崩壊です（出典:{" "}
+              <a
+                href="https://www.pref.chiba.lg.jp/kakan/sabou/keikai/"
+                target="_blank"
+                rel="noreferrer"
+                className="underline decoration-line underline-offset-2 transition hover:decoration-ink"
+              >
+                千葉県「土砂災害警戒区域等の一覧」
+              </a>
+              ）。指定は斜面のある北部に偏っているので、
+              地図では最初は外してあります。操作パネルから重ねられます。
+            </li>
+            <li>
               内水（雨水出水）の浸水想定は、市川市でも水防法にもとづいて指定・公表されていますが、
               公表されているのは PDF だけで、地図に重ねられる形では配信されていません。
-              土砂災害は、市川市に 142 区域（すべて急傾斜地の崩壊）が指定されていますが、
-              このアプリではまだ重ねていません。
+              土石流と地すべりの警戒区域は、市川市には指定がありません。
               <strong className="font-semibold text-ink">
                 重ねていない災害の危険が無いという意味ではありません。
               </strong>

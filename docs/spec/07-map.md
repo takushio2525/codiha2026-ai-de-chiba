@@ -196,13 +196,16 @@ tileSize: 256, minzoom: 2, maxzoom: 18
 https://disaportaldata.gsi.go.jp/raster/<データ名>/{z}/{x}/{y}.png
 ```
 
-3 種類（[04 章 4-1](04-features.md#4-1-f-1-ハザードマップ表示)）。
+4 種類（[04 章 4-1](04-features.md#4-1-f-1-ハザードマップ表示)）。
 配信仕様は <https://disaportal.gsi.go.jp/hazardmap/copyright/opendata.html>
 （2026-09-03 に取得して `01_flood_l2_shinsuishin_data` の記載を確認）。
 実タイルの取得も確認済み（HTTP 200・17 KB）。
 
 **凡例の色は実際に配信されているタイルの画素を数えて確かめたもの**
-（2026-08-24・千葉県内 20 タイル。`lib/hazards.ts` の冒頭コメント）。
+（浸水は 2026-08-24・千葉県内 20 タイル、土砂災害は 2026-09-04・市川市北部の 5 タイル。
+`lib/hazards.ts` の冒頭コメント）。土砂災害の 4 色は
+[公式の凡例画像](https://disaportal.gsi.go.jp/hazardmap/copyright/img/keikai_kyukeisya.png)
+の画素とも一致することを確認した。
 洪水は 6 段階、津波・高潮は 8 段階で、**同じ色でも表す浸水深が違う**。
 まとめて 1 つの凡例にすると誤読するので分けてある。
 

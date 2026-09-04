@@ -245,7 +245,8 @@ Tailscale Funnel で外に出す運用では、設定し忘れが即「ログイ
 | 高潮浸水想定区域 | `03_hightide_l2_shinsuishin_data` | 200 | ○ |
 | 津波浸水想定 | `04_tsunami_newlegend_data` | 200 | ○ |
 | 土石流の警戒区域 | `05_dosekiryukeikaikuiki` | 404 | — |
-| 急傾斜地の崩壊の警戒区域 | `05_kyukeishakeikaikuiki` | **200** | — |
+| **急傾斜地の崩壊の警戒区域** | `05_kyukeishakeikaikuiki` | **200** | **○**（既定 OFF） |
+| 地すべりの警戒区域 | `05_jisuberikeikaikuiki` | 404 | — |
 | 内水（雨水出水）浸水想定 | `02_naisui_data` | 404 | — |
 
 **404 を「区域が無い」と読み替えない。** 以前ここには

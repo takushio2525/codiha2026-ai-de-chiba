@@ -509,8 +509,9 @@
 | 洪水浸水想定区域（想定最大規模） | `01_flood_l2_shinsuishin_data` | 200 |
 | 高潮浸水想定区域 | `03_hightide_l2_shinsuishin_data` | 200 |
 | 津波浸水想定 | `04_tsunami_newlegend_data` | 200 |
-| 土石流の警戒区域 | `05_dosekiryukeikaikuiki` | 404 |
-| 急傾斜地の崩壊の警戒区域 | `05_kyukeishakeikaikuiki` | **200**（市川市の 142 区域はすべてこれ） |
+| 土石流の警戒区域 | `05_dosekiryukeikaikuiki` | 404（市川市に指定が無い） |
+| **急傾斜地の崩壊の警戒区域** | `05_kyukeishakeikaikuiki` | **200**（市川市の 142 区域はすべてこれ。**重ねている**・既定 OFF） |
+| 地すべりの警戒区域 | `05_jisuberikeikaikuiki` | 404（市川市に指定が無い） |
 | 内水（雨水出水）浸水想定 | `02_naisui_data` | 404（**区域は公表されているがタイルが無い**） |
 
 **タイルが 404 でも、その区域が無いとは限らない。** 以前この表には
