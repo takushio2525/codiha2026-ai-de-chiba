@@ -9,7 +9,10 @@ type Props = {
   withSource?: boolean;
 };
 
-/** 浸水深の凡例。地図の操作パネルと /about の両方で同じものを使う。 */
+/** ハザードの凡例。地図の操作パネルと /about の両方で同じものを使う。
+ *
+ * **浸水想定は「深さ」、土砂災害は「区域の種別」**と意味が違うので、凡例は
+ * `legends` に渡されたものをそのまま別々の塊として並べる（1 つにまとめない）。 */
 export default function HazardLegend({ legends, withSource = false }: Props) {
   if (legends.length === 0) return null;
 
@@ -18,8 +21,14 @@ export default function HazardLegend({ legends, withSource = false }: Props) {
       {legends.map((legend) => (
         <div key={legend.id}>
           <p className="text-[11px] font-semibold text-ink-sub">{legend.title}</p>
-          {/* 2 列に畳む。段階が 8 つある津波・高潮でも操作パネルの縦を食いすぎない */}
-          <ul className="mt-1.5 grid grid-cols-2 gap-x-3 gap-y-1">
+          {/* 既定は 2 列に畳む。段階が 8 つある津波・高潮でも操作パネルの縦を食いすぎない。
+              ラベルが長い土砂災害だけ 1 列にする（375px で折り返して色見本とずれるため）。
+              **Tailwind は class を文字列として拾う**ので、組み立てずに三項で書き分ける */}
+          <ul
+            className={`mt-1.5 grid gap-x-3 gap-y-1 ${
+              legend.columns === 1 ? "grid-cols-1" : "grid-cols-2"
+            }`}
+          >
             {legend.classes.map((cls) => (
               <li key={cls.color} className="flex items-center gap-2">
                 <span
@@ -33,6 +42,9 @@ export default function HazardLegend({ legends, withSource = false }: Props) {
               </li>
             ))}
           </ul>
+          {legend.note ? (
+            <p className="mt-1.5 text-[10.5px] leading-relaxed text-ink-muted">{legend.note}</p>
+          ) : null}
         </div>
       ))}
 

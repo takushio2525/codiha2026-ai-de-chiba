@@ -1,34 +1,43 @@
-/** ハザードマップ（浸水想定）のレイヤー定義。
+/** ハザードマップのレイヤー定義（浸水想定と土砂災害）。
  *
  * 国土交通省「ハザードマップポータルサイト」の重ねるハザードマップが配信している
  * ラスタタイルを、背景地図の上に重ねて表示する。認証キーは要らない。
  * 配信仕様: https://disaportal.gsi.go.jp/hazardmap/copyright/opendata.html
  *
  * 凡例の色は、実際に配信されているタイルの画素を数えて確かめたもの
- * （2026-08-24・千葉県内 20 タイル）。洪水は 6 段階、津波と高潮は 8 段階で、
- * 同じ色でも表す浸水深が違う。まとめて 1 つの凡例にすると誤読するので分けてある。
+ * （浸水は 2026-08-24・千葉県内 20 タイル、土砂災害は 2026-09-04・市川市北部の 5 タイル）。
+ * **凡例は 1 つにまとめない。** 洪水は 6 段階、津波と高潮は 8 段階で同じ色でも表す深さが違い、
+ * 土砂災害にいたっては深さですらない（区域の種別）。混ぜると必ず誤読される。
  */
 
-export type HazardId = "flood" | "hightide" | "tsunami";
+export type HazardId = "flood" | "hightide" | "tsunami" | "landslide";
 
 /** 凡例に出す lucide のアイコン名。色だけに頼らず形でも区別できるようにする。 */
-export type HazardIconName = "cloudRain" | "wind" | "waves";
+export type HazardIconName = "cloudRain" | "wind" | "waves" | "mountain";
 
-/** 浸水深の色分けの種類。洪水と、海側（津波・高潮）で段階が違う。 */
-export type HazardLegendId = "flood" | "coastal";
+/** 色分けの種類。洪水・海側（津波と高潮）・土砂災害で意味そのものが違う。 */
+export type HazardLegendId = "flood" | "coastal" | "landslide";
 
 export type HazardLegendClass = {
   /** タイルに実際に使われている色（そのまま見本に出す） */
   color: string;
-  /** 浸水深の範囲 */
+  /** 浸水深の範囲、または区域の種別 */
   label: string;
 };
 
 export type HazardLegendDef = {
   id: HazardLegendId;
   title: string;
-  /** 深いほうから並べる（凡例は上が深い） */
+  /** 深いほうから並べる（凡例は上が深い）。土砂災害は危険な側から並べる */
   classes: HazardLegendClass[];
+  /**
+   * 見本を並べる列数。**既定は 2**（浸水深は「0.5 〜 3 m」のように短いので 2 列に畳める）。
+   * 土砂災害はラベルが「特別警戒区域（指定予定）」と長く、375px で 2 列にすると折り返して
+   * 色見本と文字がずれるので 1 列にする。
+   */
+  columns?: 1 | 2;
+  /** 凡例だけでは伝わらない読み方の注意（土砂災害の「指定予定」など） */
+  note?: string;
 };
 
 export type HazardDef = {
@@ -79,9 +88,31 @@ const COASTAL_LEGEND: HazardLegendDef = {
   ],
 };
 
+/** 土砂災害警戒区域（急傾斜地の崩壊）の 4 区分。
+ *
+ * **浸水想定と違い、色は深さではなく区域の種別を表す。**
+ * 公式の凡例（<https://disaportal.gsi.go.jp/hazardmap/copyright/img/keikai_kyukeisya.png>）は
+ * 「特別警戒区域 / 警戒区域」×「指定済 / 指定予定」の 2 × 2 で、
+ * 指定予定のほうは青い破線で囲ってある。ここでは縦 1 列に開いて並べる。
+ * 色はタイルの画素を数えて確かめた（2026-09-04・市川市北部）。
+ */
+const LANDSLIDE_LEGEND: HazardLegendDef = {
+  id: "landslide",
+  title: "土砂災害警戒区域（急傾斜地の崩壊）",
+  classes: [
+    { color: "#fa2800", label: "特別警戒区域（指定済）" },
+    { color: "#fb5333", label: "特別警戒区域（指定予定）" },
+    { color: "#fae600", label: "警戒区域（指定済）" },
+    { color: "#fbeb33", label: "警戒区域（指定予定）" },
+  ],
+  columns: 1,
+  note: "青い破線で囲まれているものが「指定予定」です。",
+};
+
 export const HAZARD_LEGENDS: Record<HazardLegendId, HazardLegendDef> = {
   flood: FLOOD_LEGEND,
   coastal: COASTAL_LEGEND,
+  landslide: LANDSLIDE_LEGEND,
 };
 
 export const HAZARDS: HazardDef[] = [
@@ -117,6 +148,21 @@ export const HAZARDS: HazardDef[] = [
     icon: "waves",
     summary: "都道府県が公表している津波の浸水想定（新しい凡例）",
     legend: "coastal",
+    defaultVisible: false,
+  },
+  {
+    id: "landslide",
+    label: "土砂災害（急傾斜地の崩壊）",
+    tiles: `${TILE_BASE}/05_kyukeishakeikaikuiki/{z}/{x}/{y}.png`,
+    minzoom: 2,
+    maxzoom: 17,
+    icon: "mountain",
+    // **市町村名を書かない**（千葉県全域対応の建付け・requirements.md §7-4）。
+    // 市川市に何区域あるかといった土地ごとの数字は /about に置く
+    summary: "崖崩れのおそれがあるとして指定された区域。斜面のある一部の地域にだけある",
+    legend: "landslide",
+    // **既定は OFF。** 指定は斜面のある場所に限られるので、
+    // 低地を見ている人には「何も塗られないレイヤーが 1 つ増えた」だけに見える
     defaultVisible: false,
   },
 ];

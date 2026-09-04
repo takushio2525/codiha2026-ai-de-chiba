@@ -15,6 +15,7 @@ import {
   LocateFixed,
   LogIn,
   MapPin,
+  Mountain,
   Navigation,
   Shield,
   TriangleAlert,
@@ -65,6 +66,7 @@ const HAZARD_ICONS: Record<HazardIconName, LucideIcon> = {
   cloudRain: CloudRain,
   wind: Wind,
   waves: Waves,
+  mountain: Mountain,
 };
 
 const REPORT_ICONS: Record<ReportIconName, LucideIcon> = {
@@ -491,7 +493,7 @@ export default function ControlPanel({
 
         <section className="border-t border-line px-4 py-3.5">
           <h2 className="text-[11px] font-semibold tracking-wide text-ink-muted">
-            ハザードマップ（浸水想定）
+            ハザードマップ（浸水・土砂災害）
           </h2>
           <ul className="mt-2 space-y-1.5">
             {HAZARDS.map((hazard) => {
