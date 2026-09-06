@@ -110,65 +110,74 @@
     columns: (auto, 1fr),
     column-gutter: 10pt,
     align: horizon,
-    image(LOGO, width: 15mm),
+    image(LOGO, width: 14mm),
     [
-      #text(font: FONT_SANS, size: 21pt, weight: "bold", tracking: 1pt)[CHIZUBA]
-      #h(6pt)
-      #text(font: FONT_SANS, size: 10pt, fill: muted)[（チズバ）]
-      #linebreak()
+      #text(font: FONT_SANS, size: 20pt, weight: "bold", tracking: 1pt)[CHIZUBA]
+      #h(5pt)
+      #text(font: FONT_SANS, size: 9.5pt, fill: muted)[（チズバ）]
+      #h(8pt)
       #text(font: FONT_SANS, size: 11pt, fill: deep)[千葉の地図に，住民と行政の「いま」を重ねる]
-      #h(10pt)
-      #text(size: 8.5pt, fill: muted)[
+      #linebreak()
+      #text(size: 8.3pt, fill: muted)[
         対応範囲は千葉県全域（市町村コードでパラメータ化）．デモデータは市川市（#raw("12203")）．
+        閲覧はログイン不要 ── 防災情報をログインの壁の向こうに置かない．
       ]
     ],
   )
 
-  #v(1fr)
+  #v(4pt)
 
   #grid(
     columns: (1fr, 1fr),
     column-gutter: 11pt,
+    // ---------------------------------------------------------------- 左
     [
       #head[解こうとしている課題]
-      #h(4pt)#text(size: 8.5pt, fill: muted)[— 足りないのは箱ではなく，更新と往復]
+      #h(4pt)#text(size: 8.3pt, fill: muted)[— 足りないのは箱ではなく，更新と往復]
       #v(3pt)
       #note(fill: warn-tint, stroke-color: orange)[
         #text(size: 9.5pt, weight: "bold")[オープンデータは，公開された時点で止まっている．]
         #linebreak()
-        #text(size: 8.5pt)[
+        #text(size: 8.3pt)[
           避難場所も AED も景観スポットも「市が持っている静的な一覧」であり，
           #text(weight: "bold")[現場で今どうなっているか]（ガードレールが折れている・この道が冠水している・
           この時期はここが綺麗）は誰も更新できない．
         ]
       ]
-      #v(4pt)
-      #text(size: 8.5pt)[実際にデータを触って確かめた事実:]
-      #v(1pt)
-      #set text(size: 8.3pt)
+
+      #v(5pt)
+      #head[① オープンデータの活用 ── 課題の発見にも使った]
+      #v(2pt)
+      #set text(size: 8.1pt)
+      #text(weight: "bold")[千葉県・市川市から 13 データセット 17 ファイルを取得して分析し，
+      その結果が方針を変えた．]
+      - 当初の切り口「避難場所が足りない」は#text(weight: "bold")[成り立たなかった] —
+        町丁字の重心から最寄りの指定緊急避難場所まで
+        #text(weight: "bold")[中央値 278 m・最大 839 m]（総人口 500 人以上の 201 地区・生 CSV から再計算）
       - 子育て施設一覧の「収容定員」は #text(weight: "bold")[388 行すべて空]．
-        AED 一覧には座標の打ち間違いが #text(weight: "bold")[1 件]（経度 #raw("129.925207")・市域外へ約 903 km）
-      - 市川市の内水（雨水出水）浸水想定は水防法にもとづき指定・公表済みだが，
-        公表形態は #text(weight: "bold")[30.73 MB の PDF だけ]で，地図に重ねられる形が無い
-      - 一方で「避難場所が足りない」は成り立たなかった —
-        町丁字の重心から最寄りの指定緊急避難場所まで #text(weight: "bold")[中央値 278 m・最大 839 m]
-        （総人口 500 人以上の 201 地区・生 CSV から再計算）
+        AED 一覧には座標の打ち間違いが 1 件（経度 #raw("129.925207")・市域外へ約 903 km）
+      - 市川市の内水（雨水出水）浸水想定は指定・公表済みだが，公表形態は
+        #text(weight: "bold")[30.73 MB の PDF だけ]で，地図に重ねられる形が無い
 
       #v(2pt)
-      #src[市川市オープンデータ（CC BY 4.0）／市川市「雨水出水浸水想定区域について」]
+      #text(size: 8.1pt)[
+        #text(weight: "bold")[地図に載せた点はすべて市川市オープンデータ（CC BY 4.0）由来]（右の 1．に件数）．
+        重ねているのは国土地理院「淡色地図」，国土交通省「重ねるハザードマップ」，気象庁 防災情報 JSON で，
+        #text(weight: "bold", fill: deep)[認証キーが要る外部サービスは 1 つも使っていない．]
+      ]
     ],
+    // ---------------------------------------------------------------- 右
     [
       #head[どのように解決するか]
-      #h(4pt)#text(size: 8.5pt, fill: muted)[— 重ねる → 書き足す → 返す]
+      #h(4pt)#text(size: 8.3pt, fill: muted)[— 重ねる → 書き足す → 返す]
       #v(3pt)
-      #set text(size: 8.3pt)
+      #set text(size: 8.1pt)
       #stack(
-        spacing: 5pt,
+        spacing: 4pt,
         cbox(
           [1. 重ねる ── 想定を 1 枚の地図に],
-          [国のハザードマップ 4 種（洪水・高潮・津波・土砂災害警戒区域）と，
-            市のオープンデータ（指定緊急避難場所 123・AED 304・子育て施設 388・景観100選 100）を
-            同じ地図に重ねる．],
+          [国のハザードマップ 4 種（洪水・高潮・津波・土砂災害警戒区域）と，市のオープンデータ
+            （避難場所 123・AED 304・子育て施設 388・景観100選 100）を同じ地図に重ねる．],
           accent: blue,
           fill: blue-tint,
         ),
@@ -181,40 +190,64 @@
         ),
         cbox(
           [3. 返す ── 行政が応答し，データとして戻る],
-          [行政ユーザーが公式コメントと#text(weight: "bold", fill: ink)[対応状況 4 段階]（未対応／受付／対応中／対応済）で応答する．
-            集まった投稿は #text(weight: "bold", fill: ink)[CSV / GeoJSON] で誰でも持ち帰れる．],
+          [行政ユーザーが公式コメントと#text(weight: "bold", fill: ink)[対応状況 4 段階]
+            （未対応／受付／対応中／対応済）で応答する．集まった投稿は
+            #text(weight: "bold", fill: ink)[CSV / GeoJSON] で誰でも持ち帰れる．],
           accent: green,
         ),
       )
+
+      #v(5pt)
+      #head[② 新規性 ── 個々の機能ではなく，組み合わせ]
+      #v(2pt)
+      #set text(size: 8.1pt)
+      #text(fill: muted)[
+        個々の機能に新規性は無い．#text(weight: "bold", fill: ink)[そこは正直に言い切ったうえで，
+          新しいのは次の 3 つの組み合わせ．]
+      ]
+      #v(1pt)
+      + #text(weight: "bold")[想定（ハザードマップ）と実績（住民の投稿）を同じ地図に重ねている]
+      + #text(weight: "bold")[集めた実績をオープンデータとして書き出して返す] — 一往復を閉じる
+      + #text(weight: "bold")[防災と観光を同じ地図・同じ投稿基盤で扱っている]
+        （3 種類の投稿が 1 テーブル・1 API・1 フォーム）
     ],
   )
 
-  #v(1fr)
+  #v(4pt)
 
-  #block(
-    width: 100%,
-    fill: paper-tint,
-    inset: (x: 8pt, y: 8pt),
-    radius: 3pt,
-  )[
-    #set text(size: 8pt)
-    #grid(
-      columns: (auto, 1fr, 1fr, 1fr),
-      column-gutter: 9pt,
-      align: top,
-      text(font: FONT_SANS, size: 8.5pt, weight: "bold")[誰に\ 向けたか],
-      [#text(weight: "bold")[住民（防災）] #linebreak()
-        通勤路の危険や冠水を，その場で伝えられる．#text(weight: "bold")[伝わったのか・直ったのか]が対応状況で返る],
-      [#text(weight: "bold")[住民・来訪者（観光）] #linebreak()
-        景観100選を地図で引き，徒歩ルートを出せる．#text(weight: "bold")[行政が持っていない情報]は住民投稿で集まる],
-      [#text(weight: "bold")[自治体職員] #linebreak()
-        住民と#text(weight: "bold")[同じ地図画面]を使う．専用の管理システムを新たに導入・運用しなくてよい],
-    )
-    #v(2pt)
-    #text(size: 7.8pt, fill: deep, weight: "bold")[
-      閲覧はログイン不要 ── 防災情報をログインの壁の向こうに置かない．投稿とコメントにだけログインが要る．
-    ]
-  ]
+  #grid(
+    columns: (1fr, 1fr),
+    column-gutter: 11pt,
+    note(fill: warn-tint, stroke-color: orange)[
+      #set text(size: 8.1pt)
+      #set par(leading: 0.5em, spacing: 0.5em)
+      #text(font: FONT_SANS, size: 9pt, weight: "bold")[③ 有効性 ── ニーズは，直近の実災害と隣の市の公開データで裏が取れている]
+      #v(2pt)
+      - 令和 8 年 8 月千葉豪雨で，被害報告の #text(weight: "bold")[55.7%] が
+        低位地帯・浸水想定区域の#text(weight: "bold")[外]から．同じ 10 時間に住民から
+        #text(weight: "bold")[9,938 件]．#text(weight: "bold")[住民は投稿する]
+      - 柏市の水害履歴 #text(weight: "bold")[1,811 件]のうち #text(weight: "bold")[1,417 件（78.24%）]が，
+        2 回以上被害の出た 249 地点に集中．#text(weight: "bold")[記録を残せば効く]
+      #v(1pt)
+      #text(size: 6.5pt, fill: muted)[
+        出典: ウェザーニュース「2人に1人が浸水想定区域\"外\"で被災か」（2026-08-15）／柏市「水害履歴
+        【オープンデータ】」を取得して集計．55.7% の母数は「被害を示すキーワードを含むウェザーリポート」で実数は非公開．
+      ]
+    ],
+    note[
+      #set text(size: 8.1pt)
+      #set par(leading: 0.5em, spacing: 0.5em)
+      #text(font: FONT_SANS, size: 9pt, weight: "bold")[④ 実現性 ── 「作れそう」ではなく「もう動いている」]
+      #v(2pt)
+      - #raw("docker compose up") だけで全機能が動く．#text(weight: "bold")[認証キーは 1 つも要らない]．
+        コンテナは #text(weight: "bold")[2 つ]（#raw("node:22-slim") / #raw("postgres:17-alpine")．
+        どちらも Docker 公式イメージ）
+      - 起動直後から#text(weight: "bold")[デモ投稿 22 件]が入っていて，投稿機能がその場で動いて見える．
+        外部が落ちても止まらない（経路は概算に切り替え，気象が取れなければ注意表示を出さない）
+      - 公開デモ: #link("https://oldmac.tail5ed162.ts.net")[#text(size: 7.8pt)[oldmac.tail5ed162.ts.net]]
+        （Google ログインはここで試せる）
+    ],
+  )
 ]
 
 // =============================================================================
@@ -224,130 +257,121 @@
 #pagebreak()
 
 #slide(
-  [主要機能],
-  [readme.txt「1. 概要・主要機能」と同じ並び．丸数字が必要機能 ID],
+  [主要機能 ── 必要機能 8 項目],
+  [説明資料②の対応表・readme.txt「1. 概要・主要機能」と同じ 8 項目・同じ番号],
 )[
-  #let feat(no, id, id-color, title, body) = grid(
-    columns: (13pt, 1fr),
-    column-gutter: 4pt,
-    align: (right + top, left),
-    text(font: FONT_SANS, size: 9pt, weight: "bold", fill: muted)[#no],
-    [
-      #text(font: FONT_SANS, size: 8.8pt, weight: "bold")[#title]
-      #h(3pt)#chip(id, fill: id-color)
-      #linebreak()
-      #text(size: 8pt, fill: muted)[#body]
-    ],
-  )
+  #let feat(no, id, id-color, title, body, how) = block(
+    width: 100%,
+    fill: white,
+    inset: (x: 6pt, y: 5pt),
+    radius: 3pt,
+    stroke: 0.6pt + line-color,
+  )[
+    #grid(
+      columns: (14pt, 1fr),
+      column-gutter: 4pt,
+      align: (right + top, left),
+      text(font: FONT_SANS, size: 9.5pt, weight: "bold", fill: deep)[#no],
+      [
+        #text(font: FONT_SANS, size: 8.7pt, weight: "bold")[#title]
+        #h(3pt)#chip(id, fill: id-color)
+        #linebreak()
+        #text(size: 7.9pt, fill: muted)[#body]
+        #linebreak()
+        #text(font: FONT_SANS, size: 7.2pt, weight: "bold", fill: deep)[確かめ方:]
+        #h(2pt)#text(size: 7.6pt)[#how]
+      ],
+    )
+  ]
 
   #grid(
     columns: (1fr, 1fr),
-    column-gutter: 12pt,
-    row-gutter: 6pt,
+    column-gutter: 9pt,
+    row-gutter: 5pt,
+
     feat(
-      [(1)],
-      "F-1",
-      sky,
+      [1], "F-1", sky,
       [ハザードマップの表示],
-      [洪水・高潮・津波の浸水想定と土砂災害警戒区域（急傾斜地の崩壊）の 4 種類．
-        種類ごとに表示の ON/OFF と不透明度を変えられ，凡例（浸水は深さ・土砂災害は区域の種別）と出典が出る．
-        起動直後は洪水だけが重なっている],
+      [洪水・高潮・津波の浸水想定と土砂災害警戒区域（急傾斜地の崩壊）の 4 種．
+        種類ごとに ON/OFF と不透明度を変えられ，凡例と出典が出る．起動直後は洪水だけ ON],
+      [操作パネルを一番下まで送り「土砂災害（急傾斜地の崩壊）」を ON → 北部の斜面に帯が出て凡例が増える],
     ),
     feat(
-      [(6)],
-      "F-5 / F-6",
-      pink,
-      [観光マップと観光おすすめの市民投稿],
-      [ヘッダー直下のタブで防災マップと観光マップを切り替える．景観スポットはそのまま徒歩ナビの目的地にできる．
-        おすすめの投稿は住民と行政の両方ができる],
+      [5], "F-5", green,
+      [観光マップ（景観100選と徒歩ナビ）],
+      [景観スポット 100 か所を日英の解説つきで表示．#text(weight: "bold")[54 か所に写真]．
+        そのまま徒歩ナビの目的地にできる．経路サービスが落ちたら直線距離の概算に自動で切り替わる],
+      [ヘッダー直下「観光マップ」→ 点を押す → 解説と写真 →「ここへナビ」],
     ),
 
     feat(
-      [(2)],
-      "基盤",
-      muted,
+      [2], "基盤", muted,
       [市川市オープンデータの重ね合わせ],
-      [指定緊急避難場所 123・AED 設置箇所 304・子育て施設 388・いちかわ景観100選 100．
-        点を押すと名称・所在地・種別ごとの詳細が出る．景観スポットは日英の解説が読め，100 か所のうち 54 か所に写真が付く],
+      [避難場所 123・AED 304・子育て施設 388・景観100選 100．
+        点を押すと名称・所在地が出る．#text(weight: "bold")[DB を経由せず同梱]してある],
+      [操作パネル「表示するデータ」で「AED 設置箇所 304 件」を ON / OFF → 点が出入りする],
     ),
     feat(
-      [(7)],
-      "F-7",
-      blue,
-      [行政からの応答],
-      [行政ユーザーは公式コメントを付け，対応状況を 4 段階で更新できる．更新できるのは担当する市町村の投稿だけ．
-        行政の発言と投稿は画面上で区別表示される],
+      [6], "F-6", pink,
+      [観光おすすめの市民投稿],
+      [景観・お土産・飲食のおすすめを住民と行政の両方が投稿できる．
+        3 種類の投稿は #text(weight: "bold")[1 テーブル・1 API・1 フォーム]に統一],
+      [観光マップでログイン →「観光おすすめを投稿する」→ 赤紫のピンが増える],
     ),
 
     feat(
-      [(3)],
-      "F-2",
-      orange,
+      [3], "F-2", orange,
       [危険箇所の市民報告],
-      [壊れたガードレール・陥没した路面などを，位置＋写真＋説明で投稿できる．
-        地図にピンが出て，押すと写真・説明・コメントが読める],
+      [位置＋写真（3 枚まで）＋説明で投稿でき，地図にピンが出る．
+        #text(weight: "bold")[投稿の市町村は座標から決める]ので詐称できない],
+      [右上「ログイン」→ 表示名を入れて「デモログイン」→「危険箇所を投稿する」→ 橙のピンが増える],
     ),
     feat(
-      [(8)],
-      "F-8",
-      blue,
-      [Google アカウントによるログイン],
-      [Google OAuth でログインできる．認証キーが未設定の環境では自動でデモログインに切り替わる
-        （鍵は秘密情報なので提出物には同梱していない）],
-    ),
-
-    feat(
-      [(4)],
-      "F-3",
-      sky,
-      [浸水（冠水）報告と，投稿時点の雨量の自動記録],
-      [冠水している場所を投稿すると，投稿した瞬間の 1 時間降水量が気象庁のアメダス実況から自動で記録される．
-        投稿者は入力・改変できない．最寄りの観測所の値なので，観測所名と距離を必ず添えて表示する],
-    ),
-    feat(
-      [(9)],
-      "F-5",
-      green,
-      [徒歩ナビ],
-      [現在地（または地図で指定した地点）から，表示中のレイヤーで最も近い地点までの徒歩経路を引き，
-        距離と所要時間の目安を出す],
+      [7], "F-7", blue,
+      [行政からの応答],
+      [公式コメントと対応状況 4 段階（未対応／受付／対応中／対応済）の更新．
+        更新できるのは担当する市町村の投稿だけで，一般ユーザーは HTTP 403],
+      [ログイン画面で「行政ユーザー（市川市）」を選ぶ（#text(weight: "bold")[審査環境では PIN 不要]）→
+        投稿を開くと「行政の対応状況を更新する」が出る],
     ),
 
     feat(
-      [(5)],
-      "F-4",
-      sky,
-      [蓄積データ × 雨予報にもとづく注意案内],
-      [過去に浸水報告がある地域に雨の予報が出ているとき，地図に注意表示を出す．
-        出すのは「過去に N 件の浸水報告がある」「気象庁の予報で降水確率が最大 X%」という
-        #text(weight: "bold", fill: ink)[事実 2 つだけ]で，浸水の予測はしない],
+      [4], "F-3", sky,
+      [浸水報告と，投稿時点の雨量の自動記録],
+      [投稿した瞬間の 1 時間降水量が気象庁アメダス実況から自動で記録される．投稿者は改変できない．
+        #text(weight: "bold")[最寄りの観測所の値]なので観測所名と距離を必ず併記．
+        注意表示は#text(weight: "bold")[降水確率 30% 以上の予報があるときだけ]出る（予測はしない）],
+      [ログインして「浸水を投稿する」→ 詳細に「投稿時の雨量 ◯ mm/h ／ 船橋アメダス（約 10.2 km）」],
     ),
     feat(
-      [(10)],
-      "追加",
-      vermilion,
-      [投稿一覧・絞り込み・オープンデータとしての書き出し],
-      [新着順の一覧（#raw("/reports")）で，カテゴリ・期間・キーワードで絞り込める．
-        絞り込んだそのままの条件で CSV / GeoJSON として書き出せる],
+      [8], "F-2〜F-7", vermilion,
+      [投稿の一覧・絞り込みと，オープンデータとしての書き出し],
+      [カテゴリ・期間・キーワードで絞り込め，#text(weight: "bold")[絞り込んだそのままの条件で]
+        CSV / GeoJSON を書き出せる．アカウントの情報は含めない],
+      [ヘッダー「投稿一覧」→「7 日間」→ 件数が変わる →「CSV」でその条件のまま落ちてくる],
     ),
   )
 
-  #v(6pt)
+  #v(5pt)
 
   #grid(
     columns: (1fr, 1fr),
-    column-gutter: 11pt,
+    column-gutter: 10pt,
     note[
-      #text(size: 8.2pt)[
-        #text(weight: "bold")[起動直後からデモ投稿が 22 件入っている]
-        （危険箇所 7・浸水 5・観光おすすめ 10）．実際の通報ではないので，画面では
-        「デモ投稿」の印を付けて区別している．データ投入の手順は不要．
+      #text(size: 8pt)[
+        #text(weight: "bold")[閲覧にログインは要らない．]
+        投稿・コメント・行政操作にだけログインが要る．
+        #text(weight: "bold")[審査環境（認証キー未設定）ではデモログイン]（画面右上「ログイン」→
+        表示名を入れるだけ）で上の 8 機能すべてを試せる．
+        Google ログインも実装してあるが，#text(weight: "bold")[シークレットは秘密情報なので同梱していない]．
       ]
     ],
     note(fill: paper-tint, stroke-color: muted)[
-      #text(size: 8.2pt)[
-        #text(weight: "bold")[必要機能 ID と「どのファイルのどこか」の対応は，説明資料②の対応表にある．]
-        未実装の機能も同じ表に「未実装」として全件並べてある（過少申告しない）．
+      #text(size: 8pt)[
+        #text(weight: "bold")[8 機能はすべて実装済みで，展開した提出物を起動して動作を確認している．]
+        「どのファイルのどこか」は説明資料②の対応表にある．
+        #text(weight: "bold")[8 機能の外に残っている制約と改善余地は，提出物の #raw("README.md")
+        「8. 既知の制約とその理由」に全部書いてある．]
       ]
     ],
   )
