@@ -62,31 +62,13 @@ export default function FloodRainfall({ category, details, compact = false }: Pr
 
   if (compact) {
     return (
-      <p className="mt-1 flex items-center gap-1.5 text-[11px] text-ink-muted">
-        <Droplets aria-hidden className="size-3.5 shrink-0 text-[#56b4e9]" />
-        <span>
-          投稿時の雨量{" "}
-          <span className="font-semibold text-ink-sub tabular-nums">
-            {formatRainfall(observation.rainfallMm)}
-          </span>
-          <span className="mx-1 text-ink-muted/60">/</span>
-          <span className="tabular-nums">{source}</span>
-        </span>
-      </p>
+      <CompactLine mm={observation.rainfallMm} note={<span className="tabular-nums">{source}</span>} />
     );
   }
 
   return (
     <section className="mt-3 rounded-xl border border-line bg-[#f5fafd] px-3 py-2.5">
-      <p className="flex items-baseline gap-2">
-        <Droplets aria-hidden className="size-4 shrink-0 translate-y-0.5 text-[#56b4e9]" />
-        <span className="text-[11px] font-semibold tracking-wide text-ink-muted">
-          投稿時の雨量（1 時間降水量）
-        </span>
-        <span className="ml-auto text-[15px] font-semibold text-ink tabular-nums">
-          {formatRainfall(observation.rainfallMm)}
-        </span>
-      </p>
+      <RainfallHeading mm={observation.rainfallMm} />
       <p className="mt-1.5 text-[11px] leading-relaxed text-ink-muted tabular-nums">{source}</p>
       <p className="mt-1 text-[11px] leading-relaxed text-ink-muted">
         最寄りの観測所の値です。この地点で測った値ではありません。
@@ -100,35 +82,49 @@ export default function FloodRainfall({ category, details, compact = false }: Pr
  *  数値のとなりに必ず「デモ値」と書き、出典（気象庁）は書かない。 */
 function DemoRainfall({ mm, compact }: { mm: number; compact: boolean }) {
   if (compact) {
-    return (
-      <p className="mt-1 flex items-center gap-1.5 text-[11px] text-ink-muted">
-        <Droplets aria-hidden className="size-3.5 shrink-0 text-[#56b4e9]" />
-        <span>
-          投稿時の雨量{" "}
-          <span className="font-semibold text-ink-sub tabular-nums">{formatRainfall(mm)}</span>
-          <span className="mx-1 text-ink-muted/60">/</span>
-          <span>デモ用のダミー値</span>
-        </span>
-      </p>
-    );
+    return <CompactLine mm={mm} note={<span>デモ用のダミー値</span>} />;
   }
 
   return (
     <section className="mt-3 rounded-xl border border-dashed border-line bg-canvas px-3 py-2.5">
-      <p className="flex items-baseline gap-2">
-        <Droplets aria-hidden className="size-4 shrink-0 translate-y-0.5 text-[#56b4e9]" />
-        <span className="text-[11px] font-semibold tracking-wide text-ink-muted">
-          投稿時の雨量（1 時間降水量）
-        </span>
-        <span className="ml-auto text-[15px] font-semibold text-ink tabular-nums">
-          {formatRainfall(mm)}
-        </span>
-      </p>
+      <RainfallHeading mm={mm} />
       <p className="mt-1.5 text-[11px] leading-relaxed text-ink-muted">
         <span className="font-semibold text-ink-sub">これはデモ用のダミー値です。</span>
         気象庁の観測値ではありません。実際の投稿では、投稿した時刻の最寄りのアメダスの
         雨量がここに記録されます。
       </p>
     </section>
+  );
+}
+
+/** 一覧（S-5）向けの 1 行版。**観測値とデモ値で形はまったく同じ**で、
+ *  値のうしろに続くもの（観測所と時刻／「デモ用のダミー値」）だけが違う。 */
+function CompactLine({ mm, note }: { mm: number; note: React.ReactNode }) {
+  return (
+    <p className="mt-1 flex items-center gap-1.5 text-[11px] text-ink-muted">
+      <Droplets aria-hidden className="size-3.5 shrink-0 text-[#56b4e9]" />
+      <span>
+        投稿時の雨量{" "}
+        <span className="font-semibold text-ink-sub tabular-nums">{formatRainfall(mm)}</span>
+        <span className="mx-1 text-ink-muted/60">/</span>
+        {note}
+      </span>
+    </p>
+  );
+}
+
+/** 詳細パネル（S-3）向けの見出し行。こちらも観測値とデモ値で同じ形。
+ *  **違いは囲みの枠と、下に続く説明文**（出典を書くか、デモ値だと書くか）。 */
+function RainfallHeading({ mm }: { mm: number }) {
+  return (
+    <p className="flex items-baseline gap-2">
+      <Droplets aria-hidden className="size-4 shrink-0 translate-y-0.5 text-[#56b4e9]" />
+      <span className="text-[11px] font-semibold tracking-wide text-ink-muted">
+        投稿時の雨量（1 時間降水量）
+      </span>
+      <span className="ml-auto text-[15px] font-semibold text-ink tabular-nums">
+        {formatRainfall(mm)}
+      </span>
+    </p>
   );
 }
