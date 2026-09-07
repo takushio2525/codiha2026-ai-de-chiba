@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 
+import BackToMapLink from "@/components/BackToMapLink";
 import HazardLegend from "@/components/HazardLegend";
 import { DATA_CREDITS, DEMO_PHOTO_CREDITS } from "@/lib/credits";
 import { HAZARD_LEGENDS } from "@/lib/hazards";
@@ -20,13 +20,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-full bg-canvas px-5 py-10">
       <main className="mx-auto w-full max-w-2xl">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-1.5 text-[12.5px] font-medium text-ink-sub transition hover:text-ink"
-        >
-          <ArrowLeft aria-hidden className="size-3.5" />
-          地図に戻る
-        </Link>
+        <BackToMapLink />
 
         {/* このページへの入口は地図の「詳しい出典」なので、見出しは出典のまま。
             ただし直接開かれても何のサービスか分かるよう、頭にブランドの説明を置く。 */}

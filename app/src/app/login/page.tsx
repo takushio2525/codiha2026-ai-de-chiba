@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, LogIn, TriangleAlert, UserRound } from "lucide-react";
+import { LogIn, TriangleAlert, UserRound } from "lucide-react";
 
+import BackToMapLink from "@/components/BackToMapLink";
 import DemoLoginForm from "@/components/DemoLoginForm";
 import { getSessionView } from "@/lib/auth";
 import { googleSignInAction, signOutAction } from "@/lib/authActions";
@@ -38,13 +39,7 @@ export default async function LoginPage() {
   return (
     <div className="min-h-full bg-canvas px-5 py-10">
       <main className="mx-auto w-full max-w-md">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-1.5 text-[12.5px] font-medium text-ink-sub transition hover:text-ink"
-        >
-          <ArrowLeft aria-hidden className="size-3.5" />
-          地図に戻る
-        </Link>
+        <BackToMapLink />
 
         <h1 className="mt-5 text-2xl font-semibold tracking-tight text-ink">ログイン</h1>
         <p className="mt-2 text-[13.5px] leading-relaxed text-ink-sub">
