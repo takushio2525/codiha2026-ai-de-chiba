@@ -565,7 +565,7 @@ export default function ControlPanel({
             </div>
           ) : (
             <p className="mt-2 text-[11.5px] leading-relaxed text-ink-muted">
-              重ねたい想定を選ぶと、浸水深の凡例と出典が表示されます。
+              重ねたい想定を選ぶと、凡例と出典が表示されます。
             </p>
           )}
         </section>
