@@ -128,8 +128,6 @@
 #note[
   #set text(size: 8.2pt)
   - #text(weight: "bold")[「必要機能」は説明資料①（サービスの概要）2 ページ目と同じ 8 項目・同じ番号．]
-    括弧の中の #text(font: FONT_MONO, size: 7.2pt)[F-1] 〜 #text(font: FONT_MONO, size: 7.2pt)[F-7] は，
-    チームで決めた要件をそのまま機能 ID に落としたもの
   - #text(weight: "bold")[「対応する実装」は，提出した作業ディレクトリからの相対パスとシンボル名．]
     行番号はコードを 1 行足すだけでずれるので使っていない．
     全行のパスとシンボルは #PATH[docs/presentation/submission/verify_table.py] が機械的に照合している
@@ -167,7 +165,7 @@
   ),
 
   ..row(
-    [ハザードマップの表示　#chip("F-1", fill: sky)],
+    [ハザードマップの表示],
     [
       #PATH[src/lib/hazards.ts] … #SYM[HAZARDS]（4 種のタイル URL）・#SYM[HAZARD_LEGENDS]（凡例） \
       #PATH[src/components/MapView.tsx] … raster ソースとレイヤーの積み上げ \
@@ -185,7 +183,7 @@
   ),
 
   ..row(
-    [市川市オープンデータの重ね合わせ　#chip("基盤", fill: muted)],
+    [市川市オープンデータの重ね合わせ],
     [
       #PATH[src/lib/layers.ts] … #SYM[LAYERS]（データの場所・色・ポップアップ項目） \
       #PATH[src/lib/scenic.ts] … #SYM[SCENIC_CATEGORIES]（景観100選の色分け） \
@@ -206,7 +204,7 @@
   ),
 
   ..row(
-    [危険箇所の市民報告　#chip("F-2", fill: orange)],
+    [危険箇所の市民報告],
     [
       #PATH[src/lib/reports.ts] … #SYM[REPORT_CATEGORIES] のカテゴリ #SYM[hazard] \
       #PATH[src/app/api/reports/route.ts] … #SYM[POST]（投稿の受け口） \
@@ -226,7 +224,7 @@
   ),
 
   ..row(
-    [浸水報告と，投稿時点の雨量の自動記録　#chip("F-3", fill: sky)],
+    [浸水報告と，投稿時点の雨量の自動記録],
     [
       #PATH[src/lib/reports.ts] … #SYM[REPORT_CATEGORIES] のカテゴリ #SYM[flood] \
       #PATH[src/lib/jma.ts] … #SYM[observeRainfall]（アメダス実況の取得とキャッシュ） \
@@ -250,7 +248,7 @@
   ),
 
   ..row(
-    [観光マップ（景観100選と徒歩ナビ）　#chip("F-5", fill: green)],
+    [観光マップ（景観100選と徒歩ナビ）],
     [
       #PATH[src/lib/mapModes.ts] … #SYM[MAP_MODES]（防災／観光で出す組） \
       #PATH[src/components/MapModeTabs.tsx] … タブの切り替え \
@@ -271,7 +269,7 @@
   ),
 
   ..row(
-    [観光おすすめの市民投稿　#chip("F-6", fill: pink)],
+    [観光おすすめの市民投稿],
     [
       #PATH[src/lib/reports.ts] … #SYM[REPORT_CATEGORIES] のカテゴリ #SYM[spot] \
       #PATH[src/app/api/reports/route.ts] … 危険箇所・浸水と #text(weight: "bold")[同じ 1 経路] \
@@ -287,7 +285,7 @@
   ),
 
   ..row(
-    [行政からの応答　#chip("F-7", fill: blue)],
+    [行政からの応答],
     [
       #PATH[src/app/api/reports/\[id\]/route.ts] … #SYM[PATCH]（対応状況の更新） \
       #PATH[src/app/api/reports/\[id\]/comments/route.ts] … #SYM[POST]（公式コメント） \
@@ -307,7 +305,7 @@
   ),
 
   ..row(
-    [投稿の一覧・絞り込みと，オープンデータとしての書き出し　#chip("F-2〜F-7", fill: vermilion)],
+    [投稿の一覧・絞り込みと，オープンデータとしての書き出し],
     [
       #PATH[src/app/reports/page.tsx] … 一覧の画面（#SYM[/reports]） \
       #PATH[src/lib/reportRange.ts] … #SYM[RANGE_PRESETS]・#SYM[normalizeRange]（期間） \
