@@ -6,19 +6,18 @@
 
 ## 現在の対象
 
-**プロダクトは CHIZUBA。P8（Google ログイン）まで実装済み。残るは提出物（`readme.txt`・PDF 2 種）。**
+**プロダクトは CHIZUBA。P8（Google ログイン）まで実装済み。提出物 4 点も揃っている（下記「次の一手」1）。**
 
-`cd app && docker compose up` → <http://localhost:3000>。ハザードマップ（洪水・高潮・津波）・
-避難場所 123・AED 304・子育て施設 388・徒歩ナビが動き、**ログインして危険箇所・浸水・観光おすすめを
-投稿でき、行政は対応状況を 4 段階で更新、投稿者は本文を編集できる**。浸水には投稿時点の雨量が
-焼き込まれ、雨の予報が出ていれば注意案内（F-4）が出る。**投稿は日付の範囲・キーワードで絞れ、
-絞ったまま CSV / GeoJSON で書き出せる**（一覧は `/reports`）。**閲覧はログイン不要**。
+`cd app && docker compose up` → <http://localhost:3000>。ハザードマップ（洪水・高潮・津波・急傾斜地）・
+避難場所 123・AED 304・子育て施設 388・景観100選 100・徒歩ナビが動き、**ログインして危険箇所・浸水・
+観光おすすめを投稿でき、行政は対応状況を 4 段階で更新、投稿者は本文を編集できる**。浸水には投稿時点の
+雨量が焼き込まれ、雨の予報が出れば注意案内（F-4）が出る。**投稿は日付・キーワードで絞れ、絞ったまま
+CSV / GeoJSON で書き出せる**（一覧は `/reports`）。**閲覧はログイン不要**。
 
 何を作るかの正本は **`docs/design/requirements.md`**（機能 F-1〜F-8・§3-4 の追加分・画面 S-1〜S-7・実装順序）。
 
-**繰り返しの置き場**（同じものを書く前にここを見る）: `lib/apiRoute.ts`（ルートの DB 落ち・
-一覧の絞り込み）／`reportsApi.ts` の `request()`／`ToggleRow.tsx`／`OfficialBadge.tsx`／
-`MapView` の `popupShell` 一式。
+**繰り返しの置き場**（同じものを書く前にここを見る）: `lib/apiRoute.ts`（DB 落ち・一覧の絞り込み）／
+`reportsApi.ts` の `request()`／`ToggleRow.tsx`／`OfficialBadge.tsx`／`MapView` の `popupShell` 一式。
 
 ## 直近の観点
 
@@ -26,30 +25,30 @@
   広い画面へ広げ、**375px で実際に動かして確かめる**。守り方は `.agent/conventions.md` の同名の節
 - **F-4 の注意案内は期間の絞り込みに引きずらせない。** 絞ったせいで「過去に浸水報告はありません」に
   なると防災の判断を誤らせるので、根拠になる浸水報告だけ全期間で引き直す（`MapExplorer` の `loadReports`）
-- **公開 URL は設定値で持たない。** ログインのリダイレクト先も Google の `redirect_uri` も
-  `X-Forwarded-Host` →（無ければ）`Host` から毎回導く（`lib/publicOrigin.ts`）。**`AUTH_URL` を渡さない**
-- **セッションはこの DB に縛られている**（`installId.ts`）。
-  **`docker compose down -v` は全員ログアウト＋投稿写真の消去**になる
-- **デモ投稿の雨量は書き出しに含めない。** 観測値ではないので、観測値の顔をした列に入れない
+- **公開 URL は設定値で持たない。** リダイレクト先も Google の `redirect_uri` も `X-Forwarded-Host`
+  →（無ければ）`Host` から毎回導く（`lib/publicOrigin.ts`）。**`AUTH_URL` を渡さない**
+- **セッションはこの DB に縛られている**（`installId.ts`）。**`docker compose down -v` は
+  全員ログアウト＋投稿写真の消去**になる
+- **雨量は最寄りのアメダスの値**で、その地点の実測値ではない。**観測所名と距離を必ず併記する**。
+  **デモ投稿の雨量は書き出しに含めない**（観測値の顔をした列に、観測値でないものを入れない）
 - **F-4 の文言は気象業務法の線に触れる。** 「浸水するでしょう」に類する予報表現を足さない
-
-雨量は**最寄りのアメダスの値**で、その地点の実測値ではない。**観測所名と距離を必ず併記する**。
 
 審査のコード評価は **実装割合 × 動作割合の掛け算**。`requirements.md` §9-1 の「全フェーズ共通の完了条件」
 5 項目（起動・前フェーズ無傷・typecheck・`package_submission.sh --smoke`・`secret_scan.sh`）を毎回通す。
 
 ## 次の一手
 
-1. 提出物のうち **説明資料 PDF 2 種は作った**（`docs/presentation/submission/`。作り直しは
-   `bash docs/presentation/submission/build.sh`）。残るは **`readme.txt`**（git 管理外・氏名を書くので
-   コミットしない）。固めるのは `bash tools/package_submission.sh`（検証込み）。**手で zip しない**。
-   `readme.txt` は `package_submission.sh` が唯一 NG を出している項目でもある
-2. **P8: Google ログインは実キーまで通っている**（実測: `/api/auth/providers` が
+1. **提出物 4 点は揃い、3 か所（Desktop の提出フォルダ／private リポの `submission/`／submit worktree の
+   `dist/`）でハッシュが一致している。** 作り直しは `build.sh`（PDF）→ `package_submission.sh --smoke`
+   （7z・検証込み）。**手で zip しない**。`readme.txt` は git 管理外で submit worktree のものが正本
+2. **ログインの説明は資料②・`app/README.md` §2・`readme.txt`「3. ログイン情報」の三者でそろえる。**
+   主催者に「デモログインは機能の制限ではない」と示すために置いた 5 点なので、**片方だけ直さない**
+3. **P8: Google ログインは実キーまで通っている**（実測: `/api/auth/providers` が
    `google, demo`・認可の 302 が `accounts.google.com` へ・`redirect_uri` が公開ホスト）。
    OAuth アプリは **testing のまま**。本番公開するなら `/privacy` の URL を Console に入れる。
    **9/9 直前には触らない**
-3. `docs/design/assignments.md` の担当表がまだ空欄。誰がどのフェーズを持つか埋める
-4. **質問に答える前に `docs/spec/README.md` を見る。** 構成・仕組み・設計判断・想定質疑 42 問が
+4. `docs/design/assignments.md` の担当表がまだ空欄。誰がどのフェーズを持つか埋める
+5. **質問に答える前に `docs/spec/README.md` を見る。** 構成・仕組み・設計判断・想定質疑 42 問が
    コードから起こしてある（`docs/manual/` は画面と操作手順）。**コードを変えたら該当章も追随させる**
 
 ## 現フェーズで読むべきドキュメント
