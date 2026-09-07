@@ -19,7 +19,7 @@
 
 | ディレクトリ | 件数 | 提出 zip に入るか |
 |---|---|---|
-| `app/`（サービス本体） | 162 | **入る**（これが提出物） |
+| `app/`（サービス本体） | 163 | **入る**（これが提出物） |
 | `data/`（オープンデータと加工スクリプト） | 46 | 入らない |
 | `docs/`（設計・発表資料。この仕様書と利用説明書を除く） | 22 | **提出する説明資料 PDF 2 種（`docs/presentation/submission/`）だけは zip とは別に提出する** |
 | `deploy/`（自宅公開） | 6 | 入らない |
@@ -27,10 +27,10 @@
 | `.github/`（CI・テンプレート） | 8 | 入らない |
 | `.agent/`（AI 向け作業文脈） | 6 | 入らない |
 | `meetings/` 5・`assets/` 3・ルート直下 8・`.vscode/` 2・`課題/` 2 | 20 | 入らない |
-| **合計** | **278** | |
+| **合計** | **279** | |
 
-数え方: `git ls-files | grep -v '^docs/spec/\|^docs/manual/' | wc -l` = **278**（2026-09-04 時点）。
-内訳の合計 162+46+22+8+8+6+6+20 = 278 で一致する。
+数え方: `git ls-files | grep -v '^docs/spec/\|^docs/manual/' | wc -l` = **279**（2026-09-07 時点）。
+内訳の合計 163+46+22+8+8+6+6+20 = 279 で一致する。
 
 ---
 
@@ -85,9 +85,9 @@
 | `layout.tsx` | 全画面 | `<html lang="ja">`・`metadata`（タイトルの雛形）・`viewport`・`AuthBar` を常時表示 | `components/AuthBar.tsx` | Next.js が自動で使う |
 | `page.tsx` | **S-1/S-2 地図** | `getSessionView()` と `?mode=` をサーバー側で解決して `MapExplorer` に渡すだけ（21 行） | `components/MapExplorer.tsx`, `lib/auth.ts`, `lib/mapModes.ts`, `lib/municipalities.ts` | — |
 | `reports/page.tsx` | **S-5 投稿一覧** | サーバー側で `listReports()` を直接呼ぶ。絞り込みはリンクと GET フォームなので **JS 不要** | `components/DemoBadge/ExportLinks/FloodRainfall/OfficialBadge`, `lib/db/municipalities/reportInput/reportRange/reportStore/reports/searchText` | — |
-| `login/page.tsx` | **S-6 ログイン** | 認証モードで Google の有無だけを出し分け、デモログインは常に出す | `components/DemoLoginForm.tsx`, `lib/auth/authActions/govPin/municipalities` | — |
-| `about/page.tsx` | **S-7 出典** | データ出典・写真 54 枚と 17 枚の一覧・ハザードの凡例 | `components/HazardLegend.tsx`, `lib/credits/hazards/scenicPhotos` | — |
-| `privacy/page.tsx` | **S-8 プライバシー** | 受け取る情報・保存先・外部送信を実装どおりに書いた静的ページ（343 行・import なし） | なし | — |
+| `login/page.tsx` | **S-6 ログイン** | 認証モードで Google の有無だけを出し分け、デモログインは常に出す | `components/BackToMapLink.tsx`, `components/DemoLoginForm.tsx`, `lib/auth/authActions/govPin/municipalities` | — |
+| `about/page.tsx` | **S-7 出典** | データ出典・写真 54 枚と 17 枚の一覧・ハザードの凡例 | `components/BackToMapLink.tsx`, `components/HazardLegend.tsx`, `lib/credits/hazards/scenicPhotos` | — |
+| `privacy/page.tsx` | **S-8 プライバシー** | 受け取る情報・保存先・外部送信を実装どおりに書いた静的ページ（338 行） | `components/BackToMapLink.tsx` | — |
 | `globals.css` | 全画面 | Tailwind v4 の `@theme`（色・書体）、MapLibre のポップアップの見た目と **z-index 15**、レンジ入力の当たり判定 | — | `layout.tsx` |
 | `icon.svg` | — | **ロゴの正本**。`favicon.ico`・`apple-icon.png` はここから起こす | — | `components/BrandMark.tsx` が同じ図形を写している |
 | `favicon.ico` / `apple-icon.png` | — | `icon.svg` から書き出した派生物 | — | ブラウザが自動で読む |
@@ -108,7 +108,7 @@
 | `api/routing/route.ts` | `GET` | 不要 | OSRM を中継（**1 秒 1 リクエスト**の待ち行列つき） | なし。**`lib/routing.ts` が型 `RouteResponse` をここから import する**（唯一の逆向き参照） |
 | `api/auth/[...nextauth]/route.ts` | `GET`/`POST` | — | Auth.js のエンドポイント。**URL を公開ホストに直してから**渡す | `lib/auth.ts`, `lib/publicOrigin.ts` |
 
-### 3-1-6. コンポーネント（`app/src/components/`・22 件）
+### 3-1-6. コンポーネント（`app/src/components/`・23 件）
 
 依存の向きは実測（`from "…"` を解決）。
 
@@ -116,16 +116,16 @@
 |---|---|---|---|---|
 | `MapExplorer.tsx` | 687 | **状態の親**。地図・パネル・詳細・フォームの全状態をここで持つ | `ControlPanel`, `MapModeTabs`, `MapView`, `ReportForm`, `ReportPanel`, `SearchBox`, `Toast`, `lib/auth/geo/hazards/layers/mapModes/reportRange/reports/reportsApi/routing/scenic/searchText/weather` | `app/page.tsx` |
 | `MapView.tsx` | 932 | MapLibre の生成・レイヤーの積み上げ・ポップアップの DOM 組み立て | `lib/basemap/credits/geo/hazards/layers/reports/routing/scenic/scenicPhotos` | `MapExplorer` |
-| `ControlPanel.tsx` | 596 | 左（スマホは下）の操作パネル。表示切替・投稿ボタン・期間・書き出し・徒歩ナビ・ハザード | `BrandMark`, `DateRangeFilter`, `ExportLinks`, `FloodAlertCard`, `HazardLegend`, `RouteCard`, `SearchBox`, `ToggleRow`, `lib/geo/hazards/layers/reportRange/reports/routing/scenic/weather` | `MapExplorer` |
-| `ReportPanel.tsx` | 438 | **S-3 投稿の詳細**。写真・本文・対応状況・コメント・編集・削除 | `DemoBadge`, `FloodRainfall`, `OfficialBadge`, `ReportEditForm`, `ReportStatusControl`, `lib/auth/geo/reports/reportsApi` | `MapExplorer` |
+| `ControlPanel.tsx` | 598 | 左（スマホは下）の操作パネル。表示切替・投稿ボタン・期間・書き出し・徒歩ナビ・ハザード | `BrandMark`, `DateRangeFilter`, `ExportLinks`, `FloodAlertCard`, `HazardLegend`, `RouteCard`, `SearchBox`, `ToggleRow`, `lib/geo/hazards/layers/reportRange/reports/routing/scenic/weather` | `MapExplorer` |
+| `ReportPanel.tsx` | 440 | **S-3 投稿の詳細**。写真・本文・対応状況・コメント・編集・削除 | `DemoBadge`, `FloodRainfall`, `OfficialBadge`, `ReportEditForm`, `ReportStatusControl`, `lib/auth/geo/reports/reportsApi` | `MapExplorer` |
 | `ReportForm.tsx` | 345 | **S-4 投稿フォーム**。入力欄は `REPORT_CATEGORIES` から組み立てる | `lib/geo/reports/reportsApi` | `MapExplorer` |
 | `SearchBox.tsx` | 118 | キーワード検索の入力欄と候補一覧（最大 8 件） | `lib/geo`, `lib/searchText` | `ControlPanel`, `MapExplorer`（型 `SearchHit`） |
-| `DateRangeFilter.tsx` | 105 | 期間の近道 4 つ＋日付入力 2 つ | `lib/reportRange` | `ControlPanel` |
+| `DateRangeFilter.tsx` | 111 | 期間の近道 4 つ＋日付入力 2 つ | `lib/reportRange` | `ControlPanel` |
 | `ReportEditForm.tsx` | 140 | 投稿者本人による本文編集。位置と写真は変えられない | `lib/reports`, `lib/reportsApi` | `ReportPanel` |
 | `ReportStatusControl.tsx` | 104 | 行政による対応状況の 4 段階更新 | `lib/reports`, `lib/reportsApi` | `ReportPanel` |
-| `FloodRainfall.tsx` | 134 | 浸水投稿の雨量表示。**デモ値と実測値を別経路で描く** | `lib/reports`, `lib/weather` | `ReportPanel`, `reports/page.tsx` |
+| `FloodRainfall.tsx` | 132 | 浸水投稿の雨量表示。**デモ値と実測値を別経路で描く**（枠と説明文だけが違い、値の行は `CompactLine` / `RainfallHeading` で共通） | `lib/reports`, `lib/weather` | `ReportPanel`, `reports/page.tsx` |
 | `FloodAlertCard.tsx` | 78 | **F-4 注意案内**。事実 2 つを並べるだけ（予報表現を書かない） | `lib/reports`, `lib/weather` | `ControlPanel` |
-| `HazardLegend.tsx` | 64 | 浸水深の凡例＋注意書き 2 本 | `lib/hazards` | `ControlPanel`, `about/page.tsx` |
+| `HazardLegend.tsx` | 76 | 凡例（浸水深／土砂災害は区域の種別）＋注意書き 2 本。渡された凡例だけを別々の塊で並べる | `lib/hazards` | `ControlPanel`, `about/page.tsx` |
 | `RouteCard.tsx` | 74 | 徒歩ナビの結果（距離・所要時間・概算の断り） | `lib/geo`, `lib/routing` | `ControlPanel` |
 | `ExportLinks.tsx` | 55 | CSV / GeoJSON のダウンロードリンク（`<a href>`・JS 不要） | `lib/reportExport`, `lib/reportRange`, `lib/reports` | `ControlPanel`, `reports/page.tsx` |
 | `MapModeTabs.tsx` | 70 | 防災／観光の切り替えタブ | `lib/mapModes` | `MapExplorer` |
@@ -136,6 +136,7 @@
 | `DemoBadge.tsx` | 58 | デモ投稿の印（灰 `#5b6270`）と断り書き `DemoNote` | なし | `ReportPanel`, `reports/page.tsx` |
 | `BrandMark.tsx` | 28 | 画面の中のロゴ。`app/src/app/icon.svg` と**同じ図形** | なし | `AuthBar`, `ControlPanel` |
 | `Toast.tsx` | 39 | 画面上部の短い通知（7 秒で自動的に消える） | なし | `MapExplorer` |
+| `BackToMapLink.tsx` | 23 | 「地図に戻る」の 1 行リンク。子ページ 3 枚が同じ写しを持っていたので集約 | なし | `about/page.tsx`, `login/page.tsx`, `privacy/page.tsx` |
 
 ### 3-1-7. ライブラリ（`app/src/lib/`・31 件 ＋ 型定義 `app/src/types/` 1 件）
 
@@ -267,7 +268,7 @@
 | `docs/presentation/submission/common.typ` | 説明資料 2 種で共有する体裁と部品 |
 | `docs/presentation/submission/verify_table.py` | 対応表に書いたパス・シンボル・件数の実在検査 |
 | `docs/presentation/submission/build.sh` | 検査 → コンパイル → ページ数の上限 → PDF の個人情報スキャン |
-| `docs/spec/`（16 件）・`docs/manual/`（7 件＋画像 21 枚） | **この仕様書と利用説明書**（上の 22 件には含めていない） |
+| `docs/spec/`（16 件）・`docs/manual/`（7 件＋画像 21 枚） | **この仕様書と利用説明書**（上の 23 件には含めていない） |
 
 ---
 

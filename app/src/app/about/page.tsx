@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 
+import BackToMapLink from "@/components/BackToMapLink";
 import HazardLegend from "@/components/HazardLegend";
 import { DATA_CREDITS, DEMO_PHOTO_CREDITS } from "@/lib/credits";
 import { HAZARD_LEGENDS } from "@/lib/hazards";
@@ -20,13 +20,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-full bg-canvas px-5 py-10">
       <main className="mx-auto w-full max-w-2xl">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-1.5 text-[12.5px] font-medium text-ink-sub transition hover:text-ink"
-        >
-          <ArrowLeft aria-hidden className="size-3.5" />
-          地図に戻る
-        </Link>
+        <BackToMapLink />
 
         {/* このページへの入口は地図の「詳しい出典」なので、見出しは出典のまま。
             ただし直接開かれても何のサービスか分かるよう、頭にブランドの説明を置く。 */}
@@ -100,10 +94,11 @@ export default function AboutPage() {
         </ul>
 
         <section className="mt-8 rounded-2xl border border-line bg-surface p-4">
-          <h2 className="text-[13px] font-semibold text-ink">ハザードマップの凡例（浸水深）</h2>
+          <h2 className="text-[13px] font-semibold text-ink">ハザードマップの凡例</h2>
           <p className="mt-1.5 text-[12.5px] leading-relaxed text-ink-sub">
-            同じ色でも、洪水と津波・高潮では表す浸水深が違います。地図では、重ねている想定に
-            合わせた凡例だけを表示します。
+            同じ色でも、洪水と津波・高潮では表す浸水深が違います。
+            土砂災害は深さではなく区域の種別を表します。
+            地図では、重ねている想定に合わせた凡例だけを表示します。
           </p>
           <div className="mt-3 max-w-sm">
             <HazardLegend legends={Object.values(HAZARD_LEGENDS)} />

@@ -206,6 +206,7 @@ bash tools/package_submission.sh --smoke      # ＋ 展開先で実起動して 
 | **セッションの穴が塞がったこと** | 別 DB のトークンを持ち込んで 403 になることを確認 | `.agent/progress.md` 2026-08-27 |
 | **ハザードタイルの疎通** | 市川市 z=14 のタイルを実取得 | `.agent/architecture.md` |
 | **浸水深の凡例の色** | 千葉県内 20 タイルの**画素を数えて**確認 | `.agent/architecture.md` |
+| **土砂災害の凡例の色（4 区分）** | 市川市北部 5 タイルの画素と、公式の凡例画像の画素の**両方**が一致 | `.agent/progress.md` 2026-09-04 |
 | **GeoJSON が RFC 7946 として妥当** | 公式 JSON Schema でエラー 0 | `.agent/progress.md` 2026-08-27 |
 | **横スクロールの有無** | Chromium と WebKit × 320/375/390/430px × 全ページ × 各状態 | PR #28 |
 

@@ -422,10 +422,7 @@ export async function addComment(input: {
        VALUES ($1, $2, $3, $4)
        RETURNING id, body, is_official, user_id, created_at
      )
-     SELECT cm.id, cm.body, cm.is_official,
-            u.display_name AS author_name,
-            u.role         AS author_role,
-            ${createdAtJst("cm.created_at")} AS created_at
+     SELECT ${COMMENT_COLUMNS}
        FROM inserted cm
        JOIN users u ON u.id = cm.user_id`,
     [input.reportId, input.userId, input.body, input.isOfficial],

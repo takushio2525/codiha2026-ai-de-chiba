@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+
+import BackToMapLink from "@/components/BackToMapLink";
 
 export const metadata: Metadata = {
   title: "プライバシーポリシー",
@@ -55,13 +56,7 @@ export default function PrivacyPage() {
   return (
     <div className="min-h-full bg-canvas px-5 py-10">
       <main className="mx-auto w-full max-w-2xl">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-1.5 text-[12.5px] font-medium text-ink-sub transition hover:text-ink"
-        >
-          <ArrowLeft aria-hidden className="size-3.5" />
-          地図に戻る
-        </Link>
+        <BackToMapLink />
 
         <h1 className="mt-5 text-2xl font-semibold tracking-tight text-ink">
           プライバシーポリシー
