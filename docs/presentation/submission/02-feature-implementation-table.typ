@@ -371,13 +371,8 @@
   ],
   note(fill: warn-tint, stroke-color: orange)[
     #set text(size: 8pt)
-    #text(font: FONT_SANS, weight: "bold")[この 8 機能の外について]
+    #text(font: FONT_SANS, weight: "bold")[実装状況]
     #v(2pt)
     上の 8 機能は#text(weight: "bold")[すべて実装済みで，展開した提出物を起動して動作を確認している]．
-    #linebreak()
-    #text(weight: "bold")[8 機能の外に残っている制約と改善余地は，提出物の
-    #PATH[README.md]「8. 既知の制約とその理由」に全部書いてある]
-    （通報導線・レート制限・自動テスト・Exif の除去・退会画面などが無いこと）．
-    より詳しい一覧は開発リポジトリの #PATH[docs/spec/13-limitations.md]．
   ],
 )
