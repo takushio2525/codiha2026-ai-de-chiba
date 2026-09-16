@@ -1,11 +1,11 @@
 ---
 format: progfocus.markdown.v1
-exportedAt: 2026-08-27T09:00:00.000Z
+exportedAt: 2026-09-16T09:00:00.000Z
 projectId: chizuba-overview
 projectName: CHIZUBA 現状アーキテクチャ解説
 mode: direct
-nodeCount: 38
-connectionCount: 34
+nodeCount: 46
+connectionCount: 42
 ---
 
 ```json
@@ -15,7 +15,7 @@ connectionCount: 34
     "name": "CHIZUBA 現状アーキテクチャ解説",
     "mode": "direct",
     "createdAt": 1787821200000,
-    "updatedAt": 1787832000000,
+    "updatedAt": 1789549200000,
     "rootNodeIds": ["feat-input", "feat-api", "feat-map", "feat-auth", "feat-weather", "feat-open"],
     "nodes": {
       "feat-input": {
@@ -194,6 +194,22 @@ connectionCount: 34
         },
         "createdAt": 1787821200000, "updatedAt": 1787832000000
       },
+      "in-panel": {
+        "id": "in-panel",
+        "type": "input",
+        "title": "投稿の詳細と反応（S-3）",
+        "memo": "写真・コメント・対応状況を読む\n編集と削除は投稿者本人だけ",
+        "x": 40, "y": 720, "width": 256, "height": 160,
+        "parentId": "feat-input",
+        "programDef": {
+          "elementType": "module",
+          "fileName": "app/src/components/ReportPanel.tsx",
+          "moduleName": "ReportPanel",
+          "exports": "詳細の取得 / コメントの投稿 / 編集フォーム / 削除の確認 / 投稿の場所へ地図を移動",
+          "description": "閲覧はログイン不要。編集は ReportEditForm、対応状況は ReportStatusControl をこの中に出す。ボタンを出すかは画面側の出し分けで、通してよいかは API が毎回セッションを見て決める"
+        },
+        "createdAt": 1789549200000, "updatedAt": 1789549200000
+      },
       "api-in": {
         "id": "api-in",
         "type": "input",
@@ -294,6 +310,40 @@ connectionCount: 34
         },
         "createdAt": 1787821200000, "updatedAt": 1787832000000
       },
+      "api-patch": {
+        "id": "api-patch",
+        "type": "input",
+        "title": "対応状況の更新と本文の編集",
+        "memo": "1 本の PATCH に 2 つの操作\n含まれている項目ごとに権限を確かめる",
+        "x": 40, "y": 280, "width": 256, "height": 160,
+        "parentId": "feat-api",
+        "programDef": {
+          "elementType": "function",
+          "fileName": "app/src/app/api/reports/[id]/route.ts",
+          "functionName": "PATCH",
+          "args": "NextRequest, { params: Promise<{ id: string }> }",
+          "returnValue": "Response（200 / 400 / 401 / 403 / 404 / 500 / 503）",
+          "description": "status（open / ack / in_progress / done）は担当市町村の行政ユーザーだけ、title・body・details は投稿者本人だけ。details は丸ごと置き換えず details || $n::jsonb で重ねるので、サーバーが焼き込んだ雨量が本文を直すたびに消えることはない"
+        },
+        "createdAt": 1789549200000, "updatedAt": 1789549200000
+      },
+      "api-comment": {
+        "id": "api-comment",
+        "type": "input",
+        "title": "コメントと行政の公式回答",
+        "memo": "ログイン必須・500 文字まで\n公式扱いかはサーバーが決める",
+        "x": 40, "y": 500, "width": 256, "height": 160,
+        "parentId": "feat-api",
+        "programDef": {
+          "elementType": "function",
+          "fileName": "app/src/app/api/reports/[id]/comments/route.ts",
+          "functionName": "POST",
+          "args": "NextRequest, { params: Promise<{ id: string }> }",
+          "returnValue": "Response（201 / 400 / 401 / 404 / 500 / 503）",
+          "description": "isOfficial はクライアントから受け取らない。行政ユーザーかつ担当市町村が投稿の市町村と一致するときだけ公式にする（市川市の職員が船橋市の投稿に公式回答を出せてはいけない）"
+        },
+        "createdAt": 1789549200000, "updatedAt": 1789549200000
+      },
       "map-in": {
         "id": "map-in",
         "type": "input",
@@ -315,7 +365,7 @@ connectionCount: 34
         "id": "map-hazard",
         "type": "input",
         "title": "ハザードタイル",
-        "memo": "洪水 / 高潮 / 津波の浸水想定\nブラウザが直接取りに行く（中継しない）",
+        "memo": "洪水 / 高潮 / 津波の浸水想定 + 土砂災害警戒区域\nブラウザが直接取りに行く（中継しない）",
         "x": 40, "y": 280, "width": 256, "height": 160,
         "parentId": "feat-map",
         "programDef": {
@@ -323,10 +373,10 @@ connectionCount: 34
           "fileName": "app/src/lib/hazards.ts",
           "variableName": "HAZARDS",
           "variableType": "HazardDef[]",
-          "initialValue": "flood / hightide / tsunami（disaportaldata.gsi.go.jp の XYZ タイル）",
-          "description": "凡例は洪水 6 段階・津波と高潮 8 段階で別物。同じ色でも表す深さが違うので分けてある"
+          "initialValue": "flood / hightide / tsunami / landslide（disaportaldata.gsi.go.jp の XYZ タイル）",
+          "description": "凡例は 3 系統。洪水 6 段階・津波と高潮 8 段階は同じ色でも表す深さが違い、土砂災害（急傾斜地の崩壊）にいたっては深さですらなく区域の種別 4 区分なので、1 つにまとめない。土砂だけ既定 OFF（指定が斜面のある場所に限られる）"
         },
-        "createdAt": 1787821200000, "updatedAt": 1787832000000
+        "createdAt": 1787821200000, "updatedAt": 1789549200000
       },
       "map-render": {
         "id": "map-render",
@@ -377,6 +427,57 @@ connectionCount: 34
           "description": "目的地は施設と景観スポットを NavCandidate にそろえて共通化。最寄り探索は geo.ts の haversineMeters"
         },
         "createdAt": 1787821200000, "updatedAt": 1787832000000
+      },
+      "map-scenic": {
+        "id": "map-scenic",
+        "type": "input",
+        "title": "景観100選（F-5）",
+        "memo": "100 か所を 4 カテゴリで色分け\n日本語と英語の解説つき",
+        "x": 40, "y": 500, "width": 256, "height": 160,
+        "parentId": "feat-map",
+        "programDef": {
+          "elementType": "variable",
+          "fileName": "app/src/lib/scenic.ts",
+          "variableName": "SCENIC_CATEGORIES",
+          "variableType": "ScenicCategoryDef[]",
+          "initialValue": "まち並み 65 / 自然 39 / 歴史・文化 26 / 生活風景 14（色は Okabe-Ito）",
+          "description": "施設レイヤーとは別に持つ。1 件が最大 3 カテゴリを持ち、MapLibre 経由では配列が文字列に畳まれるので scenicCategories() で読み直す。徒歩ナビだけは施設と共通の経路計算に載せる"
+        },
+        "createdAt": 1789549200000, "updatedAt": 1789549200000
+      },
+      "map-photo": {
+        "id": "map-photo",
+        "type": "input",
+        "title": "スポットの写真と出典",
+        "memo": "100 か所のうち 54 か所に写真\n再利用が許される画像だけを選ぶ",
+        "x": 40, "y": 720, "width": 256, "height": 160,
+        "parentId": "feat-map",
+        "programDef": {
+          "elementType": "variable",
+          "fileName": "app/src/lib/scenicPhotos.ts",
+          "variableName": "SCENIC_PHOTOS",
+          "variableType": "Record<string, ScenicPhoto>",
+          "initialValue": "54 件（CC0 / パブリックドメイン / CC BY / CC BY-SA）",
+          "description": "自動生成物なので直接は編集しない。実体は app/public/images/scenic/。作者名とライセンスをポップアップと /about の両方に出す。同名別所が検索に混ざるので、どの写真がどの場所かは目視で確かめてある"
+        },
+        "createdAt": 1789549200000, "updatedAt": 1789549200000
+      },
+      "map-credit": {
+        "id": "map-credit",
+        "type": "output",
+        "title": "出典の表示（/about）",
+        "memo": "地図の隅と /about が同じ文言を読む\n写真 54 枚の作者とライセンスも並べる",
+        "x": 1000, "y": 500, "width": 256, "height": 160,
+        "parentId": "feat-map",
+        "programDef": {
+          "elementType": "variable",
+          "fileName": "app/src/lib/credits.ts",
+          "variableName": "DATA_CREDITS",
+          "variableType": "Credit[]",
+          "initialValue": "オープンデータ・地図タイル・経路・気象の提供元とライセンス",
+          "description": "短い版（MAP_ATTRIBUTION）を地図の attribution に、全文を app/src/app/about/page.tsx に出す。データを足したらここに 1 行足す"
+        },
+        "createdAt": 1789549200000, "updatedAt": 1789549200000
       },
       "auth-in": {
         "id": "auth-in",
@@ -479,6 +580,22 @@ connectionCount: 34
         },
         "createdAt": 1787821200000, "updatedAt": 1787832000000
       },
+      "auth-privacy": {
+        "id": "auth-privacy",
+        "type": "output",
+        "title": "個人情報の扱いの開示（S-8）",
+        "memo": "受け取る情報・保存先・外部へ出る通信\n一般的な文面ではなく実装を読んで書く",
+        "x": 1480, "y": 60, "width": 256, "height": 160,
+        "parentId": "feat-auth",
+        "programDef": {
+          "elementType": "module",
+          "fileName": "app/src/app/privacy/page.tsx",
+          "moduleName": "privacy",
+          "exports": "受け取る情報 / 保存する場所 / 外部に出る通信 / Cookie / 消し方",
+          "description": "Google OAuth を本番公開するには同じドメインで読めるポリシーの URL が要るので置いた。挙動を変えたらこのページも同じコミットで直す。パスは /privacy から変えない"
+        },
+        "createdAt": 1789549200000, "updatedAt": 1789549200000
+      },
       "wx-in": {
         "id": "wx-in",
         "type": "input",
@@ -560,6 +677,23 @@ connectionCount: 34
           "description": "GET /api/weather の応答（I-6）。浸水投稿に焼き込む値は API を通さず lib/jma.ts を直接呼ぶ"
         },
         "createdAt": 1787821200000, "updatedAt": 1787832000000
+      },
+      "wx-api": {
+        "id": "wx-api",
+        "type": "output",
+        "title": "気象の中継ルート（GET /api/weather）",
+        "memo": "ブラウザが見るのはここだけ\nDB が落ちていても予報は返す",
+        "x": 1000, "y": 280, "width": 256, "height": 160,
+        "parentId": "feat-weather",
+        "programDef": {
+          "elementType": "function",
+          "fileName": "app/src/app/api/weather/route.ts",
+          "functionName": "GET",
+          "args": "NextRequest（?city=5 桁の市町村コード）",
+          "returnValue": "WeatherSuccess（実況と予報。どちらも取れなければ 503）",
+          "description": "注意案内 F-4 と投稿フォームの「いまの雨量」が読む。投稿に焼き込む雨量はこの経路を通さず、POST /api/reports が lib/jma.ts を直接呼ぶ（自分自身へ HTTP を投げると壊れやすいため）"
+        },
+        "createdAt": 1789549200000, "updatedAt": 1789549200000
       },
       "open-in": {
         "id": "open-in",
@@ -717,6 +851,12 @@ connectionCount: 34
         "toNodeId": "in-out", "toSide": "left",
         "label": "• fetch"
       },
+      "in-c5": {
+        "id": "in-c5",
+        "fromNodeId": "in-panel", "fromSide": "right",
+        "toNodeId": "in-api", "toSide": "left",
+        "label": "• 詳細・コメント・削除"
+      },
       "api-c1": {
         "id": "api-c1",
         "fromNodeId": "api-in", "fromSide": "right",
@@ -747,6 +887,18 @@ connectionCount: 34
         "toNodeId": "api-out", "toSide": "left",
         "label": "• properties"
       },
+      "api-c6": {
+        "id": "api-c6",
+        "fromNodeId": "api-patch", "fromSide": "right",
+        "toNodeId": "api-store", "toSide": "left",
+        "label": "• 権限を見て UPDATE"
+      },
+      "api-c7": {
+        "id": "api-c7",
+        "fromNodeId": "api-comment", "fromSide": "right",
+        "toNodeId": "api-store", "toSide": "left",
+        "label": "• 公式かを決めて INSERT"
+      },
       "map-c1": {
         "id": "map-c1",
         "fromNodeId": "map-in", "fromSide": "right",
@@ -770,6 +922,24 @@ connectionCount: 34
         "fromNodeId": "map-render", "fromSide": "bottom",
         "toNodeId": "map-route", "toSide": "left",
         "label": "• 目的地"
+      },
+      "map-c5": {
+        "id": "map-c5",
+        "fromNodeId": "map-scenic", "fromSide": "right",
+        "toNodeId": "map-render", "toSide": "left",
+        "label": "• 景観の点"
+      },
+      "map-c6": {
+        "id": "map-c6",
+        "fromNodeId": "map-photo", "fromSide": "right",
+        "toNodeId": "map-render", "toSide": "left",
+        "label": "• ポップアップの写真"
+      },
+      "map-c7": {
+        "id": "map-c7",
+        "fromNodeId": "map-render", "fromSide": "bottom",
+        "toNodeId": "map-credit", "toSide": "left",
+        "label": "• 出典の文言"
       },
       "auth-c1": {
         "id": "auth-c1",
@@ -801,6 +971,12 @@ connectionCount: 34
         "toNodeId": "auth-out", "toSide": "bottom",
         "label": "• リダイレクト先"
       },
+      "auth-c6": {
+        "id": "auth-c6",
+        "fromNodeId": "auth-out", "fromSide": "right",
+        "toNodeId": "auth-privacy", "toSide": "left",
+        "label": "• 受け取る情報の開示"
+      },
       "wx-c1": {
         "id": "wx-c1",
         "fromNodeId": "wx-in", "fromSide": "right",
@@ -824,6 +1000,12 @@ connectionCount: 34
         "fromNodeId": "wx-amedas", "fromSide": "right",
         "toNodeId": "wx-out", "toSide": "left",
         "label": "• 実況と予報"
+      },
+      "wx-c5": {
+        "id": "wx-c5",
+        "fromNodeId": "wx-forecast", "fromSide": "right",
+        "toNodeId": "wx-api", "toSide": "left",
+        "label": "• まとめて返す"
       },
       "open-c1": {
         "id": "open-c1",
@@ -882,16 +1064,27 @@ connectionCount: 34
         "app/src/lib/weather.ts",
         "app/src/lib/reportRange.ts",
         "app/src/components/FloodAlertCard.tsx",
-        "app/src/app/api/reports/export/route.ts"
+        "app/src/app/api/reports/export/route.ts",
+        "app/src/components/ReportPanel.tsx",
+        "app/src/components/ReportEditForm.tsx",
+        "app/src/components/ReportStatusControl.tsx",
+        "app/src/app/api/reports/[id]/route.ts",
+        "app/src/app/api/reports/[id]/comments/route.ts",
+        "app/src/lib/scenic.ts",
+        "app/src/lib/scenicPhotos.ts",
+        "app/src/lib/credits.ts",
+        "app/src/app/about/page.tsx",
+        "app/src/app/privacy/page.tsx",
+        "app/src/app/api/weather/route.ts"
       ],
       "classNames": [],
       "methodNames": [],
       "interfaceNames": ["ReportCollection", "WeatherSuccess"],
-      "functionNames": ["POST", "parseReportForm", "sniffImageType", "fetchWalkingRoute", "verifyGovPin", "sessionSecretFor", "publicOriginFrom", "getSessionView", "observeRainfall", "forecastRain", "buildFloodAlert", "toCsv"],
-      "variableNames": ["REPORT_CATEGORIES", "LAYERS", "HAZARDS", "basemapStyle", "AUTH_MODE"],
+      "functionNames": ["POST", "PATCH", "GET", "parseReportForm", "sniffImageType", "fetchWalkingRoute", "verifyGovPin", "sessionSecretFor", "publicOriginFrom", "getSessionView", "observeRainfall", "forecastRain", "buildFloodAlert", "toCsv"],
+      "variableNames": ["REPORT_CATEGORIES", "LAYERS", "HAZARDS", "basemapStyle", "AUTH_MODE", "SCENIC_CATEGORIES", "SCENIC_PHOTOS", "DATA_CREDITS"],
       "structNames": [],
       "enumNames": [],
-      "moduleNames": ["MapExplorer", "api/reports", "MapView", "auth", "jma", "reportExport", "ControlPanel", "ReportForm", "searchText", "reportsApi", "reportStore", "schema", "mapModes", "DemoLoginForm", "municipalities", "api/routing", "reportRange", "FloodAlertCard", "api/reports/export"]
+      "moduleNames": ["MapExplorer", "api/reports", "MapView", "auth", "jma", "reportExport", "ControlPanel", "ReportForm", "searchText", "reportsApi", "reportStore", "schema", "mapModes", "DemoLoginForm", "municipalities", "api/routing", "reportRange", "FloodAlertCard", "api/reports/export", "ReportPanel", "privacy"]
     }
   }
 }
