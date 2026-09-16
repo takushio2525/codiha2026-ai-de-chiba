@@ -45,7 +45,7 @@ CHIZUBA の中身を，実際のコードから起こして 2 つの形にまと
 |---|---|
 | [`chizuba-tech-explainer.pdf`](chizuba-tech-explainer.pdf) | **本体。** 全体構成・リクエストの流れ 3 本・技術選定の理由・各機能の仕組み・**想定質疑 22 問**・用語集・数字の早見表（A4 23 ページ） |
 | `chizuba-tech-explainer.typ` | 上の PDF の原稿（Typst）。直したらコンパイルし直す |
-| [`chizuba-overview.progfocus.md`](chizuba-overview.progfocus.md) | **アーキテクチャ図の正本。** prog-focus 形式（ノード 38・接続 34）。取り込むと図として開ける |
+| [`chizuba-overview.progfocus.md`](chizuba-overview.progfocus.md) | **アーキテクチャ図の正本。** prog-focus 形式（ノード 46・接続 42）。取り込むと図として開ける |
 | [`審査基準_主張と根拠.md`](審査基準_主張と根拠.md) | **審査 5 項目ごとの主張と根拠。** ターゲットの言語化・スライド構成案（10 分）・弱点と質疑での返し方・出典一覧・**リンク検証台帳**。スライドを作るときはまずこれを読む |
 | `verify_progfocus.py` | 図の検査（JSON の妥当性・件数・参照整合性・**fileName の実在**） |
 | `verify_explainer.py` | 原稿の検査（**パスと URL の実在**・句読点が全角の「，」「．」か） |
